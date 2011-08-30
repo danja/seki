@@ -1,0 +1,12 @@
+# see http://tech.groups.yahoo.com/group/jena-dev/message/45983 about the lack of FROM
+
+PREFIX sioc: <http://rdfs.org/sioc/ns#> 
+
+SELECT ?s ?p ?o 
+
+WHERE {
+GRAPH <http://hyperdata.org/seki/HelloAgain>{
+?s a sioc:Post .
+?s ?p ?o
+}
+}

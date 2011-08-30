@@ -1,0 +1,22 @@
+http://openjena.org/wiki/Fuseki
+
+fuseki-0.2.0.zip - contains everything
+
+java -Xmx1200M -jar fuseki-sys.jar --desc tdb.ttl /seki
+
+danny@danny-amilo:~/workspace-js/seki/Fuseki-0.2.0$ ./run.txt 
+18:31:24 INFO  Fuseki               :: Dataset from assembler
+18:31:26 INFO  Fuseki               :: Update enabled
+18:31:26 INFO  Fuseki               :: Fuseki 0.2.0
+18:31:26 INFO  Fuseki               :: Jetty 7.x.y-SNAPSHOT
+18:31:26 INFO  Fuseki               :: Dataset = /seki
+18:31:26 INFO  Fuseki               :: Started 2011/08/30 18:31:26 CEST on port 3030
+
+http://rdfs.org/sioc/spec/
+
+----
+works:
+./s-put http://localhost:3030/seki http://hyperdata.org/seki/Hello ../rdf/hello.ttl 
+-----
+
+s-query --service=http://localhost:3030/seki/query --query=../sparql/posts.txt

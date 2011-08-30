@@ -1,0 +1,8 @@
+PREFIX sioc: <http://rdfs.org/sioc/ns#> 
+
+SELECT ?s ?p ?o 
+
+WHERE {
+?s a sioc:Post .
+?s ?p ?o
+}
