@@ -1,0 +1,10 @@
+installing npm
+
+curl http://npmjs.org/install.sh | sh
+
+npm install http-digest - old version
+npm rm http-digest
+
+cd node_modules
+clone ///github repo
+mv node-http-digest http-digest
