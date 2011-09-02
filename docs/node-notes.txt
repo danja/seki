@@ -8,3 +8,5 @@ npm rm http-digest
 cd node_modules
 clone ///github repo
 mv node-http-digest http-digest
+
+mv sax-js sax

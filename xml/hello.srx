@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<sparql xmlns="http://www.w3.org/2005/sparql-results#">
+  <head>
+    <variable name="title"/>
+    <variable name="content"/>
+    <variable name="date"/>
+    <variable name="nick"/>
+  </head>
+  <results>
+    <result>
+      <binding name="title">
+        <literal>Hello World!</literal>
+      </binding>
+      <binding name="content">
+        <literal>This is a test.</literal>
+      </binding>
+      <binding name="date">
+        <literal>2011-08-30T19:00Z</literal>
+      </binding>
+      <binding name="nick">
+        <literal>danja</literal>
+      </binding>
+    </result>
+  </results>
+</sparql>

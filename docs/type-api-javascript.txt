@@ -1,0 +1,13 @@
+graph.{type}[].{property}[].{value/type}
+
+SELECT ?type ?property ?value WHERE {
+?type a ?class .
+?type ?property ?value .
+}
+
+graph.Book[1].title[0].value = "Gulliver's Travels"
+
+hmm...
+
+graph.any.title[0].value
+

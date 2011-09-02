@@ -20,3 +20,5 @@ works:
 -----
 
 s-query --service=http://localhost:3030/seki/query --query=../sparql/posts.txt
+
+curl http://localhost:8888/seki/Hello

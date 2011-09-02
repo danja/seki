@@ -3,7 +3,7 @@ var sys  = require('sys');
 var uri_base = "http://hyperdata.org";
 var endpoint = "/seki/query";
 
-exports.to_sparql = function (path) {
+exports.named_post = function (path) {
 	var resource = "<" + uri_base + path + ">";
 	sys.log("RESOURCE :"+resource);
 	var query = query_template.replace("%URI%", resource);
