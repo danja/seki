@@ -14,21 +14,12 @@ var binding_name ="";
 var binding_value ="";
 var binding_type ="";	
 
-
-
-var saxStream = sax.createStream(strict, options); // require("sax")
-
-// var bindings = {};
+var saxStream = sax.createStream(strict, options); 
 
 exports.create_stream = function() {
   return saxStream;
-  //sax.createStream(strict, options); 
 };
 
-//exports.get_bindings = function() {
-//  return saxStream.bindings;
-//  //sax.createStream(strict, options); 
-//};
 
 saxStream.on("error", function (e) {
   // unhandled errors will throw, since this is a proper node
@@ -39,8 +30,7 @@ saxStream.on("error", function (e) {
   this._parser.resume();
 });
 saxStream.on("opentag", function (node) {
-	// sys.log("tag name = "+node.name);
- 
+  
 	element = node.name;
 	 if(element == "results") this.bindings = {};
 	if(element == "binding") {
@@ -57,9 +47,11 @@ saxStream.ontext = function (t) {
 saxStream.on("closetag", function (nodename) {
 	if(in_binding && nodename != "binding") {
 	  // build the data
-		this.bindings[binding_name] = {};
-		this.bindings[binding_name].value = binding_value;
-		this.bindings[binding_name].type = binding_type;
+	  // with types - keep!
+//		this.bindings[binding_name] = {};
+//		this.bindings[binding_name].value = binding_value;
+//		this.bindings[binding_name].type = binding_type;
+	  this.bindings[binding_name] = binding_value;
 		in_binding = false;
 	}
 
@@ -70,8 +62,3 @@ saxStream.on("closetag", function (nodename) {
 	}
 })
 
-// pipe is supported, and it's readable/writable 
-// same chunks coming in also go out.
-//  fs.createReadStream("../xml/hello.srx")
- // .pipe(saxStream)
-//  .pipe(fs.createReadStream("file-copy.xml"))
