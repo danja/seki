@@ -5,7 +5,7 @@ var html_templates = require('./html_templates');
 
 var map = {"title": "TITLE", "content": "CONTENT", "nick": "NICK", "date": "DATE"};
 
-var page_entry = templater(html_templates.page_entry_template);
+var page_entry = templater(html_templates.page_template);
 
 
 var page = page_entry.fill_template(map);
