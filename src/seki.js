@@ -1,10 +1,13 @@
 /*
  * curl http://localhost:8888/seki/Hello
+
+CONSOLE.LOG(
  */
 
 var sys = require('sys');
 var http = require('http');
 var fs = require('fs');
+var qs = require('querystring');
 
 var templater = require('./templater');
 var sparql_templates = require('./sparql_templates');
@@ -28,20 +31,22 @@ var uri_base = "http://hyperdata.org";
 
 var files = {
   "/seki/" : "www/index.html",
-  "/seki/form" : "www/form.html"
+  "/seki/form" : "www/form.html",
+  "404" : "www/404.html"
 }
+
 
 sys.log("Seki serving on " + seki_host + ":" + seki_port);
 sys.log("addressing SPARQL on " + sparql_host + ":" + sparql_port);
 
 http.createServer(
     function(seki_request, seki_response) {
-      // sys.log("SEKI REQUEST HEADERS "+JSON.stringify(request.headers));
+      sys.log("SEKI REQUEST HEADERS "+JSON.stringify(seki_request.headers));
 
       sys.log("REQUEST URL = " + seki_request.url);
-
+      sys.log("REQUEST METHOD = " + seki_request.method);
       if (files[seki_request.url]) {
-        serve_file(seki_response, files[seki_request.url]);
+        serve_file(seki_response, 200, files[seki_request.url]);
         sys.log("FILE = " + files[seki_request.url]);
       }
 
@@ -50,22 +55,26 @@ http.createServer(
       var resource = uri_base + seki_request.url;
       // sys.log("RESOURCE = "+resource);
 
-      var query_templater = templater(sparql_templates.named_post_template);
-
-      var replace_map = {
-        "URI" : resource
-      };
-
-      var query = query_templater.fill_template(replace_map);
+       var view_templater = templater(html_templates.view_template);
+       
+       if(seki_request.method =="GET") {
+         var query_templater = templater(sparql_templates.item_template);
+         var replace_map = { "URI" : resource };
+       }
+       if(seki_request.method =="POST"){
+         var query_templater = templater(sparql_templates.insert_template);  
+       }
+       
+       
+       
+      var sparql = query_templater.fill_template(replace_map);
 
       // sys.log("QUERY = "+query);
 
-      var query_path = sparql_endpoint + "?query=" + escape(query);
+      var query_path = sparql_endpoint + "?query=" + escape(sparql);
 
-      var query_request = client.request(seki_request.method, query_path,
-          sparql_headers);
-
-      var page_templater = templater(html_templates.page_template);
+      var query_request = client.request("GET", query_path,
+          sparql_headers); // seki_request.method
 
       query_request.addListener('response', function(query_response) {
 
@@ -82,10 +91,16 @@ http.createServer(
           stream.end();
 
           var bindings = stream.bindings;
-          // sys.log("GOT: " + JSON.stringify(bindings));
-          // sys.log("TITLE: " + bindings.title);
+          if (bindings.title) {
+            sys.log("GOT: " + JSON.stringify(bindings));
+            //sys.log("TITLE: " + bindings.title);
 
-          var html = page_templater.fill_template(bindings);
+            var html = view_templater.fill_template(bindings);
+          } else {
+            sys.log("404");
+            serve_file(seki_response, 404, files["404"]);
+            return;
+          }
 
           seki_response.write(html, 'binary');
           seki_response.end();
@@ -95,23 +110,31 @@ http.createServer(
         // sys.log("SEKI RESPONSE HEADERS "+query_response.statusCode +
         // JSON.stringify(seki_headers));
       });
+      var post_body = '';
       seki_request.addListener('data', function(chunk) {
-        sys.log("query_request.write(chunk " + chunk)
-        query_request.write(chunk, 'binary');
+        post_body += chunk;
+        sys.log("HEREHEREHEREHEREHEREHEREquery_request.write(chunk " + chunk)
+     //   query_request.write(chunk, 'binary');
       });
       seki_request.addListener('end', function() {
-        query_request.end();
+     //   query_request.end();
+      
+        var replace_map = qs.parse(post_body);
+        var sparql = query_templater.fill_template(replace_map);
+        // sys.log(post_body);
+      //  sys.log(JSON.stringify(params));
+        sys.log(sparql);
+
       });
     }).listen(seki_port, seki_host);
 
-function serve_file(response, file) {
+function serve_file(response, status, file) {
   sys.log("FILE = " + file);
 
   fs.readFile(file, function(err, data) {
-    var status = 200;
     if (err) {
       data = "Error :" + err;
-      var status = 500;
+      status = 500;
     }
     response.writeHead(status, seki_headers); // query_response.headers
     response.write(data, 'binary');

@@ -1,6 +1,6 @@
 var html_templates = {
     
-page_template: "<!DOCTYPE html> \
+view_template: "<!DOCTYPE html> \
 <html> \
   <head> \
     <meta charset=\"utf-8\"> \
@@ -12,7 +12,6 @@ page_template: "<!DOCTYPE html> \
 <p>By : %nick%, %date%</p> \
 </body> \
 </html>"
-  
 };
 
 module.exports = html_templates;
