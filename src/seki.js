@@ -4,148 +4,210 @@
 CONSOLE.LOG(
  */
 
-var sys = require('sys');
+/*
+ * library module imports
+ */
+// var sys = require('sys');
 var http = require('http');
-var fs = require('fs');
-var qs = require('querystring');
+var fs = require('fs'); // filesystem module
+var qs = require('querystring'); // POST parameters parser
 
+/*
+ * Seki support scripts imports
+ */
 var templater = require('./templater');
 var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
 
+/*
+ * Settings for the Seki Server (this)
+ */
 var sekiHost = "localhost";
 var sekiPort = 8888; // change to 80 for live
 var sekiHeaders = {
   "Content-type" : "text/html; charset=utf-8"
 };
-
+// this version will be modified
+var sekiHeaders2 = {
+    "Content-type" : "text/html; charset=utf-8"
+  };
+/*
+ * Settings for the SPARQL/HTTP server (typically Fuseki)
+ */
 var sparqlHost = "localhost";
 var sparqlPort = 3030;
-var sparqlEndpoint = "/seki/query";
+var sparqlQueryEndpoint = "/seki/query";
+var sparqlUpdateEndpoint = "/seki/update";
 var sparqlHeaders = {
   "Accept" : "application/sparql-results+xml",
   "Host" : "localhost:8888"
 };
 
-var uriBase = "http://hyperdata.org";
+var postHeaders = {
+    "Accept" : "application/sparql-results+xml",
+    "Host" : "localhost:8888",
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
+  
+var uriBase = "http://hyperdata.org"; // used in the RDF
 
+/*
+ * mapping URIs to static files on the filesystem
+ */
 var files = {
   "/seki/" : "www/index.html",
+  "/seki/index" : "www/index.html",
   "/seki/form" : "www/form.html",
   "404" : "www/404.html"
-}
+};
 
 http.createServer(onRequest).listen(sekiPort, sekiHost);
 
+/*
+ * Callback to handler HTTP requests (typically from browser)
+ */
 function onRequest(sekiRequest, sekiResponse) {
-//      sys.log("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
-//      sys.log("REQUEST URL = " + sekiRequest.url);
-//      sys.log("REQUEST METHOD = " + sekiRequest.method);
+  // console.log("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
+  // console.log("REQUEST URL = " + sekiRequest.url);
+  // console.log("REQUEST METHOD = " + sekiRequest.method);
+
+  if (sekiRequest.url == "/favicon.ico") {
+    sekiResponse.writeHead(404, sekiHeaders); // queryResponse.headers
+    sekiResponse.end();
+    return;
+  }
+  // does this URL correspond to a static file?
+  if (files[sekiRequest.url]) {
+    serveFile(sekiResponse, 200, files[sekiRequest.url]);
+    console.log("FILE = " + files[sekiRequest.url]);
+    return;
+  }
+
+  // the client that will talk to the SPARQL server
+  var client = http.createClient(sparqlPort, sparqlHost);
+
+  // the URI used in the RDF
+  var resource = uriBase + sekiRequest.url;
+
+  if (sekiRequest.method == "GET") {
+    var queryTemplater = templater(sparqlTemplates.itemTemplate);
+    var replaceMap = { "uri" : resource };
+
+    var sparql = queryTemplater.fillTemplate(replaceMap);
+    var queryPath = sparqlQueryEndpoint + "?query=" + escape(sparql);
+    var clientRequest =  client.request("GET", queryPath, sparqlHeaders);
+    // console.log("QUERY = "+sparql);
+
+
+    clientRequest.on('response', function(queryResponse) {
+      getHandler(sekiResponse, queryResponse);
+    });
+
+    sekiRequest.on('end', function() {
+      console.log("End of sekiRequest");
+      clientRequest.end();
+    });
+  }
+  if (sekiRequest.method == "POST") {
+    console.log("Start of POST");
+    var queryTemplater = templater(sparqlTemplates.insertTemplate);
+    var post_body = '';
+
+    sekiRequest.on('data', function(chunk) {
+      post_body += chunk;
+    });
+
+    sekiRequest.on('end', function() {
+
+      var replaceMap = qs.parse(post_body);
       
-      if (files[sekiRequest.url]) {
-        serveFile(sekiResponse, 200, files[sekiRequest.url]);
-        sys.log("FILE = " + files[sekiRequest.url]);
-      }
-
-      var client = http.createClient(sparqlPort, sparqlHost);
-
-      var resource = uriBase + sekiRequest.url;
-      // sys.log("RESOURCE = "+resource);
-
-       var viewTemplater = templater(htmlTemplates.viewTemplate);
-       
-    //   if(sekiRequest.method =="GET") {
-         var queryTemplater = templater(sparqlTemplates.itemTemplate);
-         var replaceMap = { "uri" : resource };
-  //     }
-//       if(sekiRequest.method =="POST"){
-//         var queryTemplater = templater(sparqlTemplates.insert_template);  
-//       }
-       
-       
+      replaceMap["date"] =  new Date().toJSON();
+      
+      console.log("ReplaceMap = "+JSON.stringify(replaceMap));
+      
       var sparql = queryTemplater.fillTemplate(replaceMap);
-
-      // console.log("QUERY = "+sparql);
-
-      var queryPath = sparqlEndpoint + "?query=" + escape(sparql);
-
-      var queryRequest = client.request("GET", queryPath,
-          sparqlHeaders); // sekiRequest.method
-
-      queryRequest.addListener('response', function(queryResponse) {
-        
-        console.log("GOT RESPONSE ");
-        var saxer = require('./srx2map');
-        var stream = saxer.createStream();
-
-        sekiResponse.pipe(stream);
-
-        queryResponse.addListener('data', function(chunk) {
-          stream.write(chunk);
-        });
-        queryResponse.addListener('end', function() {
-
-          stream.end();
-
-          var bindings = stream.bindings;
-          if (bindings.title) {
-            sys.log("GOT: " + JSON.stringify(bindings));
-            //sys.log("TITLE: " + bindings.title);
-
-            var html = viewTemplater.fillTemplate(bindings);
-          } else {
-            sys.log("404");
-            serveFile(sekiResponse, 404, files["404"]);
-            return;
-          }
-
-          sekiResponse.write(html, 'binary');
-          sekiResponse.end();
-        });
-
-    //    sekiResponse.writeHead(queryResponse.statusCode, sekiHeaders); // queryResponse.headers
-        // sys.log("SEKI RESPONSE HEADERS "+queryResponse.statusCode +
-        // JSON.stringify(sekiHeaders));
-      });
-      var post_body = '';
-//      sekiRequest.addListener('data', function(chunk) {
-//        post_body += chunk;
-//        sys.log("HEREHEREHEREHEREHEREHEREqueryRequest.write(chunk " + chunk)
-//     //   queryRequest.write(chunk, 'binary');
-//      });
+   //  var queryPath = sparqlUpdateEndpoint + "?query=" + escape(sparql);
+      var queryPath = sparqlUpdateEndpoint;
+      //+ "?graph=" + escape(replaceMap.uri);
       
-    sekiRequest.addListener('end', function() {
-      queryRequest.end();
+     var clientRequest =  client.request("POST", queryPath, postHeaders);
+    
+     clientRequest.write(qs.stringify({"update": sparql}));
+     
+     console.log(queryPath);
+      // console.log(post_body);
+      // console.log(JSON.stringify(params));
+      console.log(sparql);
 
-
-     });
-//      sekiRequest.addListener('end', function() {
-//     //   queryRequest.end();
-//      
-//        var replaceMap = qs.parse(post_body);
-//        var sparql = queryTemplater.fillTemplate(replaceMap);
-//        // sys.log(post_body);
-//      //  sys.log(JSON.stringify(params));
-//        sys.log(sparql);
-//
-//      });
+      clientRequest.end();
+      
+      clientRequest.on('response', function(queryResponse) {
+        // getHandler(sekiResponse, queryResponse);
+        var relativeUri = replaceMap.uri.substring(uriBase.length);
+        
+        sekiHeaders2["Location"] = relativeUri;
+        
+        sekiResponse.writeHead(303, sekiHeaders2); // queryResponse.headers
+       // sekiResponse.write(replaceMap.uri+" : "+queryResponse.statusCode, 'binary');
+        sekiResponse.end();
+      });
+    });
+  }
 }
 
+console.log("Seki serving on " + sekiHost + ":" + sekiPort);
+console.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
 
+/*
+ * Handles GET requests (typically from a browser)
+ */
+function getHandler(sekiResponse, queryResponse) {
 
-sys.log("Seki serving on " + sekiHost + ":" + sekiPort);
-sys.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
+  var viewTemplater = templater(htmlTemplates.viewTemplate);
+  console.log("GOT RESPONSE ");
+  var saxer = require('./srx2map');
+  var stream = saxer.createStream();
 
-function serveFile(response, status, file) {
-  sys.log("FILE = " + file);
+  sekiResponse.pipe(stream);
+
+  queryResponse.on('data', function(chunk) {
+    stream.write(chunk);
+  });
+  queryResponse.on('end', function() {
+
+    stream.end();
+
+    var bindings = stream.bindings;
+    if (bindings.title) {
+      console.log("GOT: " + JSON.stringify(bindings));
+      // console.log("TITLE: " + bindings.title);
+
+      var html = viewTemplater.fillTemplate(bindings);
+    } else {
+      console.log("404");
+      serveFile(sekiResponse, 404, files["404"]);
+      return;
+    }
+    sekiResponse.write(html, 'binary');
+    sekiResponse.end();
+  });
+};
+
+/*
+ * Reads a file from the filesystem and writes its data to response (typically a
+ * browser)
+ */
+function serveFile(sekiResponse, status, file) {
+  console.log("FILE = " + file);
 
   fs.readFile(file, function(err, data) {
     if (err) {
       data = "Error :" + err;
       status = 500;
     }
-    response.writeHead(status, sekiHeaders); // queryResponse.headers
-    response.write(data, 'binary');
-    response.end();
+    sekiResponse.writeHead(status, sekiHeaders); // queryResponse.headers
+    sekiResponse.write(data, 'binary');
+    sekiResponse.end();
   });
-}
+};
+// }

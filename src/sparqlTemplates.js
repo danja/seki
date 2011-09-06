@@ -22,7 +22,7 @@ var sparqlTemplates = {
         GRAPH <%uri%>{\
         \
         <%uri%> a sioc:Post ;\
-           dc:title \"%uri%\";\
+           dc:title \"%title%\";\
            sioc:content \"%content%\" ;\
            foaf:maker [ foaf:nick \"%nick%\" ] ;\
            dc:date \"%date%\" .\

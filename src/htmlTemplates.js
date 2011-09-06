@@ -11,7 +11,8 @@ viewTemplate: "<!DOCTYPE html> \
 <p>%content%</p> \
 <p>By : %nick%, %date%</p> \
 </body> \
-</html>"
+</html> \
+"
 };
 
 module.exports = htmlTemplates;

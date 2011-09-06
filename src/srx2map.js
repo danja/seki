@@ -30,7 +30,7 @@ saxStream.on("error", function (e) {
 saxStream.on("opentag", function (node) {
  
 	element = node.name;
-	 console.log("ELEMENT = "+element);
+	// console.log("ELEMENT = "+element);
 	 if(element == "results") this.bindings = {};
 	if(element == "binding") {
 		inBinding = true;
