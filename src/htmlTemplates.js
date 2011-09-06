@@ -1,6 +1,6 @@
-var html_templates = {
+var htmlTemplates = {
     
-view_template: "<!DOCTYPE html> \
+viewTemplate: "<!DOCTYPE html> \
 <html> \
   <head> \
     <meta charset=\"utf-8\"> \
@@ -14,4 +14,4 @@ view_template: "<!DOCTYPE html> \
 </html>"
 };
 
-module.exports = html_templates;
+module.exports = htmlTemplates;

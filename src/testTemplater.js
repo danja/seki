@@ -1,14 +1,14 @@
 var sys = require('sys');
 
 var templater = require('./templater');
-var html_templates = require('./html_templates');
+var htmlTemplates = require('./htmlTemplates');
 
 var map = {"title": "TITLE", "content": "CONTENT", "nick": "NICK", "date": "DATE"};
 
-var page_entry = templater(html_templates.page_template);
+var pageTemplate = templater(htmlTemplates.viewTemplate);
 
 
-var page = page_entry.fill_template(map);
+var page = pageTemplate.fillTemplate(map);
 sys.log(page)
 
 //var p = templater(html_templates.p2);

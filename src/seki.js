@@ -10,24 +10,24 @@ var fs = require('fs');
 var qs = require('querystring');
 
 var templater = require('./templater');
-var sparql_templates = require('./sparql_templates');
-var html_templates = require('./html_templates');
+var sparqlTemplates = require('./sparqlTemplates');
+var htmlTemplates = require('./htmlTemplates');
 
-var seki_host = "localhost";
-var seki_port = 8888; // change to 80 for live
-var seki_headers = {
+var sekiHost = "localhost";
+var sekiPort = 8888; // change to 80 for live
+var sekiHeaders = {
   "Content-type" : "text/html; charset=utf-8"
 };
 
-var sparql_host = "localhost";
-var sparql_port = 3030;
-var sparql_endpoint = "/seki/query";
-var sparql_headers = {
+var sparqlHost = "localhost";
+var sparqlPort = 3030;
+var sparqlEndpoint = "/seki/query";
+var sparqlHeaders = {
   "Accept" : "application/sparql-results+xml",
   "Host" : "localhost:8888"
 };
 
-var uri_base = "http://hyperdata.org";
+var uriBase = "http://hyperdata.org";
 
 var files = {
   "/seki/" : "www/index.html",
@@ -35,58 +35,55 @@ var files = {
   "404" : "www/404.html"
 }
 
+http.createServer(onRequest).listen(sekiPort, sekiHost);
 
-sys.log("Seki serving on " + seki_host + ":" + seki_port);
-sys.log("addressing SPARQL on " + sparql_host + ":" + sparql_port);
-
-http.createServer(
-    function(seki_request, seki_response) {
-      sys.log("SEKI REQUEST HEADERS "+JSON.stringify(seki_request.headers));
-
-      sys.log("REQUEST URL = " + seki_request.url);
-      sys.log("REQUEST METHOD = " + seki_request.method);
-      if (files[seki_request.url]) {
-        serve_file(seki_response, 200, files[seki_request.url]);
-        sys.log("FILE = " + files[seki_request.url]);
+function onRequest(sekiRequest, sekiResponse) {
+//      sys.log("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
+//      sys.log("REQUEST URL = " + sekiRequest.url);
+//      sys.log("REQUEST METHOD = " + sekiRequest.method);
+      
+      if (files[sekiRequest.url]) {
+        serveFile(sekiResponse, 200, files[sekiRequest.url]);
+        sys.log("FILE = " + files[sekiRequest.url]);
       }
 
-      var client = http.createClient(sparql_port, sparql_host);
+      var client = http.createClient(sparqlPort, sparqlHost);
 
-      var resource = uri_base + seki_request.url;
+      var resource = uriBase + sekiRequest.url;
       // sys.log("RESOURCE = "+resource);
 
-       var view_templater = templater(html_templates.view_template);
+       var viewTemplater = templater(htmlTemplates.viewTemplate);
        
-       if(seki_request.method =="GET") {
-         var query_templater = templater(sparql_templates.item_template);
-         var replace_map = { "URI" : resource };
-       }
-       if(seki_request.method =="POST"){
-         var query_templater = templater(sparql_templates.insert_template);  
-       }
+    //   if(sekiRequest.method =="GET") {
+         var queryTemplater = templater(sparqlTemplates.itemTemplate);
+         var replaceMap = { "uri" : resource };
+  //     }
+//       if(sekiRequest.method =="POST"){
+//         var queryTemplater = templater(sparqlTemplates.insert_template);  
+//       }
        
        
-       
-      var sparql = query_templater.fill_template(replace_map);
+      var sparql = queryTemplater.fillTemplate(replaceMap);
 
-      // sys.log("QUERY = "+query);
+      // console.log("QUERY = "+sparql);
 
-      var query_path = sparql_endpoint + "?query=" + escape(sparql);
+      var queryPath = sparqlEndpoint + "?query=" + escape(sparql);
 
-      var query_request = client.request("GET", query_path,
-          sparql_headers); // seki_request.method
+      var queryRequest = client.request("GET", queryPath,
+          sparqlHeaders); // sekiRequest.method
 
-      query_request.addListener('response', function(query_response) {
-
+      queryRequest.addListener('response', function(queryResponse) {
+        
+        console.log("GOT RESPONSE ");
         var saxer = require('./srx2map');
-        var stream = saxer.create_stream();
+        var stream = saxer.createStream();
 
-        seki_response.pipe(stream);
+        sekiResponse.pipe(stream);
 
-        query_response.addListener('data', function(chunk) {
+        queryResponse.addListener('data', function(chunk) {
           stream.write(chunk);
         });
-        query_response.addListener('end', function() {
+        queryResponse.addListener('end', function() {
 
           stream.end();
 
@@ -95,40 +92,51 @@ http.createServer(
             sys.log("GOT: " + JSON.stringify(bindings));
             //sys.log("TITLE: " + bindings.title);
 
-            var html = view_templater.fill_template(bindings);
+            var html = viewTemplater.fillTemplate(bindings);
           } else {
             sys.log("404");
-            serve_file(seki_response, 404, files["404"]);
+            serveFile(sekiResponse, 404, files["404"]);
             return;
           }
 
-          seki_response.write(html, 'binary');
-          seki_response.end();
+          sekiResponse.write(html, 'binary');
+          sekiResponse.end();
         });
 
-        seki_response.writeHead(query_response.statusCode, seki_headers); // query_response.headers
-        // sys.log("SEKI RESPONSE HEADERS "+query_response.statusCode +
-        // JSON.stringify(seki_headers));
+    //    sekiResponse.writeHead(queryResponse.statusCode, sekiHeaders); // queryResponse.headers
+        // sys.log("SEKI RESPONSE HEADERS "+queryResponse.statusCode +
+        // JSON.stringify(sekiHeaders));
       });
       var post_body = '';
-      seki_request.addListener('data', function(chunk) {
-        post_body += chunk;
-        sys.log("HEREHEREHEREHEREHEREHEREquery_request.write(chunk " + chunk)
-     //   query_request.write(chunk, 'binary');
-      });
-      seki_request.addListener('end', function() {
-     //   query_request.end();
+//      sekiRequest.addListener('data', function(chunk) {
+//        post_body += chunk;
+//        sys.log("HEREHEREHEREHEREHEREHEREqueryRequest.write(chunk " + chunk)
+//     //   queryRequest.write(chunk, 'binary');
+//      });
       
-        var replace_map = qs.parse(post_body);
-        var sparql = query_templater.fill_template(replace_map);
-        // sys.log(post_body);
-      //  sys.log(JSON.stringify(params));
-        sys.log(sparql);
+    sekiRequest.addListener('end', function() {
+      queryRequest.end();
 
-      });
-    }).listen(seki_port, seki_host);
 
-function serve_file(response, status, file) {
+     });
+//      sekiRequest.addListener('end', function() {
+//     //   queryRequest.end();
+//      
+//        var replaceMap = qs.parse(post_body);
+//        var sparql = queryTemplater.fillTemplate(replaceMap);
+//        // sys.log(post_body);
+//      //  sys.log(JSON.stringify(params));
+//        sys.log(sparql);
+//
+//      });
+}
+
+
+
+sys.log("Seki serving on " + sekiHost + ":" + sekiPort);
+sys.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
+
+function serveFile(response, status, file) {
   sys.log("FILE = " + file);
 
   fs.readFile(file, function(err, data) {
@@ -136,7 +144,7 @@ function serve_file(response, status, file) {
       data = "Error :" + err;
       status = 500;
     }
-    response.writeHead(status, seki_headers); // query_response.headers
+    response.writeHead(status, sekiHeaders); // queryResponse.headers
     response.write(data, 'binary');
     response.end();
   });

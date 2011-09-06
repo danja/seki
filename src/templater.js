@@ -4,11 +4,11 @@ function templater(template) {
   // template is kept in this closure
 
   return {
-    fill_template: function (replacement_map){
+    fillTemplate: function (replacementMap){
       
-      for(var name in replacement_map) {
+      for(var name in replacementMap) { // suppose it could be done with map() but I reckon this is clearer
         var reg = new RegExp("%"+name+"%","g");
-        template = template.replace(reg, replacement_map[name]);
+        template = template.replace(reg, replacementMap[name]);
       }
       return template;
     }

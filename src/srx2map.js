@@ -1,22 +1,20 @@
 var fs = require("fs");
-var  sys = require("sys");
+var sys = require("sys");
 var sax = require("sax");
-
-
 
 var strict = true; // set to false for html-mode
 var options =   {};
 
 var element = "";
-var in_binding = false;
+var inBinding = false;
 
-var binding_name ="";
-var binding_value ="";
-var binding_type ="";	
+var bindingName ="";
+var bindingValue ="";
+var bindingType ="";	
 
 var saxStream = sax.createStream(strict, options); 
 
-exports.create_stream = function() {
+exports.createStream = function() {
   return saxStream;
 };
 
@@ -30,29 +28,30 @@ saxStream.on("error", function (e) {
   this._parser.resume();
 });
 saxStream.on("opentag", function (node) {
-  
+ 
 	element = node.name;
+	 console.log("ELEMENT = "+element);
 	 if(element == "results") this.bindings = {};
 	if(element == "binding") {
-		in_binding = true;
-		binding_name = node.attributes.name;
+		inBinding = true;
+		bindingName = node.attributes.name;
 	}
-	if(in_binding && element != "binding") binding_type = element;
+	if(inBinding && element != "binding") bindingType = element;
 });
 
-saxStream.ontext = function (t) {
-	binding_value = t;
+saxStream.ontext = function (text) {
+	bindingValue = text;
 	};
 	
 saxStream.on("closetag", function (nodename) {
-	if(in_binding && nodename != "binding") {
+	if(inBinding && nodename != "binding") {
 	  // build the data
 	  // with types - keep!
-//		this.bindings[binding_name] = {};
-//		this.bindings[binding_name].value = binding_value;
-//		this.bindings[binding_name].type = binding_type;
-	  this.bindings[binding_name] = binding_value;
-		in_binding = false;
+//		this.bindings[bindingName] = {};
+//		this.bindings[bindingName].value = bindingValue;
+//		this.bindings[bindingName].type = bindingType;
+	  this.bindings[bindingName] = bindingValue;
+		inBinding = false;
 	}
 
 	if(nodename == "results"){
