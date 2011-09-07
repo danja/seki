@@ -8,7 +8,7 @@ The current version has been written for an RDF tutorial and right now only feat
 
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
 
-There is a form to allow POSTing, inserting title, content etc. for a given resource into the RDF store. Files can also be served from the filesystem.
+There is a form to allow POSTing, inserting title, content etc. for a given resource into the RDF store (there's no authentication as yet). Files can also be served from the filesystem.
 
 It has been built against a Fuseki server, which uses protocols/query syntax according to the latest SPARQL 1.1 drafts, and so it should be reusable with any SPARQL server.
 
