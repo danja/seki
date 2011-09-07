@@ -1,0 +1,10 @@
+Seki Scripts
+
+seki.js - main application
+
+srx2map.js - SPARQL XML results to JSON converter
+
+htmlTemplates.js - as named
+sparqlTemplates.js - as named
+templater.js - simple templating engine
+testTemplater - simple functional test of templater

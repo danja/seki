@@ -1,13 +1,12 @@
 /*
- * curl http://localhost:8888/seki/Hello
-
-CONSOLE.LOG(
+ * Main Seki script
+ * 
+ * see README.md
  */
 
 /*
  * library module imports
  */
-// var sys = require('sys');
 var http = require('http');
 var fs = require('fs'); // filesystem module
 var qs = require('querystring'); // POST parameters parser
@@ -32,7 +31,7 @@ var sekiHeaders2 = {
     "Content-type" : "text/html; charset=utf-8"
   };
 /*
- * Settings for the SPARQL/HTTP server (typically Fuseki)
+ * Settings for the remote SPARQL/HTTP server (typically Fuseki)
  */
 var sparqlHost = "localhost";
 var sparqlPort = 3030;
@@ -61,7 +60,11 @@ var files = {
   "404" : "www/404.html"
 };
 
+// set it running
 http.createServer(onRequest).listen(sekiPort, sekiHost);
+
+console.log("Seki serving on " + sekiHost + ":" + sekiPort);
+console.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
 
 /*
  * Callback to handler HTTP requests (typically from browser)
@@ -71,11 +74,13 @@ function onRequest(sekiRequest, sekiResponse) {
   // console.log("REQUEST URL = " + sekiRequest.url);
   // console.log("REQUEST METHOD = " + sekiRequest.method);
 
+  // browsers ask for this - give them a sensible response
   if (sekiRequest.url == "/favicon.ico") {
     sekiResponse.writeHead(404, sekiHeaders); // queryResponse.headers
     sekiResponse.end();
     return;
   }
+  
   // does this URL correspond to a static file?
   if (files[sekiRequest.url]) {
     serveFile(sekiResponse, 200, files[sekiRequest.url]);
@@ -90,81 +95,99 @@ function onRequest(sekiRequest, sekiResponse) {
   var resource = uriBase + sekiRequest.url;
 
   if (sekiRequest.method == "GET") {
+    
+    // build the query
     var queryTemplater = templater(sparqlTemplates.itemTemplate);
     var replaceMap = { "uri" : resource };
-
     var sparql = queryTemplater.fillTemplate(replaceMap);
+    
+    // build the URL from the query
     var queryPath = sparqlQueryEndpoint + "?query=" + escape(sparql);
+    
+    // make the request to the SPARQL server
     var clientRequest =  client.request("GET", queryPath, sparqlHeaders);
+    
     // console.log("QUERY = "+sparql);
 
-
+    // handle the response from the SPARQL server
     clientRequest.on('response', function(queryResponse) {
       getHandler(sekiResponse, queryResponse);
     });
 
+    // finish up
     sekiRequest.on('end', function() {
-      console.log("End of sekiRequest");
+      // console.log("End of sekiRequest");
       clientRequest.end();
     });
+    return;
   }
+  
   if (sekiRequest.method == "POST") {
-    console.log("Start of POST");
+    // console.log("Start of POST");
+    
+    /* start building query - but it needs 
+     * the data supplied in the body of the request 
+     * by the browser 
+     */
     var queryTemplater = templater(sparqlTemplates.insertTemplate);
     var post_body = '';
 
+    // request body may come in chunks, join them together
     sekiRequest.on('data', function(chunk) {
       post_body += chunk;
     });
 
+    // now received body of request
     sekiRequest.on('end', function() {
 
+      // turn the POST parameters into JSON
       var replaceMap = qs.parse(post_body);
-      
       replaceMap["date"] =  new Date().toJSON();
       
-      console.log("ReplaceMap = "+JSON.stringify(replaceMap));
+      // console.log("ReplaceMap = "+JSON.stringify(replaceMap));
       
+      // can now make the query
       var sparql = queryTemplater.fillTemplate(replaceMap);
-   //  var queryPath = sparqlUpdateEndpoint + "?query=" + escape(sparql);
-      var queryPath = sparqlUpdateEndpoint;
-      //+ "?graph=" + escape(replaceMap.uri);
       
-     var clientRequest =  client.request("POST", queryPath, postHeaders);
+      /* make the request to the SPARQL server
+       * the update has to be POSTed to the SPARQL server
+       */
+     var clientRequest =  client.request("POST", sparqlUpdateEndpoint, postHeaders);
     
+     // send the update query as POST parameters
      clientRequest.write(qs.stringify({"update": sparql}));
      
-     console.log(queryPath);
+     // console.log(queryPath);
       // console.log(post_body);
-      // console.log(JSON.stringify(params));
-      console.log(sparql);
+// console.log(sparql);
 
       clientRequest.end();
       
+      // handle the response from the SPARQL server
       clientRequest.on('response', function(queryResponse) {
-        // getHandler(sekiResponse, queryResponse);
+
         var relativeUri = replaceMap.uri.substring(uriBase.length);
         
+        // do a redirect to the new item
         sekiHeaders2["Location"] = relativeUri;
-        
-        sekiResponse.writeHead(303, sekiHeaders2); // queryResponse.headers
-       // sekiResponse.write(replaceMap.uri+" : "+queryResponse.statusCode, 'binary');
+        sekiResponse.writeHead(303, sekiHeaders2); 
+        // all done
         sekiResponse.end();
       });
     });
   }
 }
 
-console.log("Seki serving on " + sekiHost + ":" + sekiPort);
-console.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
+
 
 /*
  * Handles GET requests (typically from a browser)
  */
 function getHandler(sekiResponse, queryResponse) {
 
+  // set up HTML builder
   var viewTemplater = templater(htmlTemplates.viewTemplate);
-  console.log("GOT RESPONSE ");
+  // console.log("GOT RESPONSE ");
   var saxer = require('./srx2map');
   var stream = saxer.createStream();
 

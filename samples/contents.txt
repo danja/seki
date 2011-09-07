@@ -1,0 +1,16 @@
+Sample data/queries
+
+hello.srx - sample of SPARQL XML results format
+
+hello.ttl - sample RDF data (in Turtle format)
+hello-again.ttl - "
+
+
+Sample SPARQL queries
+
+hello-again-graph.txt - selecting data about an individual post in a named graph
+insert.txt - adding a named graph to the store
+named-post.txt - getting details of a specific post from default graph
+posts.txt - getting all posts from defualt store
+
+

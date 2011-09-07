@@ -18,6 +18,8 @@ At present it considers all resources to be information resources - the ones tha
 
 After the tutorial version is stable the plan is to use it as an experimental Read/Write Data Web testbed, e.g. adding support for the linked data API, RDF affordances play.
 
+In individual folders, see contents.txt for description.
+
 Proper installation notes will follow soon, but basically it's install node.js and Fuseki (using tdb.ttl as the config for Fuseki), run seki.js and point a browser at http://localhost:888/seki/
 
 

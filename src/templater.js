@@ -1,13 +1,24 @@
-//Define the factory
+/*
+ * Simple templating engine
+ */
+
+// factory method
 function templater(template) {
 
   // template is kept in this closure
 
   return {
-    fillTemplate: function (replacementMap){
-      
-      for(var name in replacementMap) { // suppose it could be done with map() but I reckon this is clearer
-        var reg = new RegExp("%"+name+"%","g");
+
+    /*
+     * replacementMap = { name: value ... } fillTemplate replaces every
+     * occurrence of %name% in template with value
+     */
+    fillTemplate : function(replacementMap) {
+
+      // suppose it could be done with map() but I reckon this is clearer
+      for ( var name in replacementMap) {
+        // regular expression, "g" means global (every occurrance)
+        var reg = new RegExp("%" + name + "%", "g");
         template = template.replace(reg, replacementMap[name]);
       }
       return template;
@@ -15,5 +26,5 @@ function templater(template) {
   };
 }
 
-// Export this file as a module
+// make it available to other scripts
 module.exports = templater;

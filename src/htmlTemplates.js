@@ -1,6 +1,11 @@
+/*
+ * Templates used to build HTML
+ * parts like %this% will be replaced
+ */
+
 var htmlTemplates = {
-    
-viewTemplate: "<!DOCTYPE html> \
+
+  viewTemplate : "<!DOCTYPE html> \
 <html> \
   <head> \
     <meta charset=\"utf-8\"> \
@@ -15,4 +20,5 @@ viewTemplate: "<!DOCTYPE html> \
 "
 };
 
+// make it visible to other scripts
 module.exports = htmlTemplates;

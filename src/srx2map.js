@@ -1,63 +1,90 @@
+/*
+ * Parses SPARQL XML results, converts bindings to simple JSON mappings
+ * 
+ * see docs/hello.srx for example of XML format
+ * 
+ * sax is https://github.com/isaacs/sax-js
+ * SAX-like XML parser
+ * 
+ */
+
+// module imports
 var fs = require("fs");
-var sys = require("sys");
 var sax = require("sax");
 
+// sax settings
 var strict = true; // set to false for html-mode
 var options =   {};
 
-var element = "";
+// flag for position in XML <binding> ...here if true ... </binding>
 var inBinding = false;
 
+// values to extract from the XML
+var element = "";
 var bindingName ="";
 var bindingValue ="";
 var bindingType ="";	
 
+// create a stream parser
 var saxStream = sax.createStream(strict, options); 
 
+// make it available to other scripts
 exports.createStream = function() {
   return saxStream;
 };
 
-
+// minimal parse error handling
 saxStream.on("error", function (e) {
-  // unhandled errors will throw, since this is a proper node
-  // event emitter.
   console.error("error!", e);
-  // clear the error
-  this._parser.error = null;
-  this._parser.resume();
 });
+
+// handle an opening tag
+// loosely corresponds to SAX startElement(...)
 saxStream.on("opentag", function (node) {
  
 	element = node.name;
 	// console.log("ELEMENT = "+element);
+	
+	// if results block starting, initialize container for results
 	 if(element == "results") this.bindings = {};
+	 
+	 // get data from an individual binding
 	if(element == "binding") {
 		inBinding = true;
 		bindingName = node.attributes.name;
 	}
 	if(inBinding && element != "binding") bindingType = element;
+	
 });
 
+// handle text data in element content 
+// loosely corresponds to SAX characters(...)
 saxStream.ontext = function (text) {
 	bindingValue = text;
 	};
 	
+//handle an opening tag
+//loosely corresponds to SAX endElement(...)
 saxStream.on("closetag", function (nodename) {
 	if(inBinding && nodename != "binding") {
+	  
 	  // build the data
-	  // with types - keep!
+	  // with types - not used here, but keep in case needed later
 //		this.bindings[bindingName] = {};
 //		this.bindings[bindingName].value = bindingValue;
 //		this.bindings[bindingName].type = bindingType;
+	  
+	  // put the result data into the JSON object
 	  this.bindings[bindingName] = bindingValue;
 		inBinding = false;
 	}
 
+	// end of results block, for debugging 
+	// (sax-js hasn't got SAX startDocument/endDocument)
 	if(nodename == "results"){
-	  sys.log("END RESULTS");
-//	sys.log("VALS: "+JSON.stringify(this.bindings));
-//		 sys.log("TITLE: "+JSON.stringify(bindings.title.value));
+	//  console.log("END RESULTS");
+//	console.log("VALS: "+JSON.stringify(this.bindings));
+//		 console.log("TITLE: "+JSON.stringify(bindings.title.value));
 	}
 })
 
