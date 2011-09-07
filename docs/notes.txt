@@ -22,3 +22,7 @@ works:
 s-query --service=http://localhost:3030/seki/query --query=../sparql/posts.txt
 
 curl http://localhost:8888/seki/Hello
+
+    // curl -H "Accept: application/rdf+xml" http://localhost:8888/seki/Hello
+    // http://localhost:3030/dataset/data?graph=http//... (with appropriate headers)
+    // SPARQL 1.1 Graph Store HTTP Protocol

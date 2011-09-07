@@ -1,5 +1,7 @@
 Seki Scripts
 
+node_modules - library scripts
+
 seki.js - main application
 
 srx2map.js - SPARQL XML results to JSON converter

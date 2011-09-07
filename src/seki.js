@@ -28,26 +28,33 @@ var sekiHeaders = {
 };
 // this version will be modified
 var sekiHeaders2 = {
-    "Content-type" : "text/html; charset=utf-8"
-  };
+  "Content-type" : "text/html; charset=utf-8"
+};
 /*
  * Settings for the remote SPARQL/HTTP server (typically Fuseki)
  */
 var sparqlHost = "localhost";
 var sparqlPort = 3030;
+var sparqlGraphEndpoint = "/seki/data";
 var sparqlQueryEndpoint = "/seki/query";
 var sparqlUpdateEndpoint = "/seki/update";
+
+var graphHeaders = {
+  "Accept" : "application/rdf+xml",
+  "Host" : "localhost:8888"
+};
+
 var sparqlHeaders = {
   "Accept" : "application/sparql-results+xml",
   "Host" : "localhost:8888"
 };
 
 var postHeaders = {
-    "Accept" : "application/sparql-results+xml",
-    "Host" : "localhost:8888",
-    'Content-Type': 'application/x-www-form-urlencoded'
-  };
-  
+  "Accept" : "application/sparql-results+xml",
+  "Host" : "localhost:8888",
+  'Content-Type' : 'application/x-www-form-urlencoded'
+};
+
 var uriBase = "http://hyperdata.org"; // used in the RDF
 
 /*
@@ -80,7 +87,7 @@ function onRequest(sekiRequest, sekiResponse) {
     sekiResponse.end();
     return;
   }
-  
+
   // does this URL correspond to a static file?
   if (files[sekiRequest.url]) {
     serveFile(sekiResponse, 200, files[sekiRequest.url]);
@@ -93,25 +100,62 @@ function onRequest(sekiRequest, sekiResponse) {
 
   // the URI used in the RDF
   var resource = uriBase + sekiRequest.url;
+  var accept = sekiRequest.headers["accept"];
 
+  console.log("Accept header =" + accept
+      + accept.indexOf("application/rdf+xml" == 0));
   if (sekiRequest.method == "GET") {
-    
+
+    /*
+     * Handle requests for "Accept: application/rdf+xml" addresses server using
+     * SPARQL 1.1 Graph Store HTTP Protocol
+     */
+    if (accept.indexOf("application/rdf+xml") == 0) {
+      console.log("RDF/XML requested");
+
+      var queryPath = sparqlGraphEndpoint + "?graph=" + escape(resource);
+      console.log("queryPath =" + queryPath);
+      var clientRequest = client.request("GET", queryPath, graphHeaders);
+      clientRequest.end();
+
+      // handle SPARQL server response
+      clientRequest.on('response', function(queryResponse) {
+        // serve status & headers
+        sekiResponse.writeHead(200, queryResponse.headers);
+
+        // response body may come in chunks, whatever, just pass them on
+        queryResponse.on('data', function(chunk) {
+          // console.log("headers " + JSON.stringify(queryResponse.headers));
+          sekiResponse.write(chunk);
+        });
+        // the SPARQL server response has finished, so finish up this response
+        queryResponse.on('end', function() {
+          sekiResponse.end();
+        });
+      });
+      return;
+    }
+
+    // Assume HTML is acceptable
+
     // build the query
     var queryTemplater = templater(sparqlTemplates.itemTemplate);
-    var replaceMap = { "uri" : resource };
+    var replaceMap = {
+      "uri" : resource
+    };
     var sparql = queryTemplater.fillTemplate(replaceMap);
-    
+
     // build the URL from the query
     var queryPath = sparqlQueryEndpoint + "?query=" + escape(sparql);
-    
+
     // make the request to the SPARQL server
-    var clientRequest =  client.request("GET", queryPath, sparqlHeaders);
-    
+    var clientRequest = client.request("GET", queryPath, sparqlHeaders);
+
     // console.log("QUERY = "+sparql);
 
     // handle the response from the SPARQL server
     clientRequest.on('response', function(queryResponse) {
-      getHandler(sekiResponse, queryResponse);
+      serveHTML(sekiResponse, queryResponse);
     });
 
     // finish up
@@ -121,13 +165,13 @@ function onRequest(sekiRequest, sekiResponse) {
     });
     return;
   }
-  
+
   if (sekiRequest.method == "POST") {
     // console.log("Start of POST");
-    
-    /* start building query - but it needs 
-     * the data supplied in the body of the request 
-     * by the browser 
+
+    /*
+     * start building query - but it needs the data supplied in the body of the
+     * request by the browser
      */
     var queryTemplater = templater(sparqlTemplates.insertTemplate);
     var post_body = '';
@@ -142,35 +186,39 @@ function onRequest(sekiRequest, sekiResponse) {
 
       // turn the POST parameters into JSON
       var replaceMap = qs.parse(post_body);
-      replaceMap["date"] =  new Date().toJSON();
-      
+      replaceMap["date"] = new Date().toJSON();
+
       // console.log("ReplaceMap = "+JSON.stringify(replaceMap));
-      
+
       // can now make the query
       var sparql = queryTemplater.fillTemplate(replaceMap);
-      
-      /* make the request to the SPARQL server
-       * the update has to be POSTed to the SPARQL server
+
+      /*
+       * make the request to the SPARQL server the update has to be POSTed to
+       * the SPARQL server
        */
-     var clientRequest =  client.request("POST", sparqlUpdateEndpoint, postHeaders);
-    
-     // send the update query as POST parameters
-     clientRequest.write(qs.stringify({"update": sparql}));
-     
-     // console.log(queryPath);
+      var clientRequest = client.request("POST", sparqlUpdateEndpoint,
+          postHeaders);
+
+      // send the update query as POST parameters
+      clientRequest.write(qs.stringify({
+        "update" : sparql
+      }));
+
+      // console.log(queryPath);
       // console.log(post_body);
-// console.log(sparql);
+      // console.log(sparql);
 
       clientRequest.end();
-      
+
       // handle the response from the SPARQL server
       clientRequest.on('response', function(queryResponse) {
 
         var relativeUri = replaceMap.uri.substring(uriBase.length);
-        
+
         // do a redirect to the new item
         sekiHeaders2["Location"] = relativeUri;
-        sekiResponse.writeHead(303, sekiHeaders2); 
+        sekiResponse.writeHead(303, sekiHeaders2);
         // all done
         sekiResponse.end();
       });
@@ -178,12 +226,10 @@ function onRequest(sekiRequest, sekiResponse) {
   }
 }
 
-
-
 /*
  * Handles GET requests (typically from a browser)
  */
-function getHandler(sekiResponse, queryResponse) {
+function serveHTML(sekiResponse, queryResponse) {
 
   // set up HTML builder
   var viewTemplater = templater(htmlTemplates.viewTemplate);
@@ -232,5 +278,5 @@ function serveFile(sekiResponse, status, file) {
     sekiResponse.write(data, 'binary');
     sekiResponse.end();
   });
-};
+}
 // }
