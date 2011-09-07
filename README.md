@@ -4,7 +4,7 @@ It operates as a Web server, building queries from HTTP requests and passing the
 
 ![Block Diagram](https://github.com/danja/seki/raw/master/docs/seki-full.png)
 
-The current version has been written for an RDF tutorial and right now only features basic functionality. It has minimal dependency on other modules. Once this version is stable (very soon) it will be frozen as a branch, the main branch being used for development of a production version.
+The current version has been written for an RDF tutorial and right now only features basic functionality. It has minimal dependency on other modules. Once this version is stable (very soon) it will be frozen as a branch, the main branch being used for development of a more fully-featured version.
 
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
 
