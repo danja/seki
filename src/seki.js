@@ -11,6 +11,8 @@ var http = require('http');
 var fs = require('fs'); // filesystem module
 var qs = require('querystring'); // POST parameters parser
 
+var verbose = true;
+
 /*
  * Seki support scripts imports
  */
@@ -19,10 +21,17 @@ var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
 
 /*
- * Settings for the Seki Server (this)
+ * If there is a custom config.js, use it
  */
-var sekiHost = "localhost";
-var sekiPort = 8888; // change to 80 for live
+try {
+  var config = require('./config').config;
+  verbosity("Using config.js");
+} // fall back on config-default.js
+catch (e) {
+  var config = require('./config-default').config;
+  verbosity("Using config-default.js");
+}
+
 var sekiHeaders = {
   "Content-type" : "text/html; charset=utf-8"
 };
@@ -41,17 +50,17 @@ var sparqlUpdateEndpoint = "/seki/update";
 
 var graphHeaders = {
   "Accept" : "application/rdf+xml",
-  "Host" : "localhost:8888"
+  "Host" : config.sekiHost+":"+config.sekiPort
 };
 
 var sparqlHeaders = {
   "Accept" : "application/sparql-results+xml",
-  "Host" : "localhost:8888"
+  "Host" : config.sekiHost+":"+config.sekiPort
 };
 
 var postHeaders = {
   "Accept" : "application/sparql-results+xml",
-  "Host" : "localhost:8888",
+  "Host" : config.sekiHost+":"+config.sekiPort,
   'Content-Type' : 'application/x-www-form-urlencoded'
 };
 
@@ -68,18 +77,18 @@ var files = {
 };
 
 // set it running
-http.createServer(onRequest).listen(sekiPort, sekiHost);
+http.createServer(onRequest).listen(config.sekiPort, config.sekiHost);
 
-console.log("Seki serving on " + sekiHost + ":" + sekiPort);
-console.log("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
+verbosity("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
+verbosity("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
 
 /*
  * Callback to handler HTTP requests (typically from browser)
  */
 function onRequest(sekiRequest, sekiResponse) {
-  // console.log("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
-  // console.log("REQUEST URL = " + sekiRequest.url);
-  // console.log("REQUEST METHOD = " + sekiRequest.method);
+  // verbosity("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
+  // verbosity("REQUEST URL = " + sekiRequest.url);
+  // verbosity("REQUEST METHOD = " + sekiRequest.method);
 
   // browsers ask for this - give them a sensible response
   if (sekiRequest.url == "/favicon.ico") {
@@ -91,7 +100,7 @@ function onRequest(sekiRequest, sekiResponse) {
   // does this URL correspond to a static file?
   if (files[sekiRequest.url]) {
     serveFile(sekiResponse, 200, files[sekiRequest.url]);
-    console.log("FILE = " + files[sekiRequest.url]);
+    verbosity("FILE = " + files[sekiRequest.url]);
     return;
   }
 
@@ -102,7 +111,7 @@ function onRequest(sekiRequest, sekiResponse) {
   var resource = uriBase + sekiRequest.url;
   var accept = sekiRequest.headers["accept"];
 
-  console.log("Accept header =" + accept
+verbosity("Accept header =" + accept
       + accept.indexOf("application/rdf+xml" == 0));
   if (sekiRequest.method == "GET") {
 
@@ -111,10 +120,10 @@ function onRequest(sekiRequest, sekiResponse) {
      * SPARQL 1.1 Graph Store HTTP Protocol
      */
     if (accept.indexOf("application/rdf+xml") == 0) {
-      console.log("RDF/XML requested");
+      verbosity("RDF/XML requested");
 
       var queryPath = sparqlGraphEndpoint + "?graph=" + escape(resource);
-      console.log("queryPath =" + queryPath);
+      verbosity("queryPath =" + queryPath);
       var clientRequest = client.request("GET", queryPath, graphHeaders);
       clientRequest.end();
 
@@ -125,7 +134,7 @@ function onRequest(sekiRequest, sekiResponse) {
 
         // response body may come in chunks, whatever, just pass them on
         queryResponse.on('data', function(chunk) {
-          // console.log("headers " + JSON.stringify(queryResponse.headers));
+          // verbosity("headers " + JSON.stringify(queryResponse.headers));
           sekiResponse.write(chunk);
         });
         // the SPARQL server response has finished, so finish up this response
@@ -151,7 +160,7 @@ function onRequest(sekiRequest, sekiResponse) {
     // make the request to the SPARQL server
     var clientRequest = client.request("GET", queryPath, sparqlHeaders);
 
-    // console.log("QUERY = "+sparql);
+    // verbosity("QUERY = "+sparql);
 
     // handle the response from the SPARQL server
     clientRequest.on('response', function(queryResponse) {
@@ -160,14 +169,14 @@ function onRequest(sekiRequest, sekiResponse) {
 
     // finish up
     sekiRequest.on('end', function() {
-      // console.log("End of sekiRequest");
+      // verbosity("End of sekiRequest");
       clientRequest.end();
     });
     return;
   }
 
   if (sekiRequest.method == "POST") {
-    // console.log("Start of POST");
+    // verbosity("Start of POST");
 
     /*
      * start building query - but it needs the data supplied in the body of the
@@ -188,7 +197,7 @@ function onRequest(sekiRequest, sekiResponse) {
       var replaceMap = qs.parse(post_body);
       replaceMap["date"] = new Date().toJSON();
 
-      // console.log("ReplaceMap = "+JSON.stringify(replaceMap));
+      // verbosity("ReplaceMap = "+JSON.stringify(replaceMap));
 
       // can now make the query
       var sparql = queryTemplater.fillTemplate(replaceMap);
@@ -205,9 +214,9 @@ function onRequest(sekiRequest, sekiResponse) {
         "update" : sparql
       }));
 
-      // console.log(queryPath);
-      // console.log(post_body);
-      // console.log(sparql);
+      // verbosity(queryPath);
+      // verbosity(post_body);
+      // verbosity(sparql);
 
       clientRequest.end();
 
@@ -233,7 +242,7 @@ function serveHTML(sekiResponse, queryResponse) {
 
   // set up HTML builder
   var viewTemplater = templater(htmlTemplates.viewTemplate);
-  // console.log("GOT RESPONSE ");
+  // verbosity("GOT RESPONSE ");
   var saxer = require('./srx2map');
   var stream = saxer.createStream();
 
@@ -248,12 +257,12 @@ function serveHTML(sekiResponse, queryResponse) {
 
     var bindings = stream.bindings;
     if (bindings.title) {
-      console.log("GOT: " + JSON.stringify(bindings));
-      // console.log("TITLE: " + bindings.title);
+      verbosity("GOT: " + JSON.stringify(bindings));
+      // verbosity("TITLE: " + bindings.title);
 
       var html = viewTemplater.fillTemplate(bindings);
     } else {
-      console.log("404");
+      verbosity("404");
       serveFile(sekiResponse, 404, files["404"]);
       return;
     }
@@ -267,7 +276,7 @@ function serveHTML(sekiResponse, queryResponse) {
  * browser)
  */
 function serveFile(sekiResponse, status, file) {
-  console.log("FILE = " + file);
+  verbosity("FILE = " + file);
 
   fs.readFile(file, function(err, data) {
     if (err) {
@@ -278,5 +287,10 @@ function serveFile(sekiResponse, status, file) {
     sekiResponse.write(data, 'binary');
     sekiResponse.end();
   });
+}
+
+function verbosity (message) {
+  if(verbose) console.log(message);
+  
 }
 // }
