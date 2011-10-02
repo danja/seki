@@ -39,14 +39,6 @@ var sekiHeaders = {
 var sekiHeaders2 = {
   "Content-type" : "text/html; charset=utf-8"
 };
-/*
- * Settings for the remote SPARQL/HTTP server (typically Fuseki)
- */
-var sparqlHost = "localhost";
-var sparqlPort = 3030;
-var sparqlGraphEndpoint = "/seki/data";
-var sparqlQueryEndpoint = "/seki/query";
-var sparqlUpdateEndpoint = "/seki/update";
 
 var graphHeaders = {
   "Accept" : "application/rdf+xml",
@@ -64,15 +56,15 @@ var postHeaders = {
   'Content-Type' : 'application/x-www-form-urlencoded'
 };
 
-var uriBase = "http://hyperdata.org"; // used in the RDF
+
 
 /*
  * mapping URIs to static files on the filesystem
  */
 var files = {
-  "/seki/" : "www/index.html",
-  "/seki/index" : "www/index.html",
-  "/seki/form" : "www/form.html",
+  "/" : "www/index.html",
+  "/index" : "www/index.html",
+  "/form" : "www/form.html",
   "404" : "www/404.html"
 };
 
@@ -80,7 +72,7 @@ var files = {
 http.createServer(onRequest).listen(config.sekiPort, config.sekiHost);
 
 verbosity("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
-verbosity("addressing SPARQL on " + sparqlHost + ":" + sparqlPort);
+verbosity("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);
 
 /*
  * Callback to handler HTTP requests (typically from browser)
@@ -105,10 +97,10 @@ function onRequest(sekiRequest, sekiResponse) {
   }
 
   // the client that will talk to the SPARQL server
-  var client = http.createClient(sparqlPort, sparqlHost);
+  var client = http.createClient(config.sparqlPort, config.sparqlHost);
 
   // the URI used in the RDF
-  var resource = uriBase + sekiRequest.url;
+  var resource = config.uriBase + sekiRequest.url;
   var accept = sekiRequest.headers["accept"];
 
 verbosity("Accept header =" + accept
@@ -122,7 +114,7 @@ verbosity("Accept header =" + accept
     if (accept.indexOf("application/rdf+xml") == 0) {
       verbosity("RDF/XML requested");
 
-      var queryPath = sparqlGraphEndpoint + "?graph=" + escape(resource);
+      var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(resource);
       verbosity("queryPath =" + queryPath);
       var clientRequest = client.request("GET", queryPath, graphHeaders);
       clientRequest.end();
@@ -155,7 +147,7 @@ verbosity("Accept header =" + accept
     var sparql = queryTemplater.fillTemplate(replaceMap);
 
     // build the URL from the query
-    var queryPath = sparqlQueryEndpoint + "?query=" + escape(sparql);
+    var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
 
     // make the request to the SPARQL server
     var clientRequest = client.request("GET", queryPath, sparqlHeaders);
@@ -206,7 +198,7 @@ verbosity("Accept header =" + accept
        * make the request to the SPARQL server the update has to be POSTed to
        * the SPARQL server
        */
-      var clientRequest = client.request("POST", sparqlUpdateEndpoint,
+      var clientRequest = client.request("POST", config.sparqlUpdateEndpoint,
           postHeaders);
 
       // send the update query as POST parameters
@@ -223,7 +215,7 @@ verbosity("Accept header =" + accept
       // handle the response from the SPARQL server
       clientRequest.on('response', function(queryResponse) {
 
-        var relativeUri = replaceMap.uri.substring(uriBase.length);
+        var relativeUri = replaceMap.uri.substring(config.uriBase.length);
 
         // do a redirect to the new item
         sekiHeaders2["Location"] = relativeUri;
