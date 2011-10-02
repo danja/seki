@@ -8,6 +8,13 @@ The current version has been written for an RDF tutorial and right now only feat
 
 There are two branches in the git repository: master and dev. Master is essentially frozen (tweaks & bugfixes only). dev is in active development.
 
+_to switch to the dev branch you need (I think) to:
+git branch dev
+git checkout dev
+git pull origin dev
+_
+
+
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
 
 There is a form to allow POSTing, inserting title, content etc. for a given resource into the RDF store (there's no authentication as yet). Files can also be served from the filesystem.
