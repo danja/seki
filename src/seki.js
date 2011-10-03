@@ -103,15 +103,16 @@ function onRequest(sekiRequest, sekiResponse) {
   var resource = config.uriBase + sekiRequest.url;
   var accept = sekiRequest.headers["accept"];
 
-verbosity("Accept header =" + accept
-      + accept.indexOf("application/rdf+xml" == 0));
+//verbosity("Accept header =" + accept
+//      + accept.indexOf("application/rdf+xml" == 0));
+  
   if (sekiRequest.method == "GET") {
 
     /*
      * Handle requests for "Accept: application/rdf+xml" addresses server using
      * SPARQL 1.1 Graph Store HTTP Protocol
      */
-    if (accept.indexOf("application/rdf+xml") == 0) {
+    if (accept && accept.indexOf("application/rdf+xml") == 0) {
       verbosity("RDF/XML requested");
 
       var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(resource);
