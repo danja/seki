@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Post</title>
+
+<!-- TinyMCE -->
+<script type="text/javascript" src="tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	<!-- CDATA? tinyMCE.init({ mode : "textareas", theme : "advanced" }); -->
+</script>
+<!-- /TinyMCE -->
+
+</head>
+<body>
+
+<h3>Post</h3>
+
+<form action="/addpost" method="post"><!-- http://localhost/test2.php -->
+
+  <label>Author </label><input value="danja" type="text" name="user"></input> 
+
+  <p><label>Password </label><input value="******" type="password" name="password"></input></p>
+
+  <label>URI </label><input value="http://dannyayers.com/2011/12/31/Web-Beep" type="text" name="uri"></input> 
+
+<label>Delete Entry?</label> <input value="no" type="text" name="delete"></input>
+
+  <p><label>Title</label> <input value="Web Beep" type="text" name="title"></input></p>
+
+  <p><label>Content</label></p>
+	<!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
+	<textarea cols="80" rows="15" style="width: 80%" name="content" id="content">
+ <p class="entry-content"><p><span style="font-family: arial, sans-serif; font-size: 13px; line-height: 18px;">I've just gone live with a little fun service : </span><strong style="font-family: arial, sans-serif; font-size: 13px; line-height: 18px;"><a href="http://webbeep.it" title="Web Beep">Web Beep</a></strong><span style="font-family: arial, sans-serif; font-size: 13px; line-height: 18px;"> - enjoy!</span></p>
+<p><span style="font-family: arial, sans-serif; font-size: 13px; line-height: 18px;"><a href="https://plus.google.com/112609322932428633493/posts/Qcchsxx7DPt" title="G plus">Comments to G+ please</a></span></p></p>
+	</textarea>
+	<br></br>
+	<p>
+	 <label>Tags</label> <input value="audio dsp web rdf beep " type="text" name="tags"></input>
+	  </p>
+	  <p>
+	  <label>Date</label><input value="2011-12-31T19:22:33+01:00" type="text" name="date"></input>
+</p>
+	<input value="Submit" type="submit"></input>
+</form>
+
+</body>
+</html>

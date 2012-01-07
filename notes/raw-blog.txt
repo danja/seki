@@ -1,0 +1,55 @@
+Putting Raw Blog data into Seki
+(for cleanup, manipulation and maybe one day publication)
+
+
+rapper -c main_backup_2012-01-04.rdf 
+rapper: Parsing URI file:///home/danny/workspace-js/seki/data/main_backup_2012-01-04.rdf with parser rdfxml
+rapper: Parsing returned 293392 triples
+
+Fuseki didn't like the original n3 so converted to RDF/XML with rapper
+
+rapper -i turtle -o rdfxml main_backup_2012-01-04.ttl http://dannyayers.com/ > main_backup_2012-01-04.rdf
+
+
+Getting rid of unused Knobot triples
+via Fuseki, localhost:3030
+
+select distinct ?p where { ?s ?p ?o }
+
+WITH <http://dannyayers.com/>
+delete { ?s ?p ?o } 
+where {
+?s ?p ?o
+FILTER regex(str(?p), "^urn://wymiwyg.org/knobot") 
+}
+
+WITH <http://dannyayers.com/>
+delete { ?s ?p ?o } 
+where {
+?s ?p ?o
+FILTER regex(str(?p), "^http://wymiwyg.org/ontologies/knobot") 
+}
+
+WITH <http://dannyayers.com/>
+delete { ?s ?p ?o } 
+where {
+?s ?p ?o
+FILTER regex(str(?p), "^http://wymiwyg.org/ontologies/rss/") 
+}
+
+WITH <http://dannyayers.com/>
+delete { ?s ?p ?o } 
+where {
+?s ?p ?o
+FILTER regex(str(?p), "^http://wymiwyg.org/ontologies/webdav") 
+}
+
+NO NO NO! - variant is needed for getting at images
+WITH <http://dannyayers.com/>
+delete { ?s ?p ?o } 
+where {
+?s ?p ?o
+FILTER regex(str(?p), "^http://wymiwyg.org/ontologies/document#variant") 
+}
+
+REVERTED! 

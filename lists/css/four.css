@@ -1,0 +1,55 @@
+html, body { /* Prevent "borders" from appearing */
+   /* padding: 0;
+    margin: 0; */
+ background: #ccc;
+}
+#fourContainer { /* Let the container fill the whole window */
+    width: 100%;
+    height: 100%;
+}
+#fourContainer > div { /* Set the height and width of each div to 50% */
+    width: 48%;
+  /*  height: 48%; */
+height: 300px;
+}
+
+.quarter {
+   background: #fff;
+  /* padding: 5px 5px 5px 5px; */  /* top right bottom left */
+  border:4px solid #ddd;
+}
+
+.right {
+   float: right;
+} 
+
+.left {
+   float:left;
+   background: #fff;
+} 
+
+.top {
+   background: #fff;
+}
+
+.bottom {
+   background: #fff;
+}
+
+img {
+    display: block;
+    height: 100%; /* Let the image stretch/shrink when necessary*/
+    width: 100%;
+}
+
+ul {
+    display: block;
+    height: 100%; /* Let the image stretch/shrink when necessary*/
+    width: 100%;
+}
+
+textarea {
+    display: block;
+    height: 100%; /* Let the image stretch/shrink when necessary*/
+    width: 100%;
+}

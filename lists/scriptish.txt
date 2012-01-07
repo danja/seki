@@ -1,0 +1,7 @@
+
+tidy-default bookmarks_1_6_12.html > bookmarks.xml
+
+xsltproc lib/bookmarks-split2lists.xsl bookmarks.xml
+
+for file in *; do mv "$file" "${file}.html"; done
+
