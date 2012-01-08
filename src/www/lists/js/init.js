@@ -134,6 +134,16 @@ $(document)
 				serialized = $('ul.sortable').nestedSortable('serialize');
 				$('#serializeOutput').text(serialized + '\n\n');
 			})
+			
+			     $('#toTurtle').click(function() {
+			       var data = document.getElementsByTagName("body")[0].innerHTML;
+//			       var lists = document.getElementsByTagName("ul");
+//			       for(var i = 0; i < lists.length; i++) {
+//        data += lists[i].innerHTML;
+//       // getElementsByTagName()
+//			       }
+        $('#toTurtleOutput').text(data + '\n\n');
+      })
 
 			$('#toHierarchy')
 				.click(
