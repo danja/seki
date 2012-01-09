@@ -10,6 +10,7 @@
 var http = require('http');
 var fs = require('fs'); // filesystem module
 var qs = require('querystring'); // POST parameters parser
+var static = require('node-static');
 
 var verbose = true;
 
@@ -68,6 +69,25 @@ var files = {
   "404" : "www/404.html"
 };
 
+//
+//Create a node-static server to serve the current directory
+//
+var file = new(static.Server)('www', { cache: 7200});
+
+//http.createServer(function (request, response) {
+//  request.addListener('end', function () {
+//      //
+//      // Serve files!
+//      //
+//      file.serve(request, response, function (err, res) {
+//          if (err) { // An error has occurred
+//            verbosity("fileserver said "+err);
+//            onRequest(request, response);
+//          } 
+//      });
+//  });
+//}).listen(config.sekiPort, config.sekiHost);
+
 // set it running
 http.createServer(onRequest).listen(config.sekiPort, config.sekiHost);
 
@@ -75,13 +95,23 @@ verbosity("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
 verbosity("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);
 
 /*
- * Callback to handler HTTP requests (typically from browser)
+ * Callback to handle HTTP requests (typically from browser)
  */
 function onRequest(sekiRequest, sekiResponse) {
-  // verbosity("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
-  // verbosity("REQUEST URL = " + sekiRequest.url);
-  // verbosity("REQUEST METHOD = " + sekiRequest.method);
+   verbosity("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
+   verbosity("REQUEST URL = " + sekiRequest.url);
+   verbosity("REQUEST METHOD = " + sekiRequest.method);
+   
 
+   file.serve(sekiRequest, sekiResponse, function (err, res) {
+     if (err) { // An error as occured
+     } else { // The file was served successfully
+         verbosity("> " + sekiRequest.url + " - " + res.message);
+     }
+ });
+
+   verbosity("got past file server");
+   
   // browsers ask for this - give them a sensible response
   if (sekiRequest.url == "/favicon.ico") {
     sekiResponse.writeHead(404, sekiHeaders); // queryResponse.headers
