@@ -4,9 +4,9 @@ $(document)
 
 			// /////////////////// from editable
 
-			$('a').click(function(e) {
-				// e.preventDefault();
-			});
+//			$('a').click(function(e) {
+//				// e.preventDefault();
+//			});
 
 			$.editableFactory = {
 				'listtitle' : {
@@ -129,6 +129,22 @@ $(document)
 				tolerance : 'pointer',
 				toleranceElement : '> div'
 			});
+			
+//	     $('ol.sortable').nestedSortable({ // was 'ol.sortable'
+//	        listType: 'ol',
+//	        disableNesting : 'no-nest',
+//	        forcePlaceholderSize : true,
+//	        handle : 'div',
+//	        helper : 'clone',
+//	        items : 'li',
+//	        maxLevels : 3,
+//	        opacity : .6,
+//	        placeholder : 'placeholder',
+//	        revert : 250,
+//	        tabSize : 25,
+//	        tolerance : 'pointer',
+//	        toleranceElement : '> div'
+//	      });
 
 			$('#serialize').click(function() {
 				serialized = $('ul.sortable').nestedSortable('serialize');

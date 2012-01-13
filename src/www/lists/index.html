@@ -6,17 +6,15 @@
 <!-- omg, xhtml! -->
 <head>
 	<title>Listy Thing</title>
-<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.5.2.min.js"></script>
 
-<script type="text/javascript" src="js/jquery.editable-1.3.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.editable-1.3.3.min.js"></script>
 
-<script type="text/javascript" src="js/jquery.json-2.3.js"></script>
+<script type="text/javascript" src="/js/jquery.json-2.3.js"></script>
 
-<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery.ui.nestedSortable.js"></script>
-<script type="text/javascript" src="js/init.js"></script>
-
-
+<script type="text/javascript" src="/js/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery.ui.nestedSortable.js"></script>
+<script type="text/javascript" src="/js/init.js"></script>
 
 </head>
 <!-- =================================================================================================================== -->
@@ -25,13 +23,64 @@
 <p>
 	<pre id="toTurtleOutput"></pre>
 	</p>
-		<div class="listtitle">
-			<div class="link">
-				<h2>Source of new list items</h2>
-				<span class="description">refreshes with new when items dragged away</span>
-			</div>
+	
+		<ul class="sortable ui-sortable">
+		<li id="list_1"><div>Item 1</div>
+		</li><li id="list_2"><div>Item 2</div>
+			<ul>
+				<li id="list_3"><div>Sub Item 2.1</div>
+				</li><li id="list_4"><div>Sub Item 2.2</div>
+				</li><li id="list_5"><div>Sub Item 2.3</div>
+				</li><li id="list_6"><div>Sub Item 2.4</div>
+			</li></ul>
+		</li><li id="list_7" class="no-nest"><div>Item 3 (no-nesting)</div>
+		</li><li id="list_8" class="no-nest"><div>Item 4 (no-nesting)</div>
+		</li><li id="list_9"><div>Item 5</div>
+		</li><li id="list_10"><div>Item 6</div>
+			<ul>
+				<li id="list_11"><div>Sub Item 6.1</div>
+				</li><li id="list_12" class="no-nest"><div>Sub Item 6.2 (no-nesting)</div>
+				</li><li id="list_13"><div>Sub Item 6.3</div>
+				</li><li id="list_14"><div>Sub Item 6.4</div>
+			</li></ul>
+		</li><li id="list_15"><div>Item 7</div>
+		</li><li id="list_16"><div>Item 8</div>
+	</li></ul>
+	
+	<hr/>
+		<ul class="sortable ui-sortable">
+				<li id="list_11"><div>Sub Item 6.1</div>
+				</li><li id="list_12" class="no-nest"><div>Sub Item 6.2 (no-nesting)</div>
+				</li><li id="list_13"><div>Sub Item 6.3</div>
+				</li><li id="list_14"><div>Sub Item 6.4</div>
+			</li></ul>
+	
+	<div class="listtitle">
+			<h2>Source of new list items</h2>
+			<span class="description">refreshes with new when items dragged away</span>
 	</div>
-	<ul class="sortable">
+	
+	<ul class="sortable  ui-sortable infinite">
+			<li class="linkitem">
+			<div class="link">
+				<a href="http://example.org" title="titty">link</a>
+				<span class="description">description</span>
+			</div>
+		</li>
+	    <li><div class="textitem">text</div></li>
+	</ul>
+	
+	<hr/>
+		<ul class="sortable  ui-sortable infinite">
+			<li class="linkitem">
+			<div class="link">
+				<a href="http://example.org" title="titty">link</a>
+				<span class="description">description</span>
+			</div>
+		</li>
+	    <li><div class="textitem">text</div></li>
+	</ul>
+	
 	<div class="listtitle">
 			<div class="link">
 				<a href="http://example.org" title="titty"><h2>TODO - Code</h2></a>
