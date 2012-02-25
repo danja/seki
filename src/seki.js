@@ -64,9 +64,9 @@ var postHeaders = {
  * 
  */
 var files = {
- // "/" : "www/index.html",
-//  "/index" : "www/index.html",
-//  "/form" : "www/form.html",
+  "/" : "www/index.html",
+  "/index" : "www/index.html",
+  "/form" : "www/form.html",
   "404" : "www/404.html"
 };
 
@@ -85,13 +85,13 @@ verbosity("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort)
  * Callback to handle HTTP requests (typically from browser)
  */
 function onRequest(sekiRequest, sekiResponse) {
-//   verbosity("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
-//   verbosity("REQUEST URL = " + sekiRequest.url);
-//   verbosity("REQUEST METHOD = " + sekiRequest.method);
+   verbosity("SEKI REQUEST HEADERS "+JSON.stringify(sekiRequest.headers));
+   verbosity("REQUEST URL = " + sekiRequest.url);
+   verbosity("REQUEST METHOD = " + sekiRequest.method);
    
 
    file.serve(sekiRequest, sekiResponse, function (err, res) {
-     if (err) { // An error has occurred, leave it to Seki
+     if (err) { // the file doesn't exist, leave it to Seki
      } else { // The file was served successfully
          verbosity("> " + sekiRequest.url + " - " + res.message);
      }
@@ -174,7 +174,7 @@ function onRequest(sekiRequest, sekiResponse) {
 
     // handle the response from the SPARQL server
     clientRequest.on('response', function(queryResponse) {
-      serveHTML(sekiResponse, queryResponse);
+      serveHTML(resource, sekiResponse, queryResponse);
     });
 
     // finish up
@@ -248,7 +248,7 @@ function onRequest(sekiRequest, sekiResponse) {
 /*
  * Handles GET requests (typically from a browser)
  */
-function serveHTML(sekiResponse, queryResponse) {
+function serveHTML(resource, sekiResponse, queryResponse) {
 
   // set up HTML builder
   var viewTemplater = templater(htmlTemplates.viewTemplate);
@@ -266,15 +266,22 @@ function serveHTML(sekiResponse, queryResponse) {
     stream.end();
 
     var bindings = stream.bindings;
-    if (bindings.title) {
+    if (bindings.title) { //// this is ugly
       verbosity("GOT: " + JSON.stringify(bindings));
       // verbosity("TITLE: " + bindings.title);
 
       var html = viewTemplater.fillTemplate(bindings);
     } else {
       verbosity("404");
-      serveFile(sekiResponse, 404, files["404"]);
-      return;
+      ///////////////////////////////// refactor
+      var creativeTemplater = templater(htmlTemplates.creativeTemplate);
+      var creativeMap = {
+    	      "uri" : resource
+    	    };
+      var html = creativeTemplater.fillTemplate(creativeMap);
+      /////////////////////////////////////////////
+      // serveFile(sekiResponse, 404, files["404"]);
+      //return;
     }
     sekiResponse.write(html, 'binary');
     sekiResponse.end();
