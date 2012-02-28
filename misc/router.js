@@ -1,3 +1,6 @@
+var http = require('http'),
+    httpProxy = require('http-proxy');
+
 var options = {
   router: {
  //   'pragmatron.org': '127.0.0.1:8888',
