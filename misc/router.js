@@ -4,9 +4,9 @@ var http = require('http'),
 var options = {
   router: {
 //	  'dannyayers.com': '127.0.0.1:8000',
-//	  'hyperdata.org': '127.0.0.1:8000',	  
+  'hyperdata.org': '67.207.128.128:80',	  
  //   'pragmatron.org': '127.0.0.1:8000',
-    'dannyayers.com': '127.0.0.1:8080'
+    'dannyayers.com': '67.207.128.128:8080'
   }
 };
 
