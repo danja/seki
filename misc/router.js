@@ -3,10 +3,12 @@ var http = require('http'),
 
 var options = {
   router: {
- //   'pragmatron.org': '127.0.0.1:8888',
-    'semtext.org': '127.0.0.1:8080'
+//	  'dannyayers.com': '127.0.0.1:8000',
+//	  'hyperdata.org': '127.0.0.1:8000',	  
+ //   'pragmatron.org': '127.0.0.1:8000',
+    'semtext.org': '127.0.0.1:8000'
   }
 };
 
 var proxyServer = httpProxy.createServer(options);
-proxyServer.listen(8088);
+proxyServer.listen("67.207.128.128", 8088);
