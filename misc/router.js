@@ -2,6 +2,9 @@ var http = require('http'),
     httpProxy = require('http-proxy');
 
 var options = {
+  source: { 
+	  host: '67.207.128.128', 
+	  port: 80},
   router: {
     'dannyayers.com': '67.207.128.128:8005',
     'danny.ayers.name': '67.207.128.128:8005',
@@ -13,7 +16,7 @@ var options = {
   }
 };
 
-var proxyServer = httpProxy.createServer(80, '67.207.128.128', options);
+var proxyServer = httpProxy.createServer(options);
 proxyServer.listen();
 
 // http.createServer(function (req, res) {
