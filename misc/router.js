@@ -14,9 +14,9 @@ var options = {
 };
 
 var proxyServer = httpProxy.createServer(options);
-proxyServer.listen('67.207.128.128', 80);
+proxyServer.listen('127.0.0.1', 80);
 
-//http.createServer(function (req, res) {
+// http.createServer(function (req, res) {
 //	  res.writeHead(200, { 'Content-Type': 'text/plain' });
 //	  res.write('request successfully proxied: ' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
 //	  res.end();
