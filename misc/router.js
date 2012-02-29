@@ -13,11 +13,11 @@ var options = {
   }
 };
 
-// var proxyServer = httpProxy.createServer(options);
-// proxyServer.listen(80);
+var proxyServer = httpProxy.createServer(options);
+proxyServer.listen(80, '67.207.128.128');
 
- http.createServer(function (req, res) {
-	  res.writeHead(200, { 'Content-Type': 'text/plain' });
-	  res.write('request successfully proxied: ' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
-	  res.end();
-	}).listen(80, '67.207.128.128'); 
+// http.createServer(function (req, res) {
+//	  res.writeHead(200, { 'Content-Type': 'text/plain' });
+//	  res.write('request successfully proxied: ' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
+//	  res.end();
+//	}).listen(80, '67.207.128.128'); 
