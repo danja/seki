@@ -4,8 +4,8 @@ var http = require('http'),
 var options = {
 //		changeOrigin: true,
 
-	  host: '67.207.128.128', 
-	  port: 80,
+	//  host: '67.207.128.128', 
+	//  port: 80,
   router: {
     'dannyayers.com': '67.207.128.128:8005',
     'danny.ayers.name': '67.207.128.128:8005',
@@ -18,7 +18,7 @@ var options = {
 };
 
 var proxyServer = httpProxy.createServer(options);
-proxyServer.listen();
+proxyServer.listen(80);
 
 // http.createServer(function (req, res) {
 //	  res.writeHead(200, { 'Content-Type': 'text/plain' });
