@@ -2,7 +2,8 @@ var http = require('http'),
     httpProxy = require('http-proxy');
 
 var options = {
-  target: { 
+		changeOrigin: true,
+  source: { 
 	  host: '67.207.128.128', 
 	  port: 80},
   router: {
