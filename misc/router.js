@@ -6,7 +6,7 @@ var options = {
 //	  'dannyayers.com': '127.0.0.1:8001',
  // 'hyperdata.org': '67.207.128.128:80',	  
  //   'pragmatron.org': '127.0.0.1:8000',
-    'semtext.org': '127.0.0.1:8005'
+    'semtext.org': '67.207.128.128:8005'
   }
 };
 
