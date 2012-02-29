@@ -6,7 +6,9 @@ var options = {
     'dannyayers.com': '67.207.128.128:8005',
     'danny.ayers.name': '67.207.128.128:8005',
     'hyperdata.org': '67.207.128.128:8005',
+    'ideagraph.org': '67.207.128.128:8005',
     'semtext.org': '67.207.128.128:8005',
+    'spikeandwave.com': '67.207.128.128:8005',
     'pragmatron.org': '67.207.128.128:8888'
   }
 };
