@@ -1,8 +1,15 @@
 /*            Test Fixture
           run with:
           nodeunit allTests.js
+          
+          requires:
+          npm install nodeunit
  */
 
-exports.group = {
-		testTemplater: require("./testTemplater")
+exports.miscTests = {
+		testTemplater: require("./testTemplater"),
+    };
+
+exports.httpTests = {
+		testRdfHttp: require("./testRdfHttp")
     };

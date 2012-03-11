@@ -8,3 +8,5 @@ function normalizeXmlSpaces(string) {
 }
 
 exports.normalizeXmlSpaces = normalizeXmlSpaces;
+
+

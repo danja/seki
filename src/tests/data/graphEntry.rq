@@ -5,8 +5,8 @@ PREFIX sioc: <http://rdfs.org/sioc/ns#>
 SELECT ?s ?p ?o 
 
 WHERE {
-GRAPH <http://hyperdata.org/seki/HelloAgain>{
-?s a sioc:Post .
-?s ?p ?o
-}
+	GRAPH <http://hyperdata.org/seki/Hello> {
+		?s a sioc:Post .
+		?s ?p ?o
+	}
 }
