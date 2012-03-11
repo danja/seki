@@ -308,6 +308,5 @@ function serveFile(sekiResponse, status, file) {
 
 function verbosity (message) {
   if(verbose) console.log(message);
-  
 }
 // }
