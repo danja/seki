@@ -7,7 +7,7 @@ exports.normalizeXmlSpaces = function normalizeXmlSpaces(string) {
 	return string;
 }
 
-exports.client = function client(clientMethod) {
+exports.client = function client(clientMethod, clientHeaders, callback) {
 	try {
 		var config = require('../config').config;
 	} // fall back on config-default.js
@@ -16,29 +16,30 @@ exports.client = function client(clientMethod) {
 	}
 
 	var options = {
-		// host: config.sekiHost,
-		// port: config.sekiPort,
-		// path: "/seki/Hello",
-		// method: clientMethod
-		host : config.sekiHost,
-		port : 8888,
-		path : "/seki/Hello",
-		method : "GET"
+		 host: config.sekiHost,
+		 port: config.sekiPort,
+		 path: "/Hello",
+		 method: clientMethod,
+		 headers: clientHeaders
 	};
 
 	var req = http.request(options, function(res) {
-		console.log('STATUS: ' + res.statusCode);
-		console.log('HEADERS: ' + JSON.stringify(res.headers));
+	//	console.log('STATUS: ' + res.statusCode);
+	//	console.log('HEADERS: ' + JSON.stringify(res.headers));
 		// res.setEncoding('utf8');
+		var content = "";
 		res.on('data', function(chunk) {
-			console.log('BODY: ' + chunk);
+		//	console.log('BODY: ' + chunk);
+			// callback(chunk);
+			content += chunk;
 		});
-		res.on('close', function(chunk) {
-			console.log('CLOSE: ' + chunk);
+		res.on('end', function() {
+			callback(res.statusCode, content);
 		});
 	});
 	req.on('error', function(e) {
 		console.log('problem with request: ' + e.message);
+		callback('problem with request: ' + e.message);
 	});
 
 	// write data to request body

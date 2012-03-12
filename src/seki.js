@@ -50,7 +50,8 @@ var sekiHeaders2 = {
 
 
 var graphHeaders = {
-  "Accept" : "application/rdf+xml",
+		// "Accept" : "application/rdf+xml",
+  "Accept" : "text/turtle",
   "Host" : config.sekiHost+":"+config.sekiPort
 };
 
@@ -137,8 +138,8 @@ function onRequest(sekiRequest, sekiResponse) {
      * Handle requests for "Accept: application/rdf+xml" addresses server using
      * SPARQL 1.1 Graph Store HTTP Protocol
      */
-    if (accept && accept.indexOf("application/rdf+xml") == 0) {
-      verbosity("RDF/XML requested");
+    if (accept && accept.indexOf("text/turtle") == 0) {
+      verbosity("text/turtle requested");
 
       var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(resource);
       verbosity("queryPath =" + queryPath);
@@ -148,7 +149,9 @@ function onRequest(sekiRequest, sekiResponse) {
       // handle SPARQL server response
       clientRequest.on('response', function(queryResponse) {
         // serve status & headers
-        sekiResponse.writeHead(200, queryResponse.headers);
+    	  
+    	 console.log("STATTUS="+ queryResponse.statusCode);
+        sekiResponse.writeHead(queryResponse.statusCode, queryResponse.headers);
 
         // response body may come in chunks, whatever, just pass them on
         queryResponse.on('data', function(chunk) {
