@@ -269,6 +269,7 @@ function serveHTML(resource, sekiResponse, queryResponse) {
   queryResponse.on('data', function(chunk) {
     stream.write(chunk);
   });
+
   queryResponse.on('end', function() {
 
     stream.end();
