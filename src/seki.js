@@ -1,7 +1,12 @@
 /*
  * Main Seki script
+
  * 
  * see README.md
+ */
+
+/* TODO
+ * change to using http.request
  */
 
 /*
@@ -34,12 +39,15 @@ catch (e) {
 }
 
 var sekiHeaders = {
-  "Content-type" : "text/html; charset=utf-8"
+  "Content-type" : "text/html; charset=utf-8",
+  "Connection":"keep-alive", // added later
+  "Transfer-Encoding":"chunked"
 };
 // this version will be modified
 var sekiHeaders2 = {
   "Content-type" : "text/html; charset=utf-8"
 };
+
 
 var graphHeaders = {
   "Accept" : "application/rdf+xml",
@@ -269,10 +277,12 @@ function serveHTML(resource, sekiResponse, queryResponse) {
     if (bindings.title) { //// this is ugly
       verbosity("GOT: " + JSON.stringify(bindings));
       // verbosity("TITLE: " + bindings.title);
-
+      verbosity("WRITING HEADERS "+JSON.stringify(sekiHeaders));
+      sekiResponse.writeHead(200, sekiHeaders);
       var html = viewTemplater.fillTemplate(bindings);
     } else {
       verbosity("404");
+      sekiResponse.writeHead(404, sekiHeaders);
       ///////////////////////////////// refactor
       var creativeTemplater = templater(htmlTemplates.creativeTemplate);
       var creativeMap = {
@@ -283,8 +293,10 @@ function serveHTML(resource, sekiResponse, queryResponse) {
       // serveFile(sekiResponse, 404, files["404"]);
       //return;
     }
-    sekiResponse.write(html, 'binary');
-    sekiResponse.end();
+    //sekiResponse.writeHead(200, {'Content-Type': 'text/plain'});
+   // verbosity("HERE "+html);
+   // sekiResponse.write(html, 'binary');
+    sekiResponse.end(html);
   });
 };
 

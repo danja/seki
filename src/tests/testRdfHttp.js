@@ -1,5 +1,6 @@
 var assert = require("assert");
-
+var fs = require('fs');
+var testHelpers = require("./testHelpers");
 
 // GET rdf - should 404
 // PUT rdf 
@@ -16,11 +17,13 @@ var assert = require("assert");
 //append triples
 // construct
 // ask
-var ds;
 
+	var ds;
+	
 module.exports = {
 	    setUp: function (callback) {
 	        ds = loadDataStrings();
+
 	        callback();
 	    },
 	    tearDown: function (callback) {
@@ -28,13 +31,16 @@ module.exports = {
 	        callback();
 	    },
 	    
-	    test1: function (test) {
+	    getRDF: function (test) {
+	    	//options.method = "GET";
+	    	testHelpers.client("GET");
+
+
 	    	assert.equal(ds.entryTurtle, ds.entryTurtle);
 	        test.done();
 	    }
 };
 
-var fs = require('fs');
 
 function loadDataStrings(){
 	return { "allEntriesQuery" : fs.readFileSync("data/allEntries.rq", 'utf-8'),
