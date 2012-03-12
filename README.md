@@ -4,7 +4,9 @@ It operates as a Web server, building queries from HTTP requests and passing the
 
 ![Block Diagram](https://github.com/danja/seki/raw/master/docs/seki-full.png)
 
-The current version has been written for an RDF tutorial and right now only features basic functionality. It has minimal dependency on other modules. 
+For updates see [Seki on G+](https://plus.google.com/b/102910670341143019851/102910670341143019851/posts)
+
+Also [TODO List](https://workflowy.com/shared/dd5976b2-b48f-9096-0357-105f34b4d6ed/)
 
 There are two branches in the git repository: master and dev. Master is essentially frozen (tweaks & bugfixes only). dev is in active development.
 
