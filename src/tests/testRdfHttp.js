@@ -2,6 +2,8 @@ var assert = require("assert");
 var fs = require('fs');
 var testHelpers = require("./testHelpers");
 
+
+// ignore these, see tests/notes.txt
 //DELETE rdf
 // GET rdf - should 404
 // PUT rdf

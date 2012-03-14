@@ -1,0 +1,14 @@
+http://unixpapa.com/auth/index.html
+http://blog.steveklabnik.com/posts/2011-08-07-some-people-understand-rest-and-http
+http://www.sitepoint.com/forums/showthread.php?677877-rest-api-authentication#post4596148
+http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/
+http://www.berenddeboer.net/rest/authentication.html
+http://stackoverflow.com/questions/319530/restful-authentication
+http://www.coresecuritypatterns.com/patterns.htm
+http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO/web-authentication.html
+https://www.owasp.org/index.php/Category:OWASP_Guide_Project
+http://www.ics.uci.edu/~fielding/pubs/dissertation/evaluation.htm
+http://lists.w3.org/Archives/Public/public-xg-webid/2011Jul/0120.html
+https://github.com/jed/cookies#readme
+http://en.wikipedia.org/wiki/Digest_access_authentication#Example_with_explanation
+http://en.wikipedia.org/wiki/Transport_Layer_Security
