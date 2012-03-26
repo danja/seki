@@ -1,3 +1,6 @@
+// model for a tree node
+// (can't do JSON.stringify(list) because of parent ref)
+//
 function ListTree(title) {
 	this.lists = new Array();
 	this.title = title;
@@ -12,6 +15,7 @@ function ListTree(title) {
 		return last;
 	};
 
+	// serializer - not correct output
 	this.toHTML = function() {
 		var html = "<ul>";
 		html += "<li>" + this.title;
@@ -29,6 +33,8 @@ function ListTree(title) {
 	};
 }
 
+// dummy tree
+// called by test.js
 function text2html(source) {
 	var root = new ListTree("root");
 	var child1 = new ListTree("child1");
@@ -40,6 +46,8 @@ function text2html(source) {
 	return result;
 }
 
+// parses Workflowy format - maybe ok
+// will called by test.js
 function text2html2(source) {
 	var result = "";
 	var inText = false;
