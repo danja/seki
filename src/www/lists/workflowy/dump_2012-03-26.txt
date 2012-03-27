@@ -12,7 +12,7 @@
     - called from HTML or node engine etc.
   - microdata/RDFa templater
   - SWIB hook to remote store - fuseki GUI
-  - transclusion - apply to <a href="..." rel="include"
+  - transclusion - apply to &lt;a href="..." rel="include"
   - https://hacks.mozilla.org/2011/11/insertadjacenthtml-enables-faster-html-snippet-injection/
   - little language based on XML proc
   - Distributed Comments : custom trackback (as comments alternative)
@@ -42,7 +42,7 @@
   - http://www.iks-project.eu/
   - investigate IKS projects
   - apply to my blog
-  - https://docs.google.com/document/d/1XzdsjCfPylcyOoNtDfAgz15HwRdCD-0e0ixh21_U0y0/edit?hl=en_US&pli=1
+  - https://docs.google.com/document/d/1XzdsjCfPylcyOoNtDfAgz15HwRdCD-0e0ixh21_U0y0/edit?hl=en_US&amp;pli=1
 - Lyons/UK
   - Lyons
     - http://www.easyjet.com/EN/
@@ -110,9 +110,12 @@
   - TODO
     - strip out current handling of Accept: RDF
     - mock authentication
+    - use mustache templating
+      - https://github.com/janl/mustache.js#readme
+    - prepare for client-side RDF
     - put http-proxy based router on input, 
-      - Accept: RDF -> auth -> Public
-      - Accept: HTML -> Seki -> auth -> Public
+      - Accept: RDF -&gt; auth -&gt; Public
+      - Accept: HTML -&gt; Seki -&gt; auth -&gt; Public
     - start test framework
       - Proc
       - http://vocab.deri.ie/rdforms
@@ -237,7 +240,7 @@
     - general purpose recommender
       - create a theme
       - add items
-      - if you like this -> you'll like that
+      - if you like this -&gt; you'll like that
     - SVG Whiteboard
     - federated...
     - http://ifttt.com/
@@ -342,7 +345,7 @@
       - (it's actually a link or script)
     - empty box on a page is a token receiver : □
       - you can drag a token from the bookmarks bar into the receiver
-      - (it's actually an <input> field)
+      - (it's actually an &lt;input&gt; field)
     - what to pass across?
       - form associated with the token that you fill in
       - when you pass the token along, it passes the data from the form fields
@@ -423,7 +426,7 @@
   - Least Interesting People
     - along the lines of Facebook recommendations, but who you should unsubscribe from
   - I did X because of Y
-    - e.g. I learnt how to use SPARQL because of <this post>
+    - e.g. I learnt how to use SPARQL because of &lt;this post&gt;
   - Hearing test
     - https://plus.google.com/u/0/112609322932428633493/posts/NKcC8DKoyHb
   - Big Plans
@@ -476,8 +479,8 @@
   - http://tinyurl.com/89g24gr
 - Sites
   - Get everything nicely organised and linked
-  - add discrete adverts & analytics
-  - add RDF for everything - especially images, mp3 & vids
+  - add discrete adverts &amp; analytics
+  - add RDF for everything - especially images, mp3 &amp; vids
   - microdata/RDFa on index pages (at least)
     - templater?
   - integrate with blog data
@@ -488,7 +491,7 @@
       - Knifes
       - Tips
     - Misc
-      - stone carving & paintings
+      - stone carving &amp; paintings
     - Tech
 - XMLNS
   - creative 404s
@@ -504,9 +507,9 @@
       - Position Statement
       - FOAF
       - dating page
-  - G+ pages for all domains & projects
+  - G+ pages for all domains &amp; projects
 - Jottings
-  - Cloud = commodification of infrastructure (but - p@ : RaisetheUnitofcurrencytobeapplication&servicesinsteadofinfrastructure
+  - Cloud = commodification of infrastructure (but - p@ : RaisetheUnitofcurrencytobeapplication&amp;servicesinsteadofinfrastructure
   - 
 - Creative Writing
   - http://www.ted.com/talks/andrew_stanton_the_clues_to_a_great_story.html
@@ -516,6 +519,3 @@
   - Golden Rules
     - incremental improvements must always be possible
       - when switching work activity, leave things so they can be restarted without effort
-
-
-Created with WorkFlowy.com

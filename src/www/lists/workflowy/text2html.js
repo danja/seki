@@ -15,27 +15,41 @@ function ListTree(title) {
 		return last;
 	};
 
-	// serializer - not correct output
+	// <li>A
+	// <ul>
+	// <li>B</li>
+	// <li>C</li>
+	// <li>D</li>
+	// </ul>
+	// </li>
+
 	this.toHTML = function() {
-		var html = "<ul>";
+		var html = "<ul>\n" + this.toHTMLsub() + "</ul>";
+		return html;
+	};
+		
+	this.toHTMLsub = function() {
+		var html = "";
 		html += "<li>" + this.title;
 		if (this.lists.length > 0) {
+			html += "\n<ul>"
+
 			for ( var i = 0; i < this.lists.length; i++) {
-				html += "<li>";
-				html += this.lists[i].title;
-				html += this.lists[i].toHTML();
-				html += "</li>";
+			//	html += "<li>";
+				// html += this.lists[i].title;
+				html += this.lists[i].toHTMLsub();
+			//	html += "</li>";
 			}
+			html += "</ul>\n";
 		}
 		html += "</li>\n";
-		html += "</ul>\n";
 		return html;
 	};
 }
 
 // dummy tree
 // called by test.js
-function text2html(source) {
+function text2html2(source) {
 	var root = new ListTree("root");
 	var child1 = new ListTree("child1");
 	root.addChild(child1);
@@ -48,19 +62,14 @@ function text2html(source) {
 
 // parses Workflowy format - maybe ok
 // will called by test.js
-function text2html2(source) {
+function text2html(source) {
 	var result = "";
 	var inText = false;
 	var indent = 0;
 	var previousIndent = 0;
 
-	// var parent = new ListTree("under");
-	// parent.setTitle("parent");
-	var current = new ListTree("root");
-	// var previousList;
-	// list.setTitle("root");
-	// parent.addChild(list);
-
+	var root = new ListTree("root");
+	var current = root;
 	var text = "";
 
 	for ( var i = 0; i < source.length; i++) {
@@ -78,8 +87,7 @@ function text2html2(source) {
 		}
 
 		if (inText && char != "\n") {
-			text += char;
-			// continue;
+			text += escape(char);
 		}
 		if (inText && char == "\n") { // read line
 			console.log("* text = " + text);
@@ -109,18 +117,15 @@ function text2html2(source) {
 				current.addChild(newList);
 				console.log("last = " + current.title);
 				console.log("adding " + newList.title + " to " + current.title);
-				// parent = list;
-				// previousList = current;
-				// current = newList;
 			}
 			if (diff < 0) {
 				for ( var j = 0; j < -diff; j++) {
 					console.log("getting parent of " + current.title);
 					current = current.parent;
 				}
-				console.log("new list2 " + newList.title);
-				console.log("new current " + current.title);
-				console.log("adding " + newList.title + " to " + current.title);
+//				console.log("new list2 " + newList.title);
+//				console.log("new current " + current.title);
+//				console.log("adding " + newList.title + " to " + current.title);
 
 				current.addChild(newList);
 			}
@@ -139,13 +144,21 @@ function text2html2(source) {
 		}
 
 	}
-	result = current.toHTML();
+	result = root.toHTML();
 	// result = JSON.stringify(list, null, '\t');
 	// result = parent.toHTML();
 	// console.log(JSON.stringify(current, null, '\t'));
 	return result;
 	// 
 }
+
+function escape(char) {
+	if(char == "<") return "&lt;";
+	if(char == ">") return "&gt;";
+	if(char == "&") return "&amp;";	
+	return char;
+}
+
 
 // make it available to other scripts
 module.exports = text2html;
