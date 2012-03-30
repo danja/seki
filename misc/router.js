@@ -4,12 +4,19 @@ var http = require('http'),
 var options = {
   router: {
     'dannyayers.com': '67.207.128.128:8005',
+    'www.dannyayers.com': '67.207.128.128:8005',
     'danny.ayers.name': '67.207.128.128:8005',
+    'www.danny.ayers.name': '67.207.128.128:8005',
     'hyperdata.org': '67.207.128.128:8005',
+    'www.hyperdata.org': '67.207.128.128:8005',
     'ideagraph.org': '67.207.128.128:8005',
+    'www.ideagraph.org': '67.207.128.128:8005',
     'semtext.org': '67.207.128.128:8005',
+    'www.semtext.org': '67.207.128.128:8005',
     'spikeandwave.com': '67.207.128.128:8005',
-    'pragmatron.org': '67.207.128.128:8888'
+    'www.spikeandwave.com': '67.207.128.128:8005',
+    'pragmatron.org': '67.207.128.128:8888',
+    'www.pragmatron.org': '67.207.128.128:8888'
   }
 };
 
