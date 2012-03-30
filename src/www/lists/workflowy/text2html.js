@@ -156,6 +156,8 @@ function escape(char) {
 	if(char == "<") return "&lt;";
 	if(char == ">") return "&gt;";
 	if(char == "&") return "&amp;";	
+	if(char == "\"") return "&quote;";	
+	if(char == "'") return "&apos;";
 	return char;
 }
 
