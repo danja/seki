@@ -85,7 +85,7 @@
 #########################################
 
 <#temp> rdf:type f:Service ;
-    f:name                       "temp" ;       # http://host:port/transient
+    f:name                       "temp" ;       # http://host:port/temp
     f:serviceQuery               "tempSparql" ;   # SPARQL query service
     f:serviceUpdate              "tempUpdate" ;   # SPARQL query service
     f:serviceUpload              "tempUpload" ;   # Non-SPARQL upload service

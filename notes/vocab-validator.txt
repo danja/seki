@@ -1,0 +1,31 @@
+is valid RDF
++ RDF lint
++ RDFa etc.
+
+★ is published on the Web at a stable URI.
+	GET URI
+	status != 200 (and ! 3xx -> 200) -> false
+	URL contains PURL -> true
+	otherwise, ask + advice
+
+★★ has human-readable documentation and basic metadata such as creator, publisher, date of creation, last modification, version number is provided.
+	check terms
+		if more > 50% -> true
+		if 0% -> false
+		if < 50% -> true + advice 	
+	
+★★★ has labels and descriptions provided in several languages, to make your vocabulary usable in multiple linguistic scopes.
+	check terms
+		if only English -> false
+		if > 1 language -> true
+		
+★★★★ is available via its namespace URI, both as a formal file and human-readable documentation, using content negotiation.
+	try conneg on
+		html
+		rdf/xml
+		turtle
+			-> advise
+			
+★★★★★ includes links to related vocabularies and wherever possible elements are reused rather than re-invented.
+	count outlinks per term
+	

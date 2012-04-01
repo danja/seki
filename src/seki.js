@@ -26,6 +26,8 @@ var templater = require('./templater');
 var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
 
+var JSONHandler = require('./JSONHandler');
+
 /*
  * If there is a custom config.js, use it
  */
@@ -73,16 +75,16 @@ var postHeaders = {
  * 
  */
 var files = {
-  "/" : "www/index.html",
-  "/index" : "www/index.html",
-  "/form" : "www/form.html",
-  "404" : "www/404.html"
+  "/" : config.wwwDir + "/index.html",
+  "/index" : config.wwwDir + "/index.html",
+  "/form" : config.wwwDir + "/form.html",
+  "404" : config.wwwDir + "/404.html"
 };
 
 //
 //Create a node-static server to serve the current directory
 //
-var file = new(static.Server)('www', { cache: 7200});
+var file = new(static.Server)(config.wwwDir, { cache: 7200});
 
 // set it running
 http.createServer(onRequest).listen(config.sekiPort, config.sekiHost);
@@ -129,17 +131,28 @@ function onRequest(sekiRequest, sekiResponse) {
   var resource = config.uriBase + sekiRequest.url;
   var accept = sekiRequest.headers["accept"];
 
+  if (accept && accept.indexOf("application/json") == 0) {
+	  var handler = new JSONHandler();
+	  return handler[sekiRequest.method]();
+	  
+  }
 //verbosity("Accept header =" + accept
 //      + accept.indexOf("application/rdf+xml" == 0));
   
+  // TODO pull these out into separate per-media type handlers
+  // use pattern as for JSONHandler
   if (sekiRequest.method == "GET") {
 
     /*
-     * Handle requests for "Accept: application/rdf+xml" addresses server using
+     * TODO : STRIP THIS WHOLE BLOCK OUT
+     * Handle requests for "Accept: text/turtle" addresses server using
      * SPARQL 1.1 Graph Store HTTP Protocol
      */
     if (accept && accept.indexOf("text/turtle") == 0) {
-      verbosity("text/turtle requested");
+        verbosity("text/turtle requested");
+        
+    	var rdfHandler = new RdfHandler(); // move?
+    	return rdfHandler.handle();
 
       var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(resource);
       verbosity("queryPath =" + queryPath);

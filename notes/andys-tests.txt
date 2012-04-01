@@ -1,0 +1,9 @@
+arq.qtest --earl manifest.ttl
+
+Fuseki internal tests aren't DAWG/SPARQL-WG tests.  There aren't any proper protocol tests currently.  There are lots of query tests which are run by ARQ.
+
+ARQ runs the WG test suite - there's a command line tool to run tests and if you point it at the "manifest-all.ttl" then it runs all the tests.  There are some entailment and federate query tests that don't pass out-of-the-box, and (dev system only - temporary) some property path tests may not work as the WG considers PP changes.  ARQ in dev has some proposed changes and these are different from the unmodified test suite.
+
+There is also a test manifest parser that reads the manifest format and
+
+It's not written to be extensible but taking a copy and hacking what you need might help.
