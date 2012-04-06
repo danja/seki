@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Post</title>
+</head>
+
+<body>
+<h1>Admin</h1>
+
+<p>// NB. copied directly across from Gradino as a skeleton - nothing yet
+implemented</p>
+
+<h2>Shutdown</h2>
+
+<form action="/shutdown" method="post">
+  <label>User </label><input type="text" name="user" value="danja" /> 
+
+  <p><label>Password </label><input type="password" name="password" /></p>
+
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Backup User DB</h2>
+
+<form action="/backupuserdb" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Revert User DB</h2>
+
+<form action="/revertuserdb" method="post">
+  <label>User </label><input type="text" name="user" value="danja" /> 
+
+  <p><label>Password </label><input type="password" name="password" /></p>
+
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Backup Content DB</h2>
+
+<form action="/backupcontentdb" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Revert User DB</h2>
+
+<form action="/revertcontentdb" method="post">
+  <label>User </label><input type="text" name="user" value="danja" /> 
+
+  <p><label>Password </label><input type="password" name="password" /></p>
+
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Generate Sitemap</h2>
+
+<form action="/generatesitemap" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Generate Archives</h2>
+
+<form action="/generatearchives" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+</body>
+</html>
