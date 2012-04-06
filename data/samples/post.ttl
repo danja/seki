@@ -1,0 +1,20 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://hyperdata.org/Hello> a sioc:Post ;
+	dc:date "2012-04-02T07:24:53.676Z" ;
+	dc:title "Hello World!" ;
+	sioc:content "My first post." ;
+	foaf:maker [ foaf:nick "danja" ] .
+
+schema:articleBody owl:equivalentProperty sioc:content .
+schema:author owl:equivalentProperty foaf:maker .
+
+schema:name rdfs:subPropertyOf dc:title .
+schema:datePublished owl:equivalentProperty dc:issued .
+schema:Article rdfs:subClassOf sioc:Item .
+
+foaf:nick rdfs:subPropertyOf schema:additionalName .
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:sioc="http://rdfs.org/sioc/ns#">
+  <sioc:Post rdf:about="http://hyperdata.org/Hello">
+    <dc:date>2012-04-02T07:24:53.676Z</dc:date>
+    <dc:title>Hello World!</dc:title>
+    <sioc:content>My first post.</sioc:content>
+    <foaf:maker>
+      <rdf:Description>
+        <foaf:nick>danja</foaf:nick>
+      </rdf:Description>
+    </foaf:maker>
+  </sioc:Post>
+</rdf:RDF>

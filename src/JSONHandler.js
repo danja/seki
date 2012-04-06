@@ -10,7 +10,7 @@ JSONHandler.prototype = {
   
   "GET": function() {
    // this.value2 = argument + 100;
-console.log("JSONHandler.GET called");
+	  console.log("JSONHandler.GET called");
   }
 };
 

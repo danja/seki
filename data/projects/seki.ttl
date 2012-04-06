@@ -1,0 +1,32 @@
+@prefix :        <http://purl.org/stuff/project#> .
+@prefix rev:     <http://purl.org/stuff/rev#> .
+@prefix yagop:   <http://dbpedia.org/property/yago/> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix dbpr:    <http://dbpedia.org/resource/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix mo:      <http://purl.org/ontology/mo/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix wo:      <http://purl.org/ontology/wo/> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix xml:     <http://www.w3.org/XML/1998/namespace> .
+@prefix dbpo:    <http://dbpedia.org/ontology/> .
+@prefix dbpp:    <http://dbpedia.org/property/> .
+@prefix yagoc:   <http://dbpedia.org/class/yago/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix po:      <http://purl.org/ontology/po/> .
+@prefix rel:     <http://purl.org/vocab/relationship/> .
+@prefix prj:     <http://purl.org/stuff/project#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix x:       <http://purl.org/stuff/> .
+
+
+
+<http://hyperdata.org/projects/Seki> a :Project ;
+	rdfs:label "Seki" ;
+	foaf:homepage <http://hyperdata.org/projects/Seki/index.html> ;
+	foaf:maker <http://danny.ayers.name/index.rdf#me> .

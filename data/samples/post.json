@@ -1,0 +1,18 @@
+{
+	"@context": {
+		"date": "http://purl.org/dc/terms/date",
+		"title": "http://purl.org/dc/terms/title",
+		"content": "http://rdfs.org/sioc/ns#",
+		"maker": "http://xmlns.com/foaf/0.1/maker",
+		"nick": "http://xmlns.com/foaf/0.1/nick"
+    	}
+  },
+	"@id": "http://hyperdata.org/Hello",
+	"@type": "http://rdfs.org/sioc/ns#Post",
+	"date": "2012-04-02T07:24:53.676Z",
+	"title": "Hello World!",
+	"content": "My first post.",
+	"maker": {
+    	"nick": "danja"
+ 	}
+}
