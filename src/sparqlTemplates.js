@@ -34,7 +34,9 @@ var sparqlTemplates = {
            sioc:content \"%content%\" ;\
            foaf:maker [ foaf:nick \"%nick%\" ] ;\
            dcterms:date \"%date%\" .\
-        }}"
+        }}",
+        
+        listGraphURIs : "SELECT  ?graph WHERE { GRAPH ?graph {} }"
 };
 
 //make it visible to other scripts

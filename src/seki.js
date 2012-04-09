@@ -28,17 +28,21 @@ var htmlTemplates = require('./htmlTemplates');
 
 var JSONHandler = require('./JSONHandler');
 
+var Admin = require('./admin/Admin');
+
 /*
  * If there is a custom config.js, use it
  */
-try {
-	var config = require('./config').config;
-	verbosity("Using config.js");
-} // fall back on config-default.js
-catch (e) {
-	var config = require('./config-default').config;
-	verbosity("Using config-default.js");
-}
+//try { // move this into config-default.js
+//	var config = require('./config').config;
+//	verbosity("Using config.js");
+//} // fall back on config-default.js
+//catch (e) {
+//	var config = require('./config-default').config;
+//	verbosity("Using config-default.js");
+//}
+
+var config = require('./ConfigDefault').config;
 
 var sekiHeaders = {
 	"Content-type" : "text/html; charset=utf-8",
@@ -99,6 +103,7 @@ function onRequest(sekiRequest, sekiResponse) {
 	verbosity("REQUEST URL = " + sekiRequest.url);
 	verbosity("REQUEST METHOD = " + sekiRequest.method);
 
+	// check for corresponding files on the filesystem
 	if (sekiRequest.method == "GET") {
 		file.serve(sekiRequest, sekiResponse, function(err, res) {
 			if (err) { // the file doesn't exist, leave it to Seki
@@ -107,8 +112,26 @@ function onRequest(sekiRequest, sekiResponse) {
 			}
 		});
 	}
-
+	
 	verbosity("got past file server");
+	
+	// handle admin requests/commands
+	if (sekiRequest.method == "POST") {
+		if(sekiRequest.url.substring(0,7) == "/admin/") {
+			var command = sekiRequest.url.substring(7);
+			var admin = new Admin(sekiRequest, sekiResponse);
+			if(admin[command]) {
+				sekiResponse.writeHead(202, sekiHeaders);
+				sekiResponse.end("202 Accepted for command '"+command+"'");
+				admin[command](); // perhaps this should spawn a separate OS process?
+				return;
+			} else {
+				sekiResponse.writeHead(404, sekiHeaders);
+				sekiResponse.end("404 Not Found. Admin command '"+command+"' unknown");
+				return;
+			}
+		}
+	}
 
 	// does this URL correspond to a static file?
 	// if (files[sekiRequest.url]) {
@@ -127,7 +150,6 @@ function onRequest(sekiRequest, sekiResponse) {
 	if (accept && accept.indexOf("application/json") == 0) {
 		var handler = new JSONHandler();
 		return handler[sekiRequest.method]();
-
 	}
 	// verbosity("Accept header =" + accept
 	// + accept.indexOf("application/rdf+xml" == 0));
@@ -144,6 +166,8 @@ function onRequest(sekiRequest, sekiResponse) {
 		if (accept && accept.indexOf("text/turtle") == 0) {
 			verbosity("text/turtle requested");
 
+			
+			
 			var queryPath = config.sparqlGraphEndpoint + "?graph="
 					+ escape(resource);
 			verbosity("queryPath =" + queryPath);

@@ -1,8 +1,10 @@
-exports.config =
+var config;
+
+var defaultConfig =
 { 
 		
 	wwwDir: "../www" // static files
-		
+,	baked: "../baked"	
     /*
      * Settings for the Seki Server (this)
      */
@@ -19,3 +21,15 @@ exports.config =
 , sparqlQueryEndpoint: "/seki/query"
 , sparqlUpdateEndpoint: "/seki/update"
 };
+
+try { 
+	config = require('./Config').config;
+	console.log("Using Config.js");
+} // fall back on config-default.js
+catch (e) {
+	config = defaultConfig;
+	console.log("Using ConfigDefault.js");
+}
+
+exports.config = config;
+

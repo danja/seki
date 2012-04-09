@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-changes: 
-2008-04-07 : typo in namespace (!!) fixed, final PI/comment gobbler added (patch from gabriele renzi, http://www.riffraff.info - thanks!)
-2006-07-02 : swapped dc:date for dc:created on dtreview
+       Converts HTML lists to Turtle/RDF
 
+2012-004-09
 danny.ayers@gmail.com
 -->
 <xsl:transform xmlns:dc="http://purl.org/dc/elements/1.1/" 

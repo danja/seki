@@ -4,14 +4,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>Post</title>
+  <title>Seki Admin</title>
+  <link rel="stylesheet" type="text/css" href="../css/basic.css" />
 </head>
 
 <body>
 <h1>Admin</h1>
 
-<p>// NB. copied directly across from Gradino as a skeleton - nothing yet
-implemented</p>
+<h2>Bake</h2>
+
+<form action="/admin/bake" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Unbake</h2>
+
+<form action="/admin/unbake" method="post">
+  <label>User </label><input type="text" name="user" value="danja" /> 
+
+  <p><label>Password </label><input type="password" name="password" /></p>
+
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+
+<h2>Fail</h2>
+<p>an unknown command - should fail</p>
+<form action="/admin/fail" method="post">
+  <p>
+  <input type="submit" value="Submit" /></p>
+</form>
+<hr />
+<hr />
+<p><strong>// NB. copied directly across from Gradino as a skeleton - nothing yet
+implemented</strong></p>
 
 <h2>Shutdown</h2>
 
