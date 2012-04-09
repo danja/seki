@@ -18,7 +18,7 @@ TurtleHandler.prototype = {
 	// // this.value2 = argument + 100;
 	// console.log("JSONHandler.GET called");
 	// }
-	getGraphs : function() {
+	getGraphs : function(callback) {
 		// the client that will talk to the SPARQL server
 		var client = http.createClient(config.sparqlPort, config.sparqlHost);
 		var queryPath = config.sparqlQueryEndpoint + "?query="
@@ -27,21 +27,26 @@ TurtleHandler.prototype = {
 		var clientRequest = client.request("GET", queryPath, headers.graph);
 		clientRequest.end();
 
+		var saxer = require('./srx2map_multi');
+		var stream = saxer.createStream();
+
 		// handle SPARQL server response
 		clientRequest.on('response', function(queryResponse) {
 			console.log("STATUS=" + queryResponse.statusCode);
 
 			var data = "";
 			// response body may come in chunks, whatever, just pass them on
+
 			queryResponse.on('data', function(chunk) {
-				// verbosity("headers " +
-				// JSON.stringify(queryResponse.headers));
-				data += chunk;
+				// console.log(chunk);
+				stream.write(chunk);
 			});
-			// the SPARQL server response has finished, so finish up this
-			// response
+
 			queryResponse.on('end', function() {
-				console.log("URIs = "+data);
+
+				stream.end();
+
+				callback(stream.bindings);
 			});
 		});
 	}

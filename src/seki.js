@@ -296,6 +296,7 @@ function serveHTML(resource, sekiResponse, queryResponse) {
 	// set up HTML builder
 	var viewTemplater = templater(htmlTemplates.viewTemplate);
 	// verbosity("GOT RESPONSE ");
+	
 	var saxer = require('./srx2map');
 	var stream = saxer.createStream();
 

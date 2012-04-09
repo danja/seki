@@ -36,7 +36,7 @@ var sparqlTemplates = {
            dcterms:date \"%date%\" .\
         }}",
         
-        listGraphURIs : "SELECT  ?graph WHERE { GRAPH ?graph {} }"
+        listGraphURIs : "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }"
 };
 
 //make it visible to other scripts

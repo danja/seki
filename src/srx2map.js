@@ -1,10 +1,17 @@
 /*
+ * REPLACE WITH SRX2MAP_MULTI when HTML bits figured out
+ * 
+ * THIS VERSION ASSUMED ONLY ONE VALUE FOR EACH BINDING NAME
+ * 
  * Parses SPARQL XML results, converts bindings to simple JSON mappings
+
  * 
  * see docs/hello.srx for example of XML format
  * 
  * sax is https://github.com/isaacs/sax-js
  * SAX-like XML parser
+ * 
+ * REPLACE WITH SRC2MAP_MULTI when HTML bits figured out
  * 
  */
 
