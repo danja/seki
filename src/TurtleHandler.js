@@ -13,7 +13,15 @@ function TurtleHandler() {
 TurtleHandler.prototype = {
 
 	value1 : "default_value",
+	
+	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-put
+	"PUT" : function(uri, inputStream){
+		var client = http.createClient(config.sparqlPort, config.sparqlHost);
+		// HERE HERE HERE
+		// 
+	},
 
+	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-get
 	"GET" : function(uri, outputStream) {
 		var client = http.createClient(config.sparqlPort, config.sparqlHost);
 		
@@ -28,7 +36,7 @@ TurtleHandler.prototype = {
 		clientRequest.on('response', function(queryResponse) {
 			// serve status & headers
 
-			console.log("STATTUS=" + queryResponse.statusCode);
+			// console.log("STATTUS=" + queryResponse.statusCode);
 			if(outputStream.writeHead) { // if it supports this methods, do it
 			outputStream.writeHead(queryResponse.statusCode,
 					queryResponse.headers);
