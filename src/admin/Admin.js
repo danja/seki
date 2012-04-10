@@ -1,5 +1,6 @@
 var TurtleHandler = require('../TurtleHandler');
 var config = require('../ConfigDefault').config;
+var fs = require('fs');
 
 // Constructor
 function Admin(sekiRequest, sekiResponse) {
@@ -24,10 +25,38 @@ Admin.prototype = {
 			// console.log(JSON.stringify(bindings, null, '\t'));
 			for (x in bindings) {
 				console.log(bindings[x].graph);
-				// HERE HERE HERE
-				// do a query to get the named graph - as in seki.js
-				// map URI to fs
-				// save to fs
+				var uri = bindings[x].graph;
+
+				if (uri.indexOf(config.uriBase) == 0) {
+					var filename = config.baked
+							+ uri.substring(config.uriBase.length);
+				} else {
+					console.log("WARNING: graph " + uri
+							+ " not in current domain");
+					continue;
+				}
+				console.log("filename = " + filename);
+				// filename needs to be prefixed with __dirname ??
+				var dirs = filename.split("/");
+				console.log("dirs = " + dirs);
+				var dir = "";
+				for ( var i = 0; i < dirs.length - 1; i++) {
+					dir += dirs[i];
+					console.log("trying to create dir " + dir);
+					fs.mkdir(dir);
+					dir += "/";
+				}
+
+				var options = {
+					flags : 'w',
+					encoding : 'utf8',
+					mode : 0666
+				};
+				var stream = fs.createWriteStream(filename + ".ttl", options); 
+				stream.write("# Baked by Seki \n\n");
+
+				var handler = new TurtleHandler();
+				handler.GET(uri, stream); // includes a stream.end()
 			}
 		});
 

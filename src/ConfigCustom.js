@@ -1,5 +1,5 @@
-var config;
-var defaultConfig = {
+/* rename this to Config.js for custom settings */
+var config = {
 
 	wwwDir : "../www" // static files
 	,
@@ -16,21 +16,11 @@ var defaultConfig = {
 	 * Settings for the remote SPARQL/HTTP server (typically Fuseki on
 	 * localhost)
 	 */
-	
 	sparqlHost : "localhost",
 	sparqlPort : 3030,
 	sparqlGraphEndpoint : "/seki/data",
 	sparqlQueryEndpoint : "/seki/query",
 	sparqlUpdateEndpoint : "/seki/update"
 };
-
-try {
-	config = require('./Config').config;
-	console.log("Using Config.js");
-} // fall back on config-default.js
-catch (e) {
-	config = defaultConfig;
-	console.log("Using ConfigDefault.js");
-}
 
 exports.config = config;

@@ -12,18 +12,36 @@
 <body>
 <h1>Seki Documentation</h1>
 
-<h2>Admin</h2>
+<h2><a id="Configurat">Configuration</a></h2>
 
-<p>A POST to URI pattern /admin/{command} will call an admin function. If {command} is unknown, a 404 will be returned.</p>
+<p>Out of the box, <code>DefaultConfig.js</code> contains a usable set of
+properties for testing and experimentation.</p>
+
+<p>For deployment the file <code>ConfigCustom.js</code> should be copied into a
+new file called <code>Custom.js</code>, and the properties adjusted to
+requirements. <strong><code>Config.js</code> should not be publicly
+visible</strong>.</p>
+
+<p>(<code>DefaultConfig.js</code> and <code>Config.js</code> define the same
+set of properties, if <code>Config.js</code> doesn't exist then
+<code>DefaultConfig.js</code> is used).</p>
+
+<p> </p>
+
+<p></p>
+
+<h2><a id="Admin">Admin Console</a></h2>
+
+<p>A POST to URI pattern /admin/{command} will call an admin function. If
+{command} is unknown, a 404 will be returned.</p>
 <dl>
-<dt>bake</dt>
-<dd>persist graphs to filesystem</dd>
-<dt>unbake</dt>
-<dd>read graphs from filesystem</dd>
+  <dt>bake</dt>
+    <dd>persist graphs to filesystem as Turtle files following the path
+      structure of the graph's URI</dd>
+  <dt>unbake</dt>
+    <dd>read graphs from filesystem</dd>
 </dl>
 
-<p class="dev">
-handled by functions in /admin/Admin.js
-</p>
+<p class="dev">handled by functions in /admin/Admin.js </p>
 </body>
 </html>

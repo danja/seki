@@ -26,22 +26,9 @@ var templater = require('./templater');
 var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
 
+var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
-
 var Admin = require('./admin/Admin');
-
-/*
- * If there is a custom config.js, use it
- */
-//try { // move this into config-default.js
-//	var config = require('./config').config;
-//	verbosity("Using config.js");
-//} // fall back on config-default.js
-//catch (e) {
-//	var config = require('./config-default').config;
-//	verbosity("Using config-default.js");
-//}
-
 var config = require('./ConfigDefault').config;
 
 var sekiHeaders = {
@@ -112,33 +99,28 @@ function onRequest(sekiRequest, sekiResponse) {
 			}
 		});
 	}
-	
+
 	verbosity("got past file server");
-	
+
 	// handle admin requests/commands
 	if (sekiRequest.method == "POST") {
-		if(sekiRequest.url.substring(0,7) == "/admin/") {
+		if (sekiRequest.url.substring(0, 7) == "/admin/") {
 			var command = sekiRequest.url.substring(7);
 			var admin = new Admin(sekiRequest, sekiResponse);
-			if(admin[command]) {
+			if (admin[command]) {
 				sekiResponse.writeHead(202, sekiHeaders);
-				sekiResponse.end("202 Accepted for command '"+command+"'");
-				admin[command](); // perhaps this should spawn a separate OS process?
+				sekiResponse.end("202 Accepted for command '" + command + "'");
+				admin[command](); // perhaps this should spawn a separate OS
+									// process?
 				return;
 			} else {
 				sekiResponse.writeHead(404, sekiHeaders);
-				sekiResponse.end("404 Not Found. Admin command '"+command+"' unknown");
+				sekiResponse.end("404 Not Found. Admin command '" + command
+						+ "' unknown");
 				return;
 			}
 		}
 	}
-
-	// does this URL correspond to a static file?
-	// if (files[sekiRequest.url]) {
-	// serveFile(sekiResponse, 200, files[sekiRequest.url]);
-	// verbosity("FILE = " + files[sekiRequest.url]);
-	// return;
-	// }
 
 	// the client that will talk to the SPARQL server
 	var client = http.createClient(config.sparqlPort, config.sparqlHost);
@@ -158,42 +140,10 @@ function onRequest(sekiRequest, sekiResponse) {
 	// use pattern as for JSONHandler
 	if (sekiRequest.method == "GET") {
 
-		/*
-		 * TODO : STRIP THIS WHOLE BLOCK OUT Handle requests for "Accept:
-		 * text/turtle" addresses server using SPARQL 1.1 Graph Store HTTP
-		 * Protocol
-		 */
 		if (accept && accept.indexOf("text/turtle") == 0) {
 			verbosity("text/turtle requested");
-
-			
-			
-			var queryPath = config.sparqlGraphEndpoint + "?graph="
-					+ escape(resource);
-			verbosity("queryPath =" + queryPath);
-			var clientRequest = client.request("GET", queryPath, graphHeaders);
-			clientRequest.end();
-
-			// handle SPARQL server response
-			clientRequest.on('response', function(queryResponse) {
-				// serve status & headers
-
-				console.log("STATTUS=" + queryResponse.statusCode);
-				sekiResponse.writeHead(queryResponse.statusCode,
-						queryResponse.headers);
-
-				// response body may come in chunks, whatever, just pass them on
-				queryResponse.on('data', function(chunk) {
-					// verbosity("headers " +
-					// JSON.stringify(queryResponse.headers));
-					sekiResponse.write(chunk);
-				});
-				// the SPARQL server response has finished, so finish up this
-				// response
-				queryResponse.on('end', function() {
-					sekiResponse.end();
-				});
-			});
+			var handler = new TurtleHandler();
+			handler.GET(resource, sekiResponse);
 			return;
 		}
 
@@ -296,7 +246,7 @@ function serveHTML(resource, sekiResponse, queryResponse) {
 	// set up HTML builder
 	var viewTemplater = templater(htmlTemplates.viewTemplate);
 	// verbosity("GOT RESPONSE ");
-	
+
 	var saxer = require('./srx2map');
 	var stream = saxer.createStream();
 
