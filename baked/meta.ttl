@@ -1,6 +1,6 @@
 # Graphs baked by Seki 
 
-prefix stuff: <http://purl.org/stuff> .
+@prefix stuff: <http://purl.org/stuff> .
 
 <http://hyperdata.org/seki/Hello> a stuff:Graph .
 <http://hyperdata.org/seki/HelloAgain> a stuff:Graph .
@@ -8,7 +8,6 @@ prefix stuff: <http://purl.org/stuff> .
 <http://hyperdata.org/seki/Hello5> a stuff:Graph .
 <http://hyperdata.org/seki/Hello4> a stuff:Graph .
 <http://hyperdata.org/seki/Q> a stuff:Graph .
-<http://dannyayers.com/> a stuff:Graph .
 <http://hyperdata.org/seki/Hello9> a stuff:Graph .
 <http://hyperdata.org/A> a stuff:Graph .
 <http://hyperdata.org/D> a stuff:Graph .

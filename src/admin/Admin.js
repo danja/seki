@@ -1,7 +1,9 @@
+var fs = require('fs');
+
 var TurtleHandler = require('../TurtleHandler');
 var config = require('../ConfigDefault').config;
 var FileReader = require('./FileReader');
-var fs = require('fs');
+var Constants = require('../Constants');
 
 // Constructor
 function Admin(sekiRequest, sekiResponse) {
@@ -24,7 +26,7 @@ Admin.prototype = {
 		var handler = new TurtleHandler();
 		handler.getGraphs(function(bindings) {
 			// console.log(JSON.stringify(bindings, null, '\t'));
-			var meta = "prefix stuff: <http://purl.org/stuff> .\n\n";
+			var meta = "@prefix stuff: <http://purl.org/stuff> .\n\n";
 			for (x in bindings) {
 				// console.log(bindings[x].graph);
 				var uri = bindings[x].graph;
@@ -42,7 +44,7 @@ Admin.prototype = {
 				// console.log("filename = " + filename);
 				// filename needs to be prefixed with __dirname ??
 				var dirs = filename.split("/");
-				console.log("dirs = " + dirs);
+			//	console.log("dirs = " + dirs);
 				var dir = "";
 				for ( var i = 0; i < dirs.length - 1; i++) {
 					dir += dirs[i];
@@ -60,7 +62,6 @@ Admin.prototype = {
 				stream.on('error', function(e) {
 					console.log("Error writing to file : " + e);
 				});
-
 				stream.write("# Baked by Seki \n\n");
 
 				var handler = new TurtleHandler();
@@ -84,12 +85,34 @@ Admin.prototype = {
 		console.log("Admin.unbake called");
 
 		var fileReader = new FileReader();
-		fileReader.treeWalk(config.baked, function(file,next) {
-			console.log("File = " + file);
-			// HERE HERE HERE
-			// read file
-			// decode extension, filter, make nice name
-			// PUT into store
+		fileReader.treeWalk(config.baked, function(file, next) {
+			// console.log("File = " + file);
+			var dot = file.lastIndexOf(".");
+			if (dot != -1) {
+				var type = Constants.typeForExtension[file.substring(dot)];
+				
+				// console.log("ext = " + file.substring(dot));
+				if (type) {
+				//	console.log("type = " + type);
+					fs.readFile(file, 'utf8', function(err, data) {
+						if (err) {
+							console.error("Could not open file: %s", err);
+						} else {
+							var uri = config.uriBase + file.substring(config.baked.length,dot);
+
+							// PUT into store
+							// NB should switch onto the appropriate content handler
+							// currently preset for turtle
+							var handler = new TurtleHandler();
+							
+							handler.PUT(uri, data, 
+									function(statusCode, headers){
+								console.log("PUT returned a "+statusCode);
+							});
+						}
+					});
+				}
+			}
 			next(false); // weird, but it works
 		}, function(msg) {
 			console.log("Done = " + msg);

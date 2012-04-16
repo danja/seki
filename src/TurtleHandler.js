@@ -15,10 +15,23 @@ TurtleHandler.prototype = {
 	value1 : "default_value",
 	
 	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-put
-	"PUT" : function(uri, inputStream){
+	"PUT" : function(uri, data, callback){
+
+		console.log("URI in PUT = "+uri);
 		var client = http.createClient(config.sparqlPort, config.sparqlHost);
+		var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(uri);
 		// HERE HERE HERE
-		// 
+		var headers = {
+				"Content-type" : "text/turtle"
+			}
+		var clientRequest = client.request("PUT", queryPath, headers);
+		clientRequest.end(data);
+		
+		// handle SPARQL server response
+		clientRequest.on('response', function(queryResponse) {
+			callback(queryResponse.statusCode,
+					queryResponse.headers);
+		});
 	},
 
 	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-get
@@ -56,6 +69,10 @@ TurtleHandler.prototype = {
 		});
 	},
 
+	/* utility - gets list of named graph URIs
+	 * as object bindings
+	 * used by admin/Admin.js
+	 */
 	getGraphs : function(callback) {
 		// the client that will talk to the SPARQL server
 		var client = http.createClient(config.sparqlPort, config.sparqlHost);

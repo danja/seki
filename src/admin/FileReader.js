@@ -38,8 +38,7 @@ FileReader.prototype = {
 // Apache Licence 2.0
 
 function treeWalk(root, fileCb, doneCb) {
-	// this.value2 = argument + 100;
-	console.log("FileReader.treeWalk called");
+	// console.log("FileReader.treeWalk called");
 
 	// function forAllFiles(root, fileCb, doneCb) {
 	fs.readdir(root, function processDir(err, files) {
@@ -47,10 +46,10 @@ function treeWalk(root, fileCb, doneCb) {
 			console.log("TreeWalk error [1] :"+err);
 			// fileCb(err);
 		} else {
-			console.log("files.length = "+files.length);
+			// console.log("files.length = "+files.length);
 			if (files.length > 0) {
 				var file = root + '/' + files.shift();
-				console.log("file = "+file);
+			//	console.log("file = "+file);
 				fs.stat(file, function processStat(err, stat) {
 					if (err) {
 						console.log("TreeWalk error [2] :"+err);
@@ -71,7 +70,7 @@ function treeWalk(root, fileCb, doneCb) {
 									console.log("TreeWalk error [4] :"+err);
 									// doneCb(err);
 								} else {
-									console.log("calling processDir on "+files);
+								//	console.log("calling processDir on "+files);
 									processDir(false, files);
 								}
 							});
