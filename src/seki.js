@@ -6,7 +6,11 @@
  */
 
 /* TODO
- * change to using http.request
+ * change to using http.request (have done?)
+ * 
+ * 
+ * figure out wat bindings
+ * mustache - foreach templates
  */
 
 /*
@@ -22,6 +26,10 @@ var verbose = true;
 /*
  * Seki support scripts imports
  */
+
+var Constants = require('./Constants');
+var Utils = require('./Utils');
+
 var templater = require('./templater');
 var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
@@ -30,6 +38,7 @@ var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
 var config = require('./ConfigDefault').config;
+var special = require('./SpecialPages');
 
 var sekiHeaders = {
 	"Content-type" : "text/html; charset=utf-8",
@@ -133,13 +142,26 @@ function onRequest(sekiRequest, sekiResponse) {
 		var handler = new JSONHandler();
 		return handler[sekiRequest.method]();
 	}
+	
 	// verbosity("Accept header =" + accept
 	// + accept.indexOf("application/rdf+xml" == 0));
 
 	// TODO pull these out into separate per-media type handlers
 	// use pattern as for JSONHandler
 	if (sekiRequest.method == "GET") {
-
+		var queryTemplate;
+		var viewTemplate;
+		//= templater(htmlTemplates.viewTemplate);
+		
+		if(special[sekiRequest.url]) { 
+			queryTemplate = special[sekiRequest.url].sparqlTemplate;
+			viewTemplate = special[sekiRequest.url].htmlTemplate;
+		}
+		
+//		console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
+//		console.log("queryTemplate = "+queryTemplate);
+//		console.log("viewTemplate = "+viewTemplate);
+		
 		if (accept && accept.indexOf("text/turtle") == 0) {
 			verbosity("text/turtle requested");
 			var handler = new TurtleHandler();
@@ -148,9 +170,16 @@ function onRequest(sekiRequest, sekiResponse) {
 		}
 
 		// Assume HTML is acceptable
+		
+		if(!queryTemplate) { // need smarter switching/lookup here
+			queryTemplate = sparqlTemplates.itemTemplate;
+		}
+		if(!viewTemplate) { // need smarter switching/lookup here
+			viewTemplate = htmlTemplates.itemTemplate;
+		}
 
 		// build the query
-		var queryTemplater = templater(sparqlTemplates.itemTemplate);
+		var queryTemplater = templater(queryTemplate);
 		var replaceMap = {
 			"uri" : resource
 		};
@@ -166,7 +195,7 @@ function onRequest(sekiRequest, sekiResponse) {
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
-			serveHTML(resource, sekiResponse, queryResponse);
+			serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
 		});
 
 		// finish up
@@ -180,11 +209,10 @@ function onRequest(sekiRequest, sekiResponse) {
 	if (sekiRequest.method == "POST") {
 		// verbosity("Start of POST");
 
-		/*
-		 * start building query - but it needs the data supplied in the body of
-		 * the request by the browser
-		 */
-		var queryTemplater = templater(sparqlTemplates.insertTemplate);
+// check media type of data
+		
+
+		
 		var post_body = '';
 
 		// request body may come in chunks, join them together
@@ -197,8 +225,29 @@ function onRequest(sekiRequest, sekiResponse) {
 
 			// turn the POST parameters into JSON
 			var replaceMap = qs.parse(post_body);
+			
+			var queryTemplater;
+			if(replaceMap.target) { // if a target URI is specified, it's an annotation
+				queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
+			} else {
+				queryTemplater = templater(sparqlTemplates.insertTemplate);	
+			}
+			
 			replaceMap["date"] = new Date().toJSON();
-
+			var resourceType = replaceMap["type"];
+			
+			// URI wasn't specified so generate one (if a target URI has been specified
+			// use that as a seed)
+			if(!replaceMap["uri"] || replaceMap["uri"] == ""){
+					replaceMap["uri"] = Utils.mintURI(replaceMap["target"]);
+			}
+			
+			// graph wasn't specified so create named graph
+			if(!replaceMap["graph"] || replaceMap["graph"] == ""){
+					replaceMap["graph"] = replaceMap["uri"];
+			}
+			replaceMap["type"] = Constants.rdfsTypes[resourceType];
+				
 			// verbosity("ReplaceMap = "+JSON.stringify(replaceMap));
 
 			// can now make the query
@@ -241,11 +290,16 @@ function onRequest(sekiRequest, sekiResponse) {
 /*
  * Handles GET requests (typically from a browser)
  */
-function serveHTML(resource, sekiResponse, queryResponse) {
+function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 
+	if(!viewTemplate){
+		viewTemplate = htmlTemplates.postViewTemplate;
+	}
 	// set up HTML builder
-	var viewTemplater = templater(htmlTemplates.viewTemplate);
-	// verbosity("GOT RESPONSE ");
+	var viewTemplater = templater(viewTemplate);
+	
+	
+	// verbosity("GOT RESPONSE viewTemplate "+viewTemplate);
 
 	var saxer = require('./srx2map');
 	var stream = saxer.createStream();
@@ -261,13 +315,16 @@ function serveHTML(resource, sekiResponse, queryResponse) {
 		stream.end();
 
 		var bindings = stream.bindings;
-		if (bindings.title) { // // this is ugly
-			verbosity("GOT: " + JSON.stringify(bindings));
+		
+		verbosity("bindings " + JSON.stringify(bindings));
+		verbosity("bindings.uri " + bindings.uri);
+		
+		if (bindings != {}) { // // this is shite
+			verbosity("here GOT: " + JSON.stringify(bindings));
 			// verbosity("TITLE: " + bindings.title);
 			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
 			var html = viewTemplater.fillTemplate(bindings);
-		} else {
 			verbosity("404");
 			sekiResponse.writeHead(404, sekiHeaders);
 			// /////////////////////////////// refactor

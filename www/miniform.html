@@ -13,10 +13,11 @@
 <p>
 <form action="/post" method="post">
 
-<input type="hidden" value="bookmark" name="type" />
+<input type="hidden" value="annotation" name="type" />
+<input type="hidden" name="graph" value="http://hyperdata.org/danja/bookmarks" />
 
-  <label for="uri">Item URI</label>
-  <input type="text" name="uri" id="uri" />
+  <label for="target">Target URI</label>
+  <input type="text" name="target" id="target" />
  
   <label for="title">Title</label>
   <input type="text" name="title" id="title" />

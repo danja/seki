@@ -1,9 +1,11 @@
 var fs = require('fs');
 
+var Constants = require('../Constants');
+
 var TurtleHandler = require('../TurtleHandler');
 var config = require('../ConfigDefault').config;
 var FileReader = require('./FileReader');
-var Constants = require('../Constants');
+
 
 // Constructor
 function Admin(sekiRequest, sekiResponse) {
@@ -48,8 +50,8 @@ Admin.prototype = {
 				var dir = "";
 				for ( var i = 0; i < dirs.length - 1; i++) {
 					dir += dirs[i];
-					// console.log("trying to create dir " + dir);
-					fs.mkdir(dir);
+					console.log("trying to create dir " + dir);
+					fs.mkdir(dir); // NEED OPTIONS HERE??
 					dir += "/";
 				}
 

@@ -1,15 +1,43 @@
-# Graphs baked by Seki 
+# Graphs baked by <http://hyperdata.org/E>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
 
-@prefix stuff: <http://purl.org/stuff> .
+<http://hyperdata.org/seki/HelloAgain>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
 
-<http://hyperdata.org/seki/Hello> a stuff:Graph .
-<http://hyperdata.org/seki/HelloAgain> a stuff:Graph .
-<http://hyperdata.org/seki/HelloThree> a stuff:Graph .
-<http://hyperdata.org/seki/Hello5> a stuff:Graph .
-<http://hyperdata.org/seki/Hello4> a stuff:Graph .
-<http://hyperdata.org/seki/Q> a stuff:Graph .
-<http://hyperdata.org/seki/Hello9> a stuff:Graph .
-<http://hyperdata.org/A> a stuff:Graph .
-<http://hyperdata.org/D> a stuff:Graph .
-<http://hyperdata.org/E> a stuff:Graph .
-<http://hyperdata.org/Hello> a stuff:Graph .
+<http://hyperdata.org/D>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/Q>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/A>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/Hello5>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/HelloThree>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/Hello>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/Hello>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/Hello9>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .
+
+<http://hyperdata.org/seki/Hello4>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://purl.org/stuffGraph> .

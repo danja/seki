@@ -5,7 +5,22 @@
 
 var htmlTemplates = {
 
-  viewTemplate : "<!DOCTYPE html> \
+	uriList : "<!DOCTYPE html> \
+			  <html> \
+			    <head> \
+			      <meta charset=\"utf-8\"> \
+			      <title>%title%</title> \
+			    </head> \
+			    <body> \
+			  <h1>%title%</h1> \
+			  <ul> \
+			  		<li><a href=\"%uri%\">%uri%</a></li> \
+			  				</ul>\
+			  </body> \
+			  </html> \
+			  ",
+
+	postViewTemplate : "<!DOCTYPE html> \
 <html> \
   <head> \
     <meta charset=\"utf-8\"> \
@@ -17,9 +32,9 @@ var htmlTemplates = {
 <p>By : %nick%, %date%</p> \
 </body> \
 </html> \
-",	  
+",
 
-creativeTemplate : "<!DOCTYPE html> \
+	creativeTemplate : "<!DOCTYPE html> \
 	  <html> \
     <head><meta charset='utf-8'> \
 				<title>Create new page</title> \

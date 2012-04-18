@@ -4,6 +4,10 @@ var constants = {
 		".rdf" : "application/rdf+xml",
 		".html" : "text/html"
 	// ".json" : "text/json" ??
+	},
+	rdfsTypes : {
+		"bookmark" : "x:Bookmark",
+		"post" : "sioc:Post"
 	}
 };
 

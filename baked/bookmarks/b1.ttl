@@ -1,0 +1,15 @@
+# Baked by Seki 
+
+<http://hyperdata.org/bookmarks/b1>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <x:Bookmark> ;
+      <http://purl.org/dc/terms/date>
+                    "2012-04-17T16:06:30.413Z" ;
+      <http://purl.org/dc/terms/title>
+                    "bookmark1" ;
+      <http://rdfs.org/sioc/ns#content>
+                    "test" ;
+      <http://xmlns.com/foaf/0.1/maker>
+                    [ <http://xmlns.com/foaf/0.1/nick>
+                                    "danja"
+                    ] .
