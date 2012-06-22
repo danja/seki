@@ -2,7 +2,7 @@ var fs = require('fs');
 var text2html = require("./text2html");
 
 // ./dump_2012-03-26.txt   ./input-1.txt
-fs.readFile('./input-3.txt', 'utf8', function(err, data) {
+fs.readFile('./salzburg.txt', 'utf8', function(err, data) {
   if (err)
     throw err;
   var result = text2html(data);
