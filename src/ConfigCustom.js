@@ -1,5 +1,6 @@
 /* rename this to Config.js for custom settings */
-/* you also probably want to add a .gitignore file in same dir containing just */
+
+/* you should see a .gitignore file in same dir containing just */
 /* Config.js */
 var config = {
 
