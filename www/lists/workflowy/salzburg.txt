@@ -1,0 +1,877 @@
+- Salzburg
+  - Emerging Solutions
+    - Danny Ayers
+    - License
+  - changing reality
+  - Contents
+    - A Brief History
+    - Core Semantic Web notions
+    - Emerging Systems
+  - Prehistory 
+    - AI, KR
+  - People, World, Software
+  - Abraham Maslow [image] 1943
+    - http://en.wikipedia.org/wiki/Maslow's_hierarchy_of_needs
+  - Knowledge Hierarchy, David Skyrme 1999 
+    - http://www.skyrme.com/
+  - TimBL proposal 1989
+    - http://www.w3.org/History/1989/proposal.html
+  - Jorge Luis Borges Library of Babel
+    - http://en.wikipedia.org/wiki/Library_of_Babel
+  - All about the documents
+  - Search
+  - Sergey Brin, around 2002
+    - "Look, putting angle brackets around things is not a technology, by itself. I'd rather make progress by having computers understand what humans write, than by forcing humans to write in ways computers can understand."
+    - http://jonudell.net/udell/2002-09-19-googles-sergey-brin.html
+  - Document metadata
+    - PICS [image]
+    - Platform for Internet Content Selection
+    - Rating for censorship
+    - Local interest
+    - Education level/value
+    - http://www.w3.org/PICS/
+  - Briefly
+    - RDF as data language
+    - OWL etc.
+    - SPARQL
+    - Linked Data
+    - Doc metadata NG
+  - "It's all about the docs"
+  - "No, it's all about the things"
+    - birds flying into glass
+  - "Ok, maybe the docs are important after all"
+  - Synthesis
+  - 
+  - Semantic Web : Core Concepts
+  - All models are wrong, but some are useful.
+    - http://en.wikipedia.org/wiki/George_E._P._Box
+  - RDF
+  - Language : Vocabulary, Grammar and Syntax
+  - Knowledge Representation
+  - Data Model
+    - Entity-Relationship
+  - Triples
+  - Vocabs
+    - language spec, e.g. HTML, Atom
+    - registry
+    - distributed
+  - Relaxation of constraints
+  - schema.org : quasi-centralized
+  - Syntaxes
+    - Turtle
+    - RDF/XML
+    - RDFa
+    - Microformats
+    - Microdata
+    - JSON-LD
+  - The Web
+  - Meaning Triangle
+    - http://en.wikipedia.org/wiki/Triangle_of_reference
+  - Anything can be identified with a URI
+  - Follow your nose
+  - Serendipity
+  - Clocks
+  - Sundial
+  - Astronomical Model - Orreries
+    - http://en.wikipedia.org/wiki/Orrery
+  - Named Graphs
+  - Links are Data
+  - Linked Data
+    - http://linkeddatabook.com/book
+  - SPARQL
+  - Other semantics - NLP, entity extraction
+  - *******
+  - For a language to be useful, it needs agents
+  - agents
+  - REST Constraints include:
+    - http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+    - Chapters 5 and 6
+    - Web APIs Are Just Web Sites 
+    - see also Introduction to a REST API Style http://www.youtube.com/watch?v=6UXc71O7htc
+  - Uniform Interface
+  - Identification of resources
+  - Manipulation of resources through representations
+    - representations are Web Pages 
+    - note media type
+  - Self-descriptive messages
+    - headers plus body
+  - Hypermedia as the engine of application state
+    - State Machines
+    - States are Web Pages
+    - Transitions are hyperlinks
+    - Web pages include links
+  - Hypermedia needs links
+  - Relaxation of constraints #2
+  - "Apps" vs. hypermedia
+  - Affordances
+  - Separation of Concerns
+  - interaction model
+    - Eric Wilde http://dret.typepad.com/
+    - Mike Amundsen http://www.amundsen.com/blog/
+  - Tyranny of the Browser
+  - Maybe ok for the future
+  - ********
+  - Reducing friction
+  - driven by Open Source
+    - get
+    - fork
+    - hack
+    - share
+    - danny vid http://www.youtube.com/watch?v=sGqJbB4lhvY
+    - github etc
+    - 
+    - 
+  - 
+  - Interesting Initiatives
+  - Web Intents
+    - http://webintents.org/
+  - Linked Data Platform WG
+    - http://www.w3.org/2012/ldp/charter
+  - Unhosted
+    - http://unhosted.org
+  - Semantic Web in a Box
+  - The Big Intuition 
+    - A Semantic Web-capable application costs no more to develop than a traditional one
+    - increased surface area
+    - easy reuse
+- TODO
+  - Jena vid: http://vimeo.com/14569996
+  - kernels: http://videolectures.net/mlss07_scholkopf_intkmet/
+  - ToBlog
+    - RWW, JSON, surface area and agents
+      - the better things are described, the more reusable they are
+      - http://www.w3.org/Submission/2012/02/
+      - http://lists.w3.org/Archives/Public/public-rww/2012Apr/0025.html
+    - Lone Wolf dev in a community
+      - https://www.facebook.com/danny.ayers/posts/10150666977117475
+      - https://plus.google.com/u/0/104323674441008487802/posts/KYwmT2qE9VL
+      - http://iamsamy.blogspot.it/2012/04/where-is-casual-programming.html
+  - SPICE vocab
+  - Resume
+    - graph of interests
+    - timeline?
+    - http://patametadata.blogspot.it/2012/04/semantic-html-resume.html
+  - Real World
+    - Business card
+    - Font
+  - http://141.89.225.43/patchr/
+  - agent model!
+    - js in models http://www.ilrt.org/discovery/2001/03/rdf-moo/
+    - called from HTML or node engine etc.
+  - microdata/RDFa templater
+  - SWIB hook to remote store - fuseki GUI
+  - transclusion - apply to <a href="..." rel="include"
+  - https://hacks.mozilla.org/2011/11/insertadjacenthtml-enables-faster-html-snippet-injection/
+  - little language based on XML proc
+  - Distributed Comments : custom trackback (as comments alternative)
+    - enter URL of your comment (it should be publicly-readable)
+    - enter title to display on link
+    - enter your name or alias
+    - enter your personal URI (optional)
+      - requirements : the target must include a link to the post you are commenting on
+    - comment on Twitter, FB, G+
+    - allow me to add related links
+  - Pub-Sub on URI templates
+    - a feed tells you there's been a change in a resource "range"
+  - RWW list mail - WebID and APIs
+  - 2012-12
+    - + no-links rendering
+    - "Web Outline" - links-only rendering
+- hyperdata.org
+  - Docs
+    - simple intro to linked data (hypermedia-oriented)
+      - add follow-your-nose bits
+      - resources are linked
+      - the links describe the nature of the resources
+  - Seki demonstration
+  - Data Sources
+    - Vocabs
+      - http://labs.mondeca.com/dataset/lov/index.html#VocabListTable
+      - https://github.com/danbri/Zoo/tree/master/zoo.foaf.tv/zoo/data
+      - see also http://www.w3.org/2010/02/rdfa/profile/data/
+    - Freebase data
+      - http://basekb.com/
+  - 'prentice piece
+    - Originally, the term masterpiece referred to a piece of work produced by an apprentice or journeyman aspiring to become a master craftsman in the old European guild system.
+  - App registry: all things that produce/consume RDF, VoID etc, how to connect
+- A Manifesto for Web Agents (/hyperdata manifesto?)
+  - Manifesto design
+    -  thesis, antithesis, synthesis (Hegel)
+    - use Seki - manifesto is also demonstration
+    - main text has plain English overview
+    - link/outline collapse of technical details
+    - ditto of simple explanations
+    - include glossary
+    - big linkage
+  - Core values and beliefs
+    - communication is good, so anything which reduces friction, misunderstanding is likely to be beneficial
+    - support diversity, through uniformity
+      - Lego analogy - single colour/shape bricks
+    - inclusive
+    - Everythings Amazing & Nobodys Happy
+      - http://www.youtube.com/watch?v=8r1CZTLk-Gk
+    - Connolly's bane - http://www.ninebynine.org/SWAD-E/Scenario-HomeNetwork/HomeNetwork/HomeNetwork-347.htm
+      - "The bane of my existence is doing things I know the computer could do for me."
+      - extend: not knowing what my computer could do for me
+        - what if someone from 1980 was shown a web browser?
+    - http://www.slideshare.net/jurgenappelo/complexity-versus-lean
+    - serendipity
+      - Re. ontologies: "Does it answer a business question or—better—does it anticipate & address the next question.” - https://twitter.com/#!/kerfors/status/190058712705142784
+      - Interesting quote from an AI course: "The value of a piece of information is proportional to the chance that you will act on it times the benefit of acting on it." - James Simmons FB
+      - (failure of analogies, language - need words to think about things (who?))
+    - google's ten things : http://www.google.com/about/company/philosophy/
+  - progressive enhancement: server-side too
+  - omni-functional vs.do one thing only and do it well
+    - http://home.zcubes.com/
+  - there are more activities than browsing
+  - current top apps/sites
+    - http://gizmodo.com/5890602/the-most-popular-iphone-and-ipad-apps-of-all-time
+    - http://www.alexa.com/topsites
+  - interactions/affordances - hypermedia
+    - iframes by danbri, via Flickr pinned
+  - visibility of data
+    - Tantek
+  - every resource should have one canonical internal representation (for DRY)
+    - this should be advertised if possible (Link header? q factors)
+  - measure everything, iterate
+  - http://peterfox.com.au/manifesto_write.htm
+  - http://www.ninebynine.org/SWAD-E/Scenario-HomeNetwork/HomeNetwork/HomeNetwork-347.htm
+- IEEE Piece
+  - If computers were human
+    - world turned upsde down
+    - layered abstraction the other way up, starting with humans
+    - yay! http://wronghands1.wordpress.com/2012/03/01/the-outernet/
+  - 
+  - Affordances
+  - http://www.makemedia.com/blog/2012/03/15/what-is-the-future-for-web-intents/
+  - Dark Ages
+    - ??? taking a photo rather than experiencing the moment ???
+  - embodied AI
+    - http://en.wikipedia.org/wiki/Embodied_cognition
+- Little Ideas
+  - self-contained editable page
+- One-Liners
+  - the better things are described, the more reusable they are
+- Salzburg
+  - http://wiki.iks-project.eu/index.php/Workshops/Salzburg2012
+  - http://www.iks-project.eu/
+  - investigate IKS projects
+  - apply to my blog
+  - https://docs.google.com/document/d/1XzdsjCfPylcyOoNtDfAgz15HwRdCD-0e0ixh21_U0y0/edit?hl=en_US&pli=1
+- Zoom!
+  - the different kinds of info we need when working on a project
+  - remote control joystick analogy?
+- UK
+  - wireless route - ask
+  - maze carving
+  - something for Leslie
+- Seki
+  - https://twitter.com/#!/juansequeda/status/191909820486533120
+  - https://twitter.com/#!/Swissdat/status/191912356958310400
+  - TODO
+    - read http://www.w3.org/2011/09/LinkedData/Report
+    - http://www.html5rocks.com/en/mobile/responsivedesign/
+    - http://www.w3.org/TR/Content-in-RDF10/
+    - think about multi-instance (agent model)
+    - admin utilities: save/drop/load commands
+      - bake/unbake done
+      - would need to disable auto-file-read where graphs are out of sync
+      - make manifest file too
+    - bookmarklet
+      - tweak post form
+      - support bookmark? type
+      - support images
+    - Admin Utilities 
+      - graph copy, delete, rename
+        - cool URIs note
+    - Use XHTML fragments, deliver using AHAH
+      - http://domscripting.com/presentations/xtech2006/
+        - http://duganchen.ca/single-page-web-app-architecture-done-right/
+        - https://github.com/mpuig/hijax
+      - https://github.com/ded/Reqwest
+    - set up support for GET "application/json"
+      - JSONHandler
+      - separate query section from serving section
+    - refactor GET "text/html" to shape of JSONHandler
+    - move current handling of RDF to RDFHandler
+      - ?? named graphs straight proxy to Fuseki?
+    - proxy SPARQL & HTTP Update to Fuseki
+      - Accept type
+        - may be tricky with SPARQL SELECT vs. CONSTRUCT
+        - plus PUT etc.
+    - use mustache templating
+      - https://github.com/janl/mustache.js#readme
+    - work on headers: cache-control etc.
+    - mock authentication
+    - prepare for client-side RDF
+    - put http-proxy based router on input, 
+      - Accept: RDF -> auth -> Public
+      - Accept: HTML -> Seki -> auth -> Public
+    - start test framework
+      - Proc
+      - http://vocab.deri.ie/rdforms
+      - http://www.w3.org/2009/sparql/docs/tests/
+    - reorganize packages
+    - merge dev branch back into main
+    - make packageable
+      - http://howtonode.org/how-to-module
+      - package.json
+      - npm?
+    - make use of subdomains: *.photomatt.net. 14400 IN A 64.246.62.114
+    - test on server
+      - try with Scute
+    - implement I Ching service
+      - Special Pages (a la Wiki) e.g. list of resources (a la hypermedia discovery)
+    - tweak assembler to create another dataset, to support one Public + one Private
+    - implement authentication/authorization
+      - (see Seki on G+)
+      - Basic over HTTP for now
+      - ACL based on 
+        - http://www.w3.org/ns/auth/acl#
+        - see also http://ns.inria.fr/s4ac/v2/s4ac_v2.html
+        - roles as in Dominik's papers 
+          - http://www.w3.org/community/rww/wiki/AccessControl
+        - Bergi's vocab 
+          - http://ns.bergnet.org/tac/0.1/triple-access-control#
+        - SPIN
+          - http://spinrdf.org/spin.html
+          - http://spinrdf.org/sp.html
+      - http://trueg.wordpress.com/2012/03/19/you-do-not-need-to-know-rdf-or-foaf-to-use-webid/
+    - RemoteStorage (and similar) support
+      - http://tutorial.unhosted.5apps.com/
+      - http://www.firebase.com/how-it-works.html
+      - https://github.com/unhosted/openphoto#readme
+    - panopticlick auth check?
+      - https://www.eff.org/deeplinks/2010/01/primer-information-theory-and-privacy
+    - tweak input router to HTTPS as appropriate
+    - test with Virtuoso
+    - play with templates
+      - Go templates:
+        - https://plus.google.com/u/0/105544220472422222613/posts/UaU2pCTUFuk
+      - incorporate URI templates?
+      - DSL? 
+        - property paths
+        - pipelines
+        - affordances
+          - javascript in model
+    - look into deployment in Cloud
+      - http://www.amundsen.com/blog/archives/1116
+    - map to agent model
+      - https://secure.flickr.com/photos/danja/6788357883/
+      - https://secure.flickr.com/photos/danja/5558883807/
+    - pick another app to implement 
+      - incorporate project vocab
+        - bookmarker
+          - http://techcrunch.com/2012/04/12/fetchnotes-launches-a-simple-cloud-based-note-taking-service-that-twitter-users-will-love/
+          - +notes : tag QI (quick idea :)
+        - listy thing
+      - remember federation
+      - /stuff namespace
+        - http://open.vocab.org/
+    - something using VoID
+    - http://demo.lod2.eu/lod2demo
+    - http://data.totl.net/
+    - http://www.windley.com/archives/2012/03/ways_not_places.shtml
+    - http://wiki.webhooks.org/w/page/13385124/FrontPage
+    - http://code.google.com/p/elda/source/browse/elda-testing-webapp/src/test/java/com/epimorphics/lda/systemtest/ResponseStatusTests.java
+    - http://www.snee.com/bobdc.blog/2012/03/playing-with-sparql-graph-stor.html
+  - https://github.com/danja/seki and https://plus.google.com/b/102910670341143019851/
+  - Goals/Purpose/Aims?
+    - loosely-coupled platform
+    - facilitate connectivity
+      - minimizing impedance mismatch
+    - multi-instance
+    - everything is configurable
+      - monitor everything
+        - analytics
+    - test everything
+    - support information processing
+      - doc management, data management, message management
+    - refactor description
+      - current : Seki is a front-end to an independent SPARQL server using node.js
+      - new : Personal Linked Data Platform ??
+    - support all my planned apps :)
+      - yak shaving not bikeshedding!
+    - a target : Linked Data Profile - http://www.w3.org/Submission/2012/02/
+      - also http://www.w3.org/2012/ldp/charter#scope
+      - http://www.w3.org/2001/sw/wiki/TurtlePatch
+    - transparent federated queries
+      - point the query part at different stores
+        - also different for R/W
+    - caching ?? (watch get/update ratio, vary cache size correspondingly)
+    - scale 
+      - aim for ~10 million triples as typical usage
+      - dbPedia ~ 1 billion triples
+        - http://www.w3.org/wiki/RdfStoreBenchmarking
+      - re-read Fuseki & TDB docs
+        - optimiser
+  - First Application : serve I Ching data
+    - Aim (MVP)
+      - provide RDF and HTML representations of all (public) resources at individual deref'able URLs
+      - HTML representation will support link-based navigation and representation editing through forms
+    - clean source data, convert to rough RDF/XML (nearly done)
+    - load data
+      - one model for all hexagrams
+      - one model for vocabs (pipeline input)
+    - serve data
+      - page templates
+    - edit data via HTML forms
+  - Play
+    - visualizations: check: http://mbostock.github.com/d3/ex/
+  - Requirements (based on suggestions from @ephemerian and @kendall)
+    - I/O - that's what it's all about
+    - views/editing
+      - initially add hoc
+      - later Fresnel?
+        - http://www.w3.org/2005/04/fresnel-info/manual/ ?
+    - authentication 
+      - Basic over HTTPS
+      - https://github.com/magnetik/node-webid
+    - authorization 
+      - Private store contains ACL
+      - initially 
+        - Private store admin R/W only, inaccessible directly
+        - Public anyone R admin W
+    - logging 
+      - text - for debugging (must be a node util available)
+      - RDF model - for analytics
+    - federation
+      - it should be trivial to run federated queries
+      - SPARQL repository - prepared queries for e.g. selecting by shared interests
+    - bake/unbake
+    - caching
+    - text search
+    - throttling
+    - versioning
+      - layer on top
+    - support for Linked Data API
+      - http://code.google.com/p/linked-data-api/
+    - WebDAV
+  - Test Framework
+    - http://www.w3.org/2009/sparql/docs/tests/
+    - implementation
+      - use zombie for HTML bits
+      - // what would an RDF zombie look like?
+    - Design
+      - https://github.com/danja/seki/blob/dev/src/tests/notes.txt
+  - Common Graphs
+    - ACL
+    - event logs
+    - registry of other services/Seki instances (federation!)
+      - VoID
+    - SPARQL repository
+  - Nice to have
+    - data validation
+    - rules/reasoning/explanation/statistical stuff (much later!)
+  - UI - use more screen horizontally, with window-thing : http://www.wdyl.com/#linked+data
+  - Reference
+    - http://www.w3.org/community/rww/wiki/AccessControl
+    - http://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html
+    - http://trueg.wordpress.com/2012/03/15/webid-a-guide-for-the-clueless/
+    - http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
+    - http://www.w3.org/TR/HTTP-in-RDF10/
+    - http://prescod.net/rest/mistakes/
+    - http://javascript.infogami.com/Javascript_in_Ten_Minutes
+    - http://backbonejs.org/
+    - https://github.com/antoniogarrote/rdfstore-js
+    - http://howtonode.org/traitsjs
+    - http://betterexplained.com/articles/how-to-make-a-bookmarklet-for-your-web-application/
+    - https://github.com/shapeshed/nodejsbook.io.examples
+    - http://nodeguide.com/beginner.html
+    - http://css-tricks.com/snippets/html/post-data-to-an-iframe/
+    - 
+    - visualization
+      - you've got hypertext :
+        - http://journals.tdl.org/jodi/article/viewArticle/133/131
+      - pathetic fallacy
+        - http://swui.semanticweb.org/swui06/papers/Karger/Pathetic_Fallacy.html
+      - http://jesusabdullah.github.com/2011/02/26/plolt.html
+      - http://solutoire.com/flotr/
+      - http://bost.ocks.org/mike/hive/
+      - http://code.google.com/p/sgvizler/
+      - https://github.com/alangrafu/visualRDF#readme
+      - http://codinginparadise.org/projects/svgweb/docs/QuickStart.html
+      - http://mbostock.github.com/d3/ex/force.html
+  - App Ideas (see separate list)
+    - Data augmenter units
+      - http://api.duckduckgo.com/
+    - SPARQL repository
+    - blog
+    - Wiki
+      - https://www.jottit.com
+    - projects
+      - https://trello.com/
+    - general purpose recommender
+      - create a theme
+      - add items
+      - if you like this -> you'll like that
+    - SVG Whiteboard
+    - federated...
+    - http://ifttt.com/
+    - http://notebookjs.me/#
+    - allow Listy Thing *Pages*
+    - http://techcrunch.com/2012/04/12/fetchnotes-launches-a-simple-cloud-based-note-taking-service-that-twitter-users-will-love/
+    - webfinger thing
+      - http://tools.ietf.org/html/draft-jones-simple-web-discovery-02
+    - the dreaded RSS aggregator
+      - https://github.com/danmactough/node-feedparser
+    - http://ipython.org/ipython-doc/dev/interactive/htmlnotebook.html
+    - http://oli.web.cmu.edu/openlearning/forstudents/freecourses/media-programming
+    - http://bionicteaching.com/?p=2176
+    - Courseware
+      - http://sakaiproject.org/
+      - start by taking *exactly this* and expressing it in RDF
+        - http://www.inf.unibz.it/~franconi/dl/course/
+      - http://labs.mondeca.com/dataset/lov/details/vocabulary_crsw.html
+      - create a genuine course?
+    - natural history square metre
+      - microscope slide
+- 
+- Proc
+  - Agent Model
+    - agents message each other
+      - an agent is a computer = a computing unit
+        - diagram of computer
+        - http://www.c-jump.com/CIS77/CPU/VonNeumann/lecture.html
+  - XProc mapping (informative)
+  - Implementations
+    - framework for Executable RDF
+    - http://www.ifttt.com/
+    - Beeps - demo GA
+    - Synth 
+      - modules separated by HTTP!
+    - Neural nets (check available libs), classifiers etc
+      - http://harthur.github.com/brain/
+    - Data consumers
+      - anything2RDF set up declaratively, componentized
+        - Virtuososponges
+      - bit like Fresnel
+    - Data producers
+      - RDF2anything
+    - streaming things : xmpp, ircbot etc
+      - emailer?
+    - Testing
+      - Vocab Validator : Data Stars
+        - http://pedantic-web.org/tools.html
+        - remember Vapour
+        - RDF lint
+        - http://ebiquity.umbc.edu/blogger/2012/03/04/lov-secrets-of-the-real-ontologies-of-the-lod-cloud/
+        - http://greggkellogg.net/2012/03/18/a-new-rdfa-test-harness
+        - term for steward? https://plus.google.com/114406186864069390644/posts/8d239nCmf8d
+      - Seki see Seki
+    - zip compression chain - demo GA
+    - http://www.nada.kth.se/~viggo/problemlist/compendium.html
+  - Video!
+  - Parameters - refactor nitRandom
+  - Visualization
+    - http://code.google.com/p/sgvizler/
+    - http://code.google.com/apis/chart/interactive/docs/gallery/orgchart.html#Data_Format
+  - Dedicated editor
+  - Mad Ideas
+    - make a computer http://www.c-jump.com/CIS77/CPU/VonNeumann/lecture.html
+- Web Beeps
+  - Process Modelling
+    - http://www.w3.org/TR/xproc/
+    - self-replicating thing..?
+    - http://www.garshol.priv.no/blog/225.html
+  - more write-up
+  - "mail Web Beeps"
+  - bit of promo - podcasters
+  - recorder widget
+  - "add beep widget to your site"
+  - 
+  - vocab
+    - real-time vs. not
+    - monitoring - durations? heartbeat?
+  - Turtle generation
+    - describe() - visitor pattern?
+  - Cache-control
+  - http://code.google.com/p/rdf-pipeline/
+- Fuseki in a Box
+  - startup: 
+    - run locally
+    - connect to existing store
+  - panes
+    - add triples (model dropt-down)
+    - delete triples " + clear model
+    - query
+  - add IdeaGraph-style drop box for Upload to Cloud
+  - - nah, better: a directory that eats whatever you drop into it
+  - http://www.activestate.com/blog/2012/03/install-stackato-micro-cloud-one-command
+- SPICE Vocabulary : Resources
+  - Vocabulary homepage : http://purl.org/stuff/spice
+  - SPICE Reference
+    - Wikipedia : http://en.wikipedia.org/wiki/SPICE 
+    - The SPICE Page : http://bwrc.eecs.berkeley.edu/classes/icbook/spice/
+    - (Core) Circuit Elements : http://bwrc.eecs.berkeley.edu/classes/icbook/spice/UserGuide/elements_fr.html
+      - this may be scrapable for data
+  - RDF
+    - A Quick Intro (rather old, but still valid) http://www.rdfabout.com/quickintro.xpd
+    - RDF at the W3C (specifications etc) : http://www.w3.org/RDF/
+- Project vocab
+  - https://plus.google.com/107429617152575897589/posts/7pj84m9LT56
+- Affordances
+  - RDFPub
+    - http://www.amundsen.com/blog/archives/1083
+    - http://tools.ietf.org/html/rfc5023#section-5
+  - http://www.aaronsw.com/weblog/000931
+  - http://www.bbc.co.uk/news/business-16968125
+    - TiddlyWiki
+  - Named Graphs as modular programs
+    - components are literal javascript functions 
+      - possibly tied to queries
+      - https://github.com/antoniogarrote/rdfstore-js
+      - http://code.google.com/p/rdfquery/
+    - Entity/Component
+      - http://piemaster.net/2011/07/entity-component-primer/
+  - [gesture] does get on resource, including found triples in current graph
+  - http://stateless.co/hal_specification.html
+  - Intents
+    - http://designpush.pbworks.com/w/page/48061310/FrontPage
+    - http://www.makemedia.com/blog/2012/03/15/what-is-the-future-for-web-intents/
+- Named Graph (including agent stuff)
+  - JS nodes corresponding to methods for use in browser?
+  - simplest thing that could possible work!
+    - Affordances - document (graph)-level triples
+- Manuel
+  - as new kind of browser
+  - as game - link follower = game player
+    - two windows:
+      - Adventure-like text interactions
+        - change text colour for media type (doc web/data web)
+      - low-level net interactions 
+      - goals - answering a specifc question
+        - get folks to add Easter Eggs to data sets?
+  - potted queries etc. in online repository
+    - keyed off current URI (e.g. SPARQL endpoints)
+    - annotated -title, creator, date, description
+  - http://datatracker.ietf.org/doc/draft-gregorio-uritemplate/?include_text=1
+  - x = construct(endpointURI, query)
+    - http://talideon.com/weblog/2005/07/javascript-memoization.cfm
+- Scute
+  - Make usable as a text editor
+    - Ctrl-S saves etc.
+    - sort out tabs
+      - one model per tab?
+    - format source (do tabs)
+    - open Recent (files)
+  - Vocab Authoring Assistant (term reuse)
+    - point it to proposed vocab in Current graph
+    - give it an empty New graph 
+    - point it to known candidate vocabs - call them Existing
+      - ditto lov, sindice etc.
+    - for each of your terms:
+      - offer similar terms from Existing (with full descriptions)
+        - need similarity measure - algorithms?
+      - offer options:
+        - sameAs term in Existing
+          - (replace) 
+            - add advisory annotation to New
+          - (reference)
+            - add Current term, with sameAs Existing to New
+        - similar to existing
+          - creating statement in New involving term from Current, subClass | superClass / subProperty | superProperty Existing term
+          - copy relevant triples from Current to New
+        - genuinely new term
+          - copy relevant triples from Current to New 
+    - (save New) 
+    - check, if ok replace Current with New
+    - (later add doc generation tools - specgen or whatever)
+  - gnome-do style mode switcher
+    - better define modes - modeless UI!
+  - undo() - Command pattern
+  - evolve scratchpad into clipboard
+    - everything that goes on the system clipboard goes on the scratchpad
+    - gets minimized to icon
+    - mouseover to show contents, click to copy to clipboard
+  - make Help editable
+- Revisit Later
+  - Tokens
+    - http://dannyayers.com/stuff/token-thing/source.html
+    - icon on a page is a token : ■
+      - you can drag that token to the bookmarks bar
+      - (it's actually a link or script)
+    - empty box on a page is a token receiver : □
+      - you can drag a token from the bookmarks bar into the receiver
+      - (it's actually an <input> field)
+    - what to pass across?
+      - form associated with the token that you fill in
+      - when you pass the token along, it passes the data from the form fields
+    - http://en.wikipedia.org/wiki/Geometric_Shapes
+    - http://en.wikipedia.org/wiki/Information_card
+  - 
+- Interstices
+  - make model
+  - crawler for seeding images?
+  - sliders UI
+  - Mechanical Turk for seeding data?
+  - 
+- "How Should the Web Work?"
+  - open a browser, start typing
+  - modes stuff?
+  - why do I go to gmail.com when I want to see things related to danny.ayers@gmail.com?
+- Modules
+  - make pipelines a la beeps
+  - http://www.snee.com/bobdc.blog/2012/02/pull-rdf-metadata-out-of-jpegs.html
+  - http://apigee.com/about/products/free API toolkit
+- Principle - ??
+  - what's shown on blog is determined by a SPARQL query (+?)
+  - as the query is changed, what's shown changes in real time
+  - // and apply to layout
+  - which components are visible?
+- App Ideas
+  - Local server
+    - server-side component acts as proxy
+    - when disconnect, server offers cached
+  - analyze coverage of existing apps (a la Interstices)
+  - Idea Capture!
+    - include prj:helps etc
+  - Where are you?
+    - situated agents http://en.wikipedia.org/wiki/Situated
+    - agents a bit like tamagotchi
+    - quasi MOO
+    - rooms a la MUD
+      - like library rooms
+      - like IRC but associated with web resources
+      - when you are in a particular room, you can talk to others in that room
+      - MyRooms?
+    - post link bookmarklet a la del.icio.us
+    - background link follower/crawler
+    - notify when two people are nearby
+  - Link Aggregator
+    - http://www.linkrdr.com/links/add_feed/
+    - add subscription list : OPML/twitter/whatever
+    - accumulate contained links
+  - Listy Thing
+    - http://plcmcl2-things.blogspot.com/ 23 things
+    - http://danja.tiddlyspace.com/
+  - http://smiy.sourceforge.net/olo/spec/orderedlistontology.html
+  - http://notebookjs.me/#
+  - auto-comparison of items in different lists based on text search (like a two-way search)
+    - allow symlinking across: sameAs/seeAlso  (actualy sameTopicAs, dc:related?)
+  - Web Presentation : pages are slides
+    - preset
+      - put focus of a page on the link to next slide
+    - pre-recorded sequence of URLs (each a "slide")
+    - can record audio+cues to run
+  - Clonable
+    - http://www.clonestop.com/
+    - http://www.scriptcopy.com/
+    - StackOverflow clone
+      - https://github.com/anantgarg/Qwench
+    - quasi-REST auth: http://stackoverflow.com/questions/319530/restful-authentication
+  - Copy, Transform, Combine (remix vid)
+  - Pinterest, not just pictures
+    - https://pinboard.in/
+  - "Story Behind"/ find sources
+    - take a piece like: http://online.wsj.com/article/SB10001424052970203646004577213010291701378.html
+    - find the papers
+      - possibly;
+      - http://www.brainmusic.org/MBB91%20Webpage/Sloboda_1991.pdf
+      - http://psy2.ucsd.edu/~vjkpublications/pdf/2010%20The%20influence%20of%20affect%20on%20music%20choice%20Ch.25,%20H-book%20of%20M-E.pdf
+      - http://www.getcited.org/pub/102502981
+  - Why Wasn't I Consulted
+    - http://www.ftrain.com/wwic.html
+  - Least Interesting People
+    - along the lines of Facebook recommendations, but who you should unsubscribe from
+  - I did X because of Y
+    - e.g. I learnt how to use SPARQL because of <this post>
+  - Hearing test
+    - https://plus.google.com/u/0/112609322932428633493/posts/NKcC8DKoyHb
+  - https://piazza.com/
+  - Big Plans
+    - Personal Web Server Proxy service
+    - Algorithm repository
+    - lazyweb
+- ShareJS
+  - http://sharejs.org/
+  - http://lifehacker.com/5899346/co+meeting-is-google-wave+inspired-group-collaboration-tool
+  - remote pair programming
+  - Collaborative Comments : 
+    - blog sidebar
+      - live edit
+      - freeze button (with auth) - adds as comment
+  - Wiki
+  - Shared Lists
+    - on JSON objects? Turtle?
+    - http://plcmcl2-things.blogspot.com/
+      - http://the23thingsproject.pbworks.com/w/page/20848476/FrontPage
+        - 22 Design an Application
+  - see also
+    - http://flowingdata.com/2012/03/19/live-coding-implemented/
+    - http://ace.ajax.org/
+    - http://gabrielflor.it/
+- Daily
+  - 1/2 hr sites
+  - 1/2 hr reading
+- Blog
+  - remove @en from HTML!!!
+  - http://marshallk.com/add-one-line-to-your-blog-or-twitter-could-become-your-primary-identity
+  - mode switch: skimming/reading
+  - ACK button (a la Like, +1)
+  - http://www.addthis.com/features#.T2chE4xSQ-o
+  - pinterest buttons
+  - http://sharethis.com/
+  - normal | mobile version | navigation page | data | flesh version
+  - next/previous
+  - add left sidebar
+  - improve font, see http://www.tbray.org/ongoing/misc/Colophon
+  - link to Web Beep (My Projects)
+    - Web Beep for this post (next to title)
+  - fix G+ button
+  - fix archives
+  - http://labs.mondeca.com/sparqlEndpointsStatus/index.html
+  - Google Ads, analytics *everywhere*
+  - comments!!!
+  - add hit count property?
+  - add word count property
+  - wtf to do with http://hyperdata.org/microblog/
+  - "Buy Me a Coffee" - see
+  - VoID
+  - Red Pill/Green Pill
+  - http://aksw.org/Projects/RDFaCE
+  - oEmbed (for twitter)
+  - http://tinyurl.com/89g24gr
+- Sites
+  - Get everything nicely organised and linked
+  - add discrete adverts & analytics
+  - add RDF for everything - especially images, mp3 & vids
+  - microdata/RDFa on index pages (at least)
+    - templater?
+  - integrate with blog data
+  - 
+  - Stuff
+    - Woodcarving
+      - Jigs
+      - Knifes
+      - Tips
+    - Misc
+      - stone carving & paintings
+    - Tech
+- XMLNS
+  - creative 404s
+  - vocab wiki
+  - VoID
+- General
+  - Mailing List
+    - add links
+      - github pages
+      - blog
+      - etc.
+      - fix danny.ayers.name
+      - Position Statement
+      - FOAF
+      - dating page
+  - G+ pages for all domains & projects
+- Jottings
+  - Cloud = commodification of infrastructure (but - p@ : RaisetheUnitofcurrencytobeapplication&servicesinsteadofinfrastructure
+  - 
+- Creative Writing
+  - http://www.ted.com/talks/andrew_stanton_the_clues_to_a_great_story.html
+  - http://www.katsommers.com/projects/how-not-to-write-a-novel/
+- Plan A
+  - one person takes each app to MVP
+  - "make it happen"
+  - Golden Rules
+    - incremental improvements must always be possible
+      - when switching work activity, leave things so they can be restarted without effort
