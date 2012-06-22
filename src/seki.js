@@ -82,7 +82,7 @@ var files = {
 // Create a node-static server to serve the current directory
 //
 var file = new (static.Server)(config.wwwDir, {
-	cache : 7200
+	cache : false // temp while getting config right
 });
 
 // set it running
