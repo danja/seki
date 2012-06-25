@@ -16,6 +16,7 @@
 /*
  * library module imports
  */
+var sys = require('sys');
 var http = require('http');
 var fs = require('fs'); // filesystem module
 var qs = require('querystring'); // POST parameters parser
@@ -30,6 +31,7 @@ var verbose = true;
 var Constants = require('./Constants');
 var Utils = require('./Utils');
 
+var Authenticator = require('./Authenticator');
 var templater = require('./templater');
 var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
@@ -67,6 +69,12 @@ var postHeaders = {
 	'Content-Type' : 'application/x-www-form-urlencoded'
 };
 
+var notAuthHeaders = {
+		"Host" : config.sekiHost + ":" + config.sekiPort,
+		'Content-Type' : 'text/plain',
+		'WWW-Authenticate' : 'Basic realm="Secure Area"'
+	};
+
 /*
  * mapping URIs to static files on the filesystem
  * 
@@ -100,9 +108,10 @@ function onRequest(sekiRequest, sekiResponse) {
 	verbosity("REQUEST METHOD = " + sekiRequest.method);
 
 	// check for corresponding files on the filesystem
-	if (sekiRequest.method == "GET") {
+	if (sekiRequest.method == "GET" || sekiRequest.method == "HEAD") {
 		file.serve(sekiRequest, sekiResponse, function(err, res) {
 			if (err) { // the file doesn't exist, leave it to Seki
+	//			sys.error("Error serving " + sekiRequest.url + " - " + err.message); // temp for debugging
 			} else { // The file was served successfully
 				verbosity(sekiRequest.url + " - " + res.message);
 			}
@@ -110,7 +119,16 @@ function onRequest(sekiRequest, sekiResponse) {
 	}
 
 	verbosity("got past file server");
-
+	
+	var auth = new Authenticator();
+	
+	if (sekiRequest.method == "POST") {
+		if(!auth.Basic(sekiRequest)){
+			sekiResponse.writeHead(401, notAuthHeaders);
+			sekiResponse.end("401 Not Authorized");
+			return;
+		} 
+	}
 	// handle admin requests/commands
 	if (sekiRequest.method == "POST") {
 		if (sekiRequest.url.substring(0, 7) == "/admin/") {

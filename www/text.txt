@@ -1,0 +1,1 @@
+/home/danny/workspace-javascript/seki/misc/text.txt
