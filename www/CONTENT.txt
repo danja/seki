@@ -1,0 +1,5 @@
+The seki/www directory contains files that will be statically served.
+
+I've not yet figured out a good strategy for including some default material here (from git), while making it easy to replace it with custom material.
+
+In the interim I'll be putting content destined for hyperdata.org here, please ignore/replace on your own setup.
