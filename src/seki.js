@@ -70,10 +70,10 @@ var postHeaders = {
 };
 
 var notAuthHeaders = {
-		"Host" : config.sekiHost + ":" + config.sekiPort,
-		'Content-Type' : 'text/plain',
-		'WWW-Authenticate' : 'Basic realm="Secure Area"'
-	};
+	"Host" : config.sekiHost + ":" + config.sekiPort,
+	'Content-Type' : 'text/plain',
+	'WWW-Authenticate' : 'Basic realm="Secure Area"'
+};
 
 /*
  * mapping URIs to static files on the filesystem
@@ -90,7 +90,8 @@ var files = {
 // Create a node-static server to serve the current directory
 //
 var file = new (static.Server)(config.wwwDir, {
-	cache : false // temp while getting config right
+	cache : false
+// temp while getting config right
 });
 
 // set it running
@@ -111,7 +112,8 @@ function onRequest(sekiRequest, sekiResponse) {
 	if (sekiRequest.method == "GET" || sekiRequest.method == "HEAD") {
 		file.serve(sekiRequest, sekiResponse, function(err, res) {
 			if (err) { // the file doesn't exist, leave it to Seki
-	//			sys.error("Error serving " + sekiRequest.url + " - " + err.message); // temp for debugging
+				// sys.error("Error serving " + sekiRequest.url + " - " +
+				// err.message); // temp for debugging
 			} else { // The file was served successfully
 				verbosity(sekiRequest.url + " - " + res.message);
 			}
@@ -119,15 +121,15 @@ function onRequest(sekiRequest, sekiResponse) {
 	}
 
 	verbosity("got past file server");
-	
+
 	var auth = new Authenticator();
-	
+
 	if (sekiRequest.method == "POST") {
-		if(!auth.Basic(sekiRequest)){
+		if (!auth.Basic(sekiRequest)) {
 			sekiResponse.writeHead(401, notAuthHeaders);
 			sekiResponse.end("401 Not Authorized");
 			return;
-		} 
+		}
 	}
 	// handle admin requests/commands
 	if (sekiRequest.method == "POST") {
@@ -138,7 +140,7 @@ function onRequest(sekiRequest, sekiResponse) {
 				sekiResponse.writeHead(202, sekiHeaders);
 				sekiResponse.end("202 Accepted for command '" + command + "'");
 				admin[command](); // perhaps this should spawn a separate OS
-									// process?
+				// process?
 				return;
 			} else {
 				sekiResponse.writeHead(404, sekiHeaders);
@@ -154,13 +156,14 @@ function onRequest(sekiRequest, sekiResponse) {
 
 	// the URI used in the RDF
 	var resource = config.uriBase + sekiRequest.url;
+	console.log("RESOURCE = " + resource);
 	var accept = sekiRequest.headers["accept"];
 
 	if (accept && accept.indexOf("application/json") == 0) {
 		var handler = new JSONHandler();
 		return handler[sekiRequest.method]();
 	}
-	
+
 	// verbosity("Accept header =" + accept
 	// + accept.indexOf("application/rdf+xml" == 0));
 
@@ -169,17 +172,17 @@ function onRequest(sekiRequest, sekiResponse) {
 	if (sekiRequest.method == "GET") {
 		var queryTemplate;
 		var viewTemplate;
-		//= templater(htmlTemplates.viewTemplate);
-		
-		if(special[sekiRequest.url]) { 
+		// = templater(htmlTemplates.viewTemplate);
+
+		if (special[sekiRequest.url]) {
 			queryTemplate = special[sekiRequest.url].sparqlTemplate;
 			viewTemplate = special[sekiRequest.url].htmlTemplate;
 		}
-		
-//		console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
-//		console.log("queryTemplate = "+queryTemplate);
-//		console.log("viewTemplate = "+viewTemplate);
-		
+
+		// console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
+		// console.log("queryTemplate = "+queryTemplate);
+		// console.log("viewTemplate = "+viewTemplate);
+
 		if (accept && accept.indexOf("text/turtle") == 0) {
 			verbosity("text/turtle requested");
 			var handler = new TurtleHandler();
@@ -188,11 +191,11 @@ function onRequest(sekiRequest, sekiResponse) {
 		}
 
 		// Assume HTML is acceptable
-		
-		if(!queryTemplate) { // need smarter switching/lookup here
+
+		if (!queryTemplate) { // need smarter switching/lookup here
 			queryTemplate = sparqlTemplates.itemTemplate;
 		}
-		if(!viewTemplate) { // need smarter switching/lookup here
+		if (!viewTemplate) { // need smarter switching/lookup here
 			viewTemplate = htmlTemplates.itemTemplate;
 		}
 
@@ -227,10 +230,8 @@ function onRequest(sekiRequest, sekiResponse) {
 	if (sekiRequest.method == "POST") {
 		// verbosity("Start of POST");
 
-// check media type of data
-		
+		// check media type of data
 
-		
 		var post_body = '';
 
 		// request body may come in chunks, join them together
@@ -239,69 +240,91 @@ function onRequest(sekiRequest, sekiResponse) {
 		});
 
 		// now received body of request
-		sekiRequest.on('end', function() {
+		sekiRequest
+				.on(
+						'end',
+						function() {
 
-			// turn the POST parameters into JSON
-			var replaceMap = qs.parse(post_body);
-			
-			var queryTemplater;
-			if(replaceMap.target) { // if a target URI is specified, it's an annotation
-				queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
-			} else {
-				queryTemplater = templater(sparqlTemplates.insertTemplate);	
-			}
-			
-			replaceMap["date"] = new Date().toJSON();
-			var resourceType = replaceMap["type"];
-			
-			// URI wasn't specified so generate one (if a target URI has been specified
-			// use that as a seed)
-			if(!replaceMap["uri"] || replaceMap["uri"] == ""){
-					replaceMap["uri"] = Utils.mintURI(replaceMap["target"]);
-			}
-			
-			// graph wasn't specified so create named graph
-			if(!replaceMap["graph"] || replaceMap["graph"] == ""){
-					replaceMap["graph"] = replaceMap["uri"];
-			}
-			replaceMap["type"] = Constants.rdfsTypes[resourceType];
-				
-			// verbosity("ReplaceMap = "+JSON.stringify(replaceMap));
+							// turn the POST parameters into JSON
+							var replaceMap = qs.parse(post_body);
 
-			// can now make the query
-			var sparql = queryTemplater.fillTemplate(replaceMap);
+							verbosity("post_body \n" + post_body);
+							verbosity("replaceMap \n" + replaceMap);
 
-			/*
-			 * make the request to the SPARQL server the update has to be POSTed
-			 * to the SPARQL server
-			 */
-			var clientRequest = client.request("POST",
-					config.sparqlUpdateEndpoint, postHeaders);
+							var queryTemplater;
+							if (replaceMap.target) { // if a target URI is
+														// specified, it's an
+														// annotation
+								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
+							} else {
+								queryTemplater = templater(sparqlTemplates.insertTemplate);
+							}
 
-			// send the update query as POST parameters
-			clientRequest.write(qs.stringify({
-				"update" : sparql
-			}));
+							replaceMap["date"] = new Date().toJSON();
+							var resourceType = replaceMap["type"];
 
-			// verbosity(queryPath);
-			// verbosity(post_body);
-			// verbosity(sparql);
+							// URI wasn't specified so generate one (if a target
+							// URI has been specified
+							// use that as a seed)
+							if (!replaceMap["uri"] || replaceMap["uri"] == "") {
+								replaceMap["uri"] = Utils
+										.mintURI(replaceMap["target"]);
+							}
 
-			clientRequest.end();
+							// graph wasn't specified so create named graph
+							if (!replaceMap["graph"]
+									|| replaceMap["graph"] == "") {
+								replaceMap["graph"] = replaceMap["uri"];
+							}
+							replaceMap["type"] = Constants.rdfsTypes[resourceType];
 
-			// handle the response from the SPARQL server
-			clientRequest.on('response', function(queryResponse) {
+							verbosity("resource type \n" + resourceType);
+							verbosity("type \n"
+									+ Constants.rdfsTypes[resourceType]);
 
-				var relativeUri = replaceMap.uri
-						.substring(config.uriBase.length);
+							// verbosity("ReplaceMap =
+							// "+JSON.stringify(replaceMap));
 
-				// do a redirect to the new item
-				sekiHeaders2["Location"] = relativeUri;
-				sekiResponse.writeHead(303, sekiHeaders2);
-				// all done
-				sekiResponse.end();
-			});
-		});
+							// can now make the query
+							var sparql = queryTemplater
+									.fillTemplate(replaceMap);
+
+							verbosity("POST UPDATE \n" + sparql);
+							/*
+							 * make the request to the SPARQL server the update
+							 * has to be POSTed to the SPARQL server
+							 */
+							var clientRequest = client.request("POST",
+									config.sparqlUpdateEndpoint, postHeaders);
+
+							// send the update query as POST parameters
+							clientRequest.write(qs.stringify({
+								"update" : sparql
+							}));
+
+							// verbosity(queryPath);
+							// verbosity(post_body);
+							// verbosity(sparql);
+
+							clientRequest.end();
+
+							// handle the response from the SPARQL server
+							clientRequest
+									.on(
+											'response',
+											function(queryResponse) {
+
+												var relativeUri = replaceMap.uri
+														.substring(config.uriBase.length);
+
+												// do a redirect to the new item
+												sekiHeaders2["Location"] = relativeUri;
+												sekiResponse.writeHead(303,
+														sekiHeaders2);
+												// all done
+												sekiResponse.end();
+											});
+						});
 	}
 }
 
@@ -310,13 +333,12 @@ function onRequest(sekiRequest, sekiResponse) {
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 
-	if(!viewTemplate){
+	if (!viewTemplate) {
 		viewTemplate = htmlTemplates.postViewTemplate;
 	}
 	// set up HTML builder
 	var viewTemplater = templater(viewTemplate);
-	
-	
+
 	// verbosity("GOT RESPONSE viewTemplate "+viewTemplate);
 
 	var saxer = require('./srx2map');
@@ -333,16 +355,18 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 		stream.end();
 
 		var bindings = stream.bindings;
-		
+
 		verbosity("bindings " + JSON.stringify(bindings));
 		verbosity("bindings.uri " + bindings.uri);
-		
-		if (bindings != {}) { // // this is shite
+
+		if (bindings.title) { // // this is shite
+			// if (bindings != {}) { // // this is shite
 			verbosity("here GOT: " + JSON.stringify(bindings));
 			// verbosity("TITLE: " + bindings.title);
 			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
 			var html = viewTemplater.fillTemplate(bindings);
+		} else {
 			verbosity("404");
 			sekiResponse.writeHead(404, sekiHeaders);
 			// /////////////////////////////// refactor
@@ -351,13 +375,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 				"uri" : resource
 			};
 			var html = creativeTemplater.fillTemplate(creativeMap);
-			// ///////////////////////////////////////////
-			// serveFile(sekiResponse, 404, files["404"]);
-			// return;
 		}
-		// sekiResponse.writeHead(200, {'Content-Type': 'text/plain'});
-		// verbosity("HERE "+html);
-		// sekiResponse.write(html, 'binary');
 		sekiResponse.end(html);
 	});
 };

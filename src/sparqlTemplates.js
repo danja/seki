@@ -30,7 +30,7 @@ var sparqlTemplates = {
         INSERT DATA { \
         GRAPH <%graph%>{\
         \
-        <%uri%> a <%type%> ;\
+        <%uri%> a %type% ;\
            dcterms:title \"%title%\";\
            sioc:content \"%content%\" ;\
            foaf:maker [ foaf:nick \"%nick%\" ] ;\
@@ -45,7 +45,7 @@ var sparqlTemplates = {
             INSERT DATA { \
             GRAPH <%graph%>{\
             \
-            <%uri%> a <%type%> ;\
+            <%uri%> a %type% ;\
                x:target <%target%> ;\
                dcterms:title \"%title%\";\
                sioc:content \"%content%\" ;\

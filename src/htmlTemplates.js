@@ -44,7 +44,7 @@ var htmlTemplates = {
 				</head> \
 		    <body> \
 		  <h1>Create new page</h1> \
-<form action='/post' method='post'> \
+<form action='/post' method='post'> \  <input type='hidden' value='post' name='type' /> \
   <label for='uri'>Item URI</label> \
   <input type='text' name='uri' id='uri' value='%uri%' /> \
   <label for='title'>Title</label> \
