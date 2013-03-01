@@ -18,7 +18,9 @@ var options = {
     'spikeandwave.com': '67.207.128.128:8005',
     'www.spikeandwave.com': '67.207.128.128:8005',
     'pragmatron.org': '67.207.128.128:8888',
-    'www.pragmatron.org': '67.207.128.128:8888'
+    'www.pragmatron.org': '67.207.128.128:8888',
+    'deborahayers.co.uk': '67.207.128.128:8005',
+    'www.deborahayers.co.uk': '67.207.128.128:8005'
   }
 };
 
