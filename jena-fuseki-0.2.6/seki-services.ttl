@@ -1,0 +1,97 @@
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix f:  <http://jena.apache.org/fuseki#> .
+@prefix :        <#> .
+
+[] rdf:type f:Server ;
+   # Server-wide context parameters can be given here.
+   # For example, to set query timeouts: on a server-wide basis:
+   # Format 1: "1000" -- 1 second timeout
+   # Format 2: "10000,60000" -- 10s timeout to first result, then 60s timeout to for rest of query.
+   # See java doc for ARQ.queryTimeout
+   # ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "10000" ] ;
+
+   # Load custom code (rarely needed)
+   # ja:loadClass "your.code.Class" ;
+
+   # Services available.  Only explicitly listed services are configured.
+   #  If there is a service description not linked from this list, it is ignored.
+   f:services (
+     <#private>
+     <#public>
+     <#transient>
+   ) .
+   
+#########################################
+## Public Service : main datastore     ##
+##                                     ##
+## Updatable TDB-backed dataset        ##
+#########################################
+
+ <#public>  rdf:type f:Service ;
+    f:name              "public" ;       # http://host:port/tdb
+    f:serviceQuery      "sparql" ;    # SPARQL query service
+    f:serviceUpdate              "update" ;   # SPARQL query service
+    f:serviceUpload              "upload" ;   # Non-SPARQL upload service
+    f:serviceReadWriteGraphStore "data" ;     # SPARQL Graph store protocol (read and write)
+    # A separate ead-only graph store endpoint:
+    f:serviceReadGraphStore      "public" ;      # SPARQL Graph store protocol (read only)
+    f:dataset                   <#publicDataset> .
+
+<#publicDataset> rdf:type      tdb:DatasetTDB ;
+    tdb:location "PublicDB" ;
+    # Query timeout on this dataset (1s, 1000 milliseconds)
+    ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
+    # Make the default graph be the union of all named graphs.
+    ## tdb:unionDefaultGraph true ;
+     .
+     
+#?? [] ja:loadClass "com.hp.hpl.jena.tdb.TDB" .
+
+
+ 
+    
+#########################################
+## Private Service : ACL etc.          ##
+##                                     ##
+## Updatable TDB-backed dataset        ##
+#########################################
+
+ <#private>  rdf:type f:Service ;
+    f:name              "private" ;       # http://host:port/private
+    f:serviceQuery      "privateSparql" ;    # SPARQL query service
+    f:serviceUpdate              "privateUpdate" ;   # SPARQL query service
+    f:serviceUpload              "privateUpload" ;   # Non-SPARQL upload service
+    f:serviceReadWriteGraphStore "privateData" ;     # SPARQL Graph store protocol (read and write)
+    f:dataset                   <#privateDataset> .
+
+
+<#privateDataset> rdf:type      tdb:DatasetTDB ;
+    tdb:location "PrivateDB" ;
+    # Query timeout on this dataset (1s, 1000 milliseconds)
+    ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] .
+    
+    # Make the default graph be the union of all named graphs.
+    ## tdb:unionDefaultGraph true 
+     
+
+ 
+#########################################
+## Temp Service :      working memory  ##
+##                                     ##
+## Updatable in-memory dataset         ##
+#########################################
+
+<#temp> rdf:type f:Service ;
+    f:name                       "temp" ;       # http://host:port/temp
+    f:serviceQuery               "tempSparql" ;   # SPARQL query service
+    f:serviceUpdate              "tempUpdate" ;   # SPARQL query service
+    f:serviceUpload              "tempUpload" ;   # Non-SPARQL upload service
+    f:serviceReadWriteGraphStore "tempData" ;     # SPARQL Graph store protocol (read and write)
+    # A separate ead-only graph store endpoint:
+    f:serviceReadGraphStore      "tempGet" ;      # SPARQL Graph store protocol (read only)
+    f:dataset                   <#datasetTemp> .
+    
+<#datasetTemp> rdf:type ja:RDFDataset .  

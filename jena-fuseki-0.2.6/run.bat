@@ -1,0 +1,1 @@
+java -Xmx1200M -jar fuseki-server.jar --update --desc tdb.ttl /seki

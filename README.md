@@ -34,8 +34,8 @@ See contents.txt in individual folders for description.
 Installation/running is easy : 
 
 * install node.js (or copy node.exe into the src dir)
-* run Fuseki using Fuseki-0.2.0/run.bat (make executable first on *nix)
-* node seki.js 
+* run Fuseki using jena-fuseki-0.2.6/run.bat (make executable first on *nix)
+* in another terminal: node seki.js 
 * point a browser at http://localhost:8888/seki/ 
 
 post data should have URIs of the form http://hyperdata.org/seki/Hello

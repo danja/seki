@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Fifty Shades of REST</title>
+  <meta name="generator" content="Amaya, see http://www.w3.org/Amaya/" />
+  <link rel="stylesheet" href="../css/spec-rec.css" type="text/css"
+  media="screen" />
+</head>
+
+<body>
+<h1>Fifty Shades of REST</h1>
+
+<p>I recently found myself working on a Web API and I need to explain my design
+decisions so it seemed a good idea to try and pull together background notes as
+well. Before going any further, I should make clear that the title here isn't
+strictly accurate, the material here is about APIs that involve HTTP, with REST
+only being one aspect of that.</p>
+<ul>
+  <li>RPC Style</li>
+  <li>Endpoint Style</li>
+  <li>Query Style</li>
+  <li>True REST</li>
+</ul>
+
+<p>VIE</p>
+
+<p>Authentication</p>
+
+<p>Metadata helpers : WSDL, WADL, RDF - discovery DOAP</p>
+
+<p>linked data 5*</p>
+
+<p>methods</p>
+
+<p>JDBC/ODBC</p>
+
+<p>Roy on POST</p>
+
+<p>separation of concerns</p>
+
+<p></p>
+
+<h2>Resources</h2>
+
+<h3>Resource Naming</h3>
+
+<p>Give Yourself a URI</p>
+
+<p>no .asp</p>
+
+<p></p>
+
+<h3></h3>
+
+<h2>Resources vs. Representations</h2>
+
+<p>Content Negotiation</p>
+
+<p>media types</p>
+
+<h3>Changing a Representation</h3>
+
+<p>It's very easy to lose sight of the relationship between resources and their
+representations. This happened to me not long ago when I posted to a list
+asking for clarification of the expectations for the PUT verb. The responses I
+got were very helpful in bringing things back into focus. Although I had PUT in
+mind, conceptually the situation is the same for any method that changes a
+representation.</p>
+
+<p>The scenario is that the server supports mutliple media types for each
+resource. When a client does a PUT against a given resource, this will have a
+specific media type, in other words it'll be a single representation of the
+resource. The question is, how should this influence other representations of
+the resource?</p>
+
+<p>Say <code>http://example.org/basil</code> is my dog Basil [note
+httpRange-14], and three representations are made available : one is a Web page
+about him, another a photo, the third his vital statistics. These
+representations are in formats <code>"text/html"</code>,
+<code>"image/jpeg"</code> and <code>"text/turtle"</code> respectively. One of
+the pieces of information about Basil is where he lives. So the relevant parts
+of the representations might look something like this:</p>
+
+<p></p>
+
+<p><strong>HTML</strong><strong> :</strong> <code>&lt;p&gt;Basil lives at
+Mozzanella 7&lt;/p&gt;</code></p>
+
+<p></p>
+
+<p>JPEG : [photo]</p>
+
+<p></p>
+
+<p><strong>Turtle :</strong> <code>&lt;http://example.org/basil&gt;
+:streetAddress "Mozzanella 7" .</code></p>
+
+<p></p>
+
+<p>But then Basil moves across the road to number 10. There are a few ways a
+client might notify the server of this, in practice a POST from a HTML form
+would be the most likely, a PATCH might also be appropriate if the server
+supported this. But for the sake of argument, assume we've got a rich client
+that does a PUT like so:</p>
+
+<p><code>HTTP 1.1 PUT</code></p>
+
+<p><code>&lt;http://example.org/basil&gt; :streetAddress "Mozzanella 10"
+.</code></p>
+
+<p></p>
+
+<p>According to the HTTP spec, a PUT ...</p>
+
+<p>But we want to continue providing both representations, and to keep them
+up-to-date. So it would be reasonable to expect the new value to percolate
+through the system (likely a backend database) and now provide a HTML
+representation that looks like:</p>
+
+<p></p>
+
+<p><code>&lt;p&gt;Basil lives at Mozzanella 10&lt;/p&gt;</code></p>
+
+<p></p>
+
+<p>But what of the image of him? His physical appearance won't have changed, so
+the same photo, the "image/jpeg" representation can be reused.</p>
+
+<p>All that the system is contractually obliged to do is ensure the
+representations of a resource are just that (and the bottom line is essentially
+human judgement). Obviously a photo of my dog Sasha wouldn't be appropriate at
+<code>http://example.org/basil</code>, but beyond things like that it really
+has to be considered on a case-by-case basis.</p>
+
+<p></p>
+
+<h2>HATEOS</h2>
+
+<p>Affordances</p>
+
+<p></p>
+
+<p><a href="#References">References</a></p>
+
+<p><a href="#Also">See Also</a></p>
+
+<p></p>
+
+<p></p>
+
+<h3><a id="References">References</a></h3>
+<ul>
+  <li><a href="http://roy.gbiv.com/">Roy T. Fielding</a> : <a
+    href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representational
+    State Transfer (REST)</a></li>
+</ul>
+
+<p></p>
+
+<p></p>
+
+<h3><a id="Also">See Also</a></h3>
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/Fifty_Shades_of_Grey">Fifty Shades
+    of Grey</a></li>
+</ul>
+
+<p></p>
+</body>
+</html>
