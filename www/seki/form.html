@@ -94,14 +94,14 @@ tinyMCE_GZ.init({
 <h4>RDFa Content Editor -- Demo</h4>
 <form method="post"
   action="/post">
-<div><textarea id="elm1" name="elm1" rows="20" cols="70"
+<div><textarea id="content" name="content" rows="20" cols="70"
   style="width: 80%" class="tinymce">
 <h2>The University of Leipzig celebrated its 600th anniversary</h2>
 <p><span style="color: #c0c0c0;">Date:</span> <span style="color: #cc99ff;">December 2009</span></p>
-<p>The University of Leipzig is the second oldest in Germany, after the Ruprecht-Karl University in Heidelberg (founded 1385), to<img src="../../../ulpz.png" style="float: right;" height="113" width="113" /> have performed research and teaching activities without interruption since its foundation.&nbsp; It was formally opened on 2 December 1409 in the presence of the Wettin rulers, Margraves Frederick and William, in the refectorium of St. Thomas' monastery.</p>
+<p>The University of Leipzig is the second oldest in Germany, after the Ruprecht-Karl University in Heidelberg (founded 1385), to have performed research and teaching activities without interruption since its foundation.&nbsp; It was formally opened on 2 December 1409 in the presence of the Wettin rulers, Margraves Frederick and William, in the refectorium of St. Thomas' monastery.</p>
 <p>Today, the University of Leipzig is one of the most renowned in Europe.&nbsp; Around 50 Nobel laureates, including Theodor Mommsen, Wilhelm Ostwald and Werner Heisenberg, had close links to the University.&nbsp; Many famous personalities, including Johann Wolfgang von Goethe, Gottfried Wilhelm Leibniz, Friedrich Nietzsche and Richard Wagner, as well as the German Chancellor, Angela Merkel, studied here.<br /><br /></p> </textarea></div>
 <br><div align="left">
-<a href="javascript:;" onclick="alert($('#elm1').tinymce().selection.getContent());return false;">[Get selected HTML]</a>
+<a href="javascript:;" onclick="alert($('#content').tinymce().selection.getContent());return false;">[Get selected HTML]</a>
  <input type="reset" name="reset" value="Reset" />&nbsp;<input type="submit" name="submit" value="Submit" />&nbsp;
 <span about="http://" style="border: 1px solid #8aadd6;">about</span>&nbsp;&nbsp;
 <span typeof="foaf:type" style="border: 1px solid #88cc00;border-radius: 15px 15px 15px 15px; ">typeof</span>&nbsp;&nbsp;
@@ -151,10 +151,6 @@ tinyMCE_GZ.init({
     alert("The examples might not work properly on the local file system due to security settings in your browser. Please use a real webserver.");
   }
 </script>
-<hr>
-How did you find RDFaCE? <a href="http://rdface.limequery.com/34737/lang-en">Your Feedback</a>.<br>
-Wanna try RDFaCE-Lite as well? Click <a href="http://rdface.aksw.org/lite/">here</a> for a demo.<br>
-Created by <a href="http://aksw.org">AKSW research group</a>.<br>
-For more information: <a href="http://aksw.org/Projects/RDFaCE">RDFaCE Project Page</a>
+
 </body>
 </html>
