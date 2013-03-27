@@ -23,7 +23,7 @@ var fs = require('fs'); // filesystem module
 var static = require('node-static');
 
 
-// refactor verbosity out (is also in PostHandler)
+// @TODO refactor verbosity out (is also in PostHandler and GetHandler)
 var verbose = true;
 
 /*
@@ -35,15 +35,16 @@ var Utils = require('./Utils');
 
 var Authenticator = require('./Authenticator');
 var templater = require('./templater');
-var sparqlTemplates = require('./sparqlTemplates');
+// var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./htmlTemplates');
 
 var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
 var config = require('./ConfigDefault').config;
-var special = require('./SpecialPages');
+// var special = require('./SpecialPages');
 
+var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
 
 var sekiHeaders = {
@@ -59,10 +60,7 @@ var graphHeaders = {
 	"Host" : config.sekiHost + ":" + config.sekiPort
 };
 
-var sparqlHeaders = {
-	"Accept" : "application/sparql-results+xml",
-	"Host" : config.sekiHost + ":" + config.sekiPort
-};
+
 
 
 
@@ -152,8 +150,10 @@ function onRequest(sekiRequest, sekiResponse) {
 	var client = http.createClient(config.sparqlPort, config.sparqlHost);
 
 	// the URI used in the RDF
-	var resource = config.uriBase + sekiRequest.url;
-	console.log("RESOURCE = " + resource);
+	// var resource = config.uriBase + sekiRequest.url;
+	// console.log("RESOURCE = " + resource);
+	
+	// this is duplicated in GetHandler.js
 	var accept = sekiRequest.headers["accept"];
 
 	if (accept && accept.indexOf("application/json") == 0) {
@@ -167,61 +167,8 @@ function onRequest(sekiRequest, sekiResponse) {
 	// TODO pull these out into separate per-media type handlers
 	// use pattern as for JSONHandler
 	if (sekiRequest.method == "GET") {
-		var queryTemplate;
-		var viewTemplate;
-		// = templater(htmlTemplates.viewTemplate);
-
-		if (special[sekiRequest.url]) {
-			queryTemplate = special[sekiRequest.url].sparqlTemplate;
-			viewTemplate = special[sekiRequest.url].htmlTemplate;
-		}
-
-		// console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
-		// console.log("queryTemplate = "+queryTemplate);
-		// console.log("viewTemplate = "+viewTemplate);
-
-		if (accept && accept.indexOf("text/turtle") == 0) {
-			verbosity("text/turtle requested");
-			var handler = new TurtleHandler();
-			handler.GET(resource, sekiResponse);
-			return;
-		}
-
-		// Assume HTML is acceptable
-
-		if (!queryTemplate) { // need smarter switching/lookup here
-			queryTemplate = sparqlTemplates.itemTemplate;
-		}
-		if (!viewTemplate) { // need smarter switching/lookup here
-			viewTemplate = htmlTemplates.itemTemplate;
-		}
-
-		// build the query
-		var queryTemplater = templater(queryTemplate);
-		var replaceMap = {
-			"uri" : resource
-		};
-		var sparql = queryTemplater.fillTemplate(replaceMap);
-
-		// build the URL from the query
-		var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
-
-		// make the request to the SPARQL server
-		var clientRequest = client.request("GET", queryPath, sparqlHeaders);
-
-		// verbosity("QUERY = "+sparql);
-
-		// handle the response from the SPARQL server
-		clientRequest.on('response', function(queryResponse) {
-			serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
-		});
-
-		// finish up
-		sekiRequest.on('end', function() {
-			// verbosity("End of sekiRequest");
-			clientRequest.end();
-		});
-		return;
+		var getHandler = new GetHandler();
+		getHandler.handle(client, sekiRequest, sekiResponse);
 	}
 
 	if (sekiRequest.method == "POST") {
@@ -231,57 +178,7 @@ function onRequest(sekiRequest, sekiResponse) {
 	}
 }
 
-/*
- * Handles GET requests (typically from a browser)
- */
-function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 
-	if (!viewTemplate) {
-		viewTemplate = htmlTemplates.postViewTemplate;
-	}
-	// set up HTML builder
-	var viewTemplater = templater(viewTemplate);
-
-	// verbosity("GOT RESPONSE viewTemplate "+viewTemplate);
-
-	var saxer = require('./srx2map');
-	var stream = saxer.createStream();
-
-	sekiResponse.pipe(stream);
-
-	queryResponse.on('data', function(chunk) {
-		stream.write(chunk);
-	});
-
-	queryResponse.on('end', function() {
-
-		stream.end();
-
-		var bindings = stream.bindings;
-
-		verbosity("bindings " + JSON.stringify(bindings));
-		verbosity("bindings.uri " + bindings.uri);
-
-		if (bindings.title) { // // this is shite
-			// if (bindings != {}) { // // this is shite
-			verbosity("here GOT: " + JSON.stringify(bindings));
-			// verbosity("TITLE: " + bindings.title);
-			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
-			sekiResponse.writeHead(200, sekiHeaders);
-			var html = viewTemplater.fillTemplate(bindings);
-		} else {
-			verbosity("404");
-			sekiResponse.writeHead(404, sekiHeaders);
-			// /////////////////////////////// refactor
-			var creativeTemplater = templater(htmlTemplates.creativeTemplate);
-			var creativeMap = {
-				"uri" : resource
-			};
-			var html = creativeTemplater.fillTemplate(creativeMap);
-		}
-		sekiResponse.end(html);
-	});
-};
 
 /*
  * Reads a file from the filesystem and writes its data to response (typically a
