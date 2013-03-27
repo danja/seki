@@ -9,10 +9,10 @@ exports.normalizeXmlSpaces = function normalizeXmlSpaces(string) {
 
 exports.client = function client(clientMethod, clientHeaders, callback) {
 	try {
-		var config = require('../config').config;
+		var config = require('../ConfigCustom').config;
 	} // fall back on config-default.js
 	catch (e) {
-		var config = require('../config-default').config;
+		var config = require('../ConfigDefault').config;
 	}
 
 	var options = {

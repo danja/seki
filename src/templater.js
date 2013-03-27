@@ -17,7 +17,8 @@ function templater(template) {
 
       // suppose it could be done with map() but I reckon this is clearer
       for ( var name in replacementMap) {
-        // regular expression, "g" means global (every occurrance)
+    	//  console.log("Name = "+name+"    replacementMap[name] = "+replacementMap[name]);
+        // regular expression, "g" means global (every occurrence)
         var reg = new RegExp("%" + name + "%", "g");
         template = template.replace(reg, replacementMap[name]);
       }
