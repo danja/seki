@@ -30,18 +30,18 @@ var verbose = true;
  * Seki support scripts imports
  */
 
-var Constants = require('./Constants');
+var Constants = require('./config/Constants');
 var Utils = require('./Utils');
 
 var Authenticator = require('./Authenticator');
-var templater = require('./templater');
+var templater = require('./templates/Templater');
 // var sparqlTemplates = require('./sparqlTemplates');
-var htmlTemplates = require('./htmlTemplates');
+var htmlTemplates = require('./templates/HtmlTemplates');
 
 var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
-var config = require('./ConfigDefault').config;
+var config = require('./config/ConfigDefault').config;
 // var special = require('./SpecialPages');
 
 var GetHandler = require('./GetHandler');
@@ -59,10 +59,6 @@ var graphHeaders = {
 	"Accept" : "text/turtle",
 	"Host" : config.sekiHost + ":" + config.sekiPort
 };
-
-
-
-
 
 var notAuthHeaders = {
 	"Host" : config.sekiHost + ":" + config.sekiPort,

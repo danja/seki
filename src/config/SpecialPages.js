@@ -1,5 +1,5 @@
-var sparqlTemplates = require('./sparqlTemplates');
-var htmlTemplates = require('./htmlTemplates');
+var sparqlTemplates = require('../templates/SparqlTemplates');
+var htmlTemplates = require('../templates/HtmlTemplates');
 
 var special = {
 		"/graphs" : {

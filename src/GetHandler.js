@@ -1,8 +1,8 @@
-var special = require('./SpecialPages');
-var templater = require('./templater');
-var sparqlTemplates = require('./sparqlTemplates');
-var htmlTemplates = require('./htmlTemplates');
-var config = require('./ConfigDefault').config;
+var special = require('./config/SpecialPages');
+var templater = require('./templates/Templater');
+var sparqlTemplates = require('./templates/SparqlTemplates');
+var htmlTemplates = require('./templates/HtmlTemplates');
+var config = require('./config/ConfigDefault').config;
 
 var verbose = true;
 

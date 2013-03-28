@@ -7,8 +7,8 @@ exports.testTemplater = function(test){
 var assert = require("assert");
 var testHelpers = require("./testHelpers");
 
-var templater = require('../templater');
-var htmlTemplates = require('../htmlTemplates');
+var templater = require('../templates/Templater');
+var htmlTemplates = require('../templates/HtmlTemplates');
 
 var map = {"title": "TITLE", "content": "CONTENT", "nick": "NICK", "date": "DATE"};
 

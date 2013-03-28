@@ -1,8 +1,8 @@
 var qs = require('querystring'); // POST parameters parser
-var sparqlTemplates = require('./sparqlTemplates');
-var templater = require('./templater');
-var Constants = require('./Constants');
-var config = require('./ConfigDefault').config;
+var sparqlTemplates = require('./templates/SparqlTemplates');
+var templater = require('./templates/Templater');
+var Constants = require('./config/Constants');
+var config = require('./config/ConfigDefault').config;
 
 var verbose = true;
 

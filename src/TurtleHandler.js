@@ -1,8 +1,8 @@
 var http = require('http');
 
-var config = require('./ConfigDefault').config;
-var sparqlTemplates = require('./sparqlTemplates');
-var headers = require('./Headers');
+var config = require('./config/ConfigDefault').config;
+var sparqlTemplates = require('./templates/SparqlTemplates');
+var headers = require('./config/Headers');
 
 // Constructor
 function TurtleHandler() {
