@@ -1,6 +1,6 @@
 curl -i -H "Accept: application/json" http://localhost:8888/A
 
-curl -i -H "Accept: text/turtle" http://localhost:8888/Hello
+curl -i -H "Accept: text/turtle" http://localhost:8888/Thursday
 
 see http://blogs.plexibus.com/2009/01/15/rest-esting-with-curl/
 

@@ -5,10 +5,9 @@
 
 var htmlTemplates = {
 
-	uriList : "<!DOCTYPE html> \
-			  <html> \
+	uriList : "<html xmlns='http://www.w3.org/1999/xhtml'> \
 			    <head> \
-			      <meta charset=\"utf-8\"> \
+			      <meta charset=\"utf-8\" /> \
 			      <title>%title%</title> \
 			    </head> \
 			    <body> \
@@ -20,10 +19,9 @@ var htmlTemplates = {
 			  </html> \
 			  ",
 
-	postViewTemplate : "<!DOCTYPE html> \
-<html> \
+	postViewTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
   <head> \
-    <meta charset=\"utf-8\"> \
+    <meta charset=\"utf-8\" /> \
     <title>%title%</title> \
   </head> \
   <body> \
@@ -34,9 +32,8 @@ var htmlTemplates = {
 </html> \
 ",
 
-	creativeTemplate : "<!DOCTYPE html> \
-	  <html> \
-    <head><meta charset='utf-8'> \
+	creativeTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
+    <head><meta charset='utf-8' /> \
 				<title>Create new page</title> \
 				<style type='text/css'> \
 					label {float:left; clear:left; width:12em; margin:0em 1em; text-align:right;} \

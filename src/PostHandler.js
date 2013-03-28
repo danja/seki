@@ -7,27 +7,27 @@ var config = require('./config/ConfigDefault').config;
 var verbose = true;
 
 var postHeaders = {
-		"Accept" : "application/sparql-results+xml",
-		"Host" : config.sekiHost + ":" + config.sekiPort,
-		'Content-Type' : 'application/x-www-form-urlencoded'
-	};
+	"Accept" : "application/sparql-results+xml",
+	"Host" : config.sekiHost + ":" + config.sekiPort,
+	'Content-Type' : 'application/x-www-form-urlencoded'
+};
 
-//this version will be modified
+// this version will be modified
 var sekiHeaders2 = {
 	"Content-type" : "text/html; charset=utf-8"
 };
 
-//Constructor
+// Constructor
 function PostHandler() {
 
 }
 
-//properties and methods
+// properties and methods
 PostHandler.prototype = {
-		
-		  "handle": function(client, sekiRequest, sekiResponse) {
 
-// verbosity("Start of POST");
+	"handle" : function(client, sekiRequest, sekiResponse) {
+
+		// verbosity("Start of POST");
 
 		// check media type of data
 
@@ -52,8 +52,8 @@ PostHandler.prototype = {
 
 							var queryTemplater;
 							if (replaceMap.target) { // if a target URI is
-														// specified, it's an
-														// annotation
+								// specified, it's an
+								// annotation
 								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
 							} else {
 								queryTemplater = templater(sparqlTemplates.insertTemplate);
@@ -101,9 +101,9 @@ PostHandler.prototype = {
 								"update" : sparql
 							}));
 
-							// verbosity(queryPath);
-							// verbosity(post_body);
-							// verbosity(sparql);
+//							verbosity(queryPath);
+//							verbosity(post_body);
+//							verbosity(sparql);
 
 							clientRequest.end();
 
@@ -124,7 +124,7 @@ PostHandler.prototype = {
 												sekiResponse.end();
 											});
 						});
-}
+	}
 }
 
 function verbosity(message) {

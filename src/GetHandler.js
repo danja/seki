@@ -2,6 +2,7 @@ var special = require('./config/SpecialPages');
 var templater = require('./templates/Templater');
 var sparqlTemplates = require('./templates/SparqlTemplates');
 var htmlTemplates = require('./templates/HtmlTemplates');
+var TurtleHandler = require('./TurtleHandler');
 var config = require('./config/ConfigDefault').config;
 
 var verbose = true;
@@ -37,15 +38,16 @@ GetHandler.prototype = {
 				// the URI used in the RDF
 				var resource = config.uriBase + sekiRequest.url;
 				console.log("RESOURCE = " + resource);
+				console.log("sekiRequest.url = " + sekiRequest.url);
 				
 				if (special[sekiRequest.url]) {
 					queryTemplate = special[sekiRequest.url].sparqlTemplate;
 					viewTemplate = special[sekiRequest.url].htmlTemplate;
 				}
 
-				// console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
-				// console.log("queryTemplate = "+queryTemplate);
-				// console.log("viewTemplate = "+viewTemplate);
+				 console.log("special[sekiRequest.url] = "+special[sekiRequest.url]);
+				 console.log("queryTemplate = "+queryTemplate);
+				 console.log("viewTemplate = "+viewTemplate);
 
 				if (accept && accept.indexOf("text/turtle") == 0) {
 					verbosity("text/turtle requested");
@@ -62,6 +64,10 @@ GetHandler.prototype = {
 				if (!viewTemplate) { // need smarter switching/lookup here
 					viewTemplate = htmlTemplates.itemTemplate;
 				}
+				
+				 console.log("queryTemplate = "+queryTemplate);
+				 console.log("viewTemplate = "+viewTemplate);
+				 console.log("endpoint = "+config.sparqlQueryEndpoint);
 
 				// build the query
 				var queryTemplater = templater(queryTemplate);
@@ -76,7 +82,7 @@ GetHandler.prototype = {
 				// make the request to the SPARQL server
 				var clientRequest = client.request("GET", queryPath, sparqlHeaders);
 
-				// verbosity("QUERY = "+sparql);
+				verbosity("QUERY = "+sparql);
 
 				// handle the response from the SPARQL server
 				clientRequest.on('response', function(queryResponse) {
@@ -111,6 +117,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 	sekiResponse.pipe(stream);
 
 	queryResponse.on('data', function(chunk) {
+		console.log("CHUNK: "+chunk);
 		stream.write(chunk);
 	});
 
@@ -121,9 +128,9 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 		var bindings = stream.bindings;
 
 		verbosity("bindings " + JSON.stringify(bindings));
-		verbosity("bindings.uri " + bindings.uri);
+		// verbosity("bindings.uri " + bindings.uri);
 
-		if (bindings.title) { // // this is shite
+		if (bindings && bindings.title) { // // this is shite
 			// if (bindings != {}) { // // this is shite
 			verbosity("here GOT: " + JSON.stringify(bindings));
 			// verbosity("TITLE: " + bindings.title);
