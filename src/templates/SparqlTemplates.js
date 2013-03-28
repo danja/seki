@@ -12,7 +12,7 @@ var sparqlTemplates = {
       \
       SELECT ?title ?content ?date ?nick WHERE { \
       \
-      <%uri%> a sioc:Post ; \
+      <${uri}> a sioc:Post ; \
          dcterms:title ?title; \
          sioc:content ?content ; \
          foaf:maker ?maker ; \
@@ -28,13 +28,13 @@ var sparqlTemplates = {
         PREFIX x: <http://purl.org/stuff/> \
         \
         INSERT DATA { \
-        GRAPH <%graph%>{\
+        GRAPH <${graph}>{\
         \
-        <%uri%> a %type% ;\
-           dcterms:title \"%title%\";\
-           sioc:content \"%content%\" ;\
-           foaf:maker [ foaf:nick \"%nick%\" ] ;\
-           dcterms:date \"%date%\" .\
+        <${uri}> a ${type} ;\
+           dcterms:title \"${title}\";\
+           sioc:content \"${content}\" ;\
+           foaf:maker [ foaf:nick \"${nick}\" ] ;\
+           dcterms:date \"${date}\" .\
         }}",
         
 	insertAnnotationTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
@@ -43,14 +43,14 @@ var sparqlTemplates = {
             PREFIX x: <http://purl.org/stuff/> \
             \
             INSERT DATA { \
-            GRAPH <%graph%>{\
+            GRAPH <${graph}>{\
             \
-            <%uri%> a %type% ;\
-               x:target <%target%> ;\
-               dcterms:title \"%title%\";\
-               sioc:content \"%content%\" ;\
-               foaf:maker [ foaf:nick \"%nick%\" ] ;\
-               dcterms:date \"%date%\" .\
+            <${uri}> a ${type} ;\
+               x:target <${target}> ;\
+               dcterms:title \"${title}\";\
+               sioc:content \"${content}\" ;\
+               foaf:maker [ foaf:nick \"${nick}\" ] ;\
+               dcterms:date \"${date}\" .\
             }}",
 
 	listGraphURIs : "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }"

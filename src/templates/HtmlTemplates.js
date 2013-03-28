@@ -8,12 +8,12 @@ var htmlTemplates = {
 	uriList : "<html xmlns='http://www.w3.org/1999/xhtml'> \
 			    <head> \
 			      <meta charset=\"utf-8\" /> \
-			      <title>%title%</title> \
+			      <title>${title}</title> \
 			    </head> \
 			    <body> \
-			  <h1>%title%</h1> \
+			  <h1>${title}</h1> \
 			  <ul> \
-			  		<li><a href=\"%uri%\">%uri%</a></li> \
+			  		<li><a href=\"${uri}\">${uri}</a></li> \
 			  				</ul>\
 			  </body> \
 			  </html> \
@@ -22,12 +22,12 @@ var htmlTemplates = {
 	postViewTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
   <head> \
     <meta charset=\"utf-8\" /> \
-    <title>%title%</title> \
+    <title>${title}</title> \
   </head> \
   <body> \
-<h1>%title%</h1> \
-<p>%content%</p> \
-<p>By : %nick%, %date%</p> \
+<h1>${title}</h1> \
+<p>${content}</p> \
+<p>By : ${nick}, ${date}</p> \
 </body> \
 </html> \
 ",
@@ -43,7 +43,7 @@ var htmlTemplates = {
 		  <h1>Create new page</h1> \
 <form action='/post' method='post'> \  <input type='hidden' value='post' name='type' /> \
   <label for='uri'>Item URI</label> \
-  <input type='text' name='uri' id='uri' value='%uri%' /> \
+  <input type='text' name='uri' id='uri' value='${uri}' /> \
   <label for='title'>Title</label> \
   <input type='text' name='title' id='title' /> \
   <label for='nick'>By</label> \
