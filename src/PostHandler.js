@@ -1,8 +1,10 @@
 var qs = require('querystring'); // POST parameters parser
 var sparqlTemplates = require('./templates/SparqlTemplates');
-var templater = require('./templates/Templater');
+// var templater = require('./templates/Templater');
+var freemarker = require('./templates/freemarker');
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
+var freemarker = require('./templates/freemarker');
 
 var verbose = true;
 
@@ -50,14 +52,14 @@ PostHandler.prototype = {
 							verbosity("post_body \n" + post_body);
 							verbosity("replaceMap \n" + replaceMap);
 
-							var queryTemplater;
-							if (replaceMap.target) { // if a target URI is
-								// specified, it's an
-								// annotation
-								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
-							} else {
-								queryTemplater = templater(sparqlTemplates.insertTemplate);
-							}
+//							var queryTemplater;
+//							if (replaceMap.target) { // if a target URI is
+//								// specified, it's an
+//								// annotation
+//								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
+//							} else {
+//								queryTemplater = templater(sparqlTemplates.insertTemplate);
+//							}
 
 							replaceMap["date"] = new Date().toJSON();
 							var resourceType = replaceMap["type"];
@@ -84,9 +86,27 @@ PostHandler.prototype = {
 							// verbosity("ReplaceMap =
 							// "+JSON.stringify(replaceMap));
 
-							// can now make the query
-							var sparql = queryTemplater
-									.fillTemplate(replaceMap);
+//							var queryTemplater;
+//							if (replaceMap.target) { // if a target URI is
+//								// specified, it's an
+//								// annotation
+//								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
+//							} else {
+//								queryTemplater = templater(sparqlTemplates.insertTemplate);
+//							}
+//							// can now make the query
+//							var sparql = queryTemplater
+//									.fillTemplate(replaceMap);
+							
+							// var queryTemplater;
+							var sparql;
+							if (replaceMap.target) { // if a target URI is
+								// specified, it's an
+								// annotation
+								sparql = freemarker.render(sparqlTemplates.insertAnnotationTemplate, replaceMap);
+							} else {
+								sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);
+							}
 
 							verbosity("POST UPDATE \n" + sparql);
 							/*

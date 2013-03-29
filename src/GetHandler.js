@@ -1,9 +1,10 @@
 var special = require('./config/SpecialPages');
-var templater = require('./templates/Templater');
+// var templater = require('./templates/Templater');
 var sparqlTemplates = require('./templates/SparqlTemplates');
 var htmlTemplates = require('./templates/HtmlTemplates');
 var TurtleHandler = require('./TurtleHandler');
 var config = require('./config/ConfigDefault').config;
+var freemarker = require('./templates/freemarker');
 
 var verbose = true;
 
@@ -70,11 +71,14 @@ GetHandler.prototype = {
 				 console.log("endpoint = "+config.sparqlQueryEndpoint);
 
 				// build the query
-				var queryTemplater = templater(queryTemplate);
+				// var queryTemplater = templater(queryTemplate);
 				var replaceMap = {
 					"uri" : resource
 				};
-				var sparql = queryTemplater.fillTemplate(replaceMap);
+				// var sparql = queryTemplater.fillTemplate(replaceMap);
+				
+				var sparql = freemarker.render(queryTemplate, replaceMap);
+
 
 				// build the URL from the query
 				var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
@@ -107,7 +111,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 		viewTemplate = htmlTemplates.postViewTemplate;
 	}
 	// set up HTML builder
-	var viewTemplater = templater(viewTemplate);
+	//var viewTemplater = templater(viewTemplate);
 
 	// verbosity("GOT RESPONSE viewTemplate "+viewTemplate);
 
@@ -136,16 +140,18 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 			// verbosity("TITLE: " + bindings.title);
 			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
-			var html = viewTemplater.fillTemplate(bindings);
+		//	var html = viewTemplater.fillTemplate(bindings);
+			var html = freemarker.render(viewTemplate, bindings);
 		} else {
 			verbosity("404");
 			sekiResponse.writeHead(404, sekiHeaders);
 			// /////////////////////////////// refactor
-			var creativeTemplater = templater(htmlTemplates.creativeTemplate);
+	//		var creativeTemplater = templater(htmlTemplates.creativeTemplate);
 			var creativeMap = {
 				"uri" : resource
 			};
-			var html = creativeTemplater.fillTemplate(creativeMap);
+		//	var html = creativeTemplater.fillTemplate(creativeMap);
+			var html = freemarker.render(htmlTemplates.creativeTemplate, creativeMap);
 		}
 		sekiResponse.end(html);
 	});

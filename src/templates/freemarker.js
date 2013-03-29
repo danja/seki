@@ -160,3 +160,5 @@ var freemarker = {
 		return context._out;
 	}
 }; 
+
+module.exports = freemarker;
