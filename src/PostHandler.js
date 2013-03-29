@@ -45,22 +45,18 @@ PostHandler.prototype = {
 				.on(
 						'end',
 						function() {
-
+					//		console.log("\n\n\nBEFORE :"+post_body);
+							post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
+							post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
+					//		console.log("\n\n\nAFTER :"+post_body);
 							// turn the POST parameters into JSON
 							var replaceMap = qs.parse(post_body);
 
 							verbosity("post_body \n" + post_body);
 							verbosity("replaceMap \n" + replaceMap);
 
-//							var queryTemplater;
-//							if (replaceMap.target) { // if a target URI is
-//								// specified, it's an
-//								// annotation
-//								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
-//							} else {
-//								queryTemplater = templater(sparqlTemplates.insertTemplate);
-//							}
-
+							replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
+								
 							replaceMap["date"] = new Date().toJSON();
 							var resourceType = replaceMap["type"];
 
@@ -86,23 +82,8 @@ PostHandler.prototype = {
 							// verbosity("ReplaceMap =
 							// "+JSON.stringify(replaceMap));
 
-//							var queryTemplater;
-//							if (replaceMap.target) { // if a target URI is
-//								// specified, it's an
-//								// annotation
-//								queryTemplater = templater(sparqlTemplates.insertAnnotationTemplate);
-//							} else {
-//								queryTemplater = templater(sparqlTemplates.insertTemplate);
-//							}
-//							// can now make the query
-//							var sparql = queryTemplater
-//									.fillTemplate(replaceMap);
-							
-							// var queryTemplater;
 							var sparql;
-							if (replaceMap.target) { // if a target URI is
-								// specified, it's an
-								// annotation
+							if (replaceMap.target) { // if a target URI is specified, it's an annotation
 								sparql = freemarker.render(sparqlTemplates.insertAnnotationTemplate, replaceMap);
 							} else {
 								sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);

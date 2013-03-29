@@ -41,7 +41,7 @@ Installation/running is easy :
 post data should have URIs of the form http://hyperdata.org/seki/Hello
 the Fuseki server (SPARQL endpoint) will be accessible at http://localhost:3030/
 
-Exploring data from Fuseki, first select the dataset through the Control Panel, then go to the query panel
+Exploring data from Fuseki, first select the /seki dataset through the Control Panel, then go to the query panel
 with e.g. 
    SELECT * WHERE { GRAPH ?graph { ?s ?p ?o } }
 
