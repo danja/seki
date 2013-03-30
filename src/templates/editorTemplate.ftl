@@ -14,8 +14,7 @@
       beforeLoad: function( event, ui ) {
         ui.jqXHR.error(function() {
           ui.panel.html(
-            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-            "If this wouldn't be a demo." );
+            "Need to be logged in and have appropriate permissions to use this tab" );
         });
       }
     });
@@ -27,8 +26,9 @@
 <div id="tabs">
   <ul>
 <!--   <li><a href="#tabs-1">${contentUri}</a></li> -->
-     <li><a href="${contentURL}">Tab 1</a></li>
-     <li>Tab 2</li>
+     <li><a href="${uri}?mode=content">View</a></li>
+     <li><a href="${uri}?mode=editHTML">Content Editor</a></li>
+     <li><a href="${uri}?mode=editSource">Source Editor</a></li>
   <!--  
     <li><a href="ajax/content2.html">Tab 2</a></li>
     <li><a href="ajax/content3-slow.php">Tab 3 (slow)</a></li>

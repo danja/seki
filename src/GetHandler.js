@@ -1,3 +1,4 @@
+var url = require('url');
 var special = require('./config/SpecialPages');
 // var templater = require('./templates/Templater');
 var sparqlTemplates = require('./templates/SparqlTemplates');
@@ -65,31 +66,64 @@ GetHandler.prototype = {
 			viewTemplate = htmlTemplates.itemTemplate;
 		}
 
-		var editSuffix = "?mode=edit";
+		// /////////////////////////////////////////////////////////
+		// is there a better way of addressing the query part?
+		// ///////////////////////////////////////////////////////////
 
-		if (resource.indexOf(editSuffix, resource.length
-				- editSuffix.length) !== -1) {
-			viewTemplate = htmlTemplates.editorTemplate;
-			var contentURL = sekiRequest.url.substring(0, sekiRequest.url.length
-					- editSuffix.length) + "?mode=content";
+		var urlParts = url.parse(sekiRequest.url, true);
+		var query = urlParts.query;
+
+		console.log("urlParts.query[mode] = " + urlParts.query["mode"]);
+
+		// var editSuffix = "?mode=edit";
+		var mode = urlParts.query["mode"];
+
+		if (mode) {
+			console.log("sekiRequest.url before = " + sekiRequest.url);
+
+			resource = config.uriBase + urlParts.pathname;
+
+			//var uri = urlParts.pathname;
+
+			var replaceMap = {
+				"uri" :  urlParts.pathname
+			};
+
+			if (mode == "content") {
+				viewTemplate = htmlTemplates.contentTemplate;
+				console.log("ASKING FOR CoNTENT TEMPLATE");
+				console.log("content resource = " + resource);
+			}
+
+			if (mode == 'edit') {
+				viewTemplate = htmlTemplates.editorTemplate;
+				// console.log("EDITOR TEMPLATE = "+html);
+				var html = freemarker.render(viewTemplate, replaceMap);
+				// console.log("EDITOR HTML = "+html);
+				sekiResponse.end(html);
+			}
+
+			console.log("RESOURCE = " + resource);
+
+			 if (mode == "editHTML") {
+			 viewTemplate = htmlTemplates.htmlEditorTemplate;
+			 console.log("ASKING FOR CoNTENT TEMPLATE");
+//			 resource = resource.substring(0, resource.length
+//			 - htmlEditorSuffix.length);
+
+			 var html = freemarker.render(viewTemplate, replaceMap);
+			 sekiResponse.end(html);
+			 }
 			
-			var replaceMap = { "contentURL" : contentURL };
-			var html = freemarker.render(viewTemplate, replaceMap);
-			sekiResponse.end(html);
+			// var sourceEditorSuffix = "?mode=source";
+			if (mode == "source") {
+				viewTemplate = htmlTemplates.sourceEditorTemplate;
+				console.log("ASKING FOR CoNTENT TEMPLATE");
+				var html = freemarker.render(viewTemplate, replaceMap);
+				sekiResponse.end(html);
+			}
 		}
-		
-		console.log("RESOURCE = "+resource);
-		
-		var contentSuffix = "?mode=content";
-		if (resource.indexOf(contentSuffix, resource.length
-				- contentSuffix.length) !== -1) {
-			viewTemplate = htmlTemplates.contentTemplate;
-			console.log("ASKING FOR CoNTENT TEMPLATE");
-			console.log("HERE2  sresource = " + resource);
-			resource = resource.substring(0, resource.length
-					- contentSuffix.length);
-			console.log("HERE3  sresource = " + resource);
-		}
+
 		console.log("HERE4  sresource = " + resource);
 		console.log("queryTemplate = " + queryTemplate);
 		console.log("viewTemplate = " + viewTemplate);
