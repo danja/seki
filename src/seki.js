@@ -18,10 +18,11 @@
  */
 var sys = require('sys');
 var http = require('http');
+
 var fs = require('fs'); // filesystem module
 // var qs = require('querystring'); // POST parameters parser
-var static = require('node-static');
-
+// var static = require('node-static');
+var connect = require('connect');
 
 // @TODO refactor verbosity out (is also in PostHandler and GetHandler)
 var verbose = true;
@@ -53,6 +54,7 @@ var sekiHeaders = {
 	"Transfer-Encoding" : "chunked"
 };
 
+var redirectHeaders = {};
 
 var graphHeaders = {
 	// "Accept" : "application/rdf+xml",
@@ -80,10 +82,13 @@ var files = {
 //
 // Create a node-static server to serve the current directory
 //
-var file = new (static.Server)(config.wwwDir, {
-	cache : false
-// temp while getting config right
-});
+// var fileServer = new (static.Server)(config.wwwDir, {
+// cache : false
+// // temp while getting config right
+// });
+
+var fileServer = connect().use(connect.static(config.wwwDir)).use(
+		connect.directory(config.wwwDir)).listen(config.staticPort);
 
 // set it running
 http.createServer(onRequest).listen(config.sekiPort, config.sekiHost);
@@ -99,16 +104,45 @@ function onRequest(sekiRequest, sekiResponse) {
 	verbosity("REQUEST URL = " + sekiRequest.url);
 	verbosity("REQUEST METHOD = " + sekiRequest.method);
 
+	var url = require('url');
+
+	var urlParts = url.parse(sekiRequest.url, true);
+	// var query = urlParts.query;
+	// var path = urlParts.pathname;
+
 	// check for corresponding files on the filesystem
 	if (sekiRequest.method == "GET" || sekiRequest.method == "HEAD") {
-		file.serve(sekiRequest, sekiResponse, function(err, res) {
-			if (err) { // the file doesn't exist, leave it to Seki
-				// sys.error("Error serving " + sekiRequest.url + " - " +
-				// err.message); // temp for debugging
-			} else { // The file was served successfully
-				verbosity(sekiRequest.url + " - " + res.message);
+		var path = require('path').resolve(__dirname, urlParts.pathname);
+		console.log("PATH = " + path);
+		fs.exists(path, function(exists) {
+			// util.debug(exists ? "it's there" : "no passwd!");
+			// 303 is See Other
+			if (exists) {
+				var location = "http://" + config.staticHost + ":"
+						+ config.staticPort + path;
+				redirectHeaders["Location"] = location;
+				console.log("LOCATION = " + location);
+				sekiResponse.writeHead(303, redirectHeaders);
+				sekiResponse.end("303 Redirect to " + "<a href=\"" + location
+						+ "\">new location</a>");
+				return;
 			}
 		});
+		// fileServer.serve(sekiRequest, sekiResponse, function(err, res) {
+		// console.log("RES = "+res);
+		// if (err) { // the file doesn't exist, leave it to Seki
+		// sys.error("Error serving " + sekiRequest.url + " - " +
+		// err.message); // temp for debugging
+		// } else { // The file was served successfully
+		// verbosity(sekiRequest.url + " - " + res.message);
+		// }
+		// });
+		// var url = sekiRequest.url;
+		// fileServer.serveFile(path, 500, {}, sekiRequest,
+		// sekiResponse).addListener('error', function (err) {
+		// sys.error("Error HERE serving " + sekiRequest.url + " - " +
+		// err.message);
+		// });
 	}
 
 	verbosity("got past file server");
@@ -148,7 +182,7 @@ function onRequest(sekiRequest, sekiResponse) {
 	// the URI used in the RDF
 	// var resource = config.uriBase + sekiRequest.url;
 	// console.log("RESOURCE = " + resource);
-	
+
 	// this is duplicated in GetHandler.js
 	var accept = sekiRequest.headers["accept"];
 
@@ -168,17 +202,17 @@ function onRequest(sekiRequest, sekiResponse) {
 	}
 
 	if (sekiRequest.method == "POST") {
-		//var postHandler = Object.create(PostHandler);
+		// var postHandler = Object.create(PostHandler);
 		var postHandler = new PostHandler();
 		postHandler.handle(client, sekiRequest, sekiResponse);
 	}
 }
 
-
-
 /*
  * Reads a file from the filesystem and writes its data to response (typically a
  * browser)
+ * 
+ * IS THIS BEING USED???
  */
 function serveFile(sekiResponse, status, file) {
 	verbosity("FILE = " + file);

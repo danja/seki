@@ -118,7 +118,7 @@ PostHandler.prototype = {
 														.substring(config.uriBase.length);
 
 												// do a redirect to the new item
-												sekiHeaders2["Location"] = relativeUri;
+												sekiHeaders2["Location"] = relativeUri+"?mode=edit";
 												sekiResponse.writeHead(303,
 														sekiHeaders2);
 												// all done

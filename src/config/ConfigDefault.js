@@ -4,6 +4,10 @@ var defaultConfig = {
 	wwwDir : "../www" // static files
 	,
 	baked : "../baked"
+		,
+		staticHost : "localhost",
+		staticPort : 8889
+		
 	/*
 	 * Settings for the Seki Server (this)
 	 */

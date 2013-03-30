@@ -16,6 +16,7 @@ git checkout dev
 git pull origin dev
 _
 
+// npm install connect
 
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
 
