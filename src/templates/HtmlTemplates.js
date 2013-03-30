@@ -3,7 +3,39 @@
  * parts like %this% will be replaced
  */
 
+var fs = require('fs'); // filesystem module
+
+// $.get('ajax/test.html', function(data) {
+// $('.result').html(data);
+// alert('Load was performed.');
+// });
+function load(filename) {
+	// synchronous
+	var template = fs.readFileSync(filename, "utf8");
+//	fs.readFile(filename, function(err, data) {
+//		if (err) {
+//			console.log("Error :" + err);
+//			template ="Error :" + err;
+//		}
+//		template = data.toString();
+//	//	console.log("IN LOADER "+template);
+//	});
+//	console.log("IN LOADER2 "+template);
+	return template;
+}
+
 var htmlTemplates = {
+
+	editorTemplate : (function() {
+		console.log("loading editor template "+__dirname);
+		var path = require('path').resolve(__dirname, 'editorTemplate.ftl');
+		console.log("path : "+path);
+		var template = load(path);
+		console.log("TEMPLATE : "+template);
+		return template;
+	})(),
+
+	// ( function(){} )();
 
 	uriList : "<html xmlns='http://www.w3.org/1999/xhtml'> \
 			    <head> \
@@ -30,6 +62,11 @@ var htmlTemplates = {
 <p>By : ${nick}, ${date}</p> \
 </body> \
 </html> \
+",
+
+	contentTemplate : "<h1>${title}</h1> \
+<p>${content}</p> \
+<p>By : ${nick}, ${date}</p> \
 ",
 
 	creativeTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \

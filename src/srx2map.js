@@ -50,14 +50,14 @@ saxStream.on("error", function (e) {
 saxStream.on("opentag", function (node) {
  
 	element = node.name;
-	console.log("ELEMENT = "+element);
+	// console.log("ELEMENT = "+element);
 	
 	// if results block starting, initialize container for results
 	 if(element == "results") this.bindings = {};
 	 
 	 // get data from an individual binding
 	if(element == "binding") {
-		console.log("inBinding");
+		// console.log("inBinding");
 		inBinding = true;
 		bindingName = node.attributes.name;
 	}
@@ -74,7 +74,7 @@ saxStream.ontext = function (text) {
 //handle an opening tag
 //loosely corresponds to SAX endElement(...)
 saxStream.on("closetag", function (nodename) {
-	console.log("inBinding = "+inBinding);
+	// console.log("inBinding = "+inBinding);
 	if(inBinding && nodename != "binding") {
 	  
 	  // build the data
@@ -83,7 +83,7 @@ saxStream.on("closetag", function (nodename) {
 //		this.bindings[bindingName].value = bindingValue;
 //		this.bindings[bindingName].type = bindingType;
 	  
-		console.log("NODENAME = "+nodename);
+		//console.log("NODENAME = "+nodename);
 	  // put the result data into the JSON object
 	  this.bindings[bindingName] = bindingValue;
 		inBinding = false;
