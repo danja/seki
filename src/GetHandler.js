@@ -1,3 +1,4 @@
+var http = require('http');
 var url = require('url');
 var special = require('./config/SpecialPages');
 // var templater = require('./templates/Templater');
@@ -29,7 +30,7 @@ function GetHandler() {
 // properties and methods
 GetHandler.prototype = {
 
-	"handle" : function(client, sekiRequest, sekiResponse) {
+	"handle" : function(sekiRequest, sekiResponse) {
 		var queryTemplate;
 		var viewTemplate;
 
@@ -139,11 +140,22 @@ GetHandler.prototype = {
 		var sparql = freemarker.render(queryTemplate, replaceMap);
 
 		// build the URL from the query
-		var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
+		// var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
 
 		// make the request to the SPARQL server
-		var clientRequest = client.request("GET", queryPath, sparqlHeaders);
+		// var clientRequest = client.request("GET", queryPath, sparqlHeaders);
+		config.clientOptions["method"] = "GET";
+		config.clientOptions["path"] = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
 
+		var clientRequest = http.request(config.clientOptions, function(queryResponse) {
+//			  console.log('STATUS: ' + res.statusCode);
+//			  console.log('HEADERS: ' + JSON.stringify(res.headers));
+			queryResponse.setEncoding('utf8');
+//			  res.on('data', function (chunk) {
+//			    console.log('BODY: ' + chunk);
+//			  });
+			});
+		
 		verbosity("QUERY = " + sparql);
 
 		// handle the response from the SPARQL server
@@ -156,6 +168,25 @@ GetHandler.prototype = {
 			// verbosity("End of sekiRequest");
 			clientRequest.end();
 		});
+		////////////////////
+//		var clientRequest = http.request(config.options, function(queryResponse) {
+////			  console.log('STATUS: ' + res.statusCode);
+////			  console.log('HEADERS: ' + JSON.stringify(res.headers));
+//			  queryResponse.setEncoding('utf8');
+//			  queryResponse.on('data', function (chunk) {
+//				  serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
+////			    console.log('BODY: ' + chunk);
+//			  });
+//			});
+//
+//		clientRequest.on('error', function(e) {
+//			  console.log('problem with clientRequest : ' + e.message);
+//			});
+//
+//			// write data to request body
+//			req.write('data\n');
+//			req.write('data\n');
+//			req.end();
 		return;
 	}
 }

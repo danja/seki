@@ -1,3 +1,4 @@
+var http = require('http');
 var qs = require('querystring'); // POST parameters parser
 var sparqlTemplates = require('./templates/SparqlTemplates');
 // var templater = require('./templates/Templater');
@@ -27,7 +28,7 @@ function PostHandler() {
 // properties and methods
 PostHandler.prototype = {
 
-	"handle" : function(client, sekiRequest, sekiResponse) {
+	"handle" : function(sekiRequest, sekiResponse) {
 
 		// verbosity("Start of POST");
 
@@ -94,13 +95,25 @@ PostHandler.prototype = {
 							 * make the request to the SPARQL server the update
 							 * has to be POSTed to the SPARQL server
 							 */
-							var clientRequest = client.request("POST",
-									config.sparqlUpdateEndpoint, postHeaders);
+//							var clientRequest = client.request("POST",
+//									config.sparqlUpdateEndpoint, postHeaders);
+							config.clientOptions["method"] = "POST";
+							config.clientOptions["path"] = config.sparqlUpdateEndpoint;
+							
+							var clientRequest = http.request(config.clientOptions, function(queryResponse) {
+//								  console.log('STATUS: ' + res.statusCode);
+//								  console.log('HEADERS: ' + JSON.stringify(res.headers));
+								queryResponse.setEncoding('utf8');
+//								  res.on('data', function (chunk) {
+//								    console.log('BODY: ' + chunk);
+//								  });
+								});
 
 							// send the update query as POST parameters
-							clientRequest.write(qs.stringify({
-								"update" : sparql
-							}));
+//							clientRequest.write(qs.stringify({
+//								"update" : sparql
+//							}));
+							clientRequest.write(sparql);
 
 //							verbosity(queryPath);
 //							verbosity(post_body);

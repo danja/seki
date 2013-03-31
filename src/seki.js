@@ -175,10 +175,12 @@ function onRequest(sekiRequest, sekiResponse) {
 			}
 		}
 	}
+	
+
 
 	// the client that will talk to the SPARQL server
-	var client = http.createClient(config.sparqlPort, config.sparqlHost);
-
+	// var client = http.createClient(config.sparqlPort, config.sparqlHost);
+	
 	// the URI used in the RDF
 	// var resource = config.uriBase + sekiRequest.url;
 	// console.log("RESOURCE = " + resource);
@@ -198,13 +200,13 @@ function onRequest(sekiRequest, sekiResponse) {
 	// use pattern as for JSONHandler
 	if (sekiRequest.method == "GET") {
 		var getHandler = new GetHandler();
-		getHandler.handle(client, sekiRequest, sekiResponse);
+		getHandler.handle(sekiRequest, sekiResponse);
 	}
 
 	if (sekiRequest.method == "POST") {
 		// var postHandler = Object.create(PostHandler);
 		var postHandler = new PostHandler();
-		postHandler.handle(client, sekiRequest, sekiResponse);
+		postHandler.handle(sekiRequest, sekiResponse);
 	}
 }
 

@@ -21,12 +21,19 @@ var defaultConfig = {
 	 * localhost)
 	 */
 	
-	sparqlHost : "localhost",
-	sparqlPort : 3030,
+//	sparqlHost : "localhost",
+//	sparqlPort : 3030,
+	clientOptions : {
+			  hostname: "localhost",
+			  port: 3030,
+			//  'Content-type': "text/turtle"
+			  // accept?
+			},
 	sparqlGraphEndpoint : "/seki/data",
 	sparqlQueryEndpoint : "/seki/query",
 	sparqlUpdateEndpoint : "/seki/update"
 };
+
 
 try {
 	config = require('./Config').config;
@@ -36,5 +43,7 @@ catch (e) {
 	config = defaultConfig;
 	console.log("Using ConfigDefault.js");
 }
+
+
 
 exports.config = config;
