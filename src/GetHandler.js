@@ -109,8 +109,6 @@ GetHandler.prototype = {
 			 if (mode == "editHTML") {
 			 viewTemplate = htmlTemplates.htmlEditorTemplate;
 			 console.log("ASKING FOR CoNTENT TEMPLATE");
-//			 resource = resource.substring(0, resource.length
-//			 - htmlEditorSuffix.length);
 
 			 var html = freemarker.render(viewTemplate, replaceMap);
 			 sekiResponse.end(html);
@@ -124,11 +122,6 @@ GetHandler.prototype = {
 				sekiResponse.end(html);
 			}
 		}
-
-		console.log("HERE4  sresource = " + resource);
-		console.log("queryTemplate = " + queryTemplate);
-		console.log("viewTemplate = " + viewTemplate);
-		console.log("endpoint = " + config.sparqlQueryEndpoint);
 
 		// build the query
 		// var queryTemplater = templater(queryTemplate);
@@ -160,6 +153,7 @@ GetHandler.prototype = {
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
+			console.log("VIEW TEMPLATE = "+viewTemplate);
 			serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
 		});
 
@@ -168,25 +162,6 @@ GetHandler.prototype = {
 			// verbosity("End of sekiRequest");
 			clientRequest.end();
 		});
-		////////////////////
-//		var clientRequest = http.request(config.options, function(queryResponse) {
-////			  console.log('STATUS: ' + res.statusCode);
-////			  console.log('HEADERS: ' + JSON.stringify(res.headers));
-//			  queryResponse.setEncoding('utf8');
-//			  queryResponse.on('data', function (chunk) {
-//				  serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
-////			    console.log('BODY: ' + chunk);
-//			  });
-//			});
-//
-//		clientRequest.on('error', function(e) {
-//			  console.log('problem with clientRequest : ' + e.message);
-//			});
-//
-//			// write data to request body
-//			req.write('data\n');
-//			req.write('data\n');
-//			req.end();
 		return;
 	}
 }
@@ -230,6 +205,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
 			// var html = viewTemplater.fillTemplate(bindings);
+			console.log("VIEW TEMPLATE2 = "+viewTemplate);
 			var html = freemarker.render(viewTemplate, bindings);
 		} else {
 			verbosity("404");

@@ -18,11 +18,11 @@
     </div>
     <input type="hidden" value="post" name="type" />
     <label for="uri">Item URI</label>
-    <input type="text" name="uri" id="uri" />
+    <input type="text" name="uri" id="uri" value="${uri}" />
     <label for="title">Title</label>
-    <input type="text" name="title" id="title" />
+    <input type="text" name="title" id="title" value="${title}" />
     <label for="nick">By</label>
-    <input type="text" name="nick" id="nick" />
+    <input type="text" name="nick" id="nick" value="${nick}" />
     <!-- input type="reset" name="reset" value="Reset" / -->
     <input type="submit" value="Post" />
     </div>

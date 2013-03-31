@@ -14,20 +14,20 @@ function load(filename) {
 var htmlTemplates = {
 
 	editorTemplate : (function() {
-		console.log("loading editor template "+__dirname);
+		// console.log("loading editor template "+__dirname);
 		var path = require('path').resolve(__dirname, 'editorTemplate.ftl');
-		console.log("path : "+path);
+		// console.log("path : "+path);
 		var template = load(path);
-		console.log("TEMPLATE : "+template);
+		// console.log("TEMPLATE : "+template);
 		return template;
 	})(),
 	
 	htmlEditorTemplate : (function() {
-		console.log("loading HTML editor template "+__dirname);
+		// console.log("loading HTML editor template "+__dirname);
 		var path = require('path').resolve(__dirname, 'contentEditorForm.ftl');
-		console.log("path : "+path);
+		// console.log("path : "+path);
 		var template = load(path);
-		console.log("TEMPLATE : "+template);
+		//console.log("TEMPLATE : "+template);
 		return template;
 	})(),
 	

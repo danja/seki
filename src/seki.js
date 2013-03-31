@@ -18,7 +18,7 @@
  */
 var sys = require('sys');
 var http = require('http');
-
+var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
@@ -110,16 +110,37 @@ function onRequest(sekiRequest, sekiResponse) {
 	// var query = urlParts.query;
 	// var path = urlParts.pathname;
 
+	// __dirname = /home/danny/workspace-javascript/seki/src
+	// /home/danny/workspace-javascript/seki/src/seki/js/rdface/
+	// /home/danny/workspace-javascript/seki/www/seki/js/rdface/
+
 	// check for corresponding files on the filesystem
 	if (sekiRequest.method == "GET" || sekiRequest.method == "HEAD") {
-		var path = require('path').resolve(__dirname, urlParts.pathname);
+		var tweakedPathname = urlParts.pathname;
+		if (urlParts.pathname.substring(0, 1) == "/") {
+			tweakedPathname = urlParts.pathname.substring(1);
+		}
+		var dir = __dirname + "/../www/";
+		console.log("dir = " + dir);
+		console.log("tweakedPathname = " + tweakedPathname);
+		var path = require('path').resolve(dir, tweakedPathname);
+		console.log("__dirname = " + __dirname);
 		console.log("PATH = " + path);
-		fs.exists(path, function(exists) {
-			// util.debug(exists ? "it's there" : "no passwd!");
+		
+		var stats = null;
+		try {
+			stats = fs.statSync(path);
+		//	console.log(util.inspect(stats));
+		} catch (e) {
+		//	console.log("Error : " + e);
+		}
+
+		
+//		fs.exists(path, function(exists) {
 			// 303 is See Other
-			if (exists) {
+			if (stats) { // exists stopped working
 				var location = "http://" + config.staticHost + ":"
-						+ config.staticPort + path;
+						+ config.staticPort + urlParts.pathname;
 				redirectHeaders["Location"] = location;
 				console.log("LOCATION = " + location);
 				sekiResponse.writeHead(303, redirectHeaders);
@@ -127,7 +148,7 @@ function onRequest(sekiRequest, sekiResponse) {
 						+ "\">new location</a>");
 				return;
 			}
-		});
+	//	});
 		// fileServer.serve(sekiRequest, sekiResponse, function(err, res) {
 		// console.log("RES = "+res);
 		// if (err) { // the file doesn't exist, leave it to Seki
@@ -175,12 +196,10 @@ function onRequest(sekiRequest, sekiResponse) {
 			}
 		}
 	}
-	
-
 
 	// the client that will talk to the SPARQL server
 	// var client = http.createClient(config.sparqlPort, config.sparqlHost);
-	
+
 	// the URI used in the RDF
 	// var resource = config.uriBase + sekiRequest.url;
 	// console.log("RESOURCE = " + resource);
