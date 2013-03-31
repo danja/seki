@@ -1,9 +1,16 @@
 
   <form method="post" action="/post">
+      <input type="hidden" value="post" name="type" />
+    <label for="uri">Item URI</label>
+    <input type="text" name="uri" id="uri" value="${uri}" size="50" />
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" value="${title}" size="20" />
+    <label for="nick">By</label>
+    <input type="text" name="nick" id="nick" value="${nick}" size="10" />
     <div>
       <textarea id="content" name="content" rows="20" cols="70"
         style="width: 80%" class="tinymce"
-      >Enter content here</textarea>
+      >${content}</textarea>
     </div>
     <br>
     <div align="left">
@@ -16,13 +23,7 @@
 <span property="foaf:property" style="border: 1px solid  #EB9861;border-radius: 15px 15px 15px 15px;">property/rel</span>
 -->
     </div>
-    <input type="hidden" value="post" name="type" />
-    <label for="uri">Item URI</label>
-    <input type="text" name="uri" id="uri" value="${uri}" />
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" value="${title}" />
-    <label for="nick">By</label>
-    <input type="text" name="nick" id="nick" value="${nick}" />
+
     <!-- input type="reset" name="reset" value="Reset" / -->
     <input type="submit" value="Post" />
     </div>

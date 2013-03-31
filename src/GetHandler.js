@@ -67,35 +67,31 @@ GetHandler.prototype = {
 			viewTemplate = htmlTemplates.itemTemplate;
 		}
 
-		// /////////////////////////////////////////////////////////
-		// is there a better way of addressing the query part?
-		// ///////////////////////////////////////////////////////////
-
 		var urlParts = url.parse(sekiRequest.url, true);
 		var query = urlParts.query;
 
-		console.log("urlParts.query[mode] = " + urlParts.query["mode"]);
+		// console.log("urlParts.query[mode] = " + urlParts.query["mode"]);
 
-		// var editSuffix = "?mode=edit";
 		var mode = urlParts.query["mode"];
 
 		if (mode) {
+			console.log("MODE = "+mode);
 			console.log("sekiRequest.url before = " + sekiRequest.url);
 
 			resource = config.uriBase + urlParts.pathname;
-
-			//var uri = urlParts.pathname;
 
 			var replaceMap = {
 				"uri" :  urlParts.pathname
 			};
 
+			// the body of a post
 			if (mode == "content") {
 				viewTemplate = htmlTemplates.contentTemplate;
 				console.log("ASKING FOR CoNTENT TEMPLATE");
 				console.log("content resource = " + resource);
 			}
 
+			// top-level editor (with tabs)
 			if (mode == 'edit') {
 				viewTemplate = htmlTemplates.editorTemplate;
 				// console.log("EDITOR TEMPLATE = "+html);
@@ -106,20 +102,22 @@ GetHandler.prototype = {
 
 			console.log("RESOURCE = " + resource);
 
+			// WYSIWYG HTML editor (tinyMCE)
 			 if (mode == "editHTML") {
 			 viewTemplate = htmlTemplates.htmlEditorTemplate;
 			 console.log("ASKING FOR CoNTENT TEMPLATE");
 
-			 var html = freemarker.render(viewTemplate, replaceMap);
-			 sekiResponse.end(html);
+//			 var html = freemarker.render(viewTemplate, replaceMap);
+//			 sekiResponse.end(html);
 			 }
 			
 			// var sourceEditorSuffix = "?mode=source";
-			if (mode == "source") {
+			if (mode == "editSource") {
 				viewTemplate = htmlTemplates.sourceEditorTemplate;
-				console.log("ASKING FOR CoNTENT TEMPLATE");
-				var html = freemarker.render(viewTemplate, replaceMap);
-				sekiResponse.end(html);
+				console.log("ASKING FOR SOURCE TEMPLATE");
+				
+//				var html = freemarker.render(viewTemplate, replaceMap);
+//				sekiResponse.end(html);
 			}
 		}
 
@@ -141,12 +139,7 @@ GetHandler.prototype = {
 		config.clientOptions["path"] = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
 
 		var clientRequest = http.request(config.clientOptions, function(queryResponse) {
-//			  console.log('STATUS: ' + res.statusCode);
-//			  console.log('HEADERS: ' + JSON.stringify(res.headers));
 			queryResponse.setEncoding('utf8');
-//			  res.on('data', function (chunk) {
-//			    console.log('BODY: ' + chunk);
-//			  });
 			});
 		
 		verbosity("QUERY = " + sparql);
@@ -170,14 +163,10 @@ GetHandler.prototype = {
  * Handles GET requests (typically from a browser)
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
-
+console.log("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
 		viewTemplate = htmlTemplates.postViewTemplate;
 	}
-	// set up HTML builder
-	// var viewTemplater = templater(viewTemplate);
-
-	// verbosity("GOT RESPONSE viewTemplate "+viewTemplate);
 
 	var saxer = require('./srx2map');
 	var stream = saxer.createStream();
@@ -196,7 +185,6 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 		var bindings = stream.bindings;
 
 		verbosity("bindings " + JSON.stringify(bindings));
-		// verbosity("bindings.uri " + bindings.uri);
 
 		if (bindings && bindings.title) { // // this is shite
 			// if (bindings != {}) { // // this is shite
@@ -206,6 +194,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 			sekiResponse.writeHead(200, sekiHeaders);
 			// var html = viewTemplater.fillTemplate(bindings);
 			console.log("VIEW TEMPLATE2 = "+viewTemplate);
+			bindings["uri"] = resource;
 			var html = freemarker.render(viewTemplate, bindings);
 		} else {
 			verbosity("404");

@@ -21,17 +21,24 @@ var defaultConfig = {
 	 * localhost)
 	 */
 	
-//	sparqlHost : "localhost",
-//	sparqlPort : 3030,
+	// refactor
+	sparqlHost : "localhost",
+	sparqlPort : 3030,
 	clientOptions : {
 			  hostname: "localhost",
 			  port: 3030,
 			//  'Content-type': "text/turtle"
 			  // accept?
 			},
+			
 	sparqlGraphEndpoint : "/seki/data",
 	sparqlQueryEndpoint : "/seki/query",
 	sparqlUpdateEndpoint : "/seki/update"
+		,
+		// features
+		sourceHook : true,
+		sourceHookPath : "/seki/x/",
+		sourceHookScript : "hook"
 };
 
 
