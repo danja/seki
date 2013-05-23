@@ -1,0 +1,33 @@
+Organization
+- a set of agents
+
+Agent
+a person or their proxy, UserAccount etc
+
+Space ( = set of resources, defined by a SPARQL SELECT?)
+TreeSpace ( = hierarchical, defined by URI template?)
+
+Role ( = Group)
+
+Permission
+
+AccessMode
+Read	 read the contents (including querying it, etc)
+Write	 overwrite the contents (including deleting it, or modifying part of it).
+Append	 add information to [the end of] it but not remove information.
+Control	 set the Access Control List for this themselves.
+execute, full?
+
+
+RDF
+RDFS
+OWL
+schema.org
+DC
+FOAF
+SIOC
+PERMISSION
+W3C ACL
+
+
+

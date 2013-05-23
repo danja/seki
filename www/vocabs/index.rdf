@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns="http://usefulinc.com/ns/doap#">
+
+   <Project rdf:about="http://hyperdata.org/seki">
+
+      <rdfs:seeAlso rdf:resource="http://hyperdata.org/vocabs/usermanagement.ttl" />
+
+   </Project>
+
+</rdf:RDF>
