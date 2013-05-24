@@ -949,8 +949,21 @@ tinymce.create('static tinymce.util.XHR', {
 			return x;
 		};
 
-		x = w.XMLHttpRequest ? new XMLHttpRequest() : get('Microsoft.XMLHTTP') || get('Msxml2.XMLHTTP');
+	//	x = w.XMLHttpRequest ? new XMLHttpRequest() : get('Microsoft.XMLHTTP') || get('Msxml2.XMLHTTP');
 
+// CORS
+		  x = new XMLHttpRequest();
+		  if ("withCredentials" in x) {
+		    x.open("GET", o.url, true);
+		  } else if (typeof XDomainRequest != "undefined") {
+		    x = new XDomainRequest();
+		    x.open("GET", o.url);
+		  } else {
+		    // Otherwise, CORS is not supported by the browser.
+		    x = null;
+		  }
+		  //////////////////////////////////
+		  
 		if (x) {
 			if (x.overrideMimeType)
 				x.overrideMimeType(o.content_type);

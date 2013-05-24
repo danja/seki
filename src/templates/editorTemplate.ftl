@@ -45,7 +45,7 @@ display: none
 
 <script src="/seki/js/jquery-1.9.1.js"></script>
 <script src="/seki/js/jquery-ui.js"></script>
-<script type="text/javascript" src="/seki/js/rdface/tiny_mce.js"></script>
+<script type="text/javascript" src="/seki/js/rdface/tiny_mce_src.js"></script>
 
 <!--  
 <script type="text/javascript" src="/seki/js/rdface/jquery.DnR.js"></script>
@@ -66,9 +66,9 @@ display: none
 						{
 							beforeLoad : function(event, ui) {
 								ui.jqXHR
-										.error(function() {
+										.error(function(jqXHR, ajaxOptions, thrownError) {
 											ui.panel
-													.html("Need to be logged in and have appropriate permissions to use this tab");
+													.html("Need to be logged in and have appropriate permissions to use this tab ("+jqXHR.status+" "+thrownError+")");
 										});
 							}
 						});

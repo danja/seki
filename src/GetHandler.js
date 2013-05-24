@@ -19,7 +19,8 @@ var sparqlHeaders = {
 var sekiHeaders = {
 	"Content-type" : "text/html; charset=utf-8",
 	"Connection" : "keep-alive", // added later
-	"Transfer-Encoding" : "chunked"
+	"Transfer-Encoding" : "chunked",
+	"Access-Control-Allow-Origin" : "*" // CORS is needed?
 };
 
 // Constructor
@@ -147,7 +148,10 @@ GetHandler.prototype = {
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
 			console.log("VIEW TEMPLATE = "+viewTemplate);
-			serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
+		//	serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
+			var urlParts = url.parse(sekiRequest.url, true);
+			
+			serveHTML(urlParts.pathname, viewTemplate, sekiResponse, queryResponse); ////////////////////////////////////////////////////////////////
 		});
 
 		// finish up
@@ -194,7 +198,9 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 			sekiResponse.writeHead(200, sekiHeaders);
 			// var html = viewTemplater.fillTemplate(bindings);
 			console.log("VIEW TEMPLATE2 = "+viewTemplate);
+			
 			bindings["uri"] = resource;
+			
 			var html = freemarker.render(viewTemplate, bindings);
 		} else {
 			verbosity("404");
@@ -203,11 +209,15 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 			// var creativeTemplater =
 			// templater(htmlTemplates.creativeTemplate);
 			var creativeMap = {
-				"uri" : resource
+				 "uri" : resource
+				// "uri" : 	sekiRequest.url
 			};
-			// var html = creativeTemplater.fillTemplate(creativeMap);
-			var html = freemarker.render(htmlTemplates.creativeTemplate,
+		//	var html = freemarker.render(htmlTemplates.creativeTemplate,
+		//			creativeMap);
+			var html = freemarker.render(htmlTemplates.editorTemplate,
 					creativeMap);
+			
+			console.log("\n\n\n\nTHIS IS THE OUTPUT\n"+html);
 		}
 		sekiResponse.end(html);
 	});
