@@ -23,8 +23,9 @@ var fs = require('fs'); // filesystem module
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
+var CORS = require('../lib/connect-cors');
 // var cors = require('../lib/connect-cors');
-var corser = require('../lib/corser');
+// var corser = require('../lib/corser');
 // @TODO refactor verbosity out (is also in PostHandler and GetHandler)
 var verbose = true;
 
@@ -92,56 +93,14 @@ var files = {
 //var fileServer = connect().use(connect.static(config.wwwDir)).use(
 //connect.directory(config.wwwDir)).listen(config.staticPort);
 
-//var corsMiddleware = function(req, res, next) {
-//	  res.header('Access-Control-Allow-Origin', '*');
-//	  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//	  res.header('Access-Control-Allow-Headers', 'Content-Type');
-//	  next();
-//	}
 
-var allowCrossDomain    = function(req, res, next){
-    res.header('Access-Control-Allow-Origin', '*' );
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    if( 'OPTIONS' == req.method ){
-        res.send(200);
-    }else{
-        next();
-    }
-}
+
+
 
 var fileServer = connect().use(connect.static(config.wwwDir)).use(
-		connect.directory(config.wwwDir)).use(allowCrossDomain).listen(config.staticPort);
+		connect.directory(config.wwwDir)).use(CORS({})).listen(config.staticPort);
 
 
-//connect.createServer(
-//	    // Create Corser request listener, Connect will do the rest.
-//	    corser.create(),
-//	    function (req, res, next) {
-//	        if (req.method === "OPTIONS") {
-//	            // End CORS preflight request.
-//	            res.writeHead(204);
-//	            res.end();
-//	        } else {
-//	            // Your code goes here.
-//	            res.writeHead(200);
-//	            res.end("Nice weather today, huh?");
-//	        }
-//	    }
-//	).listen(config.staticPort);
-
-//server = connect.createServer(
-//	    // uses reasonable defaults when no options are given
-//	    CORS(options)
-//	  , function(req, res) {
-//	      res.writeHead(200, { 'Content-Type': 'text/plain' });
-//	      res.end('Hello World');
-//	    }
-//	);
-
-//set it running
-//http.createServer(onRequest).listen(config.sekiPort, config.sekiHost); //
-//replaced with connect
 
 connect.createServer(function(sekiRequest, sekiResponse, next) {
 	// cors(config.corsOptions);
