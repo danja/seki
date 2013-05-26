@@ -3,28 +3,27 @@ Aloha.ready(function() {
 		
 		// save all changes after leaving an editable
 		Aloha.bind('aloha-editable-deactivated', function(){
-			var content = Aloha.activeEditable.getContents();
-			var contentId = Aloha.activeEditable.obj[0].id;
-			var pageId = window.location.pathname;
+			// var content = Aloha.activeEditable.getContents();
+			// var contentId = Aloha.activeEditable.obj[0].id;
+			// var pageId = window.location.pathname;
 			var uri = $('#uri').text();
-			
-			console.log("Content = "+content);
-			console.log("ContentID = "+contentId);
-			console.log("pageId = "+pageId);
-			console.log("uri = "+uri);
+			var title = $('#title').text();
+			var content = $('#content').text();
+			var nick = $('#nick').text();
 			
 			// textarea handling -- html id is "xy" and will be "xy-aloha" for the aloha editable
-			if ( contentId.match(/-aloha$/gi) ) {
-				contentId = contentId.replace( /-aloha/gi, '' );
-			}
+		//	if ( contentId.match(/-aloha$/gi) ) {
+		//		contentId = contentId.replace( /-aloha/gi, '' );
+		//	}
  
 			var request = $.ajax({
-				url: "save.php",
+				url: "${uri}",
 				type: "POST",
 				data: {
+					title : title,
 					content : content,
-					contentId : contentId,
-					pageId : pageId,
+					uri : uri,
+					nick : nick,
 					uri : uri
 				},
 				dataType: "html"

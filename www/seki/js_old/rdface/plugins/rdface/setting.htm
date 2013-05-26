@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{#rdfaSetting_dlg.title}</title>
+<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+<script type="text/javascript" src="js/util/config.js"></script>
+<script type="text/javascript" src="js/util/general.js"></script>
+<script type="text/javascript" src="js/setting.js"></script>
+</head>
+<body>
+
+<form id="settingForm" onsubmit="rdfaSetting.insert();return false;" action="#">
+<p align="center">Please specify the external API(s) you want to use for text enrichment:</p>
+<center>
+<select id="NLPAPI" name="NLPAPI" MULTIPLE SIZE=7>
+<option value="Alchemy">Alchemy</option>
+<option value="Extractiv">Extractiv</option>
+<option value="Calais">Open Calais</option>
+<option value="Ontos">Ontos</option>
+<option value="Evri">Evri</option>
+<option value="Saplo">Saplo</option>
+<option value="DBpedia">DBpedia</option>
+</select>
+</center>
+<p align="center">Please specify the combination strategy:</p>
+<center>
+<select id="combination" name="combination" SIZE=5>
+<option value="no">No Agreement</option>
+<option value="two">Two Agree</option>
+<option value="three">Three Agree</option>
+<option value="four">Four Agree</option>
+<option value="five">Five Agree</option>
+</select>
+</center><br>
+<table align='center'>
+<tr><td><input type="submit" id="insert" name="save" value="Save" onclick="rdfaSetting.insert();" class="button"/>&nbsp;<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" class="button"/></td><td></span></td></tr>
+</table>
+</form>
+<center><div id="errorMsg"></div></center>
+</body>
+</html>

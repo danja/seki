@@ -49,8 +49,8 @@ GetHandler.prototype = {
 		}
 
 		console.log("special[sekiRequest.url] = " + special[sekiRequest.url]);
-		console.log("queryTemplate = " + queryTemplate);
-		console.log("viewTemplate = " + viewTemplate);
+		// console.log("queryTemplate = " + queryTemplate);
+		// console.log("viewTemplate = " + viewTemplate);
 
 		if (accept && accept.indexOf("text/turtle") == 0) {
 			verbosity("text/turtle requested");
@@ -82,7 +82,7 @@ GetHandler.prototype = {
 			resource = config.uriBase + urlParts.pathname;
 
 			var replaceMap = {
-				"uri" :  urlParts.pathname
+                "uri" :  urlParts.pathname // config.uriBase + urlParts.pathname
 			};
 
 			// the body of a post
@@ -169,7 +169,7 @@ GetHandler.prototype = {
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 console.log("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
-		viewTemplate = htmlTemplates.postViewTemplate;
+		viewTemplate = htmlTemplates.editorTemplate; // postViewTemplate
 	}
 
 	var saxer = require('./srx2map');
@@ -199,8 +199,13 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 			// var html = viewTemplater.fillTemplate(bindings);
 			console.log("VIEW TEMPLATE2 = "+viewTemplate);
 			
-			bindings["uri"] = resource;
-			
+            // nasty hack
+         //   if((resource.indexOf("http://") == 0) || (resource.indexOf("https://") == 0 )) {
+            bindings["uri"] = resource; 
+         //   } else {
+         //       bindings["uri"] = config.uriBase + resource;
+         //   }
+            
 			var html = freemarker.render(viewTemplate, bindings);
 		} else {
 			verbosity("404");
