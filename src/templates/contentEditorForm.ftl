@@ -1,4 +1,12 @@
 <div id="page">
+
+<!-- temp workaround -->
+<div id = "menu">
+<ul>
+<li>one</li>
+</ul>
+</div>
+
 	<div id="aloha-loading"><span>Loading Aloha Editor</span> <img src="alohaeditor/aloha/demo/boilerplate/img/loading1.gif" title="Loading Aloha Editor ..."/></div>
 
 	<div class="field-label">Title</div>
@@ -37,8 +45,8 @@
 			// var contentId = Aloha.activeEditable.obj[0].id;
 			// var pageId = window.location.pathname;
 			var uri = $('#uri').text();
-			var title = $('#title').text();
-			var content = $('#content').text();
+			var title = $('#title').html();
+			var content = $('#content').html();
 			var nick = $('#nick').text();
 			
 			// textarea handling -- html id is "xy" and will be "xy-aloha" for the aloha editable

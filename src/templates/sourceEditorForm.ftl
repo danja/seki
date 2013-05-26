@@ -15,10 +15,10 @@
 </div>
 <textarea id="hidden-textarea">${content}</textarea>
 
-
 <script>
-    var editor = ace.edit("editor");
+      var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
-    editor.getSession().setValue($("#hidden-textarea").text());
+//    editor.getSession().setValue($("#hidden-textarea").text());
+editor.getSession().setValue(document.getElementById("hidden-textarea").innerHTML);
 </script> 

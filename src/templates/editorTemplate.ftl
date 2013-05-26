@@ -48,8 +48,6 @@
 		}
 	</style -->
 
-	<script src="/seki/js/ace-src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-
 	<!--
 		All configuration for Aloha Editor for this demo is stored in js/aloha-config.js
 		It can also be placed inline here before loading Aloha Editor itself.
@@ -58,6 +56,7 @@
 	<script src="alohaeditor/aloha/demo/boilerplate/js/aloha-config.js"></script>
 	<script src="alohaeditor/aloha/lib/require.js"></script>
 	<script src="alohaeditor/aloha/lib/vendor/jquery-1.7.2.js"></script>
+	    <script src="/seki/js/ace-src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 
 	$(function($) {
@@ -66,6 +65,7 @@
 					ui.jqXHR.error(function(jqXHR, ajaxOptions, thrownError) {
 						ui.panel.html("Need to be logged in and have appropriate permissions to use this tab ("+jqXHR.status+" "+thrownError+")");
 							});
+							
 							}
 						});
 	});
@@ -74,7 +74,7 @@
 	  // Passing jQuery into Aloha explicitly is not necessary since
 	  // newer versions of jQuery will make a call to define which will
 	  // be picked up in aloha.js
-	  //Aloha.settings.jQuery = $.noConflict(true);
+	 //  Aloha.settings.jQuery = $.noConflict(true);
     </script>
 	<!--
 		Load the Aloha Editor library.
