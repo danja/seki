@@ -74,7 +74,7 @@ var htmlTemplates = {
 <p>By : ${nick}, ${date}</p> \
 ",
 
-	creativeTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
+	creativeTemplateHeader : "<html xmlns='http://www.w3.org/1999/xhtml'> \
     <head><meta charset='utf-8' /> \
 				<title>Create new page</title> \
 				<style type='text/css'> \
@@ -83,20 +83,11 @@ var htmlTemplates = {
 				</head> \
 		    <body> \
 		  <h1>Create new page</h1> \
-<form action='/post' method='post'> \  <input type='hidden' value='post' name='type' /> \
-  <label for='uri'>Item URI</label> \
-  <input type='text' name='uri' id='uri' value='${uri}' /> \
-  <label for='title'>Title</label> \
-  <input type='text' name='title' id='title' /> \
-  <label for='nick'>By</label> \
-  <input type='text' name='nick' id='nick' /> \
-  <label for='content'>Content</label> \
-  <textarea name='content' id='content' rows='2' cols='20'></textarea> \
-  <input type='submit' value='Submit' /> \
-</form> \
-		  </body> \
-		  </html> \
-		  "
+		  ",
+  
+          creativeTemplateFooter : "</body> \
+          </html> \
+          "
 };
 
 // make it visible to other scripts

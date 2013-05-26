@@ -190,7 +190,15 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 
 		verbosity("bindings " + JSON.stringify(bindings));
 
-		if (bindings && bindings.title) { // // this is shite
+		if (!bindings || !bindings.title) { // // this is shite
+                        var creativeMap = {
+                 "uri" : resource,
+                 "title" : "Enter title",
+                  "content" : "Enter content",
+                  "nick" : "nickname"
+                        }
+                // "uri" :  sekiRequest.url
+            };
 			// if (bindings != {}) { // // this is shite
 			verbosity("here GOT: " + JSON.stringify(bindings));
 			// verbosity("TITLE: " + bindings.title);
@@ -207,23 +215,31 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
          //   }
             
 			var html = freemarker.render(viewTemplate, bindings);
-		} else {
+		// } 
+		// else { // NOT CORRECT
+            // var redirectHeaders = {};
+            
 			verbosity("404");
-			sekiResponse.writeHead(404, sekiHeaders);
+		//	sekiResponse.writeHead(200, sekiHeaders);
 			// /////////////////////////////// refactor
 			// var creativeTemplater =
 			// templater(htmlTemplates.creativeTemplate);
-			var creativeMap = {
-				 "uri" : resource
+		//	var creativeMap = {
+			//	 "uri" : resource,
+			//	 "title" : "Enter title",
+           //       "content" : "Enter content",
+            //      "nick" : "nickname"
 				// "uri" : 	sekiRequest.url
-			};
+		//	};
 		//	var html = freemarker.render(htmlTemplates.creativeTemplate,
 		//			creativeMap);
-			var html = freemarker.render(htmlTemplates.editorTemplate,
-					creativeMap);
+         //   var template = htmlTemplates.creativeTemplateHeader + htmlTemplates.htmlEditorTemplate + htmlTemplates.creativeTemplateFooter;
+         //   var template = htmlTemplates.htmlEditorTemplate;
+        //    var html = freemarker.render(template,
+		//			creativeMap);
 			
-			console.log("\n\n\n\nTHIS IS THE OUTPUT\n"+html);
-		}
+		//	console.log("\n\n\n\nTHIS IS THE OUTPUT\n"+html);
+	//	}
 		sekiResponse.end(html);
 	});
 };
