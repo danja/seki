@@ -1,0 +1,6 @@
+Models
+
+user FOAF (public) /people/
+user Accounts (protected) /accounts/
+bloggish/wiki etc. data (protected) /content/
+

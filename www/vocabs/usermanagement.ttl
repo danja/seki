@@ -1,10 +1,109 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix owl: <http://www.w3.org/2002/07/owl#>.
-@prefix dcterms: <http://purl.org/dc/terms/>.
-@prefix foaf: <http://xmlns.com/foaf/0.1/>.
-@prefix sioc: <http://rdfs.org/sioc/ns#>.
-@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#>.
-@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix um: <http://purl.org/stuff/usermanagement#> .
+
+# for now using custom terms, will align with existing vocabs later, after validation by use
+
+# using User as the entity that accesses the system to keep things simple, maybe add indirection to UserAccount later
+
+<http://purl.org/stuff/usermanagement#>
+    dcterms:title "User Management"@en ;
+    dcterms:description "A vocabulary for managing user accounts in an online system."@en ;
+    a owl:Ontology, owl:Thing ;
+    owl:versionInfo "Revision: 1.0" .
+
+# *** Classes ***
+
+# unnecessary complication?
+#um:UserGroup a rdfs:Class ;
+ #    dcterms:title "Group"@en ;
+  #   dcterms:description "a set of users"@en .
+
+um:User a rdfs:Class ;
+    dcterms:title "User"@en ;
+    dcterms:description "a person or comparable cyber entity"@en .
+
+um:Space a rdfs:Class ;
+    dcterms:title "Space"@en ;
+    dcterms:description "a set of resources"@en .
+
+# defined by a SPARQL SELECT?
+# TreeSpace ( = hierarchical, defined by URI template?)
+
+um:Role a rdfs:Class ;
+    dcterms:title "Role"@en ;
+    dcterms:description "the function assumed or part played by users"@en .
+
+um:Permission a rdfs:Class ;
+    dcterms:title "Permission"@en ;
+    dcterms:description "a description of authorized access associated with a User or Role"@en .
+
+um:AccessMode a rdfs:Class ;
+    dcterms:title "AccessMode"@en ;
+    dcterms:description "the kind of access authorized"@en .
+
+# *** Instances ***
+um:Read a um:AccessMode ;
+    dcterms:title "Read"@en ;
+    dcterms:description "ability to read the contents of a given set of resources"@en .
+
+um:Write a um:AccessMode ;
+    dcterms:title "Write"@en ;
+    dcterms:description "ability to write/create the representations for a given set of resources"@en .
+
+um:Append a um:AccessMode ;
+    dcterms:title "Append"@en ;
+    dcterms:description "ability to add information to, but not remove information the representations for a given set of resources"@en .
+
+um:Control a um:AccessMode ;
+    dcterms:title "Control"@en ;
+    dcterms:description "ability to modify access control for a given set of resources"@en .
+
+um:Full a um:AccessMode ;
+    dcterms:title "Full"@en ;
+    dcterms:description "total control of a given set of resources"@en .
+
+# *** Properties ***
+um:login a rdf:Property ;
+    dcterms:title "login"@en ;
+    dcterms:description "login name for a given user"@en ;
+	rdfs:domain um:User ;
+	rdfs:range rdfs:Literal .
+
+um:passwordSha1 a rdf:Property ;
+    dcterms:title "passwordSha1"@en ;
+    dcterms:description "hash of password"@en ;
+	rdfs:domain um:User ;
+	rdfs:range rdfs:Literal .
+
+um:hasRole a rdf:Property ;
+    dcterms:title "hasRole"@en ;
+    dcterms:description "associates User with Role"@en ;
+	rdfs:domain um:User ;
+	rdfs:range um:Role .
+
+um:hasPermission a rdf:Property ;
+    dcterms:title "hasPermission"@en ;
+    dcterms:description "associates a User or Role with a Permission"@en ;
+	rdfs:domain um:User, um:Role ;
+	rdfs:range um:Permission .
+
+um:hasMode a rdf:Property ;
+    dcterms:title "hasMode"@en ;
+    dcterms:description "associates a Permission with an AccessMode"@en ;
+	rdfs:domain um:Permission ;
+	rdfs:range um:AccessMode .
+
+um:covers a rdf:Property ;
+    dcterms:title "covers"@en ;
+    dcterms:description "the Space covered by a Permission"@en ;
+	rdfs:domain um:Permission ;
+	rdfs:range um:Space .
+
+
+
 
 

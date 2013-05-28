@@ -1,4 +1,4 @@
-Organization
+Group
 - a set of agents
 
 Agent
@@ -7,7 +7,7 @@ a person or their proxy, UserAccount etc
 Space ( = set of resources, defined by a SPARQL SELECT?)
 TreeSpace ( = hierarchical, defined by URI template?)
 
-Role ( = Group)
+Role 
 
 Permission
 
