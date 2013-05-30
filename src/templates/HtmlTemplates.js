@@ -12,7 +12,15 @@ function load(filename) {
 }
 
 var htmlTemplates = {
-
+    contentTemplate : (function() {
+        // console.log("loading HTML editor template "+__dirname);
+        var path = require('path').resolve(__dirname, 'postViewTemplate.ftl');
+        // console.log("path : "+path);
+        var template = load(path);
+        //console.log("TEMPLATE : "+template);
+        return template;
+    })(),
+    
 	editorTemplate : (function() {
 		// console.log("loading editor template "+__dirname);
 		var path = require('path').resolve(__dirname, 'editorTemplate.ftl');
@@ -56,7 +64,7 @@ var htmlTemplates = {
 			  </html> \
 			  ",
 
-	postViewTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
+	_postViewTemplate : "<html xmlns='http://www.w3.org/1999/xhtml'> \
   <head> \
     <meta charset=\"utf-8\" /> \
     <title>${title}</title> \
@@ -69,7 +77,7 @@ var htmlTemplates = {
 </html> \
 ",
 
-	contentTemplate : "<h1>${title}</h1> \
+	_contentTemplate : "<h1>${title}</h1> \
 <p>${content}</p> \
 <p>By : ${nick}, ${date}</p> \
 ",

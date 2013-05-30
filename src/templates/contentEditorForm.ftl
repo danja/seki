@@ -62,8 +62,7 @@
 					title : title,
 					content : content,
 					uri : uri,
-					nick : nick,
-					uri : uri
+					nick : nick
 				},
 				dataType: "html"
 			});

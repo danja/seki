@@ -214,7 +214,9 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
          //       bindings["uri"] = config.uriBase + resource;
          //   }
             
-			var html = freemarker.render(viewTemplate, bindings);
+        //    viewTemplate = htmlTemplates.htmlEditorTemplate;
+            
+            var html = freemarker.render(viewTemplate, bindings);
 		// } 
 		// else { // NOT CORRECT
             // var redirectHeaders = {};

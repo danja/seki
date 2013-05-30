@@ -56,20 +56,27 @@
 	<script src="alohaeditor/aloha/demo/boilerplate/js/aloha-config.js"></script>
 	<script src="alohaeditor/aloha/lib/require.js"></script>
 	<script src="alohaeditor/aloha/lib/vendor/jquery-1.7.2.js"></script>
-	    <script src="/seki/js/ace-src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-	<script>
+	
+	  <script src="/js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="/js/jquery/ui/minified/jquery.ui.tabs.min.js"></script>
+    <script>
 
-	$(function($) {
-		$("#tabs").tabs({
-				beforeLoad : function(event, ui) {
-					ui.jqXHR.error(function(jqXHR, ajaxOptions, thrownError) {
-						ui.panel.html("Need to be logged in and have appropriate permissions to use this tab ("+jqXHR.status+" "+thrownError+")");
-							});
-							
-							}
-						});
-	});
+    $(function($) {
+        $("#tabs").tabs({
+                beforeLoad : function(event, ui) {
+                    ui.jqXHR.error(function(jqXHR, ajaxOptions, thrownError) {
+                        ui.panel.html("Need to be logged in and have appropriate permissions to use this tab ("+jqXHR.status+" "+thrownError+")");
+                            });
+                            
+                            }
+                        });
+    });
 </script>
+
+	    <!--script src="/seki/js/ace-src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script -->
+	    
+	      <!-- script src="/js/jquery/jquery-1.9.1.js"></script -->
+
     <script>
 	  // Passing jQuery into Aloha explicitly is not necessary since
 	  // newer versions of jQuery will make a call to define which will
@@ -160,8 +167,8 @@ display: none
   <div id="tabs">
     <ul>
       <li><a href="${uri}?mode=content">View</a></li>
-      <li><a href="${uri}?mode=editHTML">Content Editor</a></li>
-      <li><a href="${uri}?mode=editSource">Source Editor</a></li>
+      <li><a href="${uri}?mode=editHTML">Editor</li>
+      <!--li><a href="${uri}?mode=editSource">Source Editor</a></li -->
     </ul>
   </div>
 </body>

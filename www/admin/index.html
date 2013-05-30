@@ -1,0 +1,42 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Seki User Management</title>
+  <link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css" />
+  <script src="../js/jquery/jquery-1.9.1.js"></script>
+  <script src="../js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="../js/jquery/ui/minified/jquery.ui.dialog.min.js"></script>
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs({
+      beforeLoad: function( event, ui ) {
+        ui.jqXHR.error(function() {
+          ui.panel.html(
+            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+            "If this wouldn't be a demo." );
+        });
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="tabs">
+  <ul>
+    <!-- li><a href="#tabs-1">Preloaded</a></li -->
+    <li><a href="system.html">System</a></li>
+    <li><a href="users.html">Users</a></li>
+    <!-- li><a href="roles.html">Roles</a></li -->
+    <!-- li><a href="permissions.html">Permissions</a></li -->
+  </ul>
+  <!-- div id="tabs-1">
+    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+  </div -->
+</div>
+ 
+ 
+</body>
+</html>
