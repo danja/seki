@@ -29,6 +29,10 @@ um:User a rdfs:Class ;
 um:Space a rdfs:Class ;
     dcterms:title "Space"@en ;
     dcterms:description "a set of resources"@en .
+    
+um:SpaceType a rdfs:Class ;
+    dcterms:title "SpaceType"@en ;
+    dcterms:description "a way of defining a Space"@en .
 
 # defined by a SPARQL SELECT?
 # TreeSpace ( = hierarchical, defined by URI template?)
@@ -65,6 +69,16 @@ um:Control a um:AccessMode ;
 um:Full a um:AccessMode ;
     dcterms:title "Full"@en ;
     dcterms:description "total control of a given set of resources"@en .
+
+# ----
+
+um:UriTemplate a um:SpaceType ;
+    dcterms:title "UriTemplate"@en ;
+    dcterms:description "Space defined as a URI Template"@en .
+    
+um:UriTemplate a um:SpaceType ;
+    dcterms:title "Sparql"@en ;
+    dcterms:description "Space defined as a SPARQL Query"@en .
 
 # *** Properties ***
 um:login a rdf:Property ;
@@ -115,8 +129,14 @@ um:spaceType a rdf:Property ;
     rdfs:domain um:Space ;
     rdfs:range rdfs:Literal .
     
-um:spaceDefinition a rdf:Property ;
-    dcterms:title "spaceDefinition"@en ;
+um:includes a rdf:Property ;
+    dcterms:title "includes"@en ;
+    dcterms:description "definition of Space (typically a URI Template or SPARQL Query)"@en ;
+    rdfs:domain um:Space ;
+    rdfs:range rdfs:Literal .
+    
+um:excludes a rdf:Property ;
+    dcterms:title "excludes"@en ;
     dcterms:description "definition of Space (typically a URI Template or SPARQL Query)"@en ;
     rdfs:domain um:Space ;
     rdfs:range rdfs:Literal .

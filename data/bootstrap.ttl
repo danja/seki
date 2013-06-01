@@ -35,13 +35,20 @@
     um:covers <http://hyperdata.org/spaces/all> ;
     um:hasMode um:Full .
     
-<http://hyperdata.org/permissions/read-all> a um:Permission ;
-    um:covers <http://hyperdata.org/spaces/all> ; 
-    # need to block ADMIN
+<http://hyperdata.org/permissions/public> a um:Permission ;
+    um:covers <http://hyperdata.org/spaces/public> ; 
     um:hasMode um:Read .
     
 # Default Spaces
 
 <http://hyperdata.org/spaces/all> a um:Space ;
-    um:spaceType "URI Template> ;
-    um:spaceDefinition "http://hyperdata.org/*" .
+    um:spaceType um:UriTemplate ;
+    um:includes "http://hyperdata.org/*" .
+    
+<http://hyperdata.org/spaces/public> a um:Space ;
+    um:spaceType um:UriTemplate ;
+    um:includes "http://hyperdata.org/*" ;
+    um:excludes "http://hyperdata.org/seki/*" ;
+    um:excludes "http://hyperdata.org/admin/*" ;
+    um:excludes "http://hyperdata.org/users/*" .   
+    

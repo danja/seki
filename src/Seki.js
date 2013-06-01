@@ -149,6 +149,7 @@ function onRequest(sekiRequest, sekiResponse) {
 		//	console.log("Error : " + e);
 		}
 
+		/////////////////////
 		
 //		fs.exists(path, function(exists) {
 			// 303 is See Other
@@ -162,22 +163,7 @@ function onRequest(sekiRequest, sekiResponse) {
 						+ "\">new location</a>");
 				return;
 			}
-	//	});
-		// fileServer.serve(sekiRequest, sekiResponse, function(err, res) {
-		// console.log("RES = "+res);
-		// if (err) { // the file doesn't exist, leave it to Seki
-		// sys.error("Error serving " + sekiRequest.url + " - " +
-		// err.message); // temp for debugging
-		// } else { // The file was served successfully
-		// verbosity(sekiRequest.url + " - " + res.message);
-		// }
-		// });
-		// var url = sekiRequest.url;
-		// fileServer.serveFile(path, 500, {}, sekiRequest,
-		// sekiResponse).addListener('error', function (err) {
-		// sys.error("Error HERE serving " + sekiRequest.url + " - " +
-		// err.message);
-		// });
+
 	}
 
 	verbosity("got past file server");
