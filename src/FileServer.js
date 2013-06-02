@@ -1,10 +1,10 @@
-// NOT USED
+// crude static fileserver Connect middleware
+// if file not found i.e. 404 then next() is called
+// possible replace with https://github.com/visionmedia/send#readme
 
-var fs = require('fs');
-var http = require('http');
-var url = require('url');
-var path = require('path');
-
+var Log = require('log')
+, log = new Log('debug');
+var fs = require('fs'); // filesystem module
 
 var mimeTypes = {
     "html": "text/html",
@@ -13,63 +13,68 @@ var mimeTypes = {
     "png": "image/png",
     "js": "text/javascript",
     "css": "text/css"};
+    var p = require('path');
 
-//Constructor
-function FileServer() {
-}
+exports = module.exports = function fileServer(){
+//  options = options || {};
+    
+    return function fileServer(req, res, next) {
+        log.debug("IN MIDDLEWARE");
+        
+        var url = require('url');
+        
+        var urlParts = url.parse(req.url, true);
+        
+        if (req.method != "GET" && !req.method == "HEAD") return next();
+            log.debug("IN MIDDLEWARE "+req.method);
+            var tweakedPathname = urlParts.pathname;
+            if (urlParts.pathname.substring(0, 1) == "/") {
+                tweakedPathname = urlParts.pathname.substring(1);
+            }
+            var dir = __dirname + "/../www/";
+            
+            log.debug("IN MIDDLEWARE dir = " + dir);
+            console.log("tweakedPathname = " + tweakedPathname);
+            var path = require('path').resolve(dir, tweakedPathname);
+            console.log("__dirname = " + __dirname);
+            console.log("PATH = " + path);
 
-// properties and methods
-FileServer.prototype = {
-    
-    value1 : "default_value",
-    
-    "testCall" : function() {
-        // this.value2 = argument + 100;
-        console.log("FileServer.testCall called");
-    },
-    "server" : function(host) {
-        server();
-    }
-    
+                    var uri = url.parse(req.url).pathname;
+                    var filename = p.join(process.cwd(), "../www/", unescape(uri));
+                    var stat;
+                    
+                    try {
+                        stat = fs.lstatSync(filename); // throws if path doesn't exist
+                    } catch (e) {
+                        next();
+                        return;
+        }
+        
+        if (stat.isFile()) {
+            // path exists, is a file
+            var mimeType = mimeTypes[p.extname(filename).split(".")[1]];
+            res.writeHead(200, {'Content-Type': mimeType} );
+            
+            var fileStream = fs.createReadStream(filename);
+            fileStream.pipe(res);
+           // log.debug("HERE");
+            // res.end(); /////////////////////
+            return;
+        } else if (stat.isDirectory()) {
+            // path exists, is a directory
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.write('Index of '+uri+'\n');
+            res.write('TODO, show index?\n');
+            res.end();
+        //    return;
+            } else {
+                // Symbolic link, other?
+                // TODO: follow symlinks?  security?
+                res.writeHead(500, {'Content-Type': 'text/plain'});
+                res.write('500 Internal server error\n');
+                res.end();
+            }
+            return;
+    //    }
+    };
 };
-
-
-function server() {              
-                http.createServer(function(req, res) {
-                  var uri = url.parse(req.url).pathname;
-                  var filename = path.join(process.cwd(), unescape(uri));
-                  var stats;
-                  
-                  try {
-                      stats = fs.lstatSync(filename); // throws if path doesn't exist
-                  } catch (e) {
-                      res.writeHead(404, {'Content-Type': 'text/plain'});
-              res.write('404 Not Found\n');
-res.end();
-return;
-              }
-              
-              
-              if (stats.isFile()) {
-                  // path exists, is a file
-                  var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
-                  res.writeHead(200, {'Content-Type': mimeType} );
-                  
-                  var fileStream = fs.createReadStream(filename);
-                  fileStream.pipe(res);
-                  } else if (stats.isDirectory()) {
-                      // path exists, is a directory
-                      res.writeHead(200, {'Content-Type': 'text/plain'});
-                      res.write('Index of '+uri+'\n');
-                      res.write('TODO, show index?\n');
-                      res.end();
-                      } else {
-                          // Symbolic link, other?
-                          // TODO: follow symlinks?  security?
-                          res.writeHead(500, {'Content-Type': 'text/plain'});
-                          res.write('500 Internal server error\n');
-                          res.end();
-                          }
-                          
-                          })
-}

@@ -11,6 +11,11 @@ JSONHandler.prototype = {
   "GET": function() {
    // this.value2 = argument + 100;
 	  console.log("JSONHandler.GET called");
+  },
+  
+  "POST": function() {
+      // this.value2 = argument + 100;
+      console.log("JSONHandler.POST called");
   }
 };
 

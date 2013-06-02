@@ -49,7 +49,7 @@ PostHandler.prototype = {
 					//		console.log("\n\n\nBEFORE :"+post_body);
 							post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
 							post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
-							console.log("\n\n\nAFTER :"+post_body);
+						//	console.log("\n\n\nAFTER :"+post_body);
 							// turn the POST parameters into JSON
 							var replaceMap = qs.parse(post_body);
                             
