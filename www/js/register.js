@@ -1,32 +1,16 @@
 $(function(){
-    var context = {
-        "@context": {
-            "name": "http://xmlns.com/foaf/0.1/name",
-  "homepage": {
-      "@id": "http://xmlns.com/foaf/0.1/homepage",
-  "@type": "@id"
-  }
+    
+    var context = { 
+       "@context": {
+         "login": "http://purl.org/stuff/usermanagement#login",
+         "password": "http://purl.org/stuff/usermanagement#password",
+         "fullname": "http://purl.org/stuff/usermanagement#fullname",
+         "email": "http://purl.org/stuff/usermanagement#email",
+         "profile": "http://purl.org/stuff/usermanagement#profile"
     }
 };
 
-    var User = Backbone.Model.extend({
-//         defaults: function() {
-//             return {
-//              //   context : {
-//                 
-//                     "@context": {
-//                         "name": "http://xmlns.com/foaf/0.1/name",
-//                         "homepage": {
-//                             "@id": "http://xmlns.com/foaf/0.1/homepage",
-//                             "@type": "@id"
-//                  //       }
-//                     
-//                     }
-//                 }
-//             };
-//         }
-
-    });
+    var User = Backbone.Model.extend();
     
     var UserView = Backbone.View.extend({
         events: {'submit': 'save'},
