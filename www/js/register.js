@@ -15,10 +15,6 @@ $(function(){
     var UserView = Backbone.View.extend({
         events: {'submit': 'save'},
         
-      //  initialize: function() {
-       //      _.bindAll(this, 'save');
-       //   },
-        
         save: function() {
             
           
@@ -27,24 +23,20 @@ $(function(){
                     acc[field.name] = field.value;
                     return acc;
                 }, {});
-
+                
+                // TODO :swap out http://hyperdata.org     
+                context["@id"] =  "http://hyperdata.org/users/"+data["login"];
+                context["@type"] = "um:User";
 
                 this.model.set(context);
                 this.model.set(data);
             this.model["url"] =  "/users/"+data["login"];
+            
             this.model.id = this.model["url"]; // turns the method from POST to PUT
-          //  console.log("MODEL="+JSON.stringify(this.model));
+            
               this.model.save();
             return false;
         }
-        
-        //   post: function() {
-        // e.preventDefault();
-        //       console.log("SAVE CALLED");
-        //       this.model.save();
-        //       return false;
-        //  }
-        
 });
 
 new UserView({el: $('form'), model:  new User() });

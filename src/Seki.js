@@ -178,8 +178,8 @@ function onRequest(sekiRequest, sekiResponse) {
 	var accept = sekiRequest.headers["accept"];
 
 	if (accept && accept.indexOf("application/json") == 0) {
-		var handler = new JSONHandler();
-		return handler[sekiRequest.method]();
+        var handler = new JSONHandler();
+        return handler[sekiRequest.method](sekiRequest, sekiResponse);
 	}
 
 	// verbosity("Accept header =" + accept
