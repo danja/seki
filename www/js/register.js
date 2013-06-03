@@ -1,74 +1,70 @@
-var User = Backbone.Model.extend({
-    url: '/register',
-    paramRoot: 'user',
-    defaults: {
-        'fullname': '',
-        'email': '',
-        'password': ''
+$(function(){
+    var context = {
+        "@context": {
+            "name": "http://xmlns.com/foaf/0.1/name",
+  "homepage": {
+      "@id": "http://xmlns.com/foaf/0.1/homepage",
+  "@type": "@id"
+  }
     }
+};
+
+    var User = Backbone.Model.extend({
+//         defaults: function() {
+//             return {
+//              //   context : {
+//                 
+//                     "@context": {
+//                         "name": "http://xmlns.com/foaf/0.1/name",
+//                         "homepage": {
+//                             "@id": "http://xmlns.com/foaf/0.1/homepage",
+//                             "@type": "@id"
+//                  //       }
+//                     
+//                     }
+//                 }
+//             };
+//         }
+
+    });
+    
+    var UserView = Backbone.View.extend({
+        events: {'submit': 'save'},
+        
+      //  initialize: function() {
+       //      _.bindAll(this, 'save');
+       //   },
+        
+        save: function() {
+            
+          
+                var arr = this.$el.serializeArray();
+                var data = _(arr).reduce(function(acc, field) {
+                    acc[field.name] = field.value;
+                    return acc;
+                }, {});
+
+
+                this.model.set(context);
+                this.model.set(data);
+            this.model["url"] =  "/users/"+data["login"];
+            this.model.id = this.model["url"]; // turns the method from POST to PUT
+          //  console.log("MODEL="+JSON.stringify(this.model));
+              this.model.save();
+            return false;
+        }
+        
+        //   post: function() {
+        // e.preventDefault();
+        //       console.log("SAVE CALLED");
+        //       this.model.save();
+        //       return false;
+        //  }
+        
 });
 
-var NewUserView = Backbone.View.extend({
-    // events: {
-    //    "submit form": "addUser"
-   // },
-    
- //   initialize: function(options) {
- //       this.collection.on("add", this.clearInput, this);
- //   },
-    
-    initialize: function() {
-        _.bindAll(this, 'register');        
-    },
-    
-  //  addUser: function(e) {
-  //      e.preventDefault();
-        
-  //      this.collection.create({ text: this.$('textarea').val() });
-  //  },
-    
-   // clearInput: function() {
-   //     this.$('textarea').val('');
-  //  }
-    
-    events: {
-        'submit f': 'register'
-    },
-    
-    register: function(e){
-        e.preventDefault();
-        
-        var login = this.$('input[name=login]').val();
-        var fullname = this.$('input[name=fullname]').val();
-        var email = this.$('input[name=email]').val();
-        var password = this.$('input[name=password]').val();
-        
-        this.$('input[type=submit]').attr('disabled', 'disabled');
-        
-        var self = this;
-        $.ajax({
-            type: 'PUT',
-            url: '/json/user',
-            dataType: 'json',
-            data: { username: username, password: password, email: email },
-            success: function(data) {
-                App.user = data;
-                self.$('input[type=submit]').removeAttr('disabled');
-                self.$('.account_info').html('Changes saved');
-                setTimeout(function() {
-                    self.$('.account_info').html('');
-                }, 3000);
-            },
-            error: function() {
-                window.location = '/';
-            }
-        });
-    },
+new UserView({el: $('form'), model:  new User() });
 });
 
-$(document).ready(function() {
 
-  //  var users = new Users();
-   // new NewUserView({ el: $('#new-user'), collection: users });
-   //  new UsersView({ el: $('#users'), collection: users });
-});
+

@@ -1,9 +1,20 @@
-// crude static fileserver Connect middleware
-// if file not found i.e. 404 then next() is called
-// possible replace with https://github.com/visionmedia/send#readme
+/* 
+ * crude static fileserver Connect middleware
+ * 
+ * if file not found i.e. 404 then next() is called (pass-through)
+ * 
+ * possibly replace with https://github.com/visionmedia/send#readme
+ * 
+ * OR add :
+ * 
+ * conneg for no-extension files, i.e. HTML/RDFXML/Turtle
+ * caching
+ * Range
+ * etags etc
+ * ...?
+*/
 
-var Log = require('log')
-, log = new Log('debug');
+var Log = require('log'), log = new Log('debug');
 var fs = require('fs'); // filesystem module
 
 var mimeTypes = {

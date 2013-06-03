@@ -1,6 +1,6 @@
 /*
  * Templates used to build SPARQL
- * parts like %this% will be replaced
+ * parts like ${this} will be replaced
  */
 var sparqlTemplates = {
 	// used to retrieve an item from the store for display
