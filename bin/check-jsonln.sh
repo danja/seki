@@ -1,0 +1,1 @@
+/home/danny/workspace-javascript/jsonld.js/bin/jsonld format -q ../data/samples/register.json

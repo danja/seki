@@ -17,11 +17,6 @@
 
 # *** Classes ***
 
-# unnecessary complication?
-#um:UserGroup a rdfs:Class ;
- #    dcterms:title "Group"@en ;
-  #   dcterms:description "a set of users"@en .
-
 um:User a rdfs:Class ;
     dcterms:title "User"@en ;
     dcterms:description "a person or comparable cyber entity"@en .
@@ -86,6 +81,18 @@ um:login a rdf:Property ;
     dcterms:description "login name for a given user"@en ;
 	rdfs:domain um:User ;
 	rdfs:range rdfs:Literal .
+	
+um:owner a rdf:Property ;
+    dcterms:title "owner"@en ;
+    dcterms:description "the Agent behind this User"@en ;
+    rdfs:domain um:User ;
+    rdfs:range foaf:Agent .
+    
+um:profile a rdf:Property ;
+    dcterms:title "profile"@en ;
+    dcterms:description "the FOAF Profile of the Agent behind this User"@en ;
+    rdfs:domain um:User ;
+    rdfs:range foaf:PersonalProfileDocument .
 
 um:passwordSha1 a rdf:Property ;
     dcterms:title "passwordSha1"@en ;
@@ -96,6 +103,12 @@ um:passwordSha1 a rdf:Property ;
 um:password a rdf:Property ;
     dcterms:title "password"@en ;
     dcterms:description "password"@en ;
+    rdfs:domain um:User ;
+    rdfs:range rdfs:Literal .
+    
+um:email a rdf:Property ;
+    dcterms:title "email"@en ;
+    dcterms:description "email address"@en ;
     rdfs:domain um:User ;
     rdfs:range rdfs:Literal .
 
