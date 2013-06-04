@@ -16,25 +16,22 @@ $(function(){
         events: {'submit': 'save'},
         
         save: function() {
-            
-          
-                var arr = this.$el.serializeArray();
-                var data = _(arr).reduce(function(acc, field) {
+            var arr = this.$el.serializeArray();
+            var data = _(arr).reduce(function(acc, field) {
                     acc[field.name] = field.value;
-                    return acc;
-                }, {});
+                    return acc; }, {});
                 
                 // TODO :swap out http://hyperdata.org     
-                context["@id"] =  "http://hyperdata.org/users/"+data["login"];
-                context["@type"] = "um:User";
+            context["@id"] =  "http://hyperdata.org/users/"+data["login"];
+            context["@type"] = "http://purl.org/stuff/usermanagement#User";
 
-                this.model.set(context);
-                this.model.set(data);
+            this.model.set(context);
+            this.model.set(data);
             this.model["url"] =  "/users/"+data["login"];
             
             this.model.id = this.model["url"]; // turns the method from POST to PUT
             
-              this.model.save();
+            this.model.save();
             return false;
         }
 });

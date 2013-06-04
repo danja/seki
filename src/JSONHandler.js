@@ -41,10 +41,10 @@ JSONHandler.prototype = {
       });
       
       // now received body of request
-      sekiRequest .on('end', function() {
+      sekiRequest .on('end', function() { // need to choose graph - use map of URI templates?
               console.log("BODY = "+body);
            //   body = body.toString();
-              var options ={ "format" : 'application/nquads' };
+              var options = { "format" : 'application/nquads' };
               //  options.format = 'application/nquads';
               
               eval("var map = "+body);
@@ -61,11 +61,12 @@ JSONHandler.prototype = {
                   console.log("err = "+err);
                   console.log("data = "+data);
                   console.log("norm = "+JSON.stringify(data));
+                  
+
               }
  // }
 });
   }
 }
-
 
 module.exports = JSONHandler;

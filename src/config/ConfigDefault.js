@@ -1,8 +1,13 @@
 var config;
 var defaultConfig = {
-
+    graphLabels : ["meta", "users", "content", "vocabs", "foaf"]
+    ,
 	wwwDir : "../www" // static files
 	,
+    vocabsDir : "../www/vocabs"
+    ,
+    samplesDir : "../data/samples"
+    ,
 	baked : "../baked"
 		,
 		staticHost : "localhost",

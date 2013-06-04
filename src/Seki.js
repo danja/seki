@@ -20,6 +20,7 @@ var sys = require('sys');
 var http = require('http');
 var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
+var commander = require('../lib/commander');
 var Log = require('log')
 , log = new Log('debug');
 // var qs = require('querystring'); // POST parameters parser
@@ -36,6 +37,7 @@ var verbose = true;
  */
 
 var Constants = require('./config/Constants');
+var Bootstrap = require('./Bootstrap');
 var Utils = require('./Utils');
 
 var Authenticator = require('./Authenticator');
@@ -97,6 +99,17 @@ log.debug("logging...");
 //.use(function(req, res){
 //    res.end('hello world\n');
 //})
+
+commander
+.version('pre-alpha')
+.option('--init', 'initialize (beware - wipes data)')
+.parse(process.argv);
+
+if (commander.init) {
+    console.log('*** INITIALIZING ***');
+    Bootstrap();
+}
+        
 
 var app = connect()
 .use(fileServer())

@@ -6,6 +6,11 @@ var sparqlTemplates = {
 	// used to retrieve an item from the store for display
 	// http://purl.org/dc/terms/
 
+    simpleReplaceTemplate : "WITH <${targetGraph}> \
+       DELETE { <${root}> ?p ?o } \
+       INSERT { ${insertGraph} } \
+       WHERE  { <${root}> ?p ?o } ",
+    
 	itemTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
