@@ -178,7 +178,7 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 	sekiResponse.pipe(stream);
 
 	queryResponse.on('data', function(chunk) {
-		console.log("CHUNK: " + chunk);
+	//	console.log("CHUNK: " + chunk);
 		stream.write(chunk);
 	});
 
@@ -205,7 +205,7 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
 			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
 			// var html = viewTemplater.fillTemplate(bindings);
-			console.log("VIEW TEMPLATE2 = "+viewTemplate);
+			// console.log("VIEW TEMPLATE2 = "+viewTemplate);
 			
             // nasty hack
          //   if((resource.indexOf("http://") == 0) || (resource.indexOf("https://") == 0 )) {

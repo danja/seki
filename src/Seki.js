@@ -192,6 +192,7 @@ function onRequest(sekiRequest, sekiResponse) {
 
 	if (sekiRequest.method == "POST") {
 		// var postHandler = Object.create(PostHandler);
+        log.debug("calling PostHandler");
 		var postHandler = new PostHandler();
 		postHandler.handle(sekiRequest, sekiResponse);
 	}

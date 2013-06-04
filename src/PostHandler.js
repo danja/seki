@@ -83,8 +83,8 @@ PostHandler.prototype = {
 								sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);
 							}
 
-							verbosity("POST UPDATE \n" + sparql);
-                            console.log("POST UPDATE \n" + sparql);
+						//	verbosity("POST UPDATE \n" + sparql);
+                        //    console.log("POST UPDATE \n" + sparql);
 							/*
 							 * make the request to the SPARQL server the update
 							 * has to be POSTed to the SPARQL server
@@ -94,7 +94,7 @@ PostHandler.prototype = {
 							config.clientOptions["method"] = "POST";
 							config.clientOptions["path"] = config.sparqlUpdateEndpoint;
 							
-                            var client = new StoreClient();
+                       
                             
                             
                             var options = {
@@ -104,17 +104,27 @@ PostHandler.prototype = {
                        //     "send" : function(options, sparql, sekiResonse, redirectURI, callback) 
                             var redirectURI = replaceMap.uri.substring(config.uriBase.length);
                             
-                            client.send(options, sparql, sekiResponse, callback);
+
+
+                           // }
+                            
+                            var callback = function(queryResponse) {
+                                log.debug("callback called");
+                                var headers = {
+                                    "Location" : redirectURI,
+                 "Content-type" : "text/html; charset=utf-8"
+                                };
+                                // do the redirect
+                                sekiResponse.writeHead(303, headers);
+                                sekiResponse.end();
+                            }
+                          //  callback("boo");
+                          //  log.debug("CALLBACK = "+callback);
+                            
+                            var client = new StoreClient();
+                            client.send(options, sparql, sekiResponse, redirectURI, callback);
 	});
-        function callback() {
-            var headers = {
-                "Location" : redirectURI,
-                "Content-type" : "text/html; charset=utf-8"
-            };
-            // do the redirect
-            sekiResponse.writeHead(303, headers);
-            sekiResponse.end();
-        }
+  
 }
 }
 

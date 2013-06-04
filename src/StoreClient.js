@@ -10,28 +10,29 @@ function StoreClient() {
 // properties and methods
 StoreClient.prototype = {
     
-    "send" : function(options, sparql, sekiResonse, redirectURI, callback) {
-       this.callback = callback;
+    "send" : function(options, sparql, sekiResponse, redirectURI, callback) {
+
         log.debug("StoreClient.send");
-            
+        
+        log.debug("callback = "+callback);
+        
         for (var name in config.clientOptions) { // merge constants
             if(!options[name]) {
                 options[name] = config.clientOptions[name]; 
             }
         }
+      //  var respond = 
         
         var clientRequest = http.request(options, function(queryResponse) {
             //                                console.log('STATUS: ' + res.statusCode);
             //                                console.log('HEADERS: ' + JSON.stringify(res.headers));
             queryResponse.setEncoding('utf8');
-            
-            // handle the response from the SPARQL server
-                    this.on('response',
-                        function(queryResponse) {
-                                callback(queryResponse);
-                        });
+            //   doCallback(queryResponse);
+            // doCallback(queryResponse);
+            callback(queryResponse);
         });
         
+
         // send the update query as POST parameters
         //                          clientRequest.write(qs.stringify({
         //                              "update" : sparql
@@ -44,6 +45,12 @@ StoreClient.prototype = {
         
         clientRequest.end();
         
+        // handle the response from the SPARQL server
+   //     clientRequest.on('response', doCallback(queryResponse));
+        
+     //   function doCallback(queryResponse){
+        //    callback(queryResponse);
+     //   }
         // handle the response from the SPARQL server
 //         clientRequest.on('response',
 //             function(queryResponse) {
