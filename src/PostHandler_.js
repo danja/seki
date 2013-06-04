@@ -1,13 +1,11 @@
 var http = require('http');
 var qs = require('querystring'); // POST parameters parser
 var sparqlTemplates = require('./templates/SparqlTemplates');
-var StoreClient = require("./StoreClient");
 // var templater = require('./templates/Templater');
 var freemarker = require('./templates/freemarker');
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
-
+var freemarker = require('./templates/freemarker');
 
 var verbose = true;
 
@@ -17,8 +15,14 @@ var postHeaders = {
 	'Content-Type' : 'application/x-www-form-urlencoded'
 };
 
+// this version will be modified
+var sekiHeaders2 = {
+	"Content-type" : "text/html; charset=utf-8"
+};
+
 // Constructor
 function PostHandler() {
+
 }
 
 // properties and methods
@@ -26,9 +30,9 @@ PostHandler.prototype = {
 
 	"handle" : function(sekiRequest, sekiResponse) {
 
-        log.debug("PostHandler.handle");
+		// verbosity("Start of POST");
 
-		// check media type of data..?
+		// check media type of data
 
 		var post_body = '';
 
@@ -38,13 +42,20 @@ PostHandler.prototype = {
 		});
 
 		// now received body of request
-		sekiRequest.on('end',
+		sekiRequest
+				.on(
+						'end',
 						function() {
+					//		console.log("\n\n\nBEFORE :"+post_body);
 							post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
 							post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
-
-							// turn the POST parameters into a map (JSON object)
+						//	console.log("\n\n\nAFTER :"+post_body);
+							// turn the POST parameters into JSON
 							var replaceMap = qs.parse(post_body);
+                            
+                           // if(!replaceMap["type"]) {
+                            //    replaceMap["type"] = post;
+                          //  }
 
 							verbosity("post_body \n" + post_body);
 							verbosity("replaceMap \n" + replaceMap);
@@ -94,28 +105,45 @@ PostHandler.prototype = {
 							config.clientOptions["method"] = "POST";
 							config.clientOptions["path"] = config.sparqlUpdateEndpoint;
 							
-                            var client = new StoreClient();
-                            
-                            
-                            var options = {
-                                "path" : config.sparqlUpdateEndpoint,
-                                "method" : "POST"
-                            };
-                       //     "send" : function(options, sparql, sekiResonse, redirectURI, callback) 
-                            var redirectURI = replaceMap.uri.substring(config.uriBase.length);
-                            
-                            client.send(options, sparql, sekiResponse, callback);
-	});
-        function callback() {
-            var headers = {
-                "Location" : redirectURI,
-                "Content-type" : "text/html; charset=utf-8"
-            };
-            // do the redirect
-            sekiResponse.writeHead(303, headers);
-            sekiResponse.end();
-        }
-}
+							var clientRequest = http.request(config.clientOptions, function(queryResponse) {
+//								  console.log('STATUS: ' + res.statusCode);
+//								  console.log('HEADERS: ' + JSON.stringify(res.headers));
+								queryResponse.setEncoding('utf8');
+//								  res.on('data', function (chunk) {
+//								    console.log('BODY: ' + chunk);
+//								  });
+								});
+
+							// send the update query as POST parameters
+//							clientRequest.write(qs.stringify({
+//								"update" : sparql
+//							}));
+							clientRequest.write(sparql);
+
+//							verbosity(queryPath);
+//							verbosity(post_body);
+//							verbosity(sparql);
+
+							clientRequest.end();
+
+							// handle the response from the SPARQL server
+							clientRequest
+									.on(
+											'response',
+											function(queryResponse) {
+
+												var relativeUri = replaceMap.uri
+														.substring(config.uriBase.length);
+
+												// do a redirect to the new item
+												sekiHeaders2["Location"] = relativeUri+"?mode=edit";
+												sekiResponse.writeHead(303,
+														sekiHeaders2);
+												// all done
+												sekiResponse.end();
+											});
+						});
+	}
 }
 
 function verbosity(message) {

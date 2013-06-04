@@ -21,8 +21,7 @@ var http = require('http');
 var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
 var commander = require('../lib/commander');
-var Log = require('log')
-, log = new Log('debug');
+
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
@@ -50,6 +49,8 @@ var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
 // var special = require('./SpecialPages');
+var Log = require('log')
+, log = new Log(config.logLevel);
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
@@ -120,24 +121,8 @@ var app = connect()
 
 app.listen(8888);
 
-// .use(connect.logger('dev'))
-// .use(connect.static('public'))
-// .use(function(req, res){
-//    re
-//    s.end('hello world\n');
-// })
-// .use(fileServer).listen(3000);
-
-// app.createServer().use(fileServer).listen(8888);
-
-//connect.createServer(function(sekiRequest, sekiResponse, next) {
-//    onRequest(sekiRequest, sekiResponse);
-//}).listen(8888);
-
 log.debug("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
-
-verbosity("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
-verbosity("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);
+log.debug("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);
 
 /*
  * Callback to handle HTTP requests (typically from browser)

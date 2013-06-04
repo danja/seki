@@ -1,5 +1,6 @@
 var config;
 var defaultConfig = {
+    logLevel : "debug",
     graphLabels : ["meta", "users", "content", "vocabs", "foaf"]
     ,
 	wwwDir : "../www" // static files
