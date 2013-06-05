@@ -6,6 +6,9 @@ var sparqlTemplates = {
 	// used to retrieve an item from the store for display
 	// http://purl.org/dc/terms/
 
+    generalInsertTemplate : "${prefixes} \
+    INSERT DATA { GRAPH <${graph}>{ ${body} }}",
+
     simpleReplaceTemplate : "WITH <${targetGraph}> \
        DELETE { <${root}> ?p ?o } \
        INSERT { ${insertGraph} } \

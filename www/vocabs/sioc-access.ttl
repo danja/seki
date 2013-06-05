@@ -1,0 +1,41 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+<http://rdfs.org/sioc/access#>
+    dcterms:description "Extends the SIOC Core Ontology (Semantically-Interlinked Online Communities) by defining basic information on permissions and access rights." ;
+    dcterms:title "SIOC Access Ontology Module" ;
+    a owl:Ontology, owl:Thing ;
+    rdfs:seeAlso <http://rdfs.org/sioc/spec/#sec-modules> ;
+    owl:imports <http://rdfs.org/sioc/ns#> .
+
+<http://rdfs.org/sioc/access#Permission>
+    a rdfs:Class, owl:Class ;
+    rdfs:comment "A Permission describes a type of action that can be performed on an object that is within the scope of a Role, e.g. a Site, Forum, etc."@en ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/access#> ;
+    rdfs:label "Permission"@en .
+
+<http://rdfs.org/sioc/access#Status>
+    a rdfs:Class, owl:Class ;
+    rdfs:comment "A Status can be assign to content Item to indicate its publication status (e.g. public, draft, etc.). This class is used to define different types of status."@en ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/access#> ;
+    rdfs:label "Status"@en .
+
+<http://rdfs.org/sioc/access#has_permission>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "A Permission assigned to a Role."@en ;
+    rdfs:domain sioc:Role ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/access#> ;
+    rdfs:label "has permission"@en ;
+    rdfs:range <http://rdfs.org/sioc/access#Permission> .
+
+<http://rdfs.org/sioc/access#has_status>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "The Status of a content Item (e.g. public, draft)."@en ;
+    rdfs:domain sioc:Item ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/access#> ;
+    rdfs:label "has status"@en ;
+    rdfs:range <http://rdfs.org/sioc/access#Status> .
+

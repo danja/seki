@@ -91,8 +91,8 @@ PostHandler.prototype = {
 							 */
 //							var clientRequest = client.request("POST",
 //									config.sparqlUpdateEndpoint, postHeaders);
-							config.clientOptions["method"] = "POST";
-							config.clientOptions["path"] = config.sparqlUpdateEndpoint;
+						//	config.clientOptions["method"] = "POST";
+						//	config.clientOptions["path"] = config.sparqlUpdateEndpoint;
 							
                        
                             
@@ -102,17 +102,13 @@ PostHandler.prototype = {
                                 "method" : "POST"
                             };
                        //     "send" : function(options, sparql, sekiResonse, redirectURI, callback) 
-                            var redirectURI = replaceMap.uri.substring(config.uriBase.length);
-                            
-
-
-                           // }
+                            var redirectURI = replaceMap.uri.substring(config.uriBase.length);                           
                             
                             var callback = function(queryResponse) {
                                 log.debug("callback called");
                                 var headers = {
                                     "Location" : redirectURI,
-                 "Content-type" : "text/html; charset=utf-8"
+                                    "Content-type" : "text/html; charset=utf-8"
                                 };
                                 // do the redirect
                                 sekiResponse.writeHead(303, headers);
@@ -122,7 +118,7 @@ PostHandler.prototype = {
                           //  log.debug("CALLBACK = "+callback);
                             
                             var client = new StoreClient();
-                            client.send(options, sparql, sekiResponse, redirectURI, callback);
+                            client.send(options, sparql, callback);
 	});
   
 }

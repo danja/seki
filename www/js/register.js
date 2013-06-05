@@ -10,7 +10,13 @@ $(function(){
     }
 };
 
-    var User = Backbone.Model.extend();
+    var User = Backbone.Model.extend({
+        validate: function( attributes ){
+            if( password.length < 5 ){
+                return "Password must be at least 5 characters";
+            }
+        }
+    });
     
     var UserView = Backbone.View.extend({
         events: {'submit': 'save'},

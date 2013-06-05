@@ -1,3 +1,5 @@
+
+// consider using 'request' module
 var http = require('http');
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
@@ -10,11 +12,11 @@ function StoreClient() {
 // properties and methods
 StoreClient.prototype = {
     
-    "send" : function(options, sparql, sekiResponse, redirectURI, callback) {
+    "send" : function(options, sparql, callback) {
 
         log.debug("StoreClient.send");
         
-        log.debug("callback = "+callback);
+     //   log.debug("callback = "+callback);
         
         for (var name in config.clientOptions) { // merge constants
             if(!options[name]) {
@@ -27,9 +29,8 @@ StoreClient.prototype = {
             //                                console.log('STATUS: ' + res.statusCode);
             //                                console.log('HEADERS: ' + JSON.stringify(res.headers));
             queryResponse.setEncoding('utf8');
-            //   doCallback(queryResponse);
-            // doCallback(queryResponse);
-            callback(queryResponse);
+
+            if(callback) callback(queryResponse);
         });
         
 

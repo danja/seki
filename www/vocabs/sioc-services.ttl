@@ -1,0 +1,71 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+<http://rdfs.org/sioc/services#>
+    dcterms:description "Extends the SIOC Core Ontology (Semantically-Interlinked Online Communities) by defining basic information on community-related web services." ;
+    dcterms:title "SIOC Services Ontology Module Namespace" ;
+    a owl:Ontology, owl:Thing ;
+    rdfs:seeAlso <http://rdfs.org/sioc/spec/#sec-modules> ;
+    owl:imports <http://rdfs.org/sioc/ns#> .
+
+<http://rdfs.org/sioc/services#Service>
+    a rdfs:Class, owl:Class ;
+    rdfs:comment "A Service is web service associated with a Site or part of it."@en ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "Service"@en .
+
+<http://rdfs.org/sioc/services#has_service>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "A Service associated with this SIOC object."@en ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "has service"@en ;
+    rdfs:range <http://rdfs.org/sioc/services#Service> ;
+    owl:inverseOf <http://rdfs.org/sioc/services#service_of> .
+
+<http://rdfs.org/sioc/services#max_results>
+    a rdf:Property, owl:DatatypeProperty ;
+    rdfs:comment "Maximum number of results results returned by a web service."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "max results"@en ;
+    rdfs:range <http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://rdfs.org/sioc/services#results_format>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "Format of results returned by a web service."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "results format"@en .
+
+<http://rdfs.org/sioc/services#service_definition>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "Links to a web service definition of this sioc:Service."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "service definition"@en .
+
+<http://rdfs.org/sioc/services#service_endpoint>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "URL of a web service endpoint."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "service endpoint"@en .
+
+<http://rdfs.org/sioc/services#service_of>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "A SIOC object this Service is associated with."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "service of"@en ;
+    owl:inverseOf <http://rdfs.org/sioc/services#has_service> .
+
+<http://rdfs.org/sioc/services#service_protocol>
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "A protocol used by a web service. Possible protocol values include SOAP, REST, SPARQL-QUERY, GData and OpenSearch. These will be added to this module later."@en ;
+    rdfs:domain <http://rdfs.org/sioc/services#Service> ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/services#> ;
+    rdfs:label "service protocol"@en .
+
