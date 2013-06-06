@@ -49,30 +49,30 @@ var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
 // var special = require('./SpecialPages');
-var Log = require('log')
-, log = new Log(config.logLevel);
+var Log = require('log'),
+    log = new Log(config.logLevel);
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
 
 var sekiHeaders = {
-	"Content-type" : "text/html; charset=utf-8",
-	"Connection" : "keep-alive", // added later
-	"Transfer-Encoding" : "chunked"
+    "Content-type": "text/html; charset=utf-8",
+    "Connection": "keep-alive", // added later
+    "Transfer-Encoding": "chunked"
 };
 
 var redirectHeaders = {};
 
 var graphHeaders = {
-	// "Accept" : "application/rdf+xml",
-	"Accept" : "text/turtle",
-	"Host" : config.sekiHost + ":" + config.sekiPort
+    // "Accept" : "application/rdf+xml",
+    "Accept": "text/turtle",
+    "Host": config.sekiHost + ":" + config.sekiPort
 };
 
 var notAuthHeaders = {
-	"Host" : config.sekiHost + ":" + config.sekiPort,
-	'Content-Type' : 'text/plain',
-	'WWW-Authenticate' : 'Basic realm="Secure Area"'
+    "Host": config.sekiHost + ":" + config.sekiPort,
+    'Content-Type': 'text/plain',
+    'WWW-Authenticate': 'Basic realm="Secure Area"'
 };
 
 /*
@@ -80,10 +80,10 @@ var notAuthHeaders = {
  * 
  */
 var files = {
-	"/" : config.wwwDir + "/index.html",
-	"/index" : config.wwwDir + "/index.html",
-	"/form" : config.wwwDir + "/form.html",
-//	"404" : config.wwwDir + "/form.html" // /404.html
+    "/": config.wwwDir + "/index.html",
+    "/index": config.wwwDir + "/index.html",
+    "/form": config.wwwDir + "/form.html",
+    //	"404" : config.wwwDir + "/form.html" // /404.html
 };
 
 // var fileServer = connect().use(connect.static(config.wwwDir)).use(
@@ -102,22 +102,22 @@ log.debug("logging...");
 //})
 
 commander
-.version('pre-alpha')
-.option('--init', 'initialize (beware - wipes data)')
-.parse(process.argv);
+    .version('pre-alpha')
+    .option('--init', 'initialize (beware - wipes data)')
+    .parse(process.argv);
 
 if (commander.init) {
     console.log('*** INITIALIZING ***');
     Bootstrap();
 }
-        
+
 
 var app = connect()
-.use(fileServer())
-.use(function(sekiRequest, sekiResponse) {
-    log.debug("SEKI");
-    onRequest(sekiRequest, sekiResponse);
-});
+    .use(fileServer())
+    .use(function(sekiRequest, sekiResponse) {
+        log.debug("SEKI");
+        onRequest(sekiRequest, sekiResponse);
+    });
 
 app.listen(8888);
 
@@ -127,75 +127,75 @@ log.debug("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort)
 /*
  * Callback to handle HTTP requests (typically from browser)
  */
+
 function onRequest(sekiRequest, sekiResponse) {
-	verbosity("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
-	verbosity("REQUEST URL = " + sekiRequest.url);
-	verbosity("REQUEST METHOD = " + sekiRequest.method);
+  //  verbosity("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+    verbosity("REQUEST URL = " + sekiRequest.url);
+ //   verbosity("REQUEST METHOD = " + sekiRequest.method);
 
     log.debug("got past file server");
-    
-	verbosity("got past file server");
 
-	var auth = new Authenticator();
+    verbosity("got past file server");
 
-	if (sekiRequest.method == "POST") {
-		if (!auth.Basic(sekiRequest)) {
-			sekiResponse.writeHead(401, notAuthHeaders);
-			sekiResponse.end("401 Not Authorized");
-			return;
-		}
-	}
-	// handle admin requests/commands
-	if (sekiRequest.method == "POST") {
-		if (sekiRequest.url.substring(0, 7) == "/admin/") {
-			var command = sekiRequest.url.substring(7);
-			var admin = new Admin(sekiRequest, sekiResponse);
-			if (admin[command]) {
-				sekiResponse.writeHead(202, sekiHeaders);
-				sekiResponse.end("202 Accepted for command '" + command + "'");
-				admin[command](); // perhaps this should spawn a separate OS
-				// process?
-				return;
-			} else {
-				sekiResponse.writeHead(404, sekiHeaders);
-				sekiResponse.end("404 Not Found. Admin command '" + command
-						+ "' unknown");
-				return;
-			}
-		}
-	}
+    var auth = new Authenticator();
 
-	// the client that will talk to the SPARQL server
-	// var client = http.createClient(config.sparqlPort, config.sparqlHost);
+    if (sekiRequest.method == "POST") {
+        if (!auth.Basic(sekiRequest)) {
+            sekiResponse.writeHead(401, notAuthHeaders);
+            sekiResponse.end("401 Not Authorized");
+            return;
+        }
+    }
+    // handle admin requests/commands
+    if (sekiRequest.method == "POST") {
+        if (sekiRequest.url.substring(0, 7) == "/admin/") {
+            var command = sekiRequest.url.substring(7);
+            var admin = new Admin(sekiRequest, sekiResponse);
+            if (admin[command]) {
+                sekiResponse.writeHead(202, sekiHeaders);
+                sekiResponse.end("202 Accepted for command '" + command + "'");
+                admin[command](); // perhaps this should spawn a separate OS
+                // process?
+                return;
+            } else {
+                sekiResponse.writeHead(404, sekiHeaders);
+                sekiResponse.end("404 Not Found. Admin command '" + command + "' unknown");
+                return;
+            }
+        }
+    }
 
-	// the URI used in the RDF
-	// var resource = config.uriBase + sekiRequest.url;
-	// console.log("RESOURCE = " + resource);
+    // the client that will talk to the SPARQL server
+    // var client = http.createClient(config.sparqlPort, config.sparqlHost);
 
-	// this is duplicated in GetHandler.js
-	var accept = sekiRequest.headers["accept"];
+    // the URI used in the RDF
+    // var resource = config.uriBase + sekiRequest.url;
+    // console.log("RESOURCE = " + resource);
 
-	if (accept && accept.indexOf("application/json") == 0) {
+    // this is duplicated in GetHandler.js
+    var accept = sekiRequest.headers["accept"];
+
+    if (accept && accept.indexOf("application/json") == 0) {
         var handler = new JSONHandler();
         return handler[sekiRequest.method](sekiRequest, sekiResponse);
-	}
+    }
 
-	// verbosity("Accept header =" + accept
-	// + accept.indexOf("application/rdf+xml" == 0));
+    // verbosity("Accept header =" + accept
+    // + accept.indexOf("application/rdf+xml" == 0));
 
-	// TODO pull these out into separate per-media type handlers
-	// use pattern as for JSONHandler
-	if (sekiRequest.method == "GET") {
-		var getHandler = new GetHandler();
-		getHandler.handle(sekiRequest, sekiResponse);
-	}
+    // TODO pull these out into separate per-media type handlers
+    // use pattern as for JSONHandler
+    if (sekiRequest.method == "GET") {
+        var getHandler = new GetHandler();
+        getHandler.handle(sekiRequest, sekiResponse);
+    }
 
-	if (sekiRequest.method == "POST") {
-		// var postHandler = Object.create(PostHandler);
+    if (sekiRequest.method == "POST") {
+        // var postHandler = Object.create(PostHandler);
         log.debug("calling PostHandler");
-		var postHandler = new PostHandler();
-		postHandler.handle(sekiRequest, sekiResponse);
-	}
+        var postHandler = new PostHandler();
+        postHandler.handle(sekiRequest, sekiResponse);
+    }
 }
 
 /*
@@ -204,22 +204,23 @@ function onRequest(sekiRequest, sekiResponse) {
  * 
  * IS THIS BEING USED???
  */
-function serveFile(sekiResponse, status, file) {
-	verbosity("FILE = " + file);
 
-	fs.readFile(file, function(err, data) {
-		if (err) {
-			data = "Error :" + err;
-			status = 500;
-		}
-		sekiResponse.writeHead(status, sekiHeaders); // queryResponse.headers
-		sekiResponse.write(data, 'binary');
-		sekiResponse.end();
-	});
+function serveFile(sekiResponse, status, file) {
+    verbosity("FILE = " + file);
+
+    fs.readFile(file, function(err, data) {
+        if (err) {
+            data = "Error :" + err;
+            status = 500;
+        }
+        sekiResponse.writeHead(status, sekiHeaders); // queryResponse.headers
+        sekiResponse.write(data, 'binary');
+        sekiResponse.end();
+    });
 }
 
 function verbosity(message) {
-	if (verbose)
-		console.log(message);
+    if (verbose)
+        console.log(message);
 }
 // }

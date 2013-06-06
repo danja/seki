@@ -1,0 +1,2 @@
+#!/bin/bash
+tidy -o output.html -config tidy-config.txt $1

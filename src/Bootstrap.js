@@ -5,8 +5,8 @@
  */
 
 var fs = require('fs'); 
-var Log = require('log'), log = new Log('debug');
 var config = require('./config/ConfigDefault').config;
+var Log = require('log'), log = new Log(config.logLevel);
 var StoreClient = require("./StoreClient");
 var sparqlTemplates = require('./templates/SparqlTemplates');
 var freemarker = require('./templates/freemarker');
@@ -39,21 +39,22 @@ function loadDefaultData(){
     var sampleFiles = fs.readdirSync(config.samplesDir);
 
     var defaultDataFiles = {
-     //   "users" : ["../data/bootstrap/usermanagement.ttl"],
-       "content" : ["../data/samples/delicious.ttl"]
-     //   "vocabs" : ["../www/vocabs/usermanagement.ttl"]
-    //    "vocabs" : vocabFilenames
-//         foaf.ttl            project.ttl
-//         sioc-access.ttl    sioc-types.ttl
-//         doap.ttl       index.ttl           sioc-services.ttl  usermanagement.ttl
+       "users" : ["../data/bootstrap/usermanagement.ttl"],
+       "content" : ["../data/samples/delicious.ttl"],
+    //    "vocabs" : ["../www/vocabs/sioc-types.ttl"]
+      "vocabs" : vocabFilenames
+       //      sioc.ttl  sioc-types.ttl 
         
     }
-
+  //  var sparqlUtils = new SparqlUtils();
+  var client = new StoreClient();
+  //  log.debug("UTILSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     for(graphLabel in defaultDataFiles) {
         var graphURI = config.uriBase+"/"+graphLabel;
         defaultDataFiles[graphLabel].map(function(dataFile){ // does a foreach
             if(endsWith(dataFile, ".ttl") || endsWith(dataFile, ".turtle")){
-                SparqlUtils.loadFile(graphURI, dataFile);
+                
+                client.loadFile(graphURI, dataFile);
             }
         });
     }
@@ -63,6 +64,8 @@ function loadDefaultData(){
 
 function createGraph(graphURI) {
     var sparql = "CREATE GRAPH <"+graphURI+">";
+    doUpdate(sparql);
+    sparql = "INSERT DATA { GRAPH <"+graphURI+"> { <"+graphURI+"> a   <http://jena.hpl.hp.com/2005/11/Assembler#Model> } }";
     doUpdate(sparql);
         log.info("created graph :  "+graphURI);
     }
@@ -83,13 +86,13 @@ function createGraph(graphURI) {
     }
     
     function doUpdate(sparql){
-        var options = {
-            "path" : config.sparqlUpdateEndpoint,
-            "method" : "POST"
-        };
+//         var options = {
+//             "path" : config.sparqlUpdateEndpoint,
+//             "method" : "POST"
+//         };
 
-        var client = new StoreClient();
-        client.send(options, sparql, callback);
+       var client = new StoreClient();
+       client.send(config.updateOptions, sparql, callback);
     }
 
 

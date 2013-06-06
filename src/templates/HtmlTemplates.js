@@ -44,7 +44,7 @@ var htmlTemplates = {
 		var path = require('path').resolve(__dirname, 'sourceEditorForm.ftl');
 		console.log("path : "+path);
 		var template = load(path);
-		console.log("TEMPLATE : "+template);
+	//	console.log("TEMPLATE : "+template);
 		return template;
 	})(),
 

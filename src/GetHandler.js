@@ -88,8 +88,8 @@ GetHandler.prototype = {
 			// the body of a post
 			if (mode == "content") {
 				viewTemplate = htmlTemplates.contentTemplate;
-				console.log("ASKING FOR CoNTENT TEMPLATE");
-				console.log("content resource = " + resource);
+			//	console.log("ASKING FOR CoNTENT TEMPLATE");
+			//	console.log("content resource = " + resource);
 			}
 
 			// top-level editor (with tabs)
@@ -106,7 +106,7 @@ GetHandler.prototype = {
 			// WYSIWYG HTML editor (tinyMCE)
 			 if (mode == "editHTML") {
 			 viewTemplate = htmlTemplates.htmlEditorTemplate;
-			 console.log("ASKING FOR CoNTENT TEMPLATE");
+			// console.log("ASKING FOR CoNTENT TEMPLATE");
 
 //			 var html = freemarker.render(viewTemplate, replaceMap);
 //			 sekiResponse.end(html);
@@ -143,11 +143,11 @@ GetHandler.prototype = {
 			queryResponse.setEncoding('utf8');
 			});
 		
-		verbosity("QUERY = " + sparql);
+		// verbosity("QUERY = " + sparql);
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
-			console.log("VIEW TEMPLATE = "+viewTemplate);
+		//	console.log("VIEW TEMPLATE = "+viewTemplate);
 		//	serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
 			var urlParts = url.parse(sekiRequest.url, true);
 			
@@ -167,7 +167,7 @@ GetHandler.prototype = {
  * Handles GET requests (typically from a browser)
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
-console.log("in serveHTML, viewTemplate = "+viewTemplate);
+// console.log("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
 		viewTemplate = htmlTemplates.editorTemplate; // postViewTemplate
 	}
@@ -200,9 +200,9 @@ console.log("in serveHTML, viewTemplate = "+viewTemplate);
                 // "uri" :  sekiRequest.url
             };
 			// if (bindings != {}) { // // this is shite
-			verbosity("here GOT: " + JSON.stringify(bindings));
+		//	verbosity("here GOT: " + JSON.stringify(bindings));
 			// verbosity("TITLE: " + bindings.title);
-			verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
+		//	verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
 			// var html = viewTemplater.fillTemplate(bindings);
 			// console.log("VIEW TEMPLATE2 = "+viewTemplate);

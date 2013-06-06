@@ -36,11 +36,15 @@ var defaultConfig = {
 			//  'Content-type': "text/turtle"
 			  // accept?
 			},
+       
 			
 	sparqlGraphEndpoint : "/seki/data",
 	sparqlQueryEndpoint : "/seki/query",
-	sparqlUpdateEndpoint : "/seki/update"
-		,
+	sparqlUpdateEndpoint : "/seki/update",
+    updateOptions : {
+        "path" : "/seki/update",
+        "method" : "POST"
+    },
 		// features
 		sourceHook : true,
 		sourceHookPath : "/seki/x/",

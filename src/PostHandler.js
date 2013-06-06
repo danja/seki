@@ -82,20 +82,6 @@ PostHandler.prototype = {
 							} else {
 								sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);
 							}
-
-						//	verbosity("POST UPDATE \n" + sparql);
-                        //    console.log("POST UPDATE \n" + sparql);
-							/*
-							 * make the request to the SPARQL server the update
-							 * has to be POSTed to the SPARQL server
-							 */
-//							var clientRequest = client.request("POST",
-//									config.sparqlUpdateEndpoint, postHeaders);
-						//	config.clientOptions["method"] = "POST";
-						//	config.clientOptions["path"] = config.sparqlUpdateEndpoint;
-							
-                       
-                            
                             
                             var options = {
                                 "path" : config.sparqlUpdateEndpoint,

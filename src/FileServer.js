@@ -30,25 +30,25 @@ exports = module.exports = function fileServer(){
 //  options = options || {};
     
     return function fileServer(req, res, next) {
-        log.debug("IN MIDDLEWARE");
+        // log.debug("IN MIDDLEWARE");
         
         var url = require('url');
         
         var urlParts = url.parse(req.url, true);
         
         if (req.method != "GET" && !req.method == "HEAD") return next();
-            log.debug("IN MIDDLEWARE "+req.method);
+           // log.debug("IN MIDDLEWARE "+req.method);
             var tweakedPathname = urlParts.pathname;
             if (urlParts.pathname.substring(0, 1) == "/") {
                 tweakedPathname = urlParts.pathname.substring(1);
             }
             var dir = __dirname + "/../www/";
             
-            log.debug("IN MIDDLEWARE dir = " + dir);
-            console.log("tweakedPathname = " + tweakedPathname);
+          //  log.debug("IN MIDDLEWARE dir = " + dir);
+         //   console.log("tweakedPathname = " + tweakedPathname);
             var path = require('path').resolve(dir, tweakedPathname);
-            console.log("__dirname = " + __dirname);
-            console.log("PATH = " + path);
+        //    console.log("__dirname = " + __dirname);
+        //    console.log("PATH = " + path);
 
                     var uri = url.parse(req.url).pathname;
                     var filename = p.join(process.cwd(), "../www/", unescape(uri));
