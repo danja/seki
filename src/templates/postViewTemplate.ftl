@@ -86,10 +86,10 @@
          xmlns:um="http://purl.org/stuff/usermanagement#"
          
          about="http://hyperdata.org/${uri}">
-      <article typeof="sioc:Post" about="http://hyperdata.org/${uri}">
+      <article typeof="sioc:Post" about="http://hyperdata.org${uri}">
         <h1 id="title" property="dcterms:title">${title}</h1>
         <div id="content" property="sioc:content">${content}</div>
-        <div id="login" property="um:login">${login}</div>
+        <div id="login" property="um:fullname">${fullname}</div>
  
         <!--
         <ul rel="skos:related">

@@ -48,33 +48,61 @@ JSONHandler.prototype = {
       
       // now received body of request
       sekiRequest .on('end', function() { // need to choose graph - use map of URI templates?
-              console.log("BODY = "+body);
-       // body = body.toString();
+         //     console.log("BODY = "+body);
+    
               var options = { "format" : 'application/nquads' };
-              //  options.format = 'application/nquads';
-              
-         //     eval("body = "+body);
-             //  grab users from "@id"
-          
-            
+     
               var bodyMap = JSON.parse(body);
-              var resourceURI = bodyMap["@id"];
-              if(!resourceURI) {
-                  resourceURI = bodyMap["@subject"]; // legacy
+           
+              
+              // handle legacy ///////////////
+              for (var i=0;i<bodyMap["@type"].length;i++) {
+                  if(bodyMap["@type"][i][0]=="<"){
+                      bodyMap["@type"][i] = bodyMap["@type"][i].substring(1, bodyMap["@type"][i].length-1);
+                  }
               }
-              var pathname = url.parse(resourceURI).pathname;
-              
-              var section = pathname.split("/");
-              
-              log.debug("SECTION = "+section);
-              
-              var rdfModelMap = {
-                  "users" : "users"
+              var newMap = {};
+              for (var key in bodyMap) {
+
+                  var newKey = key;
+                  var value = bodyMap[key];
+                  log.debug("BEFORE = "+key+ " : "+bodyMap[key]);
                   
+                  if(key[0] == "<") {
+                      log.debug("key HAS <");
+                      newKey = key.substring(1, key.length-1);
+                      log.debug("newKey = "+newKey);
+                  }
+                  
+                      // is adequate? consider literals
+                  if(bodyMap[key] && bodyMap[key][0] == "<"){
+                      log.debug("value HAS <");
+                          value = bodyMap[key].substring(1, value.length-1);
+                          log.debug("bodyMap[key] = "+bodyMap[key]);
+                          log.debug("value = "+value);
+                  }
+                  
+                  
+                 //   delete bodyMap[key];
+                    log.debug("newKey = "+newKey);
+                    log.debug("value = "+value);
+                    newMap[newKey] = value;
               };
+              bodyMap = newMap;
+              
+              if(!bodyMap["@id"]) {
+                  bodyMap["@id"] = bodyMap["@subject"];
+            //      log.debug("RESOURCE = "+resourceURI);
+              }
+              //////////////////////////////////
+              
+              bodyMap["http://purl.org/dc/terms/date"] = new Date().toJSON();
+              
+              var resourceURI = bodyMap["@id"];
+              var pathname = url.parse(resourceURI).pathname;          
+              var section = pathname.split("/");
               var graphURI = config.uriBase+"/"+section[1];
               
-          //    log.debug("bodyMap[\"@id\"] = "+bodyMap["@id"]);
               log.debug("graphURI = "+graphURI);
               options.format = 'application/nquads';
               var processor = new jsonld.JsonLdProcessor();
@@ -84,24 +112,20 @@ JSONHandler.prototype = {
                   console.log("err = "+err);
                   
                   var callback = function(queryResponse) {
-                      var redirectURI = "/";
                       log.debug("callback called");
                       var headers = {
-                          "Location" : redirectURI,
+                          "Location" : resourceURI,
                           "Content-type" : "text/html; charset=utf-8"
                       };
-                      // do the redirect
-                      sekiResponse.writeHead(303, headers);
+                 
+                      sekiResponse.writeHead(201, headers); // 201 Created
                       sekiResponse.end();
-                  }
-                  
+                  }   
+             //     turtle = turtle+"\n<"+resourceURI+"> dc:date \""+new Date()+"\". ";
+                  // replaceMap["date"] = new Date().toJSON();
                   var client = new StoreClient();
-                //  var turtle = JSON.stringify(data);
-                  console.log("JSONHAndler = "+turtle);
-           
-                  client.sendTurtle(graphURI, turtle, callback);
+                  client.replaceResource(graphURI, resourceURI, turtle, callback);
               }
- // }
 });
   }
 }

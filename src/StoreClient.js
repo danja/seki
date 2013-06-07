@@ -26,13 +26,12 @@ function StoreClient() {
             log.info("\nLoading Turtle file " + file);
             var turtle = fs.readFileSync(file, 'utf8');
             this.sendTurtle(graphURI, turtle);
-            
         },
         
     "send" : function(options, sparql, callback) {
         
         log.debug("StoreClient.send");
-        
+
         for (var name in config.clientOptions) { // merge constants
             if(!options[name]) {
                 options[name] = config.clientOptions[name]; 
@@ -46,37 +45,40 @@ function StoreClient() {
             
             if(callback) callback(queryResponse);
         });
-        
+        log.debug("SENDING "+sparql);
         clientRequest.write(sparql);
         clientRequest.end();
     },
     
-//     var options = {
-//         "path": config.sparqlUpdateEndpoint,
-//         "method": "POST"
-//     };
-//     if(!callback) {
-//         callback = function(res) {
-//             //   log.debug('STATUS: ' + res.statusCode);
-//             //  log.debug('HEADERS: ' + JSON.stringify(res.headers));
-//             res.setEncoding('utf8');
-//             res.on('data', function(chunk) {
-//                 log.debug('BODY: ' + chunk);
-//             });
-//             //     log.info("done.\n");
-//         }
-//     }
-
-    
-    "sendTurtle" : function(graphURI, turtle, callback) {
-        
+    "sendTurtle" : function(graphURI, turtle, callback) {      
         log.debug("StoreClient.sendTurtle");
-        log.debug("TURTLE********************"+turtle);
-        log.debug("INSPECT "+util.inspect(turtle));
         var sparqlUtils = new SparqlUtils();
         var sparql = sparqlUtils.turtleToInsert(graphURI, turtle, callback); 
-        log.debug("SPARQL = "+sparql);
+     //   log.debug("SPARQL = "+sparql);
         this.send(config.updateOptions, sparql, callback);
+    },
+    
+    "replaceTurtle" : function(graphURI, resourceURI, turtle, callback) {      
+        log.debug("StoreClient.replaceTurtle");
+        log.debug("TURTLE = "+turtle);
+        var sparqlUtils = new SparqlUtils();
+        var sparql = sparqlUtils.turtleToReplace(graphURI, resourceURI, turtle, callback); 
+        //   log.debug("SPARQL = "+sparql);
+        this.send(config.updateOptions, sparql, callback);
+    },
+    
+    "replaceResource" : function(graphURI, resourceURI, turtle, callback) {      
+        log.debug("StoreClient.replaceTurtle");
+        log.debug("TURTLE = "+turtle);
+        var sparqlUtils = new SparqlUtils();
+        var sparql = sparqlUtils.resourceToDelete(graphURI, resourceURI, turtle); 
+        //   log.debug("SPARQL = "+sparql);
+        function insert(client, graphURI, turtle, callback){ // ensures the DELETE/INSERT happens in the right order
+            sparql = sparqlUtils.turtleToSimpleInsert(graphURI, turtle); 
+            client.send(config.updateOptions, sparql, callback);
+        };
+        this.send(config.updateOptions, sparql, insert(this, graphURI, turtle, callback));
+
     }
 }
 

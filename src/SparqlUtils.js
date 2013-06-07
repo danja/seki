@@ -25,10 +25,7 @@ function SparqlUtils() {
     "createGraph": function(graphURI) {
         var sparql = "CREATE SILENT GRAPH <" + graphURI + ">";
     },
- 
-
-    
-    "turtleToInsert": function(graphURI, turtle, callback) {
+    "turtleToSimpleInsert": function(graphURI, turtle) {
         log.debug("turtleToInsert "+turtle);
         var turtleSplit = this.extractPrefixes(turtle);
 
@@ -38,11 +35,34 @@ function SparqlUtils() {
             "body": turtleSplit.body
         }
         var sparql = freemarker.render(sparqlTemplates.generalInsertTemplate, replaceMap);
-return sparql;
-    }
-       // fs.writeFileSync(file + "_dodgy.ttl", sparql);
-        // log.debug("SPARQL = \n"+sparql);
-     ,
+        return sparql;
+    },
+    "turtleToReplace": function(graphURI, resourceURI, turtle) {
+        log.debug("turtleToReplace "+turtle);
+        var turtleSplit = this.extractPrefixes(turtle);
+        
+        var replaceMap = {
+            "graph": graphURI,
+            "uri": resourceURI,
+            "prefixes": turtleSplit.prefixes,
+            "body": turtleSplit.body
+        }
+        var sparql = freemarker.render(sparqlTemplates.simpleReplaceTemplate, replaceMap);
+        return sparql;
+    },
+    "resourceToDelete": function(graphURI, resourceURI, turtle) {
+        log.debug("resourceToDelete "+turtle);
+        var turtleSplit = this.extractPrefixes(turtle);
+        
+        var replaceMap = {
+            "graph": graphURI,
+            "uri": resourceURI,
+            "prefixes": turtleSplit.prefixes,
+            "body": turtleSplit.body
+        }
+        var sparql = freemarker.render(sparqlTemplates.resourceDeleteTemplate, replaceMap);
+        return sparql;
+    },
 
     "extractPrefixes": function(turtle) {
         log.debug("extractPrefixes TURTLE "+turtle);

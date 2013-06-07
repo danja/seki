@@ -6,6 +6,7 @@ var sparqlTemplates = require('./templates/SparqlTemplates');
 var htmlTemplates = require('./templates/HtmlTemplates');
 var TurtleHandler = require('./TurtleHandler');
 var config = require('./config/ConfigDefault').config;
+var Log = require('log'), log = new Log(config.logLevel);
 var freemarker = require('./templates/freemarker');
 
 var verbose = true;
@@ -65,7 +66,7 @@ GetHandler.prototype = {
 			queryTemplate = sparqlTemplates.itemTemplate;
 		}
 		if (!viewTemplate) { // need smarter switching/lookup here
-			viewTemplate = htmlTemplates.itemTemplate;
+            viewTemplate = htmlTemplates.postViewTemplate;
 		}
 
 		var urlParts = url.parse(sekiRequest.url, true);
@@ -91,7 +92,8 @@ GetHandler.prototype = {
 
 			// the body of a post
 			if (mode == "content") {
-				viewTemplate = htmlTemplates.contentTemplate;
+		//		viewTemplate = htmlTemplates.contentTemplate;
+                viewTemplate = htmlTemplates.postViewTemplate;
 			//	console.log("ASKING FOR CoNTENT TEMPLATE");
 			//	console.log("content resource = " + resource);
 			}
@@ -151,7 +153,7 @@ GetHandler.prototype = {
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
-		//	console.log("VIEW TEMPLATE = "+viewTemplate);
+		log.debug("VIEW TEMPLATE = "+viewTemplate);
 		//	serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
 			var urlParts = url.parse(sekiRequest.url, true);
 			
@@ -173,7 +175,7 @@ GetHandler.prototype = {
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 // console.log("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
-		viewTemplate = htmlTemplates.editorTemplate; // postViewTemplate
+        viewTemplate = htmlTemplates.contentTemplate; // 
 	}
 
 	var saxer = require('./srx2map');
@@ -203,49 +205,16 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
                         }
                 // "uri" :  sekiRequest.url
             };
-			// if (bindings != {}) { // // this is shite
-		//	verbosity("here GOT: " + JSON.stringify(bindings));
-			// verbosity("TITLE: " + bindings.title);
-		//	verbosity("WRITING HEADERS " + JSON.stringify(sekiHeaders));
 			sekiResponse.writeHead(200, sekiHeaders);
-			// var html = viewTemplater.fillTemplate(bindings);
-			// console.log("VIEW TEMPLATE2 = "+viewTemplate);
-			
-            // nasty hack
-         //   if((resource.indexOf("http://") == 0) || (resource.indexOf("https://") == 0 )) {
+
             bindings["uri"] = resource; 
-         //   } else {
-         //       bindings["uri"] = config.uriBase + resource;
-         //   }
-            
-        //    viewTemplate = htmlTemplates.htmlEditorTemplate;
             
             var html = freemarker.render(viewTemplate, bindings);
-		// } 
-		// else { // NOT CORRECT
-            // var redirectHeaders = {};
-            
-			verbosity("404");
-		//	sekiResponse.writeHead(200, sekiHeaders);
-			// /////////////////////////////// refactor
-			// var creativeTemplater =
-			// templater(htmlTemplates.creativeTemplate);
-		//	var creativeMap = {
-			//	 "uri" : resource,
-			//	 "title" : "Enter title",
-           //       "content" : "Enter content",
-            //      "nick" : "nickname"
-				// "uri" : 	sekiRequest.url
-		//	};
-		//	var html = freemarker.render(htmlTemplates.creativeTemplate,
-		//			creativeMap);
-         //   var template = htmlTemplates.creativeTemplateHeader + htmlTemplates.htmlEditorTemplate + htmlTemplates.creativeTemplateFooter;
-         //   var template = htmlTemplates.htmlEditorTemplate;
-        //    var html = freemarker.render(template,
-		//			creativeMap);
-			
-		//	console.log("\n\n\n\nTHIS IS THE OUTPUT\n"+html);
-	//	}
+
+			log.info("404");
+		
+        //    log.debug("viewTemplate = "+viewTemplate);
+        //    log.debug("bindings = "+JSON.stringify(bindings));
 		sekiResponse.end(html);
 	});
 };

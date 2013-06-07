@@ -8,25 +8,32 @@ var sparqlTemplates = {
 
     generalInsertTemplate : "${prefixes} \
     INSERT DATA { GRAPH <${graph}>{ ${body} }}",
+    
+    generalDeleteTemplate : "${prefixes} \
+    DELETE DATA { GRAPH <${graph}>{ ${body} }}",
 
-    simpleReplaceTemplate : "WITH <${targetGraph}> \
-       DELETE { <${root}> ?p ?o } \
-       INSERT { ${insertGraph} } \
-       WHERE  { <${root}> ?p ?o } ",
+    resourceDeleteTemplate : "${prefixes} \
+    WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
+    
+
+    simpleReplaceTemplate : "${prefixes} \
+       WITH <${graph}> \
+       DELETE { <${uri}> ?p ?o } \
+       INSERT { ${body} } \
+       WHERE  { <${uri}> ?p ?o } ",
     
 	itemTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
+      PREFIX um: <http://purl.org/stuff/usermanagement#> \
       \
-      SELECT ?title ?content ?date ?nick WHERE { \
+      SELECT DISTINCT ?title ?content ?date ?fullname WHERE { \
       \
       <${uri}> a sioc:Post ; \
          dcterms:title ?title; \
          sioc:content ?content ; \
-         foaf:maker ?maker ; \
+         um:fullname ?fullname ; \
          dcterms:date ?date . \
-      \
-      ?maker foaf:nick ?nick . \
       }",
 
 	// used to insert a new item into the store
