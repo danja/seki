@@ -74,6 +74,10 @@ GetHandler.prototype = {
 		// console.log("urlParts.query[mode] = " + urlParts.query["mode"]);
 
 		var mode = urlParts.query["mode"];
+        
+        /////////////////////////////
+        mode="content"; // force it
+        /////////////////////////////////
 
 		if (mode) {
 			console.log("MODE = "+mode);
@@ -188,14 +192,14 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 
 		var bindings = stream.bindings;
 
-		verbosity("bindings " + JSON.stringify(bindings));
+		// verbosity("bindings " + JSON.stringify(bindings));
 
 		if (!bindings || !bindings.title) { // // this is shite
                         var creativeMap = {
                  "uri" : resource,
                  "title" : "Enter title",
                   "content" : "Enter content",
-                  "nick" : "nickname"
+                  "login" : "nickname"
                         }
                 // "uri" :  sekiRequest.url
             };

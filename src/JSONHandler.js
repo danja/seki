@@ -59,7 +59,9 @@ JSONHandler.prototype = {
             
               var bodyMap = JSON.parse(body);
               var resourceURI = bodyMap["@id"];
-              
+              if(!resourceURI) {
+                  resourceURI = bodyMap["@subject"]; // legacy
+              }
               var pathname = url.parse(resourceURI).pathname;
               
               var section = pathname.split("/");

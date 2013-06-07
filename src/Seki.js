@@ -135,9 +135,27 @@ function onRequest(sekiRequest, sekiResponse) {
 
     log.debug("got past file server");
 
-    verbosity("got past file server");
 
     var auth = new Authenticator();
+    
+    if (sekiRequest.method == "OPTIONS") {
+        log.debug("OPTIONS");
+        var optionsHeaders = {
+            "Allow": "OPTIONS, GET, HEAD, POST, PUT, DELETE" // , TRACE
+       //     Access-Control-Allow-Origin: 
+       //     Access-Control-Max-Age: 2520
+       //     Access-Control-Allow-Methods: PUT, DELETE, XMODIFY
+        };
+        sekiResponse.writeHead(200, optionsHeaders);
+        sekiResponse.end("200 Ok");
+        return;
+    }  
+    
+    if (sekiRequest.method == "PUT") {
+        log.debug("PUTTTTTTTTTTTTTTTTTTT");
+        var handler = new JSONHandler();
+        return handler[sekiRequest.method](sekiRequest, sekiResponse);
+}
 
     if (sekiRequest.method == "POST") {
         if (!auth.Basic(sekiRequest)) {
@@ -173,12 +191,15 @@ function onRequest(sekiRequest, sekiResponse) {
     // console.log("RESOURCE = " + resource);
 
     // this is duplicated in GetHandler.js
-    var accept = sekiRequest.headers["accept"];
+    var accept = sekiRequest.headers["accept"]; ///////////////////// is accept!!!
 
     if (accept && accept.indexOf("application/json") == 0) {
         var handler = new JSONHandler();
         return handler[sekiRequest.method](sekiRequest, sekiResponse);
     }
+    
+
+
 
     // verbosity("Accept header =" + accept
     // + accept.indexOf("application/rdf+xml" == 0));
