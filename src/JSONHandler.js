@@ -47,13 +47,10 @@ JSONHandler.prototype = {
       });
       
       // now received body of request
-      sekiRequest .on('end', function() { // need to choose graph - use map of URI templates?
-         //     console.log("BODY = "+body);
-    
+      sekiRequest .on('end', function() { 
               var options = { "format" : 'application/nquads' };
      
               var bodyMap = JSON.parse(body);
-           
               
               // handle legacy ///////////////
               for (var i=0;i<bodyMap["@type"].length;i++) {
@@ -66,26 +63,23 @@ JSONHandler.prototype = {
 
                   var newKey = key;
                   var value = bodyMap[key];
-                  log.debug("BEFORE = "+key+ " : "+bodyMap[key]);
+                 // log.debug("BEFORE = "+key+ " : "+bodyMap[key]);
                   
                   if(key[0] == "<") {
-                      log.debug("key HAS <");
+                    //  log.debug("key HAS <");
                       newKey = key.substring(1, key.length-1);
-                      log.debug("newKey = "+newKey);
+                    //  log.debug("newKey = "+newKey);
                   }
                   
                       // is adequate? consider literals
                   if(bodyMap[key] && bodyMap[key][0] == "<"){
-                      log.debug("value HAS <");
+                  //    log.debug("value HAS <");
                           value = bodyMap[key].substring(1, value.length-1);
-                          log.debug("bodyMap[key] = "+bodyMap[key]);
-                          log.debug("value = "+value);
+                    //      log.debug("bodyMap[key] = "+bodyMap[key]);
+                   //       log.debug("value = "+value);
                   }
-                  
-                  
-                 //   delete bodyMap[key];
-                    log.debug("newKey = "+newKey);
-                    log.debug("value = "+value);
+//                     log.debug("newKey = "+newKey);
+//                     log.debug("value = "+value);
                     newMap[newKey] = value;
               };
               bodyMap = newMap;
@@ -103,29 +97,28 @@ JSONHandler.prototype = {
               var section = pathname.split("/");
               var graphURI = config.uriBase+"/"+section[1];
               
-              log.debug("graphURI = "+graphURI);
+           //   log.debug("graphURI = "+graphURI);
               options.format = 'application/nquads';
               var processor = new jsonld.JsonLdProcessor();
-              processor.normalize(bodyMap, options, callback);
+              processor.normalize(bodyMap, options, jsonLdProcessorCallback);
               
-              function callback(err, turtle) {
-                  console.log("err = "+err);
+              function jsonLdProcessorCallback(err, turtle) {
+                  this.name = "JSONLDPROCESSORCALLBACK";
+                  log.debug("JSONLDPROCESSORCALLBACK");
+                  log.debug("err = "+err);
                   
-                  var callback = function(queryResponse) {
-                      log.debug("callback called");
+                  var client = new StoreClient();
+                  var finalCallback = function(){
                       var headers = {
                           "Location" : resourceURI,
-                          "Content-type" : "text/html; charset=utf-8"
+                      "Content-type" : "text/html; charset=utf-8"
                       };
-                 
                       sekiResponse.writeHead(201, headers); // 201 Created
                       sekiResponse.end();
+                  }
+                  client.replaceResource(graphURI, resourceURI, turtle, finalCallback);   
+               
                   }   
-             //     turtle = turtle+"\n<"+resourceURI+"> dc:date \""+new Date()+"\". ";
-                  // replaceMap["date"] = new Date().toJSON();
-                  var client = new StoreClient();
-                  client.replaceResource(graphURI, resourceURI, turtle, callback);
-              }
 });
   }
 }

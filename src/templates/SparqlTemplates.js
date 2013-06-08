@@ -12,10 +12,10 @@ var sparqlTemplates = {
     generalDeleteTemplate : "${prefixes} \
     DELETE DATA { GRAPH <${graph}>{ ${body} }}",
 
-    resourceDeleteTemplate : "${prefixes} \
-    WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
+    resourceDeleteTemplate : "WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
     
-
+    resourceExistsTemplate : "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
+    
     simpleReplaceTemplate : "${prefixes} \
        WITH <${graph}> \
        DELETE { <${uri}> ?p ?o } \
