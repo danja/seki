@@ -25,6 +25,8 @@
     <script src="/create/deps/rangy-core-1.2.3.js"></script>
     <script src="/create/deps/hallo-min.js"></script>
     <script src="/js/create.js"></script>
+    
+    
     <script>
       jQuery(document).ready(function () {
         jQuery('body').midgardCreate({
@@ -44,14 +46,14 @@
         });
 
         // Set a simpler editor for title fields
-        jQuery('body').midgardCreate('configureEditor', 'title', 'halloWidget', {
-          plugins: {
-            halloformat: {},
-            halloblacklist: {
-              tags: ['br']
-            }
-          }
-        });
+//         jQuery('body').midgardCreate('configureEditor', 'title', 'halloWidget', {
+//           plugins: {
+//             halloformat: {},
+//             halloblacklist: {
+//               tags: ['br']
+//             }
+//           }
+//         });
         jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:title', 'title');
 
 //         jQuery('body').midgardCreate({
@@ -69,7 +71,7 @@
 //         options.success(model);
 //       };
     </script>
-    <!-- link rel="stylesheet" href="/create/examples/font-awesome/css/font-awesome.css" / -->
+    <link rel="stylesheet" href="/create/examples/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/create/themes/create-ui/css/create-ui.css"
     />
     <link rel="stylesheet" href="/create/themes/midgard-notifications/midgardnotif.css"

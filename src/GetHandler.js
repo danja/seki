@@ -1,6 +1,6 @@
 var http = require('http');
 var url = require('url');
-var special = require('./config/SpecialPages');
+var special = require('./config/Special');
 // var templater = require('./templates/Templater');
 var sparqlTemplates = require('./templates/SparqlTemplates');
 var htmlTemplates = require('./templates/HtmlTemplates');
@@ -59,6 +59,13 @@ GetHandler.prototype = {
 			handler.GET(resource, sekiResponse);
 			return;
 		}
+		
+		if (accept && accept.indexOf("application/json") == 0) {
+            verbosity("application/json requested");
+            var handler = new GetJsonHandler();
+            handler.handle(resource, sekiResponse);
+            return;
+        }
 
 		// Assume HTML is acceptable
 
@@ -145,6 +152,7 @@ GetHandler.prototype = {
 		config.clientOptions["method"] = "GET";
 		config.clientOptions["path"] = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
 
+        log.debug("OPTIONS IN GETHANDLER = "+config.clientOptions);
 		var clientRequest = http.request(config.clientOptions, function(queryResponse) {
 			queryResponse.setEncoding('utf8');
 			});
@@ -205,6 +213,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
                         }
                 // "uri" :  sekiRequest.url
             };
+            
 			sekiResponse.writeHead(200, sekiHeaders);
 
             bindings["uri"] = resource; 

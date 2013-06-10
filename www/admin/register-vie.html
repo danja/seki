@@ -1,0 +1,96 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Register</title>
+    <link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="../css/seki-general.css" />
+            <script src="../js/underscore-min.js"></script>
+              <script src="../js/jquery/jquery-1.9.1.js"></script>
+      <script src="../js/backbone-min.js"></script>
+
+  <!-- script src="js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="js/jquery/ui/minified/jquery.ui.dialog.min.js"></script -->
+
+  <!-- script src="../js/register.js"></script -->
+  
+     <script src="../create/deps/vie-min.js"></script>
+    <script src="../js/jquery.rdfquery.min.js"></script>
+    
+    <script src="../js/backbone-forms.min.js"></script>
+    
+    <script src="../js/backbone-forms-list.min.js"></script>
+    
+    <script src="../js/vie-2.1.0.js"></script>
+    
+    <!--script src="../js/vie-widgets.js"></script -->
+     
+   <script>
+   jQuery(document).ready(function() {
+   
+   var vie = new VIE();
+vie.loadSchema("/register.json", {
+  baseNS : "http://purl.org/stuff/usermanagement#",
+  success: function () {
+    var type = 'User';
+
+    // Create an entity with the type we're interested in
+    var ent = new vie.Entity({
+      '@type': type,
+      '<http://purl.org/stuff/usermanagement#login>': 'danny'
+    });
+    
+    // Generate the form
+    var form = new Backbone.Form({
+      model: ent,
+      fields: [
+        'login',
+        'fullname',
+        'password',
+        'email',
+        'profile'
+          
+      ]
+    }).render();
+
+    jQuery('#formholder').append(jQuery('<h2>Form for editing a ' + type + '</h2>'));
+    jQuery('#formholder').append(form.el); 
+  },
+  error: function () {
+    jQuery('.results').append('<div class="msg">Something went wrong with loading the ontology from Schema.org!</di>');
+    }
+});
+  });
+   </script>
+
+</head>
+<body>
+<div class="example">
+<div id="formholder" class="well"></div>
+</div>
+<br/>
+     <div id="new-user">
+      <h2>Register</h2>
+      <form action="" id="register">
+      <br/> Login
+      <input id="login" name="login" value="danny"/>
+      <br/> Full Name
+    <input id="fullname" name="fullname" value="Danny Ayers" />
+    <br/> emial
+    <input id="email" name="email" value="danny.ayers@gmail.com"/>
+    <br/> password
+    <input id="password" name="password" value="sasha" />
+        <br/> password
+    <input id="passwordconfirm" name="passwordconfirm" value="sasha" />
+    <br/> FOAF Profile
+        <input id="profile" name="profile" value="http://dannyayers.com/foaf.rdf" />
+    <br/>
+    <!-- input id="context" name="context" class="hidden" value="this is the context" / -->
+        <input type="submit" value="Post"/>
+      </form>
+    </div>
+    
+<div id="context">this is the context</div>
+</body>
+</html>

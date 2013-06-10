@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Seki Progress 2013-06-10</title>
+  <meta name="generator" content="Amaya, see http://www.w3.org/Amaya/" />
+</head>
+
+<body>
+<p>Seki Web Application Framework : Update</p>
+
+<p></p>
+
+<p><strong>tl;dr</strong> for a first concrete application, I've been building
+<a href="https://github.com/danja/seki">Seki</a> up as a <a
+href="http://en.wikipedia.org/wiki/Content_management_system">CMS</a>. For
+basic functionality it's now getting close to being usable.</p>
+
+<p><a href="#Call"><strong>Call for Funding</strong></a></p>
+
+<p>So I've had a little burst of activity on Seki in the past few weeks. A few
+blind alleys, but significant forward progress. Overall it's evolving, and the
+ideas have been crystalizing a little, so I'll lay them out a bit here. I only
+intended writing a brief update, but then... At some later date I'll probably
+pull out the bits that aren't Seki-specific, there's quite a bit that I suppose
+would come under the umbrella of Web app best practices.</p>
+
+<p>I'm now considering Seki a <a
+href="http://en.wikipedia.org/wiki/Web_application_framework">Web Application
+Framework</a> with a long list of potential applications. They range from
+fairly generic things like e.g. workflow/issue management or info aggregator to
+more vertical things like a creative writing assistant or recording studio
+equipment inventory system.</p>
+
+<p>I need to break down the potential applicationslist pretty soon to help with
+deciding priorities, but some components are obviously common to many apps,
+providing top priorities. These components are:</p>
+<ul>
+  <li><a href="#System">System Admin</a></li>
+  <li><a href="#Content">Content Management</a></li>
+  <li><a href="#User">User Management</a></li>
+  <li><a href="#Social">Social Connectivity</a></li>
+</ul>
+
+<p>At a system level, there's also the overarching need to support
+configuration and extensibility/plugability. I'll bundle these under <a
+href="#System">System Admin</a>. </p>
+
+<h3><a name="Content" id="Content">Content Management</a></h3>
+
+<p>I'll start with this because it's a well-known area. </p>
+
+<h4>Requirements</h4>
+
+<p>A <a
+href="http://www.amaxus.com/cms-blog/the-ultimate-web-cms-checklist-of-requirements">CMS
+requirements checklist</a> can get very long. But the core functionality is
+about creating, organizing and publishing documents. So the system needs
+front-end tools for editing content, storage that allows structuring and
+indexing (with associated user tools) and different ways of presenting the
+documents. A fairly minimal system would support blogging: create/edit posts
+(and comments), post discovery (categories, search, related resources etc.) and
+at least views for single posts and a front page for recent posts. A blogging
+engine suits me as a relatively short-term goal, I'm a big believer in eating
+your own dogfood, and as soon as viable I'll start using Seki for my <a
+href="http://dannyayers.com">own blog</a>. </p>
+
+<p>Most CMSs are (unsurprisingly) highly focussed on <a
+href="http://en.wikipedia.org/wiki/HTML">HTML</a>. It is after all the primary
+format on the Web. However, both <a
+href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> and
+RDF are format-agnostic, and the conceptual model of RDF covers any kind of
+data, not just documents. </p>
+
+<p>Not unrelated, HTML isn't the only fruit. There are an awful lot more media
+types out there. Any reasonable CMS will be able to deal appropriately with
+things like images, audio and video files, but when we're talking about more
+generalized hypermedia (with an emphasis on <a
+href="https://en.wikipedia.org/wiki/Hyperdata">hyperdata</a>, Seki's core
+domain) it's necessary to keep an eye on <a
+href="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">HATEOS</a>.
+(though in a broader sense than <a
+href="http://en.wikipedia.org/wiki/Roy_Fielding">Roy</a> frames it, with the H
+standing for Hypermedia rather than just Hypertext). As <a
+href="http://amundsen.com/blog/">Mike Amundsen</a> has <a
+href="http://amundsen.com/hypermedia/">put it</a>: "<em>Hypermedia Types are
+MIME media types that contain native hyper-linking semantics that induce
+application flow. For example, HTML is a hypermedia type; XML is not.</em>"
+(See also : <a
+href="http://programming.oreilly.com/2013/05/exploring-hypermedia-with-mike-amundsen.html">Exploring
+Hypermedia with Mike Amundsen</a>). In June 2013, after the Web's been around
+for more than 20 years, it's remarkable that you can pretty much count the
+media types that support links on one hand (including knuckles). The most
+widespread ones are probably HTML, Atom, SVG, RDF (all formats) and one or two
+proprietary systems like Flash and PDF. Even then, to qualify for Roy's HATEOS
+the type also needs human/agent interface(s) that support the hyperlink <a
+href="http://en.wikipedia.org/wiki/Affordance">affordance</a>. That narrows the
+list even more - e.g. the only RDF format that has standardized affordances is
+RDFa (it sits on HTML).</p>
+
+<p>And there's more. A common failing amongst current CMSs is their suboptimal
+use of HTTP. For example, it's common to find a common endpoint that's used for
+POSTing content and URLs of the form e.g.
+<code>http://example.com/index.php?p=423</code>. These may be translated in use
+by <code>mod_rewrite</code> or whatever to "<a
+href="http://codex.wordpress.org/Introduction_to_Blogging#Pretty_Permalinks">Pretty
+Permalinks</a>" like
+<code>http://example.com/2003/05/23/my-cheese-sandwich</code>. Seki will
+provide these pieces of functionality somewhat more natively: a resource will
+be called e.g.   <code>http://example.com/2003/05/23/my-cheese-sandwich</code>
+in the back-end store, it can be created/update/deleted using HTTP
+(<code>GET</code>/<code>PUT</code>/<code>DELETE</code>) requests directly on
+that URL. In other words, more <a
+href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>fully.
+This is also in line with some of the core parts of the <a
+href="https://code.google.com/p/linked-data-api/wiki/Specification">Linked Data
+API</a>. It's not a priority, but ultimately,for convenience, I'd like Seki to
+support more of that, particularly referencing resources using <a
+href="http://tools.ietf.org/html/rfc6570">URI Templates</a>.</p>
+
+<h4>Seki Design</h4>
+
+<p>The aim is to reflect the requirements above in Seki, so it could be seen as
+rather than Content Management System, a kind of Data Management System.
+There's still a huge amount of <a
+href="http://blackcalife.free.fr/datafiles/Informatique/Web/web_semantic/nodalities_issue2.pdf">Blue
+Ocean</a> around the <a
+href="http://readwrite.com/2009/04/18/web_of_data_machine_accessible_information">Web
+of Data</a>, and one aim I have with Seki is to use it as an experimental
+platform, exploring some new waters.</p>
+
+<p>A key feature of Seki is that the backend database is a (<a
+href="http://www.w3.org/TR/sparql11-overview/">SPARQL 1.1</a> capable) <a
+href="http://en.wikipedia.org/wiki/Resource_Description_Framework">RDF</a>
+triplestore. Like pretty much any other CMS, some way of mapping between the
+document format and DB schema is needed. Templating of one form or another is
+the usual approach, which ideally will be done in a way that helps keep
+separate the view aspect from model and control. Using an RDF store offers huge
+advantages over a traditional <a
+href="http://en.wikipedia.org/wiki/Sql">SQL</a> <a
+href="http://en.wikipedia.org/wiki/Relational_database_management_system">RDBMS</a>
+for Web applications in terms of flexibility, in that schemas don't have to be
+predefined. RDF triplestores also trump both SQL and most <a
+href="http://en.wikipedia.org/wiki/Nosql">NoSQL</a> DBs in terms of
+Web-friendliness because the <a href="http://en.wikipedia.org/wiki/Url">URL</a>
+(more generally, <a
+href="http://en.wikipedia.org/wiki/Uniform_resource_identifier">URI</a>/<a
+href="http://www.w3.org/TR/2004/REC-rdf-concepts-20040210/#dfn-URI-reference">URIRef</a>/<a
+href="http://en.wikipedia.org/wiki/Internationalized_Resource_Identifier">IRI</a>)
+is treated as a first-class type, so everything can be intimately linked with
+the <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a>
+protocol.</p>
+
+<p>There are loads of alternatives for templating engine, and Seki uses <a
+href="https://github.com/andyhot/freemarkerjs">freemarker.js</a>. Two main
+factors led to this choice: I've used it before (the <a
+href="http://freemarker.sourceforge.net/">original Java version</a>, within <a
+href="http://stanbol.apache.org/">Apache Stanbol</a>) and it's <em>simple</em>
+(essentially just content replacement and includes, simple conditional display
+and lists). Many templating engines resemble full-blown programming languages
+(cf. <a href="https://en.wikipedia.org/wiki/PHP">PHP</a>), I'd suggest that
+makes it too easy to overload the templating with extra functionality, breaking
+the separation of concerns.</p>
+
+<p>To allow consistency and <a
+href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a>, the same
+templating subsystem is used in Seki for formatting between the browser and
+application and between the application and store (SPARQL queries/updates are
+templated).</p>
+
+<p>Regarding media types, having a triplestore backend means that the RDF
+formats are a no-brainer. For Web presentation, HTML is essential. While
+<code>application/x-www-form-urlencoded</code> is the default media type for
+HTML form POSTing, it doesn't really lend itself to reuse. A more versatile
+choice here is <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>. However,
+in itself, JSON doesn't have a notion of links. But <a
+href="http://json-ld.org/">JSON-LD</a> does, with the bonus that it can also be
+considered a fully-fledged RDF format. Things like images, audio and video can
+all be handled in their own media types via REST. <a
+href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a> (and <a
+href="http://tools.ietf.org/html/rfc5023">Atom Protocol</a>) are desirable for
+additional connectivity, see <a href="#Social">Social Connectivity</a> below.
+<a href="http://en.wikipedia.org/wiki/WebDAV">WebDAV</a> support would be nice
+to have, to allow the use of other clients, but it's not really a priority.</p>
+
+<p>So in the near term I want Seki to be able to handle (in both
+directions):</p>
+<ul>
+  <li>HTML</li>
+  <li>JSON-LD</li>
+  <li>Turtle </li>
+  <li>Arbitrary media formats</li>
+</ul>
+
+<h4>Progress</h4>
+
+<p><strong>Server-side</strong> : While HTML stays the main rendering format,
+I've started augmenting this with a bit of <a
+href="http://en.wikipedia.org/wiki/RDFa">RDFa</a>. This is easy with the
+templating system.</p>
+
+<p>I've also been changing things to make JSON-LD the primary format for
+passing info to the server. There's still quite a way to go with this, mostly a
+matter of more general refactoring and code reorganization. I've got a libs at
+hand that help with this, notably <a
+href="https://github.com/Acubed/node-rdf">node-rdf</a> and <a
+href="https://npmjs.org/package/jsonld">json-ld</a> (I held off incorporating
+an RDF lib into Seki as long as I could as for most things it would be
+overkill, but when it came to format conversion it seemed essential). </p>
+
+<p>I've done a little coding towards 'baking' pages (turning them into static
+files), the original motivation being performance, though it does seem a
+generally a good idea, as <a href="http://www.aaronsw.com/weblog/000404">Aaron
+has described</a>. It's since occurred to me that this should be mighty handy
+for archiving and versioning. Simply bake older versions together with relevant
+metadata at a URI discoverable from the latest version of the page.</p>
+
+<p><strong>Client-side</strong> : I've run through a few editing UIs - </p>
+<ul>
+  <li>simple form <code>textarea</code> - functional but ugly/limited</li>
+  <li><a href="http://www.tinymce.com/">TinyMCE</a> - was pretty nice (and the
+    <a href="http://aksw.org/Projects/RDFaCE.html">RDFaCE</a> RDFa +
+    auto-annotation extension is very cool) but at the time I was running a
+    separate HTTP server (in the Seki node.js code) on a different port to
+    serve static files, and I ran into painful <a
+    href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a> issues
+    (I've since reverted to serving static files on the same port, but later
+    want to offer an external static server as an option)</li>
+  <li><a href="http://www.aloha-editor.org/">Aloha</a> - has a neat UI, but
+    it's surprisingly <strong>big</strong>, and when I tried customizing it
+    (with CSS etc. and Backbone.js) it seemed more trouble that it was worth.
+    Around this point I remembered Create.js - a bit of embarrasing memory loss
+    as I did a keynote at a <a
+    href="http://wiki.iks-project.eu/index.php/Workshops/Salzburg2012">workshop</a>
+    in Salzburg featuring it last year).</li>
+  <li><a href="http://createjs.org/">Create.js</a> (see <a
+    href="http://createjs.org/demo/hallo/">demo</a>) - this is more or less a
+    wrapper for an editor which makes it operate as a <a
+    href="http://wiki.iks-project.eu/index.php/VIE">VIE</a> component. It
+    supports other editors (including Aloha) but the default is <a
+    href="http://hallojs.org/">Hallo</a>, my favourite editor to date.</li>
+</ul>
+
+<p>I wanted to use <a href="jquery.com">jQuery</a> and <a
+href="jqueryui.com">jQueryUI</a> components in Seki's views, move to JSON-LD
+for client -&gt; server messages and use <a
+href="http://backbonejs.org/">Backbone.js</a> to logically structure the
+messages. This is pretty much how Create.js operates, plus RDFa to indicate
+editable areas etc (a slight caveat is that it follows an earlier version of
+the JSON-LD spec, but it only took a few lines of code to massage messages into
+shape). </p>
+
+<p>The general design approach of Create.js/VIE components is really good, they
+support a good degree of system decoupling.</p>
+
+<p>Right now I've got Create.js basically integrated, though it still needs a
+fair bit of tweaking.</p>
+
+<h4>Next Steps</h4>
+<ul>
+  <li>tweaking config of Create.js</li>
+  <li>making views for blog front page, archive links etc.</li>
+  <li>adding comment facility</li>
+  <li>tests</li>
+  <li>refactoring</li>
+  <li>docs</li>
+</ul>
+
+<p>What I've not got around to yet are the finer points of HTTP, notably the
+bits needed for caching (ETag &amp; Last-Modified). But basic support for these
+is relatively straightforward.</p>
+
+<h3><a name="User" id="User">User Management</a></h3>
+
+<p>I recently covered the requirements and design of this part of Seki in <a
+href="http://dannyayers.com/2013/05/28/User-Management-via-RDF">User Management
+via RDF</a>. <em>[Oops, I just overwrote the image over there with the latest
+version - oh well, it is the latest version...]</em></p>
+
+<h4>Progress</h4>
+
+<p>I've since tweaked the <a
+href="https://github.com/danja/seki/blob/master/www/vocabs/usermanagement.ttl">vocab</a>
+a little to improve modelling of <code>Space</code>s (sets of resources) and
+added direct linkage to <a href="http://xmlns.com/foaf/spec/">FOAF</a>
+profiles. </p>
+
+<p><img alt="vocab structure"
+src="http://dannyayers.com/stuff/seki/usermanagement-structure-smaller.png"
+/></p>
+
+<p>As it happens, the <a href="http://jqueryui.com/dialog/#modal-form">jQueryUI
+demo for a modal form dialogue</a> happens to be the Users part of a user
+management UI, giving me a good starting point there. </p>
+
+<p>I've put together a little bit of code to create a few default RDF graphs in
+the triplestore on startup (with the <code><ins><ins>--init</ins></ins></code>
+command-line option), including default instance data for <code>admin</code>
+and <code>anonymous</code> users in a graph
+(<code>http://hyperdata.org/users</code>).</p>
+
+<p>Additional I've set up a basic user registration form. For this (and similar
+forms) I plan to use the <a href="http://viejs.org/widgets/forms/">VIE form
+generator component</a>. Unfortunately this currently only supports the JSON
+model used by <a href="http://schema.rdfs.org/">schema.rdfs.org</a>. I've
+started a little bit of utility code to transform RDF vocabs into this
+format.</p>
+
+<h4>Next Steps</h4>
+<ul>
+  <li>make admin UI to edit Users, Roles and Permissions</li>
+  <li>make views for individual resources in the users graph (Users, Roles and
+    Permissions)</li>
+  <li>make <code>ASK</code> queries to check user's permissions for a given
+    resource</li>
+  <li>hook into auth chain, providing appropriate representation rendering</li>
+</ul>
+
+<h3><a name="Social" id="Social">Social Connectivity</a></h3>
+
+<h4>Requirements</h4>
+
+<p>The general direction of this is towards the <a
+href="http://dannyayers.com">blogosphere</a>, <a
+href="https://www.facebook.com/danny.ayers">Facebook</a>, <a
+href="https://plus.google.com/112609322932428633493/posts">Google+</a>, <a
+href="https://twitter.com/danja">Twitter</a>, <a
+href="https://delicious.com/danja">Delicious</a>, <a
+href="http://www.flickr.com/photos/danja">Flickr</a>, <a
+href="http://pinterest.com/mozzanella/">Pinterest</a> etc. Hooking into the
+blogosphere can in part be achieved by providing a syndication feed and a
+built-in aggregator. Adding knowledge of <a
+href="http://xmlns.com/foaf/spec/">FOAF</a> allows 'Friending'-like
+functionality. And all this can fit in with a distributed Web environment.</p>
+
+<p>I have no intention of implementing anything as complex as Facebook, and am
+wary of walled gardens, but then again there's no reason to block such a thing
+as a potential future application. Per-user spaces (like individual blogs, G+
+pages or Twitter streams) and threaded discussions are certainly within scope.
+</p>
+
+<p>When it comes to things like Facebook's games and apps - it's a nice idea,
+however cheesy they tend to be. See <a href="#Pluggabili1">pluggability</a>
+below.</p>
+
+<p>For linking into existing social net accounts, that can be achieved in some
+cases via relatively straightforward APIs, otherwise more complex apps that
+plug into the host system are potential options.</p>
+
+<h4>Seki Design</h4>
+
+<p>Blogosphere connectivity is fairly high up the priority list, mostly because
+I want to use it myself. Atom feeds are the first thing, and a built-in
+aggregator should be relatively straightforward later on (I've built several in
+the past, having a triplestore backend is really handy). There is a bit of
+trade-off judgement required with things like this. While snagging things like
+one person's bookmarks from Delicious can be relatively lightweight, it won't
+be desirable to mirror the whole of the blogosphere locally. I've not looked
+with an eye to hooking into Seki yet, but there are plenty of summarising and
+indexing/metadata-extracting tools out there, storing a little bunch of triples
+for pages of interest would be good.</p>
+
+<p>Spidering of FOAF (and similar material) is on the list, some care (maybe
+limit to 1 hop) will be needed not to frighten the horses by appearing to
+invade privacy.</p>
+
+<p>For the fun of it I might well add a <a
+href="http://en.wikipedia.org/wiki/XMPP">Jabber</a> chat client/server. Might
+even look into audio/video conferencing out of curiosity. Not really a priority
+right now though.</p>
+
+<h4>Progress</h4>
+
+<p>All I've tried along these lines is grabbing &amp; converting a dump of my
+Delicious bookmark data, putting that in the store to experiment against.</p>
+
+<h4>Next Steps</h4>
+<ul>
+  <li>Atom feed(s)</li>
+  <li>FOAF profile builder (a la <a
+    href="http://www.ldodds.com/foaf/foaf-a-matic">FOAF-a-matic</a>)</li>
+  <li>feed aggregation</li>
+  <li>FOAF/RDF spidering</li>
+</ul>
+
+<h3><a name="System" id="System">System Admin</a></h3>
+
+<p>Here I'll include bits that didn't quite fit in the sections above.</p>
+
+<h4>Requirements</h4>
+
+<p>Most of the initial system configuration can be set up on startup. </p>
+
+<p>headless apps</p>
+
+<p>browsers as agents, services as agents</p>
+
+<p>hypermedia</p>
+
+<p><strong id="Pluggabili"><a name="Pluggabili1"
+id="Pluggabili1">Pluggability</a></strong> :</p>
+
+<p>plugins/themes - in place code editing</p>
+
+<p>(I've since reverted to serving static files on the same port), this time
+using my own hacky server code. It only has minimal features so far (compared
+to say <a href="https://github.com/cloudhead/node-static">node-static</a>),
+though for a bit of extra flexibility and to allow reuse I've implemented it as
+<a href="http://www.senchalabs.org/connect/">Connect middleware</a>. My
+justification for DIY is that I want to know what's going on internally, better
+to provide hyperdata/hypermedia support.</p>
+
+<div>
+<h4>Seki Design</h4>
+
+<p><strong>System configuration</strong> : Some of the config is dependent on
+the host system and target SPARQL 1.1 store, those pieces must be configurable
+externally. Within Seki there's the need to load config info on startup and
+(ideally) allow its modification.</p>
+
+<p><strong>Data management</strong> : In the most general case, RDF editing can
+change any data. While crude, the query forms that are generally bundled with
+SPARQL servers (like <a
+href="http://jena.apache.org/documentation/serving_data/">Fuseki</a>, the one
+used by default in Seki) offer this facility.</p>
+</div>
+
+<h4>Progress</h4>
+
+<p>I've put together a bit of code to create default graphs and populate them
+on startup (with the <code>--init</code> command-line option).</p>
+
+<h4>Next Steps</h4>
+
+<p>graph creation &amp; data file loading form</p>
+
+<p></p>
+
+<h4><a name="Call" id="Call">Call for Funding</a></h4>
+
+<p>funding! if you have an idea for a web app that isn't already out there,
+fund me and I'll see what I can do</p>
+
+<p>if you want to wait until you've seen a demo, let me know and I'll ping you
+when I've got something live</p>
+
+<p>open source</p>
+
+<p></p>
+
+<p>Comments to G+ please.</p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+</body>
+</html>

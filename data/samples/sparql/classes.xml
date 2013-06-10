@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<sparql xmlns="http://www.w3.org/2005/sparql-results#">
+  <head>
+    <variable name="s"/>
+    <variable name="type"/>
+    <variable name="label"/>
+    <variable name="comment"/>
+    <variable name="subClassOf"/>
+  </head>
+  <results>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2002/07/owl#Ontology</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Common Tag vocabulary</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#AuthorTag</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2000/01/rdf-schema#Class</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Author Tag</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A Tag asserted by the author of a content resource.</literal>
+      </binding>
+      <binding name="subClassOf">
+        <uri>http://commontag.org/ns#Tag</uri>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#Tag</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2000/01/rdf-schema#Class</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Tag</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A Common Tag associating a URI and a keyword to annotate a resource.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#AutoTag</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2000/01/rdf-schema#Class</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Auto Tag</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A Tag asserted by an automated tool on a content resource.</literal>
+      </binding>
+      <binding name="subClassOf">
+        <uri>http://commontag.org/ns#Tag</uri>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#ReaderTag</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2000/01/rdf-schema#Class</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Reader Tag</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A Tag asserted by the reader (consumer) of a content resource.</literal>
+      </binding>
+      <binding name="subClassOf">
+        <uri>http://commontag.org/ns#Tag</uri>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#TaggedContent</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/2000/01/rdf-schema#Class</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">Tagged Content</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">Content which has one or more Common Tag.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#isAbout</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">is about</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A resource (URI) representing the concepts described by the content.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#label</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">tag label</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A local, human-readable name for a Tag.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#means</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">means</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">A a resource (URI) representing the conceptual meaning of a Tag.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#tagged</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">tagged</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">Links a resource to a Common Tag.</literal>
+      </binding>
+    </result>
+    <result>
+      <binding name="s">
+        <uri>http://commontag.org/ns#taggingDate</uri>
+      </binding>
+      <binding name="type">
+        <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</uri>
+      </binding>
+      <binding name="label">
+        <literal xml:lang="en">tagging date</literal>
+      </binding>
+      <binding name="comment">
+        <literal xml:lang="en">The date the Tag was assigned.</literal>
+      </binding>
+    </result>
+  </results>
+</sparql>

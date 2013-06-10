@@ -1,3 +1,6 @@
+var config = require('./config/ConfigDefault').config;
+var Log = require('log'), log = new Log(config.logLevel);
+
 //Constructor
 function Authenticator() {
 
@@ -27,7 +30,7 @@ Authenticator.prototype = {
 	// Dummy methods for testing
 	"T" : function(request) { // always true
 		// this.value2 = argument + 100;
-		console.log("Auth.true called");
+		log.debug("Auth.true called");
 		return true;
 	},
 

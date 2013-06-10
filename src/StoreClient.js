@@ -8,8 +8,7 @@ var Log = require('log'),
     log = new Log(config.logLevel);
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Log = require('log'), log = new Log(config.logLevel);
 // var sparqlTemplates = require('./templates/SparqlTemplates');
 // var freemarker = require('./templates/freemarker');
 var SparqlUtils = require("./SparqlUtils");
@@ -31,29 +30,59 @@ StoreClient.prototype = {
         this.sendTurtle(graphURI, turtle);
     },
 
+    // rename to "query"?
     "send": function(options, sparql, callback) {
 
         log.debug("StoreClient.send");
-
+        log.debug("callback = "+callback);
         for (var name in config.clientOptions) { // merge constants
             if (!options[name]) {
                 options[name] = config.clientOptions[name];
             }
         }
 
-        var clientRequest = http.request(options, function(queryResponse) {
-            //                                console.log('STATUS: ' + res.statusCode);
-            //                                console.log('HEADERS: ' + JSON.stringify(res.headers));
-            queryResponse.setEncoding('utf8');
-            if (callback) {
-                log.debug("IN SEND CALLING " + callback);
-                callback(queryResponse);
-            };
-        });
+        log.debug("OPTIONS = "+JSON.stringify(options));
+        
+        var clientRequest = http.request(options);
         clientRequest.on('err', function() {
             log.debug("ERROR!" + err);
         });
+        
+        clientRequest.on('response', function(queryResponse) {
+            queryResponse.setEncoding('utf8');
+        log.debug("IN SEND CALLING RESPOND");
+        if (callback) {
+            log.debug("IN SEND CALLING " + callback);
+            callback(queryResponse);
+        };
+        });
+//         function respond(queryResponse){
+// 
+//                 //                                console.log('STATUS: ' + res.statusCode);
+//                 //                                console.log('HEADERS: ' + JSON.stringify(res.headers));
+//                 queryResponse.setEncoding('utf8');
+//                 log.debug("IN SEND CALLING RESPOND");
+//                 if (callback) {
+//                     log.debug("IN SEND CALLING " + callback);
+//                      callback(queryResponse);
+//                 };
+//             
+//         }
+//         clientRequest.on('response', function(queryResponse) {
+//             log.debug("RESPONSE");
+//             response(queryResponse);
+//         });
+//         function response(queryResponse){
+//             callback(queryResponse);
+//         }
+        clientRequest.write(sparql);
+        clientRequest.end();
     },
+    
+    /* this was used to chain two commands, before Barry Norton pointed out that it could be done
+     * directly in the SPARQL simply by putting a ";" between operations. Left here for reference 
+     * in case I need to do the async thing again somewhere else.
+     */
     "send2": function(options, sparql1, clientCallback1, sparql2, clientCallback2) {
 
         log.debug("StoreClient.send2");
@@ -130,8 +159,18 @@ StoreClient.prototype = {
         //   log.debug("SPARQL = "+sparql);
         this.send(config.updateOptions, sparql, callback);
     },
-
+    
     "replaceResource": function(graphURI, resourceURI, turtle, finalCallback) {
+        log.debug("StoreClient.replaceResource");
+        var sparqlUtils = new SparqlUtils();
+        var replaceSparql = sparqlUtils.resourceToReplace(graphURI, resourceURI, turtle);
+        log.debug("config.updateOptions = "+config.updateOptions);
+        log.debug("replaceSparql = "+replaceSparql);
+        log.debug("finalCallback = "+JSON.stringify(finalCallback));
+        this.send(config.updateOptions, replaceSparql, finalCallback);
+    },
+
+    "replaceResource2": function(graphURI, resourceURI, turtle, finalCallback) {
         log.debug("StoreClient.replaceResource");
         //    log.debug("TURTLE = "+turtle);
         var sparqlUtils = new SparqlUtils();

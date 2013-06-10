@@ -1,0 +1,18 @@
+log.js : http://github.com/visionmedia/log.js
+node-rdf : https://github.com/Acubed/node-rdf
+json-ld : https://npmjs.org/package/jsonld
+commander : https://github.com/visionmedia/commander.js
+freemarker : https://github.com/andyhot/freemarkerjs
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+@prefix um: <http://purl.org/stuff/usermanagement#>.
+<http://hyperdata.org/users/danny>
+	a um:User ; 
+	um:fullname "Danny Ayers";
+	um:login "danny";
+	um:password "sasha";
+    um:email "danny.ayers@gmail.com";
+	um:profile "http://dannyayers.com/foaf.rdf" .
+

@@ -22,6 +22,8 @@ var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
 var commander = require('../lib/commander');
 
+var VieJsonHandler = require('./handlers/VieJsonHandler');
+
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
@@ -48,9 +50,9 @@ var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
-// var special = require('./SpecialPages');
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Log = require('log'), log = new Log(config.logLevel);
+var special = require('./config/Special');
+
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
@@ -152,7 +154,7 @@ function onRequest(sekiRequest, sekiResponse) {
     }  
     
     if (sekiRequest.method == "PUT") {
-        log.debug("PUTTTTTTTTTTTTTTTTTTT");
+        log.debug("PUT");
         var handler = new JSONHandler();
         return handler[sekiRequest.method](sekiRequest, sekiResponse);
 }
@@ -193,22 +195,31 @@ function onRequest(sekiRequest, sekiResponse) {
     // this is duplicated in GetHandler.js
     var accept = sekiRequest.headers["accept"]; ///////////////////// is accept!!!
 
-    if (accept && accept.indexOf("application/json") == 0) {
-        var handler = new JSONHandler();
-        return handler[sekiRequest.method](sekiRequest, sekiResponse);
-    }
-    
-
-
-
-    // verbosity("Accept header =" + accept
-    // + accept.indexOf("application/rdf+xml" == 0));
 
     // TODO pull these out into separate per-media type handlers
     // use pattern as for JSONHandler
     if (sekiRequest.method == "GET") {
-        var getHandler = new GetHandler();
-        getHandler.handle(sekiRequest, sekiResponse);
+        var key = "/vie-json";
+        if (sekiRequest.url.substring(0, key.length) == key) {
+            var handler = new VieJsonHandler();
+            handler.handle(sekiRequest, sekiResponse);
+            return;
+        }
+        
+//         for(key in special) {
+//             log.debug("KEY = "+key);
+//             if (sekiRequest.url.substring(0, key.length) == key) {
+//         //    if(Special[key]){
+//                 log.debug("SPECIAL MATCH = "+key);
+//                 var handler = special[key];
+//                 log.debug("special = "+util.inspect(special));
+//                 log.debug("handler = "+util.inspect(handler));
+//                 handler.handle(sekiRequest, sekiResponse);
+//                 return;
+//         }
+//         }
+        var handler = new GetHandler();
+        handler.handle(sekiRequest, sekiResponse);
     }
 
     if (sekiRequest.method == "POST") {

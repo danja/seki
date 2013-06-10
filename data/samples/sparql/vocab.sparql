@@ -1,0 +1,20 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT * WHERE { GRAPH <http://hyperdata.org/misc> {
+{
+?c a ?type;
+OPTIONAL { ?c a rdfs:Class }
+OPTIONAL { ?c a rdf:Property }
+OPTIONAL { ?c rdfs:label ?label } 
+OPTIONAL { ?c rdfs:label ?label } 
+OPTIONAL { ?c rdfs:comment ?comment } 
+OPTIONAL { ?c rdfs:subClassOf ?subClassOf } 
+} UNION {
+?p a ?type;
+OPTIONAL { ?p rdfs:subPropertyOf ?subPropertyOf } 
+OPTIONAL { ?p rdfs:domain ?domain } 
+OPTIONAL { ?p rdfs:range ?range } 
+}
+}
+}

@@ -17,10 +17,9 @@ var sparqlTemplates = {
     resourceExistsTemplate : "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
     
     simpleReplaceTemplate : "${prefixes} \
-       WITH <${graph}> \
-       DELETE { <${uri}> ?p ?o } \
-       INSERT { ${body} } \
-       WHERE  { <${uri}> ?p ?o } ",
+       WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }\
+       ; \
+       INSERT DATA { GRAPH <${graph}>{ ${body} }}",
     
 	itemTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
@@ -68,8 +67,27 @@ var sparqlTemplates = {
                dcterms:date \"${date}\" .\
             }}",
 
-	listGraphURIs : "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }"
-}; // sioc:Post
+	listGraphURIs : "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }",
+    
+    vocabTemplate : "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
+    \
+    SELECT * WHERE { GRAPH <${graph}> { \
+        { \
+            ?class a ?type . \
+            ?class a rdfs:Class . \
+            OPTIONAL { ?c rdfs:label ?label } \
+            OPTIONAL { ?c rdfs:label ?label } \
+            OPTIONAL { ?c rdfs:comment ?comment } \
+            OPTIONAL { ?c rdfs:subClassOf ?subClassOf } \
+        } UNION { \
+            ?property a ?type . \
+            ?property a rdf:Property . \
+            OPTIONAL { ?p rdfs:subPropertyOf ?subPropertyOf } \
+            OPTIONAL { ?p rdfs:domain ?domain } \
+            OPTIONAL { ?p rdfs:range ?range } \
+        }}}"
+}; 
 
 // make it visible to other scripts
 module.exports = sparqlTemplates;

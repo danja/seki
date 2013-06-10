@@ -19,13 +19,15 @@ function SparqlUtils() {
   //  log.debug("StoreClient = "+StoreClient);
     }
     
+    ///////////////////////////////////
     // TODO Refactor out common pieces
+    ////////////////////////////////////
     SparqlUtils.prototype = {
 
     "createGraph": function(graphURI) {
         var sparql = "CREATE SILENT GRAPH <" + graphURI + ">";
     },
-    "turtleToSimpleInsert": function(graphURI, turtle) {
+    "turtleToInsert": function(graphURI, turtle) {
        // log.debug("turtleToInsert "+turtle);
         var turtleSplit = this.extractPrefixes(turtle);
 
@@ -87,25 +89,19 @@ function SparqlUtils() {
     },
 
     /*
-     * a simple tree is defined as a set of triples with common subject resource
-     * 
-     * needs error checks?
+     * a resource here means the set of triples <knownResource> ?p ?o
      */
-    "replaceSimpleTree": function(targetGraph, simpleTreeTurtle) {
-        var inputGraph = new rdf.IndexedGraph();
-        var parser = new rdf.TurtleParser();
-
-        parser.parse(simpleTreeTurtle, null, null, null, inputGraph);
-
-        var tripleArray = inputGraph.toArray();
-
-        var rootResource = tripleArray[0].subject;
-
+    "resourceToReplace": function(graphURI, resourceURI, turtle) {
+        var turtleSplit = this.extractPrefixes(turtle);
+        
         var replaceMap = {
-
-        }
-        console.log(rootResource);
-
+            "graph": graphURI,
+            "uri" : resourceURI,
+            "prefixes": turtleSplit.prefixes,
+            "body": turtleSplit.body
+        };
+        var sparql = freemarker.render(sparqlTemplates.simpleReplaceTemplate, replaceMap);
+        return sparql;
     }
 }
 module.exports = SparqlUtils;

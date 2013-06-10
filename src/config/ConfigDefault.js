@@ -41,6 +41,10 @@ var defaultConfig = {
 	sparqlGraphEndpoint : "/seki/data",
 	sparqlQueryEndpoint : "/seki/query",
 	sparqlUpdateEndpoint : "/seki/update",
+    queryOptions : {
+        "path" : "/seki/query",
+        "method" : "GET"
+    },
     updateOptions : {
         "path" : "/seki/update",
         "method" : "POST"
