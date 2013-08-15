@@ -1,0 +1,72 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>User Dialog - Modal form</title>
+  
+  <!-- this lot lifted from jQueryUI demo -->
+  <link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css" />
+  <script src="../js/jquery/jquery-1.9.1.js"></script>
+  <script src="../js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="../js/jquery/ui/minified/jquery.ui.dialog.min.js"></script>
+  <style>
+    body { font-size: 62.5%; }
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+  <!--                      -->
+
+    <script src="../js/underscore-min.js"></script>
+  <script src="../js/backbone.js"></script>
+    <script src="../js/backbone-forms/distribution/backbone-forms.js"></script>
+        <script src="../js/backbone-forms/distribution/editors/list.js"></script>
+    
+  <script>
+  $(function() {
+    var User = Backbone.Model.extend({
+        schema: {
+            title:      { type: 'Select', options: ['', 'Mr', 'Mrs', 'Ms'] },
+            name:       'Text',
+            email:      { validators: ['required', 'email'] },
+            birthday:   'Date',
+            password:   'Password',
+            notes:      { type: 'List', listType: 'Text' }
+        }
+    });
+    
+    var user = new User({
+        title: 'Mr',
+        name: 'Sterling Archer',
+        email: 'sterling@isis.com',
+        birthday: new Date(1978, 6, 12),
+        password: 'dangerzone',
+        notes: [
+            'Buy new turtleneck',
+            'Call Woodhouse',
+            'Buy booze'
+        ]
+    });
+    
+    var form = new Backbone.Form({
+        model: user
+    }).render();
+    
+    $('body').append(form.el);
+});
+</script>
+
+
+    
+  </head>
+  
+<body>
+</body>
+</html>

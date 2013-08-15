@@ -1,10 +1,10 @@
 
 var jsonTemplates = {
-    vieJsonTemplate : "
+    vieJsonTemplate : 
     {
        
     }
-    "
+    
 }
 
 module.exports = jsonTemplates;

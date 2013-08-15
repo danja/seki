@@ -8,15 +8,7 @@ For updates see [Seki on G+](https://plus.google.com/b/102910670341143019851/102
 
 Also [TODO List](https://workflowy.com/shared/dd5976b2-b48f-9096-0357-105f34b4d6ed/)
 
-There are two branches in the git repository: master and dev. Master is essentially frozen (tweaks & bugfixes only). dev is in active development.
-
-_to switch to the dev branch you need (I think) to:
-git branch dev
-git checkout dev
-git pull origin dev
-_
-
-// npm install connect
+Note 2013-08-15 : currently trying to package as npm and tidy up dependencies - may be a messfor a little while
 
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
 

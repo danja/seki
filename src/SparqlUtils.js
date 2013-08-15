@@ -6,7 +6,7 @@ var config = require('./config/ConfigDefault').config;
 
 var sparqlTemplates = require('./templates/SparqlTemplates');
 var freemarker = require('./templates/freemarker');
-var rdf = require('../lib/node-rdf/index');
+var rdf = require('../lib/node-rdf/lib/index');
 
 // replaceSimpleTree(null, first);
 // graph1.forEach(function(triple) {

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<p>Seki Web Application Framework : Update</p>
+<p>Seki Web Application Framework : Summer Update</p>
 
 <p></p>
 
@@ -32,11 +32,21 @@ href="http://en.wikipedia.org/wiki/Web_application_framework">Web Application
 Framework</a> with a long list of potential applications. They range from
 fairly generic things like e.g. workflow/issue management or info aggregator to
 more vertical things like a creative writing assistant or recording studio
-equipment inventory system.</p>
+equipment inventory system. As well as scratching a few of my own itches, I'd
+like to use Seki as an experimental testbed, kicking the tyres of the relevant
+technologies. There are plenty of WAFs around, several (like Seki) built on <a
+href="http://nodejs.org/">node.js</a>. Seki's Unique Selling Proposition is
+essentially it's <a href="http://en.wikipedia.org/wiki/Semantic_web">Semantic
+Web</a> foundation, though as far as I'm aware the <a
+href="https://github.com/danja/seki#readme">full decoupling from the
+datastore</a> is also unique. </p>
 
-<p>I need to break down the potential applicationslist pretty soon to help with
-deciding priorities, but some components are obviously common to many apps,
-providing top priorities. These components are:</p>
+<p>I need to break down the potential applications list pretty soon to help
+with deciding priorities, but some components are obviously common to many
+apps, providing top priorities. A minimum viable product (in the sense of
+something I can usefully make live) drops out of this - a simple CMS.</p>
+
+<p>The components are:</p>
 <ul>
   <li><a href="#System">System Admin</a></li>
   <li><a href="#Content">Content Management</a></li>
@@ -70,9 +80,10 @@ href="http://dannyayers.com">own blog</a>. </p>
 <p>Most CMSs are (unsurprisingly) highly focussed on <a
 href="http://en.wikipedia.org/wiki/HTML">HTML</a>. It is after all the primary
 format on the Web. However, both <a
-href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> and
-RDF are format-agnostic, and the conceptual model of RDF covers any kind of
-data, not just documents. </p>
+href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> and <a
+href="http://en.wikipedia.org/wiki/Resource_Description_Framework">RDF</a>
+(Seki's data model) are format-agnostic, and the conceptual model of RDF covers
+any kind of data, not just documents. </p>
 
 <p>Not unrelated, HTML isn't the only fruit. There are an awful lot more media
 types out there. Any reasonable CMS will be able to deal appropriately with
@@ -119,6 +130,14 @@ href="https://code.google.com/p/linked-data-api/wiki/Specification">Linked Data
 API</a>. It's not a priority, but ultimately,for convenience, I'd like Seki to
 support more of that, particularly referencing resources using <a
 href="http://tools.ietf.org/html/rfc6570">URI Templates</a>.</p>
+
+<p><em>Incidentally, I just came across the OASIS <a
+href="http://docs.oasis-open.org/cmis/CMIS/v1.1/cs01/CMIS-v1.1-cs01.html">Content
+Management Interoperability Services spec</a>. It does use Atom/APP as a base
+for one of it's bindings, but most of it is a big vocabulary of XML terms, and
+I reckon chances are the Interoperability will 99% be limited to other systems
+that speak CMIS. Haven't said it for a while, but I reckon it's called for here
+: should've used RDF.</em></p>
 
 <h4>Seki Design</h4>
 
@@ -387,70 +406,128 @@ Delicious bookmark data, putting that in the store to experiment against.</p>
 
 <h3><a name="System" id="System">System Admin</a></h3>
 
-<p>Here I'll include bits that didn't quite fit in the sections above.</p>
+<p>Here I'll also include bits that didn't quite fit in the sections above.
+Most is Seki-specific so I'll roll the following together :</p>
 
-<h4>Requirements</h4>
-
-<p>Most of the initial system configuration can be set up on startup. </p>
-
-<p>headless apps</p>
-
-<p>browsers as agents, services as agents</p>
-
-<p>hypermedia</p>
-
-<p><strong id="Pluggabili"><a name="Pluggabili1"
-id="Pluggabili1">Pluggability</a></strong> :</p>
-
-<p>plugins/themes - in place code editing</p>
-
-<p>(I've since reverted to serving static files on the same port), this time
-using my own hacky server code. It only has minimal features so far (compared
-to say <a href="https://github.com/cloudhead/node-static">node-static</a>),
-though for a bit of extra flexibility and to allow reuse I've implemented it as
-<a href="http://www.senchalabs.org/connect/">Connect middleware</a>. My
-justification for DIY is that I want to know what's going on internally, better
-to provide hyperdata/hypermedia support.</p>
+<h4>Requirements &amp; Seki Design</h4>
 
 <div>
-<h4>Seki Design</h4>
-
 <p><strong>System configuration</strong> : Some of the config is dependent on
 the host system and target SPARQL 1.1 store, those pieces must be configurable
 externally. Within Seki there's the need to load config info on startup and
-(ideally) allow its modification.</p>
+(ideally) allow its modification. At runtime there's a lot of potential for
+configuration and even system extension using declarative definitions in the
+RDF.</p>
 
 <p><strong>Data management</strong> : In the most general case, RDF editing can
 change any data. While crude, the query forms that are generally bundled with
 SPARQL servers (like <a
 href="http://jena.apache.org/documentation/serving_data/">Fuseki</a>, the one
-used by default in Seki) offer this facility.</p>
+used by default in Seki) offer this facility. A tool something like the (now
+stale) <a href="http://www.w3.org/2005/ajar/tab">Tabulator</a> generic data
+browser/editor would be very nice to have. </p>
+
+<p>It's hoped that VIE will help with application-specific data management. </p>
 </div>
+
+<p><strong id="Pluggabili"><a name="Pluggabili1"
+id="Pluggabili1">Pluggability</a></strong> : to act as a framework, it must be
+possible to plug in functional blocks or modules. Initially this will be
+limited to CMS-like themes (packaged up custom templates, bootstrap data and
+CSS etc). </p>
+
+<p>Going further, a very powerful paradigm I'd like Seki to support in the near
+future is in-place runtime code modification (and "hot code updates"), roughly
+along the lines of <a
+href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> (e.g. <a
+href="http://en.wikipedia.org/wiki/Squeak">Squeak</a>) or <a
+href="http://en.wikipedia.org/wiki/Emacs">emacs</a>, though using Javascript. I
+think basic implementation will be relatively straightforward, but the
+vulnerabilities this would potentially expose are likely to make the security
+aspects (sandboxing) hard work. The plan is to disable the feature by default,
+enabling it by a startup option to allow experimentation.</p>
+
+<p>Drawing back a little, blocks of functionality could be implemented by
+building them as (quasi-) self-contained services on HTTP, accessed via a
+RESTful API. Hooks could be inserted into the code at appropriate points at
+runtime to allow calling such services. I think it would be best to view such
+services as little agents (I did some work around this a few years back, which
+I presented at a Scripting for the Semantic Web meetup at ESWC2007 - must dig
+out the slides). If the (HTTP) messages are suitably self-descriptive, it
+should be straightforward to set up a simple <a
+href="http://en.wikipedia.org/wiki/Flow-based_programming">Flow-Based
+Programming</a> <a
+href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>, maybe
+layered on <a href="https://github.com/caolan/async">async</a>. (See also: <a
+href="http://noflojs.org/">NoFlo</a>). Of course, such services/agents could be
+completely external to the system. </p>
 
 <h4>Progress</h4>
 
 <p>I've put together a bit of code to create default graphs and populate them
-on startup (with the <code>--init</code> command-line option).</p>
+on startup (with the <code>--init</code> command-line option does
+bootstrapping).</p>
+
+<p>By default Seki will serve static files on the same port as dynamically
+generated pages. It's now sing my own hacky server code. This only has minimal
+features so far (compared to say <a
+href="https://github.com/cloudhead/node-static">node-static</a>), though for a
+bit of extra flexibility and to allow reuse I've implemented it as <a
+href="http://www.senchalabs.org/connect/">Connect middleware</a>. My
+justification for DIY is that I want to know what's going on internally, better
+to provide hyperdata/hypermedia support.</p>
 
 <h4>Next Steps</h4>
+<ul>
+  <li>integrate <a href="http://ace.ajax.org/">ACE source editor</a> (just for
+    HTML &amp; Turtle for now)</li>
+  <li>experiment with VIE components, in particular the form generator</li>
+  <li>graph creation &amp; data file loading form</li>
+  <li>set up <a href="http://stanbol.apache.org/">Stanbol</a> as an external
+    service, dynamically hook Seki into it</li>
+  <li>figure out theme packaging definition &amp; installation</li>
+  <li>explore Tabulator-like tools, consider implementing something similar</li>
+  <li>refactor the whole of Seki, setup up to allow <a
+    href="https://npmjs.org/">npm</a> packaging</li>
+  <li>tests &amp; docs</li>
+  <li>live demo</li>
+</ul>
 
-<p>graph creation &amp; data file loading form</p>
-
-<p></p>
+<p>There are a bunch of other idea bits and pieces floating around, especially
+using Seki to actually <strong>build custom applications</strong>. But I think
+the above covers most of the priorities for a good while. They may well change
+as I go along.</p>
 
 <h4><a name="Call" id="Call">Call for Funding</a></h4>
 
-<p>funding! if you have an idea for a web app that isn't already out there,
-fund me and I'll see what I can do</p>
+<p>My recent burst of activity was done in time when I really should have been
+doing work that would pay the bills. So if anyone has the ability to fund this
+or knows of any approaches I could try to funding, please let me know. While
+the dev path for Seki itself is pretty well determined for the near future, I
+will happily be influenced by $$$. In particular, if you have an idea for a web
+app that isn't already out there, fund me a bit (every little helps) and I'll
+see what I can do about implementing it. The core Seki framework will always be
+open source, but I wouldn't object to building closed source applications on
+top.</p>
 
-<p>if you want to wait until you've seen a demo, let me know and I'll ping you
-when I've got something live</p>
-
-<p>open source</p>
+<p>If you're tempted by this but want to wait until you've seen a demo, let me
+know and I'll ping you when I've got something live.</p>
 
 <p></p>
 
-<p>Comments to G+ please.</p>
+<p>Seki lives on <a href="https://github.com/danja/seki">Github</a> and has a
+<a href="https://plus.google.com/102910670341143019851/posts">G+ page</a> (with
+some older docs). There are also rough TODO notes &amp; refs. on <a
+href="https://workflowy.com/shared/4edd7d95-88e9-fe9c-1170-bce79aa3f2af/">Workflowy</a>,
+and a handful of <a href="http://dannyayers.com/tag/seki">posts tagged
+'Seki'</a> on my blog. I'm <a href="https://twitter.com/danja">@danja</a>, <a
+href="mailto:danny.ayers@gmail.com">danny.ayers@gmail.com</a></p>
+
+<p></p>
+
+<p><a
+href="https://plus.google.com/b/102910670341143019851/102910670341143019851/posts/gUWiDq4jpdt">Comments
+to G+ please</a>.</p>
 
 <p></p>
 

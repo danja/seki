@@ -1,0 +1,44 @@
+{
+  "name": "seki",
+  "version": "0.0.3",
+  "description": "Semantic Web middleware",
+  "main": "src/Seki.js",
+  "dependencies": {
+    "async": ">= 0.2.9",
+    "connect": ">= 2.7.3",
+    "keypress": ">= 0.1.0",
+    "commander": ">= 2.0.0",
+    "log": ">= 1.4.0",
+    "sax": ">= 0.2.3"
+   },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "src/test/allTests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danja/seki.git"
+  },
+  "keywords": [
+    "semantic",
+    "web",
+    "middleware",
+    "rdf",
+    "sparql",
+    "linked",
+    "data",
+    "triplestore"
+  ],
+  "author": "hyperdata.org",
+  "contributors": [ 
+    {
+      "name": "Danny Ayers",
+      "email": "danny.ayers@gmail.com"
+    } 
+  ],
+  "license": "Apache2",
+  "readmeFilename": "README.md",
+  "gitHead": "5d769ae0aba784ae6cd568937778a2d6d4e00058"
+}
