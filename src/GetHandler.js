@@ -192,7 +192,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 	sekiResponse.pipe(stream);
 
 	queryResponse.on('data', function(chunk) {
-		console.log("CHUNK: " + chunk);
+		// console.log("CHUNK: " + chunk);
 		stream.write(chunk);
 	});
 

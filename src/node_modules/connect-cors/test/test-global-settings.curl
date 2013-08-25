@@ -1,0 +1,67 @@
+#!/bin/bash
+
+HOST="localhost:9000"
+PASS='[PASS]'
+FAIL='--- FAIL ---'
+
+clear
+echo
+echo "Each test will print '${PASS}' or '${FAIL}"
+echo
+
+#
+# Test that without Origin, the request sets no CORS headers
+#
+curl http://${HOST} --include --silent \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.815.0 Safari/535.1' \
+  -H 'X-Requested-With: curl' \
+  -H 'X-Method-Override: GET' \
+  2>/dev/null | grep 'Access-Control' >/dev/null \
+  && echo "${FAIL}" || echo "${PASS}"
+
+#
+# Tests that OPTIONS will end the request without a body
+#
+curl http://${HOST}/four-oh-four-me-please --silent \
+  -X OPTIONS \
+  -H 'User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; de) Opera 11.01' \
+  -H 'Origin: http://example.com' \
+  -H 'X-Requested-With: curl' \
+  -H 'X-Method-Override: GET' \
+  | grep "[a-zA-Z0-9]" >/dev/null \
+  && echo "${FAIL}" || echo "${PASS}"
+
+#
+# Tests that Browsers will get 404'd Access-Control headers
+#
+curl http://${HOST}/four-oh-four-me-please --include --silent \
+  -H 'User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; de) Opera 11.01' \
+  -H 'Origin: http://example.com' \
+  -H 'X-Requested-With: curl' \
+  -H 'X-Method-Override: GET' \
+  | grep '404' >/dev/null \
+  && echo "${PASS}" || echo "${FAIL}"
+
+#
+# Tests that Browsers will get Access-Control headers
+#
+curl http://${HOST}/four-oh-four-me-please --include --silent \
+  -H 'User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; de) Opera 11.01' \
+  -H 'Origin: http://example.com' \
+  -H 'X-Requested-With: curl' \
+  -H 'X-Method-Override: GET' \
+  | grep 'Access-Control-Allow-Origin: http://example.com' >/dev/null \
+  && echo "${PASS}" || echo "${FAIL}"
+
+#
+# Tests that IE will get '*' rather than 'http://example.com'
+#
+curl http://${HOST} --include --silent \
+  -H 'User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)' \
+  -H 'Origin: http://example.com' \
+  -H 'X-Requested-With: curl' \
+  -H 'X-Method-Override: GET' \
+  | grep 'Access-Control-Allow-Origin: *' >/dev/null \
+  && echo "${PASS}" || echo "${FAIL}"
+
+echo

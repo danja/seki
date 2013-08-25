@@ -1,6 +1,6 @@
 
-var jsonld = require('../lib/jsonld/jsonld');
-require('../lib/jsonld/Future');
+var jsonld = require('./lib/jsonld/jsonld');
+require('./lib/jsonld/Future');
 
 var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);

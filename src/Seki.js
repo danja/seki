@@ -20,14 +20,14 @@ var sys = require('sys');
 var http = require('http');
 var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
-var commander = require('../lib/commander');
+var commander = require('commander');
 
 var VieJsonHandler = require('./handlers/VieJsonHandler');
 
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
-var CORS = require('../lib/connect-cors');
+var CORS = require('connect-cors');
 // var cors = require('../lib/connect-cors');
 // var corser = require('../lib/corser');
 // @TODO refactor verbosity out (is also in PostHandler and GetHandler)
