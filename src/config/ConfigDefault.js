@@ -58,11 +58,17 @@ var defaultConfig = {
 
 try {
 	config = require('./Config').config;
+
+    for (prop in defaultConfig) { // copy defaults not defined in Config.js
+        if (prop in config) { continue; }
+        config[prop] = defaultConfig[prop];
+    }
+    
 	console.log("Using Config.js");
 } // fall back on config-default.js
 catch (e) {
 	config = defaultConfig;
-	console.log("Using ConfigDefault.js");
+	console.log("No Config.js so using ConfigDefault.js");
 }
 
 

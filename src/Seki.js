@@ -1,3 +1,4 @@
+#!/bin/env node
 /*
  * Main Seki script
 
@@ -121,7 +122,11 @@ var app = connect()
         onRequest(sekiRequest, sekiResponse);
     });
 
-app.listen(8888);
+    app.listen(config.sekiPort, config.sekiHost);
+
+// var port = process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || 8080;   
+// var ipaddr = process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
+// app.listen(port, ipaddr);  
 
 log.debug("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
 log.debug("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);

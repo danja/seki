@@ -1,6 +1,6 @@
 {
   "name": "seki",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Semantic Web middleware",
   "main": "src/Seki.js",
   "dependencies": {},

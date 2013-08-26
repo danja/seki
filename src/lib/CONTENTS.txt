@@ -1,1 +1,2 @@
 https://github.com/bergos/node-rdf
+https://github.com/digitalbazaar/jsonld.js
