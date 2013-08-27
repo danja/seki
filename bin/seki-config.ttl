@@ -43,7 +43,7 @@ tdb:GraphTDB    rdfs:subClassOf  ja:Model .
     .
 
 <#seki_dataset> rdf:type      tdb:DatasetTDB ;
-    tdb:location "SekiDB" ;
+    tdb:location "../data/SekiDB" ;
         tdb:unionDefaultGraph true ;
 ##     # Query timeout on this dataset (milliseconds)
 ##     ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;

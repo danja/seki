@@ -93,7 +93,10 @@ function createGraph(graphURI) {
 //         };
 
        var client = new StoreClient();
-       client.send(config.updateOptions, sparql, callback);
+       var options = config.client;
+       options["method"] = config.client["updateMethod"];
+       options["path"] = config.client["updateEndpoint"];
+       client.send(options, sparql, callback);
     }
 
 

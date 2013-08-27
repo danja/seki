@@ -32,7 +32,6 @@ var CORS = require('connect-cors');
 // var cors = require('../lib/connect-cors');
 // var corser = require('../lib/corser');
 // @TODO refactor verbosity out (is also in PostHandler and GetHandler)
-var verbose = true;
 
 /*
  * Seki support scripts imports
@@ -53,7 +52,6 @@ var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var special = require('./config/Special');
-
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
@@ -122,23 +120,29 @@ var app = connect()
         onRequest(sekiRequest, sekiResponse);
     });
 
-    app.listen(config.sekiPort, config.sekiHost);
+    app.listen(config.server["port"], config.server["host"]);
 
 // var port = process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || 8080;   
 // var ipaddr = process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
 // app.listen(port, ipaddr);  
 
-log.debug("Seki serving on " + config.sekiHost + ":" + config.sekiPort);
-log.debug("addressing SPARQL on " + config.sparqlHost + ":" + config.sparqlPort);
+log.debug("Seki serving on " + config.server["host"] + ":" + config.server["port"]);
+log.debug("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"] );
+
+if(!config.dev) {
+process.on('uncaughtException', function(err) {
+    console.error(err.stack);
+});
+}
 
 /*
  * Callback to handle HTTP requests (typically from browser)
  */
 
 function onRequest(sekiRequest, sekiResponse) {
-  //  verbosity("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
-    verbosity("REQUEST URL = " + sekiRequest.url);
- //   verbosity("REQUEST METHOD = " + sekiRequest.method);
+    log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+    log.debug("REQUEST URL = " + sekiRequest.url);
+    log.debug("REQUEST METHOD = " + sekiRequest.method);
 
     log.debug("got past file server");
 
@@ -243,7 +247,7 @@ function onRequest(sekiRequest, sekiResponse) {
  */
 
 function serveFile(sekiResponse, status, file) {
-    verbosity("FILE = " + file);
+    log.debug("FILE = " + file);
 
     fs.readFile(file, function(err, data) {
         if (err) {
@@ -256,8 +260,4 @@ function serveFile(sekiResponse, status, file) {
     });
 }
 
-function verbosity(message) {
-    if (verbose)
-        console.log(message);
-}
 // }

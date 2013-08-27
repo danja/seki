@@ -1,4 +1,6 @@
 // consider using 'request' module
+
+// request options need refactoring
 var fs = require('fs');
 var http = require('http');
 var util = require('util');
@@ -32,16 +34,16 @@ StoreClient.prototype = {
 
     // rename to "query"?
     "send": function(options, sparql, callback) {
-
+        log.debug("initial send OPTIONS = "+JSON.stringify(options));
         log.debug("StoreClient.send");
         log.debug("callback = "+callback);
-        for (var name in config.clientOptions) { // merge constants
+        for (var name in config.client) { // merge constants
             if (!options[name]) {
-                options[name] = config.clientOptions[name];
+                options[name] = config.client[name];
             }
         }
 
-        log.debug("OPTIONS = "+JSON.stringify(options));
+        log.debug("\n\nIN StoreClient request OPTIONS = "+JSON.stringify(options));
         
         var clientRequest = http.request(options);
         clientRequest.on('err', function() {
@@ -87,13 +89,11 @@ StoreClient.prototype = {
 
         log.debug("StoreClient.send2");
 
-        for (var name in config.clientOptions) { // merge constants
+        for (var name in config.client) { // merge constants
             if (!options[name]) {
-                options[name] = config.clientOptions[name];
+                options[name] = config.client[name];
             }
         }
-
-
 
         async.series([
                 function(callback) {
@@ -147,8 +147,11 @@ StoreClient.prototype = {
         log.debug("StoreClient.sendTurtle");
         var sparqlUtils = new SparqlUtils();
         var sparql = sparqlUtils.turtleToInsert(graphURI, turtle, callback);
-        //   log.debug("SPARQL = "+sparql);
-        this.send(config.updateOptions, sparql, callback);
+        log.debug("SPARQL = "+sparql);
+        var options = config.client;
+        options["method"] = config.client["updateMethod"];
+        options["path"] = config.client["updateEndpoint"];
+        this.send(options, sparql, callback);
     },
 
     "replaceTurtle": function(graphURI, resourceURI, turtle, callback) {
@@ -156,22 +159,29 @@ StoreClient.prototype = {
         log.debug("TURTLE = " + turtle);
         var sparqlUtils = new SparqlUtils();
         var sparql = sparqlUtils.turtleToReplace(graphURI, resourceURI, turtle, callback);
+        var options = config.client;
+        options["method"] = config.client["updateMethod"];
+        options["path"] = config.client["updateEndpoint"];
         //   log.debug("SPARQL = "+sparql);
-        this.send(config.updateOptions, sparql, callback);
+        this.send(options, sparql, callback);
     },
     
     "replaceResource": function(graphURI, resourceURI, turtle, finalCallback) {
-        log.debug("StoreClient.replaceResource");
+        log.debug("\n\n*** StoreClient.replaceResource");
         var sparqlUtils = new SparqlUtils();
         var replaceSparql = sparqlUtils.resourceToReplace(graphURI, resourceURI, turtle);
-        log.debug("config.updateOptions = "+config.updateOptions);
+        var options = config.client;
+        options["method"] = config.client["updateMethod"];
+        options["path"] = config.client["updateEndpoint"];
+        log.debug("**** options = "+JSON.stringify(options));
+        log.debug("options[path] = "+options["path"]);
         log.debug("replaceSparql = "+replaceSparql);
         log.debug("finalCallback = "+JSON.stringify(finalCallback));
-        this.send(config.updateOptions, replaceSparql, finalCallback);
+        this.send(options, replaceSparql, finalCallback);
     },
 
     "replaceResource2": function(graphURI, resourceURI, turtle, finalCallback) {
-        log.debug("StoreClient.replaceResource");
+        log.debug("StoreClient.replaceResource2");
         //    log.debug("TURTLE = "+turtle);
         var sparqlUtils = new SparqlUtils();
 
@@ -185,7 +195,10 @@ StoreClient.prototype = {
         };
         var deleteSparql = sparqlUtils.resourceToDelete(graphURI, resourceURI, deleteCallback);
         var insertSparql = sparqlUtils.turtleToSimpleInsert(graphURI, turtle);
-        this.send2(config.updateOptions, deleteSparql, deleteCallback, insertSparql, finalCallback);
+        var options = config.client;
+        options["method"] = config.client["updateMethod"];
+        options["path"] = config.client["updateEndpoint"];
+        this.send2(options, deleteSparql, deleteCallback, insertSparql, finalCallback);
 
     }
 }

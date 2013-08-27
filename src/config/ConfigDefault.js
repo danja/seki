@@ -1,54 +1,53 @@
 var config;
 var defaultConfig = {
+    
+    dev : true, // if true, will halt on uncaught exception
+    
     logLevel : "debug",
-    graphLabels : ["meta", "users", "content", "vocabs", "foaf"]
-    ,
-	wwwDir : "../www" // static files
-	,
-    vocabsDir : "../www/vocabs"
-    ,
-    samplesDir : "../data/samples"
-    ,
-	baked : "../baked"
-		,
-		staticHost : "localhost",
-		staticPort : 8889
+    
+    graphLabels : ["meta", "users", "content", "vocabs", "foaf"],
+	wwwDir : "../www", // static files
+    vocabsDir : "../www/vocabs",
+    samplesDir : "../data/samples",
+	baked : "../baked",
+//		staticHost : "localhost",
+//		staticPort : 8889
+        
+        uriBase : "http://hyperdata.org", // used in the RDF
 		
 	/*
 	 * Settings for the Seki Server (this)
 	 */
-	,
-	sekiHost : "localhost",
-	sekiPort : 8888,
-	uriBase : "http://hyperdata.org", // used in the RDF
+    server : {
+        host : "localhost",
+        port : 8888,
+    },
+    
 	
 	/*
 	 * Settings for the remote SPARQL/HTTP server (typically Fuseki on
 	 * localhost)
-	 */
-	
-	// refactor
-	sparqlHost : "localhost",
-	sparqlPort : 3030,
-	clientOptions : {
-			  hostname: "localhost",
-			  port: 3030,
-			//  'Content-type': "text/turtle"
-			  // accept?
-			},
-       
-			
-	sparqlGraphEndpoint : "/seki/data",
-	sparqlQueryEndpoint : "/seki/query",
-	sparqlUpdateEndpoint : "/seki/update",
-    queryOptions : {
-        "path" : "/seki/query",
-        "method" : "GET"
-    },
-    updateOptions : {
-        "path" : "/seki/update",
-        "method" : "POST"
-    },
+	 */     
+     client : {
+                host: "localhost",
+                port: 3030,
+                graphEndpoint : "/seki/data",
+                queryEndpoint : "/seki/query",
+                queryMethod :"GET",
+                updateEndpoint : "/seki/update",
+                updateMethod : "POST"
+                //  'Content-type': "text/turtle"
+                // accept?
+            },
+            
+ //   queryOptions : {
+//        "path" : "/seki/query",
+//        "method" : "GET"
+//    },
+//    updateOptions : {
+//        "path" : "/seki/update",
+//        "method" : "POST"
+//    },
 		// features
 		sourceHook : true,
 		sourceHookPath : "/seki/x/",
@@ -65,6 +64,7 @@ try {
     }
     
 	console.log("Using Config.js");
+    console.log(JSON.stringify(config));
 } // fall back on config-default.js
 catch (e) {
 	config = defaultConfig;

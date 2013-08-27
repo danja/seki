@@ -32,8 +32,8 @@ var config = {
      * localhost)
      */     
     client : {
-        host: "localhost",
-        port: 3030,
+        host: "fuseki-hyperdata.rhcloud.com",
+        port: 80,
         graphEndpoint : "/seki/data",
         queryEndpoint : "/seki/query",
         queryMethod :"GET",

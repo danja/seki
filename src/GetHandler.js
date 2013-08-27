@@ -9,8 +9,6 @@ var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var freemarker = require('./templates/freemarker');
 
-var verbose = true;
-
 var sparqlHeaders = {
 	"Accept" : "application/sparql-results+xml",
 	"Host" : config.sekiHost + ":" + config.sekiPort
@@ -41,8 +39,8 @@ GetHandler.prototype = {
 
 		// the URI used in the RDF
 		var resource = config.uriBase + sekiRequest.url;
-		console.log("RESOURCE = " + resource);
-		console.log("sekiRequest.url = " + sekiRequest.url);
+        log.debug("RESOURCE = " + resource);
+        log.debug("sekiRequest.url = " + sekiRequest.url);
 
 		if (special[sekiRequest.url]) {
 			queryTemplate = special[sekiRequest.url].sparqlTemplate;
@@ -50,18 +48,18 @@ GetHandler.prototype = {
 		}
 
 		console.log("special[sekiRequest.url] = " + special[sekiRequest.url]);
-		// console.log("queryTemplate = " + queryTemplate);
-		// console.log("viewTemplate = " + viewTemplate);
+        log.debug("queryTemplate = " + queryTemplate);
+        log.debug("viewTemplate = " + viewTemplate);
 
 		if (accept && accept.indexOf("text/turtle") == 0) {
-			verbosity("text/turtle requested");
+            log.debug("text/turtle requested");
 			var handler = new TurtleHandler();
 			handler.GET(resource, sekiResponse);
 			return;
 		}
 		
 		if (accept && accept.indexOf("application/json") == 0) {
-            verbosity("application/json requested");
+            log.debug("application/json requested");
             var handler = new GetJsonHandler();
             handler.handle(resource, sekiResponse);
             return;
@@ -79,7 +77,7 @@ GetHandler.prototype = {
 		var urlParts = url.parse(sekiRequest.url, true);
 		var query = urlParts.query;
 
-		// console.log("urlParts.query[mode] = " + urlParts.query["mode"]);
+        log.debug("urlParts.query[mode] = " + urlParts.query["mode"]);
 
 		var mode = urlParts.query["mode"];
         
@@ -88,8 +86,8 @@ GetHandler.prototype = {
         /////////////////////////////////
 
 		if (mode) {
-			console.log("MODE = "+mode);
-			console.log("sekiRequest.url before = " + sekiRequest.url);
+            log.debug("MODE = "+mode);
+            log.debug("sekiRequest.url before = " + sekiRequest.url);
 
 			resource = config.uriBase + urlParts.pathname;
 
@@ -101,16 +99,16 @@ GetHandler.prototype = {
 			if (mode == "content") {
 		//		viewTemplate = htmlTemplates.contentTemplate;
                 viewTemplate = htmlTemplates.postViewTemplate;
-			//	console.log("ASKING FOR CoNTENT TEMPLATE");
-			//	console.log("content resource = " + resource);
+                log.debug("ASKING FOR CoNTENT TEMPLATE");
+                log.debug("content resource = " + resource);
 			}
 
 			// top-level editor (with tabs)
 			if (mode == 'edit') {
 				viewTemplate = htmlTemplates.editorTemplate;
-				// console.log("EDITOR TEMPLATE = "+html);
+                log.debug("EDITOR TEMPLATE = "+html);
 				var html = freemarker.render(viewTemplate, replaceMap);
-				// console.log("EDITOR HTML = "+html);
+                log.debug("EDITOR HTML = "+html);
 				sekiResponse.end(html);
 			}
 
@@ -119,7 +117,7 @@ GetHandler.prototype = {
 			// WYSIWYG HTML editor (tinyMCE)
 			 if (mode == "editHTML") {
 			 viewTemplate = htmlTemplates.htmlEditorTemplate;
-			// console.log("ASKING FOR CoNTENT TEMPLATE");
+             log.debug("ASKING FOR CoNTENT TEMPLATE");
 
 //			 var html = freemarker.render(viewTemplate, replaceMap);
 //			 sekiResponse.end(html);
@@ -128,7 +126,7 @@ GetHandler.prototype = {
 			// var sourceEditorSuffix = "?mode=source";
 			if (mode == "editSource") {
 				viewTemplate = htmlTemplates.sourceEditorTemplate;
-				console.log("ASKING FOR SOURCE TEMPLATE");
+                log.debug("ASKING FOR SOURCE TEMPLATE");
 				
 //				var html = freemarker.render(viewTemplate, replaceMap);
 //				sekiResponse.end(html);
@@ -149,15 +147,15 @@ GetHandler.prototype = {
 
 		// make the request to the SPARQL server
 		// var clientRequest = client.request("GET", queryPath, sparqlHeaders);
-		config.clientOptions["method"] = "GET";
-		config.clientOptions["path"] = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
+		config.client["method"] = "GET";
+        config.client["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
 
-        log.debug("OPTIONS IN GETHANDLER = "+config.clientOptions);
-		var clientRequest = http.request(config.clientOptions, function(queryResponse) {
+        log.debug("OPTIONS IN GETHANDLER = "+JSON.stringify(config.client));
+		var clientRequest = http.request(config.client, function(queryResponse) {
 			queryResponse.setEncoding('utf8');
 			});
 		
-		// verbosity("QUERY = " + sparql);
+        log.debug("QUERY = " + sparql);
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
@@ -170,7 +168,7 @@ GetHandler.prototype = {
 
 		// finish up
 		sekiRequest.on('end', function() {
-			// verbosity("End of sekiRequest");
+            log.debug("End of sekiRequest");
 			clientRequest.end();
 		});
 		return;
@@ -181,7 +179,7 @@ GetHandler.prototype = {
  * Handles GET requests (typically from a browser)
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
-// console.log("in serveHTML, viewTemplate = "+viewTemplate);
+    log.debug("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
         viewTemplate = htmlTemplates.contentTemplate; // 
 	}
@@ -192,7 +190,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 	sekiResponse.pipe(stream);
 
 	queryResponse.on('data', function(chunk) {
-		// console.log("CHUNK: " + chunk);
+        log.debug("CHUNK: " + chunk);
 		stream.write(chunk);
 	});
 
@@ -227,10 +225,5 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 		sekiResponse.end(html);
 	});
 };
-
-function verbosity(message) {
-	if (verbose)
-		console.log(message);
-}
 
 module.exports = GetHandler;

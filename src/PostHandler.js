@@ -8,9 +8,6 @@ var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 
-
-var verbose = true;
-
 var postHeaders = {
 	"Accept" : "application/sparql-results+xml",
 	"Host" : config.sekiHost + ":" + config.sekiPort,
@@ -46,8 +43,8 @@ PostHandler.prototype = {
 							// turn the POST parameters into a map (JSON object)
 							var replaceMap = qs.parse(post_body);
 
-							verbosity("post_body \n" + post_body);
-							verbosity("replaceMap \n" + replaceMap);
+                            log.debug("post_body \n" + post_body);
+                            log.debug("replaceMap \n" + replaceMap);
 
 							replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
 								
@@ -69,8 +66,8 @@ PostHandler.prototype = {
 							}
 							replaceMap["type"] = Constants.rdfsTypes[resourceType];
 
-							verbosity("resource type \n" + resourceType);
-							verbosity("type \n"
+                            log.debug("resource type \n" + resourceType);
+                            log.debug("type \n"
 									+ Constants.rdfsTypes[resourceType]);
 
 							// verbosity("ReplaceMap =
@@ -84,7 +81,7 @@ PostHandler.prototype = {
 							}
                             
                             var options = {
-                                "path" : config.sparqlUpdateEndpoint,
+                                "path" : config.client["updateEndpoint"],
                                 "method" : "POST"
                             };
                        //     "send" : function(options, sparql, sekiResonse, redirectURI, callback) 
@@ -104,15 +101,12 @@ PostHandler.prototype = {
                           //  log.debug("CALLBACK = "+callback);
                             
                             var client = new StoreClient();
+                            log.debug("PostHandler calling StoreClient with options "+JSON.stringify(options));
                             client.send(options, sparql, callback);
 	});
   
 }
 }
 
-function verbosity(message) {
-	if (verbose)
-		console.log(message);
-}
 
 module.exports = PostHandler;

@@ -8,6 +8,8 @@ For updates see [Seki on G+](https://plus.google.com/b/102910670341143019851/102
 
 Also [TODO List](https://workflowy.com/shared/dd5976b2-b48f-9096-0357-105f34b4d6ed/)
 
+Note 2013-08-27 : packaging etc. still in progress, but I have managed to get a live instance running on OpenShift (Red Hat's hosting service) at http://seki-hyperdata.rhcloud.com/welcome, backed by a Fuseki store hosted at http://fuseki-hyperdata.rhcloud.com/ (using https://github.com/semfact/openshift-fuseki )
+
 Note 2013-08-15 : currently trying to package as npm and tidy up dependencies - may be a messfor a little while
 
 If (were it live) you pointed a browser at http://hyperdata.org/seki/Hello it would take "http://hyperdata.org/seki/Hello" to build a query to find out about that resource - in the data store it will have a title, content etc. - which then get turned into HTML to show in the browser.
