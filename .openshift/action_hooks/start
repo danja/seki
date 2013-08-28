@@ -1,0 +1,6 @@
+#!/bin/bash
+# The logic to start up your application should be put in this
+# script. The application will work only if it binds to
+# $OPENSHIFT_INTERNAL_IP:8080
+cd $OPENSHIFT_REPO_DIR/fuseki
+nohup java -jar fuseki-server.jar --jetty-config ../conf/jetty.xml --config ../conf/services.ttl > $OPENSHIFT_DIY_LOG_DIR/fuseki.log 2>&1 &
