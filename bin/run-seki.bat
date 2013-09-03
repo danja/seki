@@ -1,2 +1,2 @@
-cd ../src
+cd ../
 node Seki.js

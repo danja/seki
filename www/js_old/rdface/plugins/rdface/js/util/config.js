@@ -1,1 +1,0 @@
-var proxy_url="http://localhost/RDFaCE/tinymce/php/proxy.php?";;

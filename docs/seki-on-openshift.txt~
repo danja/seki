@@ -1,0 +1,42 @@
+[0. Seki is locally cloned from https://github.com/danja/seki.git ]
+
+1. setup Fuseki on OpenShift according to https://github.com/semfact/openshift-fuseki
+/home/danny/openshift/fuseki
+
+2. create node.js app type using the OpenShift Web interface
+
+copied src stuff across into root space
+
+git add -A
+git commit -m 'first attempt'
+git push
+
+ssh 521b0cc1e0b8cd35d600005e@seki-hyperdata.rhcloud.com
+
+replaced fuseki/conf/services.ttl with seki-config.ttl
+
+rhc app-start seki
+
+rhc app-show seki --state
+
+rhc tail seki
+
+/var/lib/openshift/521b0cc1e0b8cd35d600005e/app-root/runtime/repo
+
+have added npm startup scriupt to package.json
+
+exec sh "-c" "node Seki.js"
+
+./nodejs/logs/node.log
+
+./app-root/runtime/repo/npm-debug.log
+
+process.on('uncaughtException', function(err) {
+  console.error(err.stack);
+});
+
+// var port = process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || 8080;   
+// var ipaddr = process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
+// app.listen(port, ipaddr);  
+
+

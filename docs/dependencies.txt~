@@ -1,0 +1,31 @@
+log.js : http://github.com/visionmedia/log.js
+node-rdf : https://github.com/Acubed/node-rdf
+json-ld : https://npmjs.org/package/jsonld
+commander : https://github.com/visionmedia/commander.js
+freemarker : https://github.com/andyhot/freemarkerjs
+
+in TurtleParser.js, line 64 :
+
+if(typeof(callback)=="function") cb(this.graph);
+=>
+if(typeof(callback)=="function") callback(this.graph);
+
+in README.md, line 41 :
+
+var turtleParser = new (require('rdf/TurtleParser').Turtle)(profile);
+=>
+var turtleParser = new (require('rdf/TurtleParser').Turtle)(env);
+
+(I assume this is the case, noting the description of env that follows)
+
+
+
+
+
+
+
+
+
+
+
+

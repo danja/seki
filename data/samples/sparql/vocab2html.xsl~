@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:res="http://www.w3.org/2005/sparql-results#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml" 
+  exclude-result-prefixes="res xsl rdf xhtml">
+
+  <xsl:output method="html" encoding="UTF-8" />
+
+  <xsl:template match="/res:sparql">
+    <html>
+      <head>
+	<title>QuickLog</title>
+	<style type="text/css">
+	 body {
+	background-color: #fff;
+	font-size: small;
+	margin: 0;
+	padding: 1em 1em 2em 1em;	
+	font-family: "Trebuchet MS", sans-serif;
+	font-weight: 500;
+	letter-spacing: 0.07em;
+	line-height: 140%;
+	color: #000; 
+}
+.high-priority {
+	background-color: #fcc
+}
+.medium-priority {
+	background-color: #ffc
+}
+.low-priority {
+	background-color: #cfc
+}
+.public {
+    color: #000
+}
+.private {
+    color: #aaa
+}
+	</style>
+      </head>
+      <body>
+	<xsl:apply-templates select="res:results" />
+      </body>
+    </html>
+  </xsl:template>
+
+
+  <xsl:template match="/res:sparql/res:results">
+<table border="1">
+  <tr>
+    <th>Creator</th>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Permission</th>
+    <th>Tags</th>
+  </tr>
+
+  <xsl:for-each select="res:result">
+    <!-- only show the first occurance of an item -->
+    <xsl:if test="not(res:binding[@name='item']/res:uri=preceding::res:binding[@name='item']/res:uri)">
+
+      <xsl:variable name="item" select="res:binding[@name='item']/res:uri" />
+      <xsl:variable name="title" select="res:binding[@name='title']/res:literal" />	
+      <xsl:variable name="creator" select="res:binding[@name='creator']/res:literal" />	
+      <xsl:variable name="date" select="res:binding[@name='date']/res:literal" />
+      <xsl:variable name="description" select="res:binding[@name='description']/res:literal" />	
+      <xsl:variable name="priority" select="res:binding[@name='priority']/res:literal" />	
+      <xsl:variable name="permission" select="res:binding[@name='permission']/res:literal" />	
+
+	<!--  don't show blank entries -->
+      <xsl:if test="$title or $description">
+	
+      <tr>
+<xsl:attribute name="class">
+	  <xsl:choose>
+	    <xsl:when test="$priority = '1'">high-priority</xsl:when>
+	    <xsl:when test="$priority = '2'">medium-priority</xsl:when>
+	    <xsl:when test="$priority = '3'">low-priority</xsl:when>
+	  </xsl:choose>
+	  <xsl:text> </xsl:text>
+	  <xsl:choose>
+	    <xsl:when test="$permission = 'public'">public</xsl:when>
+	    <xsl:when test="$permission = 'private'">private</xsl:when>
+	  </xsl:choose>
+</xsl:attribute>
+	<td><xsl:value-of select="$creator" /></td>
+	<td><xsl:value-of select="$title" /> </td>
+	<td><xsl:value-of select="substring($date, 1, 10)" /></td>
+	<td><xsl:value-of select="$description" /></td>
+	<td>
+	  <xsl:choose>
+	    <xsl:when test="$priority = '1'">high</xsl:when>
+	    <xsl:when test="$priority = '2'">medium</xsl:when>
+	    <xsl:when test="$priority = '3'">low</xsl:when>
+	  </xsl:choose>
+	</td>
+	<td><xsl:value-of select="$permission" /></td>
+
+	<td><!-- space-seperated tags - could probably be a lot neater --> 
+	  <xsl:for-each select="../res:result/res:binding[@name='item']/res:uri">
+	    <xsl:if test="text() = $item"> 
+	      <xsl:value-of select="../../res:binding[@name='tag']/res:literal" />
+	      <xsl:if test="position() != last()"><xsl:text> </xsl:text></xsl:if>
+	    </xsl:if>
+	  </xsl:for-each>
+	</td>
+      </tr>
+    </xsl:if>
+    </xsl:if>
+  </xsl:for-each>
+</table>
+</xsl:template>
+
+<xsl:template match="text()"/>
+</xsl:stylesheet>

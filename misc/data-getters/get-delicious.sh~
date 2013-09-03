@@ -1,0 +1,2 @@
+curl https://danja:sashapooch@api.del.icio.us/v1/posts/all?red=api > delicious.xml
+xsltproc -o ../../data/samples/delicious.rdf delicious2rdfxml-simple.xsl delicious.xml
