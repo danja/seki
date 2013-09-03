@@ -2,7 +2,7 @@
   "name": "seki",
   "version": "0.0.4",
   "description": "Semantic Web middleware",
-  "main": "src/Seki.js",
+  "main": "Seki.js",
   "dependencies": {},
    "bundleDependencies": [
     "async",
@@ -18,7 +18,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "src/test/allTests.js"
+    "start": "node Seki.js",
+    "test": "test/allTests.js"
   },
   "repository": {
     "type": "git",

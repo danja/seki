@@ -42,18 +42,18 @@ exports = module.exports = function fileServer(){
             if (urlParts.pathname.substring(0, 1) == "/") {
                 tweakedPathname = urlParts.pathname.substring(1);
             }
-            var dir = __dirname + "/../www/";
+            var dir = __dirname + "/www/";
             
-          //  log.debug("IN MIDDLEWARE dir = " + dir);
-         //   console.log("tweakedPathname = " + tweakedPathname);
+          log.debug("\n\nIN FileServer dir = " + dir);
+        log.debug("tweakedPathname = " + tweakedPathname);
             var path = require('path').resolve(dir, tweakedPathname);
-        //    console.log("__dirname = " + __dirname);
-        //    console.log("PATH = " + path);
+            log.debug("__dirname = " + __dirname);
+            log.debug("PATH = " + path);
 
                     var uri = url.parse(req.url).pathname;
-                    var filename = p.join(process.cwd(), "../www/", unescape(uri));
+                    var filename = p.join(process.cwd(), "www/", unescape(uri));
                     var stat;
-                    
+                    log.debug("filename = "+filename+"\n\n");
                     try {
                         stat = fs.lstatSync(filename); // throws if path doesn't exist
                     } catch (e) {
@@ -63,24 +63,27 @@ exports = module.exports = function fileServer(){
         
         if (stat.isFile()) {
             // path exists, is a file
+            log.debug("\n*** stat.isFile()\n");
             var mimeType = mimeTypes[p.extname(filename).split(".")[1]];
             res.writeHead(200, {'Content-Type': mimeType} );
             
             var fileStream = fs.createReadStream(filename);
             fileStream.pipe(res);
-           // log.debug("HERE");
+            log.debug("FILE PIPED");
             // res.end(); /////////////////////
             return;
         } else if (stat.isDirectory()) {
             // path exists, is a directory
+            log.debug("\n*** stat.isDirectory()\n");
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.write('Index of '+uri+'\n');
-            res.write('TODO, show index?\n');
+            res.write('TODO : SHOW INDEX\n');
             res.end();
         //    return;
             } else {
                 // Symbolic link, other?
                 // TODO: follow symlinks?  security?
+                log.debug("FAILED WITH filename = "+filename+"\n\n");
                 res.writeHead(500, {'Content-Type': 'text/plain'});
                 res.write('500 Internal server error\n');
                 res.end();

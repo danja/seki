@@ -22,8 +22,8 @@ var config = {
      * Settings for the Seki Server (this)
      */
     server : {
-        host : "localhost",
-        port : 8888,
+        host : process.env.OPENSHIFT_NODEJS_IP,
+        port : process.env.OPENSHIFT_NODEJS_PORT
     },
     
     

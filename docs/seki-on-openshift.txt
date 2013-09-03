@@ -40,4 +40,12 @@ process.on('uncaughtException', function(err) {
 // var ipaddr = process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
 // app.listen(port, ipaddr);  
 
+curl -k https://openshift.redhat.com/broker/rest/user --user "[UserName]:[Password]"
+curl -k https://rhcloud.com/broker/rest/user --user "danny.ayers@gmail.com:sashapooch" - givessome info
+
+curl -k -X GET https://rhcloud.com/broker/rest/domains --user "danny.ayers@gmail.com:sashapooch"
+curl -k -X GET  https://rhcloud.com/broker/rest/domains/hyperdata/applications --user "danny.ayers@gmail.com:sashapooch"
+
+curl -k -X GET https://rhcloud.com/broker/rest/applications/521b08db4382ece7830001d5/dns_resolvable --user "danny.ayers@gmail.com:sashapooch"
+
 
