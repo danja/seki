@@ -144,8 +144,32 @@ function onRequest(sekiRequest, sekiResponse) {
     log.debug("REQUEST URL = " + sekiRequest.url);
     log.debug("REQUEST METHOD = " + sekiRequest.method);
 
-    log.debug("got past file server");
+    log.debug("\ngot past file server\n");
 
+    if (sekiRequest.url.substring(0, 7) == "/store/") {
+        var targetUrl = sekiRequest.url.substring(6);
+        
+        log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+targetUrl);
+        
+        var proxy = http.createClient(config.client["port"], config.client["host"])
+        var proxy_request = proxy.request(sekiRequest.method, targetUrl, sekiRequest.headers);
+        proxy_request.addListener('response', function (proxy_response) {
+            proxy_response.addListener('data', function(chunk) {
+                sekiResponse.write(chunk, 'binary');
+            });
+            proxy_response.addListener('end', function() {
+                sekiResponse.end();
+            });
+            sekiResponse.writeHead(proxy_response.statusCode, proxy_response.headers);
+        });
+        sekiRequest.addListener('data', function(chunk) {
+            proxy_request.write(chunk, 'binary');
+        });
+        sekiRequest.addListener('end', function() {
+            proxy_request.end();
+        });
+        return;
+    }
 
     var auth = new Authenticator();
     
