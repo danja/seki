@@ -36,7 +36,7 @@ var config = {
 process.env.OPENSHIFT_NODEJS_IP
      */     
     client : { 
-        host: process.env.OPENSHIFT_INTERNAL_IP,
+        host: process.env.OPENSHIFT_NODEJS_IP,
         port: 15000,
         graphEndpoint : "/seki/data",
         queryEndpoint : "/seki/query",
