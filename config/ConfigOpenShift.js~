@@ -33,10 +33,9 @@ var config = {
      *
      * host: "fuseki-hyperdata.rhcloud.com"
      * port: 80,
-process.env.OPENSHIFT_NODEJS_IP
      */     
-    client : { 
-        host: process.env.OPENSHIFT_INTERNAL_IP,
+    client : {
+        host: process.env.OPENSHIFT_NODEJS_IP,
         port: 15000,
         graphEndpoint : "/seki/data",
         queryEndpoint : "/seki/query",
