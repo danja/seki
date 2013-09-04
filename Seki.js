@@ -151,8 +151,54 @@ function onRequest(sekiRequest, sekiResponse) {
         
         log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+targetUrl);
         
-        var proxy = http.createClient(config.client["port"], config.client["host"])
-        var proxy_request = proxy.request(sekiRequest.method, targetUrl, sekiRequest.headers);
+  //      var proxy = http.createClient(config.client["port"], config.client["host"])
+  //      var proxy_request = proxy.request(sekiRequest.method, targetUrl, sekiRequest.headers);
+        
+        var proxyOptions = {
+            host: config.client["host"],
+            port: config.client["port"],
+            path: sekiRequest.url.substring(6),
+            method: sekiRequest.method,
+            headers: sekiRequest.headers
+        };
+        var proxyRequest = http.request(proxyOptions, function(proxyResponse) {
+            
+            sekiResponse.writeHead(proxyResponse.statusCode, proxyResponse.headers);
+            
+            proxyResponse.on('data', function(chunk) {
+                sekiResponse.write(chunk, 'binary');
+            });
+            
+            proxyResponse.on('end', function() {
+                sekiResponse.end();
+            });
+            
+        });
+
+        proxyRequest.on('error', function(e) {
+            log.debug('problem with proxy request: ' + e.message);
+        });
+        
+        sekiRequest.on('data', function(chunk) {
+            proxyRequest.write(chunk);
+        });
+        
+        sekiRequest.on('end', function() {
+            proxyRequest.end();
+        });
+        
+        /*
+        proxyRequest.on('data', function(e) {
+            sekiResponse.write(chunk, 'binary');
+        });
+        
+        proxyRequest.on('end', function(e) {
+            proxyRequest.end();
+        });
+        */
+
+        
+/*
         proxy_request.addListener('response', function (proxy_response) {
             proxy_response.addListener('data', function(chunk) {
                 sekiResponse.write(chunk, 'binary');
@@ -162,12 +208,14 @@ function onRequest(sekiRequest, sekiResponse) {
             });
             sekiResponse.writeHead(proxy_response.statusCode, proxy_response.headers);
         });
+        
         sekiRequest.addListener('data', function(chunk) {
             proxy_request.write(chunk, 'binary');
         });
         sekiRequest.addListener('end', function() {
             proxy_request.end();
         });
+        */
         return;
     }
 
