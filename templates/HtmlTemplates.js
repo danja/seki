@@ -21,6 +21,24 @@ var htmlTemplates = {
         return template;
     })(),
     
+    blogViewTemplate : (function() {
+        // console.log("loading HTML editor template "+__dirname);
+        var path = require('path').resolve(__dirname, 'blogViewTemplate.ftl');
+        // console.log("path : "+path);
+        var template = load(path);
+        //console.log("TEMPLATE : "+template);
+        return template;
+    })(),
+    
+    blogArticleTemplate : (function() {
+        // console.log("loading HTML editor template "+__dirname);
+        var path = require('path').resolve(__dirname, 'blogArticleTemplate.ftl');
+        // console.log("path : "+path);
+        var template = load(path);
+        //console.log("TEMPLATE : "+template);
+        return template;
+    })(),
+    
 	editorTemplate : (function() {
 		// console.log("loading editor template "+__dirname);
 		var path = require('path').resolve(__dirname, 'editorTemplate.ftl');

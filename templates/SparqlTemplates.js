@@ -34,6 +34,24 @@ var sparqlTemplates = {
          um:fullname ?fullname ; \
          dcterms:date ?date . \
       }",
+      
+      pagedItemsTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
+      PREFIX sioc: <http://rdfs.org/sioc/ns#> \
+      PREFIX um: <http://purl.org/stuff/usermanagement#> \
+      \
+      SELECT DISTINCT ?uri ?title ?content ?date ?fullname WHERE { \
+          \
+          ?uri a sioc:Post ; \
+          dcterms:title ?title; \
+          sioc:content ?content ; \
+          um:fullname ?fullname ; \
+          dcterms:date ?date . \
+      } \
+      ORDER BY DESC(?date) \
+      LIMIT ${limit} \
+      OFFSET ${offset} \
+      ",
 
 	// used to insert a new item into the store
 	insertTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \

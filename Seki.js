@@ -24,6 +24,7 @@ var fs = require('fs'); // filesystem module
 var commander = require('commander');
 
 var VieJsonHandler = require('./handlers/VieJsonHandler');
+var GetBlogHandler = require('./handlers/GetBlogHandler');
 
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
@@ -186,36 +187,6 @@ function onRequest(sekiRequest, sekiResponse) {
         sekiRequest.on('end', function() {
             proxyRequest.end();
         });
-        
-        /*
-        proxyRequest.on('data', function(e) {
-            sekiResponse.write(chunk, 'binary');
-        });
-        
-        proxyRequest.on('end', function(e) {
-            proxyRequest.end();
-        });
-        */
-
-        
-/*
-        proxy_request.addListener('response', function (proxy_response) {
-            proxy_response.addListener('data', function(chunk) {
-                sekiResponse.write(chunk, 'binary');
-            });
-            proxy_response.addListener('end', function() {
-                sekiResponse.end();
-            });
-            sekiResponse.writeHead(proxy_response.statusCode, proxy_response.headers);
-        });
-        
-        sekiRequest.addListener('data', function(chunk) {
-            proxy_request.write(chunk, 'binary');
-        });
-        sekiRequest.addListener('end', function() {
-            proxy_request.end();
-        });
-        */
         return;
     }
 
@@ -286,6 +257,12 @@ function onRequest(sekiRequest, sekiResponse) {
             handler.handle(sekiRequest, sekiResponse);
             return;
         }
+        // special case for blog index page
+            if (sekiRequest.url.substring(0, key.length) == "/blog") {
+                var handler = new GetBlogHandler();
+                handler.handle(sekiRequest, sekiResponse);
+                return;
+            }
         
 //         for(key in special) {
 //             log.debug("KEY = "+key);

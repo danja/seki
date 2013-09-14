@@ -1,0 +1,16 @@
+
+
+The Message is the Model
+
+Yeah, just a rephrasing of McLuhan's The Medium is the Message 
+http://en.wikipedia.org/wiki/The_medium_is_the_message
+
+[pic of a couple of RDF statements, links pointing out to definitions of properties, classes]
+
+each node may contain (name) a graph
+each message is a node
+
+http://decoupledcms.org/
+- special (but common) case of agent system
+
+
