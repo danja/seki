@@ -1,0 +1,19 @@
+possibly reusable phrases from Claudio's paper
+
+modeling expressiveness (no information loss in the model);
+ease of evolution (no upfront commitments in the model);
+inclusive content policy (no specific bounds on content);
+maximum outreach (no bias to specific client technologies);
+
+Virtual Repository is a framework for data collection tasks which leverages domain standards and a pluggable architecture of reusable, source-specific plugins to decouple sources and publication workflows
+
+Staging Repository serves as the sole input source for the publication workflows to follow
+
+workflows are executed by a Publication Engine and move the data from the Staging Repository to a Production Repository, in the form in which it can be exposed to clients
+
+Publication Engine consults a third store, the Task Catalogue, to obtain instructions about how to publish the staged data, or else to process it as an update of previously published data
+
+interactive front-end, the Management Console, allows administrative users to inspect stories, create tasks, and monitor the status of their execution
+
+
+

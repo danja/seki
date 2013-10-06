@@ -4,7 +4,13 @@
   "description": "Semantic Web middleware",
   "main": "Seki.js",
   "dependencies": {},
-   "bundleDependencies": [
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2"
+  },
+  "bundleDependencies": [
     "async",
     "connect",
     "connect-cors",
@@ -13,13 +19,13 @@
     "log",
     "sax",
     "request"
-   ],
+  ],
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "start": "node Seki.js",
-    "test": "test/allTests.js"
+    "test": "tests/run-tests.js"
   },
   "repository": {
     "type": "git",
@@ -36,11 +42,11 @@
     "triplestore"
   ],
   "author": "hyperdata.org",
-  "contributors": [ 
+  "contributors": [
     {
       "name": "Danny Ayers",
       "email": "danny.ayers@gmail.com"
-    } 
+    }
   ],
   "license": "Apache2",
   "readmeFilename": "README.md",
