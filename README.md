@@ -36,9 +36,22 @@ Installation/running is easy :
 post data should have URIs of the form http://hyperdata.org/seki/Hello
 the Fuseki server (SPARQL endpoint) will be accessible at http://localhost:3030/
 
+localhost:8888/store/ will proxy to the store
+
 Exploring data from Fuseki, first select the /seki dataset through the Control Panel, then go to the query panel
 with e.g. 
    SELECT * WHERE { GRAPH ?graph { ?s ?p ?o } }
+   
+----
+
+2013-10-07
+
+Added bits for [Grunt](http://gruntjs.com/), [Vows](http://vowsjs.org/) plus [grunt-vows](https://github.com/CMTegner/grunt-vows), also [APIeasy](https://github.com/flatiron/api-easy), though not yet runnable, related scripts will be in /bin (also will set up 'npm test').
+
+[docco-husky]() used for source doc generation.
+
+----
+
 
 [Danny](http://dannyayers.com/) 2011-2013
 
