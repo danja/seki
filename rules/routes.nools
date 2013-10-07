@@ -1,0 +1,49 @@
+define RequestRouter {
+
+    request : '',
+    method : '',
+    path : '',
+    accept : '',
+    contentType : '',
+
+    constructor : function(request){
+        this.headers = request.headers;
+        this.method = request.method;
+        this.path = request.url;
+        this.accept = request.headers["accept"];
+        this.contentType = request.headers["content-type"];
+        this.target = '';
+    }
+}
+
+rule Always {
+when { 
+ rr : RequestRouter 1 == 1;
+} then {   
+log.debug("*** RULE RUN ***"); 
+}
+}
+
+rule Post {
+    when {
+        rr : RequestRouter rr.method == "POST";
+    }
+    then {
+
+    }
+}
+
+
+rule Proxy {
+    when {
+        rr : RequestRouter rr.path.substring(0, 7) == "/store/";
+    }
+    then {
+    log.debug("MAKING L");
+    var l = new hLog();
+log.debug("MADE L");
+h(l);
+    log.debug("PROXY TO STORE");
+    }
+}
+

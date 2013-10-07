@@ -1,0 +1,14 @@
+define RequestSpec {
+    method : '',
+    path : '',
+    accept : '',
+    contentType : '',
+    target : '',
+    constructor : function(method, path, accept, contentType){
+        this.method = method;
+        this.path = path;
+        this.accept = accept;
+        this.contentType = contentType;
+        this.target = '';
+    }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "seki",
+  "name": "Seki",
   "version": "0.0.4",
   "description": "Semantic Web middleware",
   "main": "Seki.js",
@@ -27,6 +27,12 @@
     "start": "node Seki.js",
     "test": "tests/run-tests.js"
   },
+  "docco_husky": {
+    "output_dir": "docs/source",             
+    "content_dir": "docs/markdown", 
+    "project_name": "Seki",
+    "show_timestamp": true                     
+},
   "repository": {
     "type": "git",
     "url": "https://github.com/danja/seki.git"

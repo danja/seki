@@ -6,14 +6,6 @@
  * see README.md
  */
 
-/* TODO
- * change to using http.request (have done?)
- * 
- * 
- * figure out wat bindings
- * mustache - foreach templates
- */
-
 /*
  * library module imports
  */
@@ -22,6 +14,8 @@ var http = require('http');
 var util = require('util'); // isneeded?
 var fs = require('fs'); // filesystem module
 var commander = require('commander');
+
+var nools = require("./lib/nools/index"); // rules engine
 
 var VieJsonHandler = require('./handlers/VieJsonHandler');
 var GetBlogHandler = require('./handlers/GetBlogHandler');
@@ -113,7 +107,9 @@ if (commander.init) {
     Bootstrap();
 }
 
-
+/*
+ * A little connect chain
+ */
 var app = connect()
     .use(fileServer())
     .use(function(sekiRequest, sekiResponse) {
@@ -123,21 +119,25 @@ var app = connect()
 
     app.listen(config.server["port"], config.server["host"]);
 
-// var port = process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || 8080;   
-// var ipaddr = process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
-// app.listen(port, ipaddr);  
-
 log.debug("Seki serving on " + config.server["host"] + ":" + config.server["port"]);
 log.debug("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"] );
 
+// When deployed, keep running despite exceptions
 if(!config.dev) {
-process.on('uncaughtException', function(err) {
-    console.error(err.stack);
-});
+    process.on('uncaughtException', function(err) {
+        console.error(err.stack);
+    });
 }
 
+// var hLog = function(message) { console.log(message) };    
+ // var h = function(target) { target("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); }
+
+// neater way of handling handlers - return handler function name?
+var flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
+
+
 /*
- * Callback to handle HTTP requests (typically from browser)
+ * Callback to handle HTTP requests from browser/API
  */
 
 function onRequest(sekiRequest, sekiResponse) {
@@ -146,14 +146,30 @@ function onRequest(sekiRequest, sekiResponse) {
     log.debug("REQUEST METHOD = " + sekiRequest.method);
 
     log.debug("\ngot past file server\n");
+    
+    // setup rules engine
+    var RequestRouter = flow.getDefined("RequestRouter");
+    var session = flow.getSession();
+    // can check :  session.print();
+   
+   
+    var rs = new RequestRouter(sekiRequest);
+    
+    session.assert(rs);
+    
+    session.match(function(err){
+        if(err){
+            console.error(err);
+        }else{
+            console.log("*** RULES DONE ***");
+        }
+    });
+    
 
     if (sekiRequest.url.substring(0, 7) == "/store/") {
         var targetUrl = sekiRequest.url.substring(6);
         
         log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+targetUrl);
-        
-  //      var proxy = http.createClient(config.client["port"], config.client["host"])
-  //      var proxy_request = proxy.request(sekiRequest.method, targetUrl, sekiRequest.headers);
         
         var proxyOptions = {
             host: config.client["host"],
