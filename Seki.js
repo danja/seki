@@ -164,7 +164,7 @@ function onRequest(sekiRequest, sekiResponse) {
     
 console.log("*** RULES DONE ***");
 
-
+/*
     session.match(function(err){
         if(err){
             log.debug(err);
@@ -172,26 +172,30 @@ console.log("*** RULES DONE ***");
             log.debug("*** RULES DONE ***");
             log.debug("ROUTE = "+targetMap["target"]);
             var target = targetMap["target"];
+            if(handlerMap[target]) {
             var handler = new handlerMap[target]();
 
     handler.handle(sekiRequest, sekiResponse, targetMap);
             log.debug("AFTER HANDLER");
           return;
+            }
         }
       
     });
     
-    return;
-    
+ return; // ???
+    */
+
     log.debug("******* GONE PAST NOOLS *******");
     
-    /*
+ 
     if (sekiRequest.url.substring(0, 7) == "/store/") {
+        var map = { 'path' : sekiRequest.url.substring(6) };
         var handler = new ProxyHandler();
-        handler.handle(sekiRequest, sekiResponse);
+        handler.handle(sekiRequest, sekiResponse, map);
         return;
     }
-    */
+  
 
     var auth = new Authenticator();
     
@@ -284,6 +288,7 @@ console.log("*** RULES DONE ***");
     }
 
     if (sekiRequest.method == "POST") {
+        log.debug("caught POST");
         // var postHandler = Object.create(PostHandler);
         log.debug("calling PostHandler");
         var postHandler = new PostHandler();

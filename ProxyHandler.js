@@ -27,6 +27,7 @@ ProxyHandler.prototype = {
 
         log.debug("ProxyHandler.handle");
 
+        log.debug("ProxyHandler method "+sekiRequest.method);
   //   var targetUrl = sekiRequest.url.substring(6);
         
         log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+options.path);
@@ -74,7 +75,7 @@ ProxyHandler.prototype = {
         });
         
         sekiRequest.on('data', function(chunk) {
-            log.debug("sekiRequest.on data");
+            log.debug("sekiRequest.on data "+chunk);
             proxyRequest.write(chunk);
         });
         
@@ -86,7 +87,7 @@ ProxyHandler.prototype = {
             log.debug("sekiRequest.on close");
             proxyRequest.end();
         });
-       proxyRequest.end(); // the end block above should do this, seems wrong like this
+    //   proxyRequest.end(); // the end block above should do this, seems wrong like this
        
 }
 }

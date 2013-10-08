@@ -3,9 +3,9 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
 INSERT DATA {
-	GRAPH <http://hyperdata.org/seki/Hello> {
+	GRAPH <http://hyperdata.org/seki/Wello> {
 
-		<http://hyperdata.org/seki/Hello> a sioc:Post ;
+		<http://hyperdata.org/seki/HiHi> a sioc:Post ;
    			dc:title "Hello Three!";
    			sioc:content "This is a third test." ;
    			foaf:maker <http://dannyayers.com/me#> ;

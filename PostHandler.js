@@ -37,14 +37,16 @@ PostHandler.prototype = {
 		// now received body of request
 		sekiRequest.on('end',
 						function() {
+                            log.debug("raw post_body \n" + post_body);
 							post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
 							post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
 
+                            // console.log(post_body);
 							// turn the POST parameters into a map (JSON object)
 							var replaceMap = qs.parse(post_body);
 
-                            log.debug("post_body \n" + post_body);
-                            log.debug("replaceMap \n" + replaceMap);
+                            log.debug("parsed post_body \n" + JSON.stringify(post_body));
+                            log.debug("replaceMap \n" + JSON.stringify(replaceMap));
 
 							replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
 								
