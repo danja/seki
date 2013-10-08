@@ -16,6 +16,16 @@ define RequestRouter {
     }
 }
 
+define Route {
+
+    map : '',
+    
+    constructor : function(map) {
+        this.map = map;
+    }
+        
+}
+
 rule Always {
 when { 
  rr : RequestRouter 1 == 1;
@@ -33,17 +43,17 @@ rule Post {
     }
 }
 
-
-rule Proxy {
+rule ProxyStore {
     when {
         rr : RequestRouter rr.path.substring(0, 7) == "/store/";
+        r : Route r.map["target"] == "";
     }
     then {
-    log.debug("MAKING L");
-    var l = new hLog();
-log.debug("MADE L");
-h(l);
-    log.debug("PROXY TO STORE");
+        log.debug("*** Proxy rule triggered ***"); 
+modify(r, function(){this.map["path"] = rr.path.substring(6);});
+        modify(r, function(){this.map["target"] = "ProxyHandler";});
     }
 }
+
+
 

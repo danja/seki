@@ -1,0 +1,14 @@
+rule ProxyDollar {
+    when {
+        rr : RequestRouter rr.path.substring(0, 3) == "/$/";
+        r : Route r.map["target"] == "";
+    }
+    then {
+        log.debug("*** Proxy rule triggered ***"); 
+        modify(r, function(){this.map["target"] = "ProxyHandler";});
+        modify(r, function(){this.map["path"] = rr.path});
+    }
+}
+
+
+        

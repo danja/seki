@@ -20,6 +20,7 @@ var nools = require("./lib/nools/index"); // rules engine
 var VieJsonHandler = require('./handlers/VieJsonHandler');
 var GetBlogHandler = require('./handlers/GetBlogHandler');
 
+var ProxyHandler = require('./ProxyHandler');
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
@@ -129,12 +130,16 @@ if(!config.dev) {
     });
 }
 
-// var hLog = function(message) { console.log(message) };    
- // var h = function(target) { target("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"); }
-
 // neater way of handling handlers - return handler function name?
 var flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 
+var targetMap = {
+    target : ""
+};
+
+var handlerMap= {
+    "ProxyHandler" : ProxyHandler
+}
 
 /*
  * Callback to handle HTTP requests from browser/API
@@ -149,62 +154,44 @@ function onRequest(sekiRequest, sekiResponse) {
     
     // setup rules engine
     var RequestRouter = flow.getDefined("RequestRouter");
+    var Route = flow.getDefined("Route");
+    
     var session = flow.getSession();
     // can check :  session.print();
-   
-   
     var rs = new RequestRouter(sekiRequest);
-    
     session.assert(rs);
+    session.assert(new Route(targetMap));
     
+console.log("*** RULES DONE ***");
+
+
     session.match(function(err){
         if(err){
-            console.error(err);
+            log.debug(err);
         }else{
-            console.log("*** RULES DONE ***");
+            log.debug("*** RULES DONE ***");
+            log.debug("ROUTE = "+targetMap["target"]);
+            var target = targetMap["target"];
+            var handler = new handlerMap[target]();
+
+    handler.handle(sekiRequest, sekiResponse, targetMap);
+            log.debug("AFTER HANDLER");
+          return;
         }
+      
     });
     
-
+    return;
+    
+    log.debug("******* GONE PAST NOOLS *******");
+    
+    /*
     if (sekiRequest.url.substring(0, 7) == "/store/") {
-        var targetUrl = sekiRequest.url.substring(6);
-        
-        log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+targetUrl);
-        
-        var proxyOptions = {
-            host: config.client["host"],
-            port: config.client["port"],
-            path: sekiRequest.url.substring(6),
-            method: sekiRequest.method,
-            headers: sekiRequest.headers
-        };
-        var proxyRequest = http.request(proxyOptions, function(proxyResponse) {
-            
-            sekiResponse.writeHead(proxyResponse.statusCode, proxyResponse.headers);
-            
-            proxyResponse.on('data', function(chunk) {
-                sekiResponse.write(chunk, 'binary');
-            });
-            
-            proxyResponse.on('end', function() {
-                sekiResponse.end();
-            });
-            
-        });
-
-        proxyRequest.on('error', function(e) {
-            log.debug('problem with proxy request: ' + e.message);
-        });
-        
-        sekiRequest.on('data', function(chunk) {
-            proxyRequest.write(chunk);
-        });
-        
-        sekiRequest.on('end', function() {
-            proxyRequest.end();
-        });
+        var handler = new ProxyHandler();
+        handler.handle(sekiRequest, sekiResponse);
         return;
     }
+    */
 
     var auth = new Authenticator();
     
