@@ -2,7 +2,7 @@
 
 It operates as a Web server, building queries from HTTP requests and passing them to the SPARQL server and formatting the results to HTML which is passed back to the client (typically a browser).
 
-![Block Diagram](https://github.com/danja/seki/raw/master/docs/seki-full.png)
+![Block Diagram](https://github.com/danja/seki/raw/master/docs/other/seki-full.png)
 
 For updates see [Seki on G+](https://plus.google.com/b/102910670341143019851/102910670341143019851/posts)
 
