@@ -1,41 +1,70 @@
+var config = require('../config/ConfigDefault').config;
+var Log = require('log'), log = new Log(config.logLevel);
+var testCase  = require('nodeunit').testCase;
 
-  
-  var APIeasy = require('../lib/api-easy/lib/api-easy');
-  var assert = require('assert');
-  var fs = require('fs');
-  var config = require('../config/ConfigDefault').config;
-  var Log = require('log'), log = new Log(config.logLevel);
-  var querystring = require("querystring");
+var ProxySparql = require("../client-api/ProxySparql");
+var fs = require("fs");
+//  sparqlUpdate(fs.readFileSync('data/deleteEntry.rq', 'utf8'));
+// sparqlAsk(fs.readFileSync('data/askEntry.rq', 'utf8'), 'false');
 
-  
-  var suite = APIeasy.describe('Seki API');
-  
-  var data = fs.readFileSync('data/insertEntry.rq', 'utf8');
-  // console.log("DATA ="+data);
-  var encoded = querystring.stringify(data);
-  
-  var host = config.server['host'];
-  var port = config.server['port'];
-  // 8081;
-  // config.server['port'];
-  var path = '/store'+config.client['updateEndpoint'];
-  
-  var auth = new Buffer("danja:sasha").toString('base64');
- 
-  // data = "{'data' : 'DATA'}";
-  
-  // NEEDS A CHECK/DELETE FIRST
-  
-  // insert an entry into remote store
-  suite.discuss('When using your awesome API')
-  .discuss('POSTing to '+host+":"+port+path)
-  .use(host, port)
-  .setHeader('Content-Type', 'application/x-www-form-urlencoded') // 'application/x-www-form-urlencoded'
-  .setHeader('Authorization: ', 'Basic '+auth)
-  .post(path, "update="+data) // 'update='+encoded}
-  .expect(200)
-  //.expect('should respond with x-test-header', function (err, res, body) {
-  //    log.debug(res.headers);
-  //    assert.include(res.headers, 'x-test-header');
-  //})
-      .export(module);
+exports.testDeleteInit = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 204, "checking status");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileUpdate('data/deleteEntry.rq', callback);
+};
+
+exports.testEntryNotExistsInit = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 200, "checking status");
+        test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");
+        test.notEqual(body.indexOf("false"), -1, "body should contain 'false'");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileQuery('data/askEntry.rq', callback);
+};
+
+
+exports.testInsert = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 204, "checking status");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileUpdate('data/insertEntry.rq', callback);    
+};
+
+
+exports.testEntryExists = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 200, "checking status");
+        test.notEqual(body.indexOf("true"), -1, "body should contain 'true'");
+        test.equal(body.indexOf("false"), -1, "body should not contain 'false'");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileQuery('data/askEntry.rq', callback);
+};
+
+exports.testDelete = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 204, "checking status");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileUpdate('data/deleteEntry.rq', callback);
+};
+
+exports.testEntryNotExists = function(test){
+    var callback = function(status, headers, body) {
+        test.equal(status, 200, "checking status");
+        test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");
+        test.notEqual(body.indexOf("false"), -1, "body should contain 'false'");
+        test.done();
+    }
+    var proxy = new ProxySparql();
+    proxy.fileQuery('data/askEntry.rq', callback);
+};

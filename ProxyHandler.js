@@ -10,6 +10,8 @@ var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var util = require('util'); // isneeded?
 
+var querystring = require("querystring");
+
 var postHeaders = {
 	"Accept" : "application/sparql-results+xml",
 	"Host" : config.sekiHost + ":" + config.sekiPort,
@@ -27,11 +29,15 @@ ProxyHandler.prototype = {
 
         log.debug("ProxyHandler.handle");
 
-        log.debug("ProxyHandler method "+sekiRequest.method);
-  //   var targetUrl = sekiRequest.url.substring(6);
+     //   log.debug("ProxyHandler method "+sekiRequest.method);
+
         
         log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+options.path);
-   //  log.debug("options.path = "+options.path);
+     
+     //   log.debug("\n\noptions.path = "+options.path);
+     //   log.debug("\n\noptions.path = "+querystring.unescape(options.path));
+        
+        options.path = options.path.replace('%2523', '%23'); // HACK - # gets double-escaped
      
         var proxyOptions = {
             host: config.client["host"],
@@ -42,7 +48,7 @@ ProxyHandler.prototype = {
             headers: sekiRequest.headers
         };
         
-    //    log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
+    //   log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
         
         /*
         var connector = http.request(proxyOptions, function(res) {

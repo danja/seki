@@ -5,6 +5,8 @@
 	http.createServer(function (request, response) {
 		console.log(JSON.stringify(request.headers));
         
+        console.log("URL = "+request.url);
+        
         if (request.method == 'POST') {
             console.log("POST received");
             var body = '';
