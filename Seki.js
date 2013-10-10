@@ -102,7 +102,7 @@ if (commander.init) {
 }
 
 var RequestHandler = require("./RequestHandler");
-var handler = new RequestHandler();
+
 /*
  * A little connect chain
  */
@@ -110,6 +110,7 @@ var app = connect()
     .use(fileServer())
     .use(function(sekiRequest, sekiResponse) {
         log.debug("SEKI");
+        var handler = new RequestHandler();
         handler.handle(sekiRequest, sekiResponse);
        // onRequest(sekiRequest, sekiResponse);
     });

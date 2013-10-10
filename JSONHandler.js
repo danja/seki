@@ -36,18 +36,22 @@ JSONHandler.prototype = {
       console.log("JSONHandler.POST called");
   },
   
-  "PUT": function(sekiRequest, sekiResponse) {
+  "PUT": function(request, response) {
+      var sekiRequest = request;
+      var sekiResponse =  response;
       // this.value2 = argument + 100;
       console.log("JSONHandler.PUT called");
       var body = '';
       
       // request body may come in chunks, join them together
       sekiRequest.on('data', function(chunk) {
+          log.debug("JSON PUT data event");
           body += chunk;
       });
       
       // now received body of request
       sekiRequest .on('end', function() { 
+          log.debug("JSON PUT end event");
               var options = { "format" : 'application/nquads' };
      
               var bodyMap = JSON.parse(body);

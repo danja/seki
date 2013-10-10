@@ -20,7 +20,6 @@ exports.testDeleteEntry = function(test){ // just to make sure it's cleared
     proxy.fileUpdate('data/deleteEntry.rq', callback);
 };
 
-
 exports.testCreate = function(test){
     var callback = function(status, headers, body) {
         test.equal(status, 201, "checking status is 201 :Created");

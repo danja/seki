@@ -29,12 +29,15 @@ ProxyHandler.prototype = {
     },
     
     "name" : "ProxyHandler",
-	"handle" : function(sekiRequest, sekiResponse, options) {
-
+	"handle" : function(request, response, options) {
+        var sekiRequest = request;
+        var sekiResponse = response;
         log.debug("ProxyHandler.handle");
 
-     //   log.debug("ProxyHandler method "+sekiRequest.method);
-
+        log.debug("ProxyHandler method "+sekiRequest.method);
+// log.debug("Proxy resp "+util.inspect(sekiResponse));
+        
+     //   log.debug("Proxy req "+util.inspect(sekiRequest));
         
     //    log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+options.path);
      
@@ -86,20 +89,29 @@ ProxyHandler.prototype = {
         });
         
         sekiRequest.on('data', function(chunk) {
-     //       log.debug("sekiRequest.on data "+chunk);
+           log.debug("sekiRequest.on data "+chunk);
             proxyRequest.write(chunk);
         });
         
         sekiRequest.on('end', function() {
-    //        log.debug("sekiRequest.on end");
+           log.debug("sekiRequest.on end");
             proxyRequest.end();
         });
-        sekiRequest.on('close', function() {
+        sekiRequest.on('close', function() { // shouldn't be needed?
      //       log.debug("sekiRequest.on close");
             proxyRequest.end();
         });
-    //   proxyRequest.end(); // the end block above should do this, seems wrong like this
-       
+        sekiRequest.on('finish', function() { // shouldn't be needed?
+                  log.debug("sekiRequest.on finish");
+            proxyRequest.end();
+        });
+  //     proxyRequest.end(); // the end block above should do this, seems wrong like this
+        sekiRequest.addListener('end', function () {
+            log.debug("sekiRequest.on end listener");
+            // will get called in node v0.10.3 because we called req.resume()
+            proxyRequest.end();
+        });
+     //   proxyRequest.end();
 }
 }
 

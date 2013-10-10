@@ -14,16 +14,31 @@ var ProxyHandler = require('./ProxyHandler');
 var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 
+var  flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 //Constructor
 function RequestHandler() {
-    this.flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
+
+  //  this.reqres = {
+  //      "sekiRequest" : sekiRequest,
+  //      "sekiResponse" : sekiResponse
+  //  };
+ //   var ReqRes = flow.getDefined("ReqRes");
+  //  this.reqres = new ReqRes(sekiRequest, sekiResponse);
 }
 
 RequestHandler.prototype = {
-    
+
     "handle": function(sekiRequest, sekiResponse) {
+
+   //     var sekiRequest = request;
+  //      var sekiResponse = response;
+        
+        // works here
+        sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
+        sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
         
         log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+    
         log.debug("REQUEST URL = " + sekiRequest.url);
         log.debug("REQUEST METHOD = " + sekiRequest.method);
         
@@ -33,11 +48,17 @@ RequestHandler.prototype = {
        // var 
         
 
-        var RequestRouter = this.flow.getDefined("RequestRouter");
-        var Route = this.flow.getDefined("Route");
         
-        var session = this.flow.getSession();
+        var RequestRouter = flow.getDefined("RequestRouter");
+        var Route = flow.getDefined("Route");
+        
+        
+        var session = flow.getSession();
         // can check :  session.print();
+        
+        var ReqRes = flow.getDefined("ReqRes");
+        var reqres = new ReqRes(sekiRequest, sekiResponse);
+        session.assert(reqres);
         
         var requestParams = {
             //    "headers" : sekiRequest.headers,
@@ -52,11 +73,12 @@ RequestHandler.prototype = {
         log.debug("method"+requestParams["method"]);
         log.debug("path"+requestParams["path"]);
         
-        var rr = new RequestRouter(requestParams);
+     //   session.assert(this.reqres);
+      //  var reqres = this.reqres;
         
-        log.debug("AAAAA");
+        var rr = new RequestRouter(requestParams);
+
         session.assert(rr);
-        log.debug("BBBB");
         
         var r = new Route();
         session.assert(r);
@@ -69,43 +91,63 @@ RequestHandler.prototype = {
             "ProxyHandler" : ProxyHandler
         }
         
-        /*
+      //  var sekiRequest =  this.sekiRequest;
+      //  var sekiResponse = this.sekiResponse;
+     var others = this.others;
+     
+     //var getRequest = this.getRequest;
+     /*
          // this is messing up request/response somehow... 
          session.match(function(err){
+          
              if(err){
                  log.debug(err);
              }else{
                  log.debug("*** RULES DONE ***");
                //  log.debug("ROUTE = "+this.targetMap["target"]);
+                // this.temp("BOOO");
                  
                  var target = r.route["target"];
                  // targetMap["target"];
                  
                  log.debug("r['route'] = "+JSON.stringify(r.route));
-                 log.debug("r = "+JSON.stringify(r));    
-                 
-                
+                 log.debug("r = "+JSON.stringify(r));                  
                  
                  if(handlerMap[target]) {
                      log.debug("this is a MATCH");
                      //        var handler = new this.handlerMap[target]();  
-                     var handler = new ProxyHandler();
-                     options = { "path" : r.route["path"] };
-                     handler.handle(sekiRequest, sekiResponse, options);
-                     handler.announce(message);
-                     log.debug("AFTER HANDLER");
+                     var options = { "path" : r.route["path"] };
+                 //    log.debug("999SEKI REQUEST HEADERS " + JSON.stringify(getRequest().headers));
+                 ;
+                     log.debug("TARGET = "+target);
+                     var handler = new handlerMap[target]();
+                     // new ProxyHandler();
+                     // this.t();
+                     
+                     log.debug("x SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+         //   log.debug("this.sekiRequest ================="+ this.sekiRequest);
+                     // 
+                 //    reqres.request.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });           
+                     
+         handler.handle(sekiRequest, sekiResponse, options);
+         
+        
                      return;
              }
-              else {
+        //      else {
               log.debug("this NOT is a MATCH");
-                others(sekiRequest, sekiResponse);
-             }
+          //    ( new RequestHandler(this.sekiRequest, this.sekiResponse)).others();
+             others(sekiRequest, sekiResponse);
+        //  return;
+        //     }
              }
              
          });
-         return; // ???
-        */ 
-        
+         
+     //    this.others(sekiRequest, sekiResponse);
+        return; // ???
+        */
+       
         
         if (sekiRequest.url.substring(0, 7) == "/store/") {
             var map = { 'path' : sekiRequest.url.substring(6) };
@@ -120,9 +162,8 @@ RequestHandler.prototype = {
 
 return;
     },
-    
-    
-   "others": function(sekiRequest, sekiResponse) {
+
+    "others": function(sekiRequest, sekiResponse) {
         
         var auth = new Authenticator();
         
@@ -142,6 +183,7 @@ return;
         if (sekiRequest.method == "PUT") {
             log.debug("PUT");
             var handler = new JSONHandler();
+          //  return handler[sekiRequest.method](sekiRequest, sekiResponse);
             return handler[sekiRequest.method](sekiRequest, sekiResponse);
         }
         

@@ -1,3 +1,14 @@
+define ReqRes {
+
+request : '',
+response : '',
+    
+    constructor : function(request, response) {
+    this.request = request;
+    this.response = response;
+    }      
+}
+
 define RequestRouter {
 
  //   headers : '',
@@ -27,8 +38,7 @@ define Route {
         path : '',
         target : ''
         };
-    }
-        
+    }      
 }
 
 rule Always {
