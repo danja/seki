@@ -17,9 +17,6 @@ var JSONHandler = require('./JSONHandler');
 //Constructor
 function RequestHandler() {
     this.flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
-    this.handlerMap= {
-        "ProxyHandler" : ProxyHandler
-    }
 }
 
 RequestHandler.prototype = {
@@ -68,9 +65,12 @@ RequestHandler.prototype = {
         // try flow.getSession().matchUntilHalt(function(err){
         
         var message = "HELLO!";
+        var handlerMap= { // move to config?
+            "ProxyHandler" : ProxyHandler
+        }
         
         /*
-         / / *this is messing up request/response somehow... 
+         // this is messing up request/response somehow... 
          session.match(function(err){
              if(err){
                  log.debug(err);
@@ -82,9 +82,11 @@ RequestHandler.prototype = {
                  // targetMap["target"];
                  
                  log.debug("r['route'] = "+JSON.stringify(r.route));
-                 log.debug("r = "+JSON.stringify(r));      
+                 log.debug("r = "+JSON.stringify(r));    
                  
-                 if(this.handlerMap[target]) {
+                
+                 
+                 if(handlerMap[target]) {
                      log.debug("this is a MATCH");
                      //        var handler = new this.handlerMap[target]();  
                      var handler = new ProxyHandler();
@@ -94,25 +96,28 @@ RequestHandler.prototype = {
                      log.debug("AFTER HANDLER");
                      return;
              }
-             // else {
-             //   log.debug("this NOT is a MATCH");
-             //   others(sekiRequest, sekiResponse);
-             //}
+              else {
+              log.debug("this NOT is a MATCH");
+                others(sekiRequest, sekiResponse);
+             }
              }
              
          });
          return; // ???
-         */
+        */ 
+        
         
         if (sekiRequest.url.substring(0, 7) == "/store/") {
             var map = { 'path' : sekiRequest.url.substring(6) };
-            var handler =  new this.handlerMap["ProxyHandler"](); // new ProxyHandler();
+            var handler =  new handlerMap["ProxyHandler"](); // new ProxyHandler();
             handler.handle(sekiRequest, sekiResponse, map);
             
             return;
+           
 } else {
     this.others(sekiRequest, sekiResponse);
 }
+
 return;
     },
     

@@ -41,6 +41,4 @@ exports.testExists = function(test){
     }
     var entry = new Entry();
     entry.get(path, callback);
- //   var entry = new Entry();
- //   entry.fileCreate('data/entry.json', callback);
 };
