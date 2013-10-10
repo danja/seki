@@ -12,15 +12,10 @@
 var sys = require('sys');
 var http = require('http');
 var util = require('util'); // isneeded?
+// var _ = require('underscore'); // isneeded?
 var fs = require('fs'); // filesystem module
 var commander = require('commander');
 
-var nools = require("./lib/nools/index"); // rules engine
-
-var VieJsonHandler = require('./handlers/VieJsonHandler');
-var GetBlogHandler = require('./handlers/GetBlogHandler');
-
-var ProxyHandler = require('./ProxyHandler');
 // var qs = require('querystring'); // POST parameters parser
 // var static = require('node-static');
 var connect = require('connect');
@@ -37,20 +32,18 @@ var Constants = require('./config/Constants');
 var Bootstrap = require('./Bootstrap');
 var Utils = require('./Utils');
 
-var Authenticator = require('./Authenticator');
+
 var templater = require('./templates/Templater');
 // var sparqlTemplates = require('./sparqlTemplates');
 var htmlTemplates = require('./templates/HtmlTemplates');
 
-var TurtleHandler = require('./TurtleHandler');
-var JSONHandler = require('./JSONHandler');
+
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var special = require('./config/Special');
 
-var GetHandler = require('./GetHandler');
-var PostHandler = require('./PostHandler');
+
 
 var sekiHeaders = {
     "Content-type": "text/html; charset=utf-8",
@@ -108,6 +101,8 @@ if (commander.init) {
     Bootstrap();
 }
 
+var RequestHandler = require("./RequestHandler");
+var handler = new RequestHandler();
 /*
  * A little connect chain
  */
@@ -115,7 +110,8 @@ var app = connect()
     .use(fileServer())
     .use(function(sekiRequest, sekiResponse) {
         log.debug("SEKI");
-        onRequest(sekiRequest, sekiResponse);
+        handler.handle(sekiRequest, sekiResponse);
+       // onRequest(sekiRequest, sekiResponse);
     });
 
     app.listen(config.server["port"], config.server["host"]);
@@ -131,189 +127,15 @@ if(!config.dev) {
 }
 
 // neater way of handling handlers - return handler function name?
-var flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 
-var targetMap = {
-    target : ""
-};
-
-var handlerMap= {
-    "ProxyHandler" : ProxyHandler
-}
 
 /*
  * Callback to handle HTTP requests from browser/API
  */
 
-function onRequest(sekiRequest, sekiResponse) {
-    log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
-    log.debug("REQUEST URL = " + sekiRequest.url);
-    log.debug("REQUEST METHOD = " + sekiRequest.method);
+//function onRequest(sekiRequest, sekiResponse) {
 
-    log.debug("\ngot past file server\n");
-    
-    // setup rules engine
-    var RequestRouter = flow.getDefined("RequestRouter");
-    var Route = flow.getDefined("Route");
-    
-    var session = flow.getSession();
-    // can check :  session.print();
-    
-    var rr = new RequestRouter(sekiRequest, sekiResponse);
-    session.assert(rr);
-    var r = new Route(targetMap);
-    session.assert(r);
-
-// https://github.com/C2FO/nools
-// try flow.getSession().matchUntilHalt(function(err){
-
-var message = "HELLO!";
-
-/* this is messing up request/response somehow... 
-    session.match(function(err){
-        if(err){
-            log.debug(err);
-        }else{
-            log.debug("*** RULES DONE ***");
-            log.debug("ROUTE = "+targetMap["target"]);
-            
-            var target = targetMap["target"];
-            
-            log.debug("r['map'] = "+JSON.stringify(r["map"]));
-            log.debug("r = "+JSON.stringify(r));      
-            
-           if(handlerMap[target]) {
-                var handler = new handlerMap[target]();  
-                handler.handle(rr.request, rr.response, r["map"]);
-                handler.announce(message);
-                log.debug("AFTER HANDLER");
-          return;
-}else {
-    others(sekiRequest, sekiResponse);
-}
-        }
-      
-    });
-    
-  //  log.debug("Handler = "+handler);
- return; // ???
- */
- 
-
-    if (sekiRequest.url.substring(0, 7) == "/store/") {
-        var map = { 'path' : sekiRequest.url.substring(6) };
-       var handler =  new handlerMap["ProxyHandler"](); // new ProxyHandler();
-        handler.handle(sekiRequest, sekiResponse, map);
-
-        return;
-    } else {
-        others(sekiRequest, sekiResponse);
-    }
-    return;
-  
- 
-    
-    function others(sekiRequest, sekiResponse) {
-    
-        var auth = new Authenticator();
-        
-    if (sekiRequest.method == "OPTIONS") {
-        log.debug("OPTIONS");
-        var optionsHeaders = {
-            "Allow": "OPTIONS, GET, HEAD, POST, PUT, DELETE" // , TRACE
-       //     Access-Control-Allow-Origin: 
-       //     Access-Control-Max-Age: 2520
-       //     Access-Control-Allow-Methods: PUT, DELETE, XMODIFY
-        };
-        sekiResponse.writeHead(200, optionsHeaders);
-        sekiResponse.end("200 Ok");
-        return;
-    }  
-    
-    if (sekiRequest.method == "PUT") {
-        log.debug("PUT");
-        var handler = new JSONHandler();
-        return handler[sekiRequest.method](sekiRequest, sekiResponse);
-}
-
-    if (sekiRequest.method == "POST") {
-        if (!auth.Basic(sekiRequest)) {
-            sekiResponse.writeHead(401, notAuthHeaders);
-            sekiResponse.end("401 Not Authorized");
-            return;
-        }
-    }
-    // handle admin requests/commands
-    if (sekiRequest.method == "POST") {
-        if (sekiRequest.url.substring(0, 7) == "/admin/") {
-            var command = sekiRequest.url.substring(7);
-            var admin = new Admin(sekiRequest, sekiResponse);
-            if (admin[command]) {
-                sekiResponse.writeHead(202, sekiHeaders);
-                sekiResponse.end("202 Accepted for command '" + command + "'");
-                admin[command](); // perhaps this should spawn a separate OS
-                // process?
-                return;
-            } else {
-                sekiResponse.writeHead(404, sekiHeaders);
-                sekiResponse.end("404 Not Found. Admin command '" + command + "' unknown");
-                return;
-            }
-        }
-    }
-
-    // the client that will talk to the SPARQL server
-    // var client = http.createClient(config.sparqlPort, config.sparqlHost);
-
-    // the URI used in the RDF
-    // var resource = config.uriBase + sekiRequest.url;
-    // console.log("RESOURCE = " + resource);
-
-    // this is duplicated in GetHandler.js
-    var accept = sekiRequest.headers["accept"]; ///////////////////// is accept!!!
-
-
-    // TODO pull these out into separate per-media type handlers
-    // use pattern as for JSONHandler
-    if (sekiRequest.method == "GET") {
-        var key = "/vie-json";
-        if (sekiRequest.url.substring(0, key.length) == key) {
-            var handler = new VieJsonHandler();
-            handler.handle(sekiRequest, sekiResponse);
-            return;
-        }
-        // special case for blog index page
-            if (sekiRequest.url.substring(0, key.length) == "/blog") {
-                var handler = new GetBlogHandler();
-                handler.handle(sekiRequest, sekiResponse);
-                return;
-            }
-        
-//         for(key in special) {
-//             log.debug("KEY = "+key);
-//             if (sekiRequest.url.substring(0, key.length) == key) {
-//         //    if(Special[key]){
-//                 log.debug("SPECIAL MATCH = "+key);
-//                 var handler = special[key];
-//                 log.debug("special = "+util.inspect(special));
-//                 log.debug("handler = "+util.inspect(handler));
-//                 handler.handle(sekiRequest, sekiResponse);
-//                 return;
-//         }
-//         }
-        var handler = new GetHandler();
-        handler.handle(sekiRequest, sekiResponse);
-    }
-
-    if (sekiRequest.method == "POST") {
-        log.debug("caught POST");
-        // var postHandler = Object.create(PostHandler);
-        log.debug("calling PostHandler");
-        var postHandler = new PostHandler();
-        postHandler.handle(sekiRequest, sekiResponse);
-    }
-    }
-}
+// }
 
 /*
  * Reads a file from the filesystem and writes its data to response (typically a

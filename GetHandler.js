@@ -39,27 +39,27 @@ GetHandler.prototype = {
 
 		// the URI used in the RDF
 		var resource = config.uriBase + sekiRequest.url;
-        log.debug("RESOURCE = " + resource);
-        log.debug("sekiRequest.url = " + sekiRequest.url);
+      //  log.debug("RESOURCE = " + resource);
+      //  log.debug("sekiRequest.url = " + sekiRequest.url);
 
 		if (special[sekiRequest.url]) {
 			queryTemplate = special[sekiRequest.url].sparqlTemplate;
 			viewTemplate = special[sekiRequest.url].htmlTemplate;
 		}
 
-		console.log("special[sekiRequest.url] = " + special[sekiRequest.url]);
-        log.debug("queryTemplate = " + queryTemplate);
-        log.debug("viewTemplate = " + viewTemplate);
+	//	console.log("special[sekiRequest.url] = " + special[sekiRequest.url]);
+     //   log.debug("queryTemplate = " + queryTemplate);
+     //   log.debug("viewTemplate = " + viewTemplate);
 
 		if (accept && accept.indexOf("text/turtle") == 0) {
-            log.debug("text/turtle requested");
+      //      log.debug("text/turtle requested");
 			var handler = new TurtleHandler();
 			handler.GET(resource, sekiResponse);
 			return;
 		}
 		
 		if (accept && accept.indexOf("application/json") == 0) {
-            log.debug("application/json requested");
+      //      log.debug("application/json requested");
             var handler = new GetJsonHandler();
             handler.handle(resource, sekiResponse);
             return;
@@ -77,7 +77,7 @@ GetHandler.prototype = {
 		var urlParts = url.parse(sekiRequest.url, true);
 		var query = urlParts.query;
 
-        log.debug("urlParts.query[mode] = " + urlParts.query["mode"]);
+    //    log.debug("urlParts.query[mode] = " + urlParts.query["mode"]);
 
 		var mode = urlParts.query["mode"];
         
@@ -86,8 +86,8 @@ GetHandler.prototype = {
         /////////////////////////////////
 
 		if (mode) {
-            log.debug("MODE = "+mode);
-            log.debug("sekiRequest.url before = " + sekiRequest.url);
+        //    log.debug("MODE = "+mode);
+        //    log.debug("sekiRequest.url before = " + sekiRequest.url);
 
 			resource = config.uriBase + urlParts.pathname;
 
@@ -99,16 +99,16 @@ GetHandler.prototype = {
 			if (mode == "content") {
 		//		viewTemplate = htmlTemplates.contentTemplate;
                 viewTemplate = htmlTemplates.postViewTemplate;
-                log.debug("ASKING FOR CoNTENT TEMPLATE");
-                log.debug("content resource = " + resource);
+           //     log.debug("ASKING FOR CoNTENT TEMPLATE");
+           //     log.debug("content resource = " + resource);
 			}
 
 			// top-level editor (with tabs)
 			if (mode == 'edit') {
 				viewTemplate = htmlTemplates.editorTemplate;
-                log.debug("EDITOR TEMPLATE = "+html);
+            //    log.debug("EDITOR TEMPLATE = "+html);
 				var html = freemarker.render(viewTemplate, replaceMap);
-                log.debug("EDITOR HTML = "+html);
+           //     log.debug("EDITOR HTML = "+html);
 				sekiResponse.end(html);
 			}
 
@@ -150,16 +150,16 @@ GetHandler.prototype = {
 		config.client["method"] = "GET";
         config.client["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
 
-        log.debug("OPTIONS IN GETHANDLER = "+JSON.stringify(config.client));
+  //      log.debug("OPTIONS IN GETHANDLER = "+JSON.stringify(config.client));
 		var clientRequest = http.request(config.client, function(queryResponse) {
 			queryResponse.setEncoding('utf8');
 			});
 		
-        log.debug("QUERY = " + sparql);
+    //    log.debug("QUERY = " + sparql);
 
 		// handle the response from the SPARQL server
 		clientRequest.on('response', function(queryResponse) {
-		log.debug("VIEW TEMPLATE = "+viewTemplate);
+	//	log.debug("VIEW TEMPLATE = "+viewTemplate);
 		//	serveHTML(resource, viewTemplate, sekiResponse, queryResponse);
 			var urlParts = url.parse(sekiRequest.url, true);
 			
@@ -179,7 +179,7 @@ GetHandler.prototype = {
  * Handles GET requests (typically from a browser)
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
-    log.debug("in serveHTML, viewTemplate = "+viewTemplate);
+    // log.debug("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
         viewTemplate = htmlTemplates.contentTemplate; // 
 	}

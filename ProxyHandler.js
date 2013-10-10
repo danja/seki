@@ -52,7 +52,7 @@ ProxyHandler.prototype = {
             headers: sekiRequest.headers
         };
         
-  //     log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
+       log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
         
         /*
         var connector = http.request(proxyOptions, function(res) {
@@ -64,7 +64,7 @@ ProxyHandler.prototype = {
         var proxyRequest = http.request(proxyOptions, function(proxyResponse) {
             
        log.debug("In proxyRequest");
-        //    log.debug("proxyResponse.headers = "+proxyResponse.headers);
+         log.debug("proxyResponse.headers = "+proxyResponse.headers);
             
             sekiResponse.writeHead(proxyResponse.statusCode, proxyResponse.headers);
             
