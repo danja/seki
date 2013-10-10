@@ -158,47 +158,65 @@ function onRequest(sekiRequest, sekiResponse) {
     
     var session = flow.getSession();
     // can check :  session.print();
-    var rs = new RequestRouter(sekiRequest);
-    session.assert(rs);
-    session.assert(new Route(targetMap));
     
-console.log("*** RULES DONE ***");
+    var rr = new RequestRouter(sekiRequest, sekiResponse);
+    session.assert(rr);
+    var r = new Route(targetMap);
+    session.assert(r);
 
-/*
+// https://github.com/C2FO/nools
+// try flow.getSession().matchUntilHalt(function(err){
+
+var message = "HELLO!";
+
+/* this is messing up request/response somehow... 
     session.match(function(err){
         if(err){
             log.debug(err);
         }else{
             log.debug("*** RULES DONE ***");
             log.debug("ROUTE = "+targetMap["target"]);
+            
             var target = targetMap["target"];
-            if(handlerMap[target]) {
-            var handler = new handlerMap[target]();
-
-    handler.handle(sekiRequest, sekiResponse, targetMap);
-            log.debug("AFTER HANDLER");
+            
+            log.debug("r['map'] = "+JSON.stringify(r["map"]));
+            log.debug("r = "+JSON.stringify(r));      
+            
+           if(handlerMap[target]) {
+                var handler = new handlerMap[target]();  
+                handler.handle(rr.request, rr.response, r["map"]);
+                handler.announce(message);
+                log.debug("AFTER HANDLER");
           return;
-            }
+}else {
+    others(sekiRequest, sekiResponse);
+}
         }
       
     });
     
+  //  log.debug("Handler = "+handler);
  return; // ???
-    */
-
-    log.debug("******* GONE PAST NOOLS *******");
-    
+ */
  
+
     if (sekiRequest.url.substring(0, 7) == "/store/") {
         var map = { 'path' : sekiRequest.url.substring(6) };
-        var handler = new ProxyHandler();
+       var handler =  new handlerMap["ProxyHandler"](); // new ProxyHandler();
         handler.handle(sekiRequest, sekiResponse, map);
-        return;
-    }
-  
 
-    var auth = new Authenticator();
+        return;
+    } else {
+        others(sekiRequest, sekiResponse);
+    }
+    return;
+  
+ 
     
+    function others(sekiRequest, sekiResponse) {
+    
+        var auth = new Authenticator();
+        
     if (sekiRequest.method == "OPTIONS") {
         log.debug("OPTIONS");
         var optionsHeaders = {
@@ -293,6 +311,7 @@ console.log("*** RULES DONE ***");
         log.debug("calling PostHandler");
         var postHandler = new PostHandler();
         postHandler.handle(sekiRequest, sekiResponse);
+    }
     }
 }
 

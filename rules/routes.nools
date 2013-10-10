@@ -1,12 +1,17 @@
 define RequestRouter {
 
     request : '',
+    response : '',
+    options : '',
     method : '',
     path : '',
     accept : '',
     contentType : '',
 
-    constructor : function(request){
+    constructor : function(request, response){
+        this.request = request;
+        this.response = response;
+        
         this.headers = request.headers;
         this.method = request.method;
         this.path = request.url;
@@ -27,11 +32,11 @@ define Route {
 }
 
 rule Always {
-when { 
- rr : RequestRouter 1 == 1;
-} then {   
-log.debug("*** RULE RUN ***"); 
-}
+    when { 
+        rr : RequestRouter 1 == 1;
+    } then {   
+        log.debug("*** RULE RUN ***"); 
+    }
 }
 
 rule Post {
@@ -50,8 +55,9 @@ rule ProxyStore {
     }
     then {
         log.debug("*** Proxy rule triggered ***"); 
-modify(r, function(){this.map["path"] = rr.path.substring(6);});
+        modify(r, function(){this.map["path"] = rr.path.substring(6);});
         modify(r, function(){this.map["target"] = "ProxyHandler";});
+        halt();
     }
 }
 

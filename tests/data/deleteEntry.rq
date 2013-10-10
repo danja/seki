@@ -2,15 +2,19 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
-DELETE DATA {
-    GRAPH <http://hyperdata.org/seki/Wello> {
+WITH <http://hyperdata.org/seki>
+DELETE { <http://hyperdata.org/seki/ApiTest> ?p ?o }
+WHERE {<http://hyperdata.org/seki/ApiTest> ?p ?o } 
 
-        <http://hyperdata.org/seki/ApiTest> a sioc:Post ;
-            dc:title "Hello there!";
-            sioc:content "This is another test." ;
-            foaf:maker <http://dannyayers.com/me#> ;
-            dc:date "2011-08-30T19:20Z" .
+# DELETE DATA {
+   # GRAPH <http://hyperdata.org/seki/Wello> {
 
-        <http://dannyayers.com/me#> foaf:nick "danja" .
-}
-}
+    #    <http://hyperdata.org/seki/ApiTest> a sioc:Post ;
+     #       dc:title "Hello there!";
+      #      sioc:content "This is another test." ;
+       #     foaf:maker <http://dannyayers.com/me#> ;
+        #    dc:date "2011-08-30T19:20Z" .
+
+      #  <http://dannyayers.com/me#> foaf:nick "danja" .
+# }
+#}

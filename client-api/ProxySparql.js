@@ -35,7 +35,7 @@ var queryOptions = {
 ProxySparql.prototype = {
     
 "fileUpdate" : function(filename, callback) {
- //   log.debug("fileUpdate called")
+  //  log.debug("ProxySparql.fileUpdate called")
     this.update(fs.readFileSync(filename, 'utf8'), callback);
 },
 
@@ -59,7 +59,7 @@ ProxySparql.prototype = {
 },
 
 "client" : function(options, data, callback) {
- //   log.debug("client called")
+ //  log.debug("client called")
  //   log.debug("options = "+JSON.stringify(options));
  //   log.debug("data = "+data);
     var request = http.request(options, function(response) {
@@ -74,14 +74,14 @@ ProxySparql.prototype = {
         });
         response.on("end", function(data){
             body += data;
-   //         log.debug("body "+body);
+           // log.debug("body "+body);
             callback( response.statusCode, JSON.stringify(response.headers), body);
         });
     });
     request.on('error', function(e) {
         log.debug('problem with request: ' + e.message);
     });
- //   log.debug("writing data")
+  //  log.debug("writing data")
     request.write(data);
     request.end();
   

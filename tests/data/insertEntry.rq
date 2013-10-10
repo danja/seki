@@ -3,7 +3,7 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
 INSERT DATA {
-	GRAPH <http://hyperdata.org/seki/Wello> {
+	GRAPH <http://hyperdata.org/seki> {
 
 		<http://hyperdata.org/seki/ApiTest> a sioc:Post ;
    			dc:title "Hello there!";
@@ -12,5 +12,5 @@ INSERT DATA {
    			dc:date "2011-08-30T19:20Z" .
 
 		<http://dannyayers.com/me#> foaf:nick "danja" .
-}
+ }
 }

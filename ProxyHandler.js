@@ -24,6 +24,10 @@ function ProxyHandler() {
 
 // properties and methods
 ProxyHandler.prototype = {
+    "announce" : function(message) {
+        log.debug("Message = "+message);
+    },
+    
     "name" : "ProxyHandler",
 	"handle" : function(sekiRequest, sekiResponse, options) {
 
@@ -32,7 +36,7 @@ ProxyHandler.prototype = {
      //   log.debug("ProxyHandler method "+sekiRequest.method);
 
         
-        log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+options.path);
+    //    log.debug("proxying to "+config.client["host"]+":"+config.client["port"]+options.path);
      
      //   log.debug("\n\noptions.path = "+options.path);
      //   log.debug("\n\noptions.path = "+querystring.unescape(options.path));
@@ -48,7 +52,7 @@ ProxyHandler.prototype = {
             headers: sekiRequest.headers
         };
         
-    //   log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
+  //     log.debug("proxyOptions = "+JSON.stringify(proxyOptions));
         
         /*
         var connector = http.request(proxyOptions, function(res) {
@@ -59,12 +63,13 @@ ProxyHandler.prototype = {
             
         var proxyRequest = http.request(proxyOptions, function(proxyResponse) {
             
-       
+       log.debug("In proxyRequest");
         //    log.debug("proxyResponse.headers = "+proxyResponse.headers);
             
             sekiResponse.writeHead(proxyResponse.statusCode, proxyResponse.headers);
             
             proxyResponse.on('data', function(chunk) {
+      //          log.debug("proxyResponse.on('data' "+chunk);
                 sekiResponse.write(chunk, 'binary');
             });
             
@@ -74,23 +79,23 @@ ProxyHandler.prototype = {
             
         });
         
- //       log.debug("proxyRequest = "+util.inspect(proxyRequest));
+      //  log.debug("proxyRequest = "+util.inspect(proxyRequest));
         
         proxyRequest.on('error', function(e) {
-            log.debug('problem with proxy request: ' + e.message);
+           log.debug('problem with proxy request: ' + e.message);
         });
         
         sekiRequest.on('data', function(chunk) {
-            log.debug("sekiRequest.on data "+chunk);
+     //       log.debug("sekiRequest.on data "+chunk);
             proxyRequest.write(chunk);
         });
         
         sekiRequest.on('end', function() {
-            log.debug("sekiRequest.on end");
+    //        log.debug("sekiRequest.on end");
             proxyRequest.end();
         });
         sekiRequest.on('close', function() {
-            log.debug("sekiRequest.on close");
+     //       log.debug("sekiRequest.on close");
             proxyRequest.end();
         });
     //   proxyRequest.end(); // the end block above should do this, seems wrong like this
