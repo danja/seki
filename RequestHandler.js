@@ -15,6 +15,12 @@ var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 
 var  flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
+
+nools.Flow.prototype.setRequest = function(request) { this.request = request; }
+nools.Flow.prototype.setResponse = function(response) { this.response = response; }
+nools.Flow.prototype.getRequest = function() {return this.request; }
+nools.Flow.prototype.getResponse = function() {return this.response; }
+
 //Constructor
 function RequestHandler() {
 
@@ -29,7 +35,8 @@ function RequestHandler() {
 RequestHandler.prototype = {
 
     "handle": function(sekiRequest, sekiResponse) {
-
+        flow.setRequest(sekiRequest);
+        flow.setResponse(sekiResponse);
    //     var sekiRequest = request;
   //      var sekiResponse = response;
         
@@ -53,7 +60,7 @@ RequestHandler.prototype = {
         var Route = flow.getDefined("Route");
         
         
-        var session = flow.getSession();
+        var session = flow.getSession(); // session isaninstance of flow
         // can check :  session.print();
         
         var ReqRes = flow.getDefined("ReqRes");
@@ -96,7 +103,8 @@ RequestHandler.prototype = {
      var others = this.others;
      
      //var getRequest = this.getRequest;
-     /*
+     
+   //  log.debug("getRequest = "+flow.getRequest());
          // this is messing up request/response somehow... 
          session.match(function(err){
           
@@ -146,8 +154,8 @@ RequestHandler.prototype = {
          
      //    this.others(sekiRequest, sekiResponse);
         return; // ???
-        */
-       
+        
+       /*
         
         if (sekiRequest.url.substring(0, 7) == "/store/") {
             var map = { 'path' : sekiRequest.url.substring(6) };
@@ -161,6 +169,7 @@ RequestHandler.prototype = {
 }
 
 return;
+*/
     },
 
     "others": function(sekiRequest, sekiResponse) {
