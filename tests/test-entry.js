@@ -10,7 +10,6 @@ var helpers = new TestHelpers();
 
 var path = '/seki/ApiTest';
 
-
 exports.testDeleteEntry = function(test){ // just to make sure it's cleared
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");

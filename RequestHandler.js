@@ -252,6 +252,7 @@ return;
             //                 return;
             //         }
             //         }
+            log.debug("caught GET");
             var handler = new GetHandler();
             handler.handle(sekiRequest, sekiResponse);
             }

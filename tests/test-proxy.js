@@ -4,8 +4,6 @@ var testCase  = require('nodeunit').testCase;
 
 var ProxySparql = require("../client-api/ProxySparql");
 var fs = require("fs");
-//  sparqlUpdate(fs.readFileSync('data/deleteEntry.rq', 'utf8'));
-// sparqlAsk(fs.readFileSync('data/askEntry.rq', 'utf8'), 'false');
 
 exports.testDeleteInit = function(test){
     var callback = function(status, headers, body) {

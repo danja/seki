@@ -34,16 +34,16 @@ StoreClient.prototype = {
 
     // rename to "query"?
     "send": function(options, sparql, callback) {
-        log.debug("initial send OPTIONS = "+JSON.stringify(options));
-        log.debug("StoreClient.send");
-        log.debug("callback = "+callback);
+      //  log.debug("initial send OPTIONS = "+JSON.stringify(options));
+      //  log.debug("StoreClient.send");
+      //  log.debug("callback = "+callback);
         for (var name in config.client) { // merge constants
             if (!options[name]) {
                 options[name] = config.client[name];
             }
         }
 
-        log.debug("\n\nIN StoreClient request OPTIONS = "+JSON.stringify(options));
+     //   log.debug("\n\nIN StoreClient request OPTIONS = "+JSON.stringify(options));
         
         var clientRequest = http.request(options);
         clientRequest.on('err', function() {
@@ -52,9 +52,9 @@ StoreClient.prototype = {
         
         clientRequest.on('response', function(queryResponse) {
             queryResponse.setEncoding('utf8');
-        log.debug("IN SEND CALLING RESPOND");
+  //      log.debug("IN SEND CALLING RESPOND");
         if (callback) {
-            log.debug("IN SEND CALLING " + callback);
+       //     log.debug("IN SEND CALLING " + callback);
             callback(queryResponse);
         };
         });

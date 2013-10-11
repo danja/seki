@@ -4,6 +4,9 @@ var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var qs = require("querystring");
 
+var GenericClient = require("./GenericClient");
+var client = new GenericClient();
+
 var queryPath = '/store'+config.client['queryEndpoint'];
 var auth = new Buffer("danja:sasha").toString('base64');
 
@@ -37,50 +40,21 @@ function Entry() {
 Entry.prototype = {
     
     "fileCreate" : function(path, filename, callback) {
-      //  log.debug("fileCreate called")
+   //     log.debug("fileCreate called")
         this.create(path, fs.readFileSync(filename, 'utf8'), callback);
     },
     
     "create" : function(path, json, callback) {
-      //  log.debug("create called");
+  //     log.debug("create called");
         createOptions["path"] = path;
-        this.client(createOptions, json, callback);
+        client.call(createOptions, json, callback);
     },
     
     "get" : function(path, callback) {
-     //   log.debug("get called");
+   //  log.debug("get called with path = "+path);
         getOptions["path"] = path;
-        this.client(getOptions, '', callback);
+        client.call(getOptions, '', callback);
     },
-    
-    "client" : function(options, data, callback) {
-      //  log.debug("Entry client called")
-        //   log.debug("options = "+JSON.stringify(options));
-        //   log.debug("data = "+data);
-        var request = http.request(options, function(response) {
-            //      log.debug("Doing Request");
-            // console.log('STATUS: ' + response.statusCode);
-            // console.log('HEADERS: ' + JSON.stringify(response.headers));
-            response.setEncoding('utf8');
-            var body ='';
-            response.on('data', function (chunk) {
-                //          log.debug("chunk "+chunk);
-                body += chunk;
-            });
-            response.on("end", function(data){
-                body += data;
-               // log.debug("body "+body);
-                callback( response.statusCode, JSON.stringify(response.headers), body);
-            });
-        });
-        request.on('error', function(e) {
-            log.debug('problem with request: ' + e.message);
-        });
-    //    log.debug("writing data")
-        request.write(data);
-        request.end();
-        
-    }
 }
 
 

@@ -17,6 +17,7 @@ TestHelpers.prototype = {
 },
 
 "getJsonTitle" : function(json) {
+ //   log.debug("checking JSON "+json);
     var object = JSON.parse(json);
     return object["<http://purl.org/dc/terms/title>"];
 },
@@ -28,6 +29,7 @@ TestHelpers.prototype = {
 
 "getHtmlTitle" :function(html) {
    // var jsdom = require("jsdom");
+  //  log.debug("checking HTML "+html);
     var doc = jsdom.jsdom(html);
     return doc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
   //  log.debug("TITLE = "+title);
