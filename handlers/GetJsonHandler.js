@@ -1,4 +1,4 @@
-var config = require('./config/ConfigDefault').config;
+var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 
 // Constructor

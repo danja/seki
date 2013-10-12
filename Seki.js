@@ -101,7 +101,7 @@ if (commander.init) {
     Bootstrap();
 }
 
-var RequestHandler = require("./RequestHandler");
+var RequestHandler = require("./handlers/RequestHandler");
 
 /*
  * A little connect chain

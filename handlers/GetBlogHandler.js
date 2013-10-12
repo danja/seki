@@ -4,7 +4,7 @@ var special = require('../config/Special');
 // var templater = require('./templates/Templater');
 var sparqlTemplates = require('../templates/SparqlTemplates');
 var htmlTemplates = require('../templates/HtmlTemplates');
-var TurtleHandler = require('../TurtleHandler');
+var TurtleHandler = require('./TurtleHandler');
 var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var freemarker = require('../templates/freemarker');

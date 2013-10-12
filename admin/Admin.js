@@ -2,7 +2,7 @@ var fs = require('fs');
 
 var Constants = require('../config/Constants');
 
-var TurtleHandler = require('../TurtleHandler');
+var TurtleHandler = require('../handlers/TurtleHandler');
 var config = require('../config/ConfigDefault').config;
 var FileReader = require('./FileReader');
 

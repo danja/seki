@@ -1,13 +1,14 @@
 var http = require('http');
 var url = require('url');
-var special = require('./config/Special');
+var special = require('../config/Special');
 // var templater = require('./templates/Templater');
-var sparqlTemplates = require('./templates/SparqlTemplates');
-var htmlTemplates = require('./templates/HtmlTemplates');
+var sparqlTemplates = require('../templates/SparqlTemplates');
+var htmlTemplates = require('../templates/HtmlTemplates');
 var TurtleHandler = require('./TurtleHandler');
-var config = require('./config/ConfigDefault').config;
+var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
-var freemarker = require('./templates/freemarker');
+var freemarker = require('../templates/freemarker');
+var saxer = require('../srx2map');
 
 var sparqlHeaders = {
 	"Accept" : "application/sparql-results+xml",
@@ -133,7 +134,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
         viewTemplate = htmlTemplates.contentTemplate; // 
 	}
 
-	var saxer = require('./srx2map');
+;
 	var stream = saxer.createStream();
 
 	sekiResponse.pipe(stream);

@@ -9,8 +9,6 @@ function Authenticator() {
 // properties and methods
 Authenticator.prototype = {
 
-	value1 : "default_value",
-
 	// HTTP Basic Authentication
 	// http://en.wikipedia.org/wiki/Basic_access_authentication
 	"Basic" : function(request) {

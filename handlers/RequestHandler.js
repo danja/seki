@@ -1,20 +1,21 @@
-// top-level Seki handler
-
-var nools = require("./lib/nools/index"); // rules engine
-var config = require('./config/ConfigDefault').config;
+/* 
+ * # Top-level Seki handler
+ */
+var nools = require("../lib/nools/index"); // rules engine
+var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 
-var Authenticator = require('./Authenticator');
+var Authenticator = require('../Authenticator');
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
-var VieJsonHandler = require('./handlers/VieJsonHandler');
-var GetBlogHandler = require('./handlers/GetBlogHandler');
+var VieJsonHandler = require('./VieJsonHandler');
+var GetBlogHandler = require('./GetBlogHandler');
 var ProxyHandler = require('./ProxyHandler');
 var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 
-var  flow = nools.compile(__dirname + "/rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
+var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 
 nools.Flow.prototype.setRequest = function(request) { this.request = request; }
 nools.Flow.prototype.setResponse = function(response) { this.response = response; }
