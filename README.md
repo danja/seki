@@ -1,6 +1,29 @@
-**Seki is a front-end to an independent SPARQL server using node.js**
+** Seki is a front-end to an independent SPARQL server using node.js **
 
-It operates as a Web server, building queries from HTTP requests and passing them to the SPARQL server and formatting the results to HTML which is passed back to the client (typically a browser).
+No really, what is it?
+
+It operates as a Web server, building queries from HTTP requests (from a browser or another service) and passing them to the SPARQL server, formatting the results (to HTML, JSON...) and passing them back to the client.
+
+*** Uses ***
+
+Generally speaking Seki could be used for pretty much any Web system that might otherwise use a HTTP server and database. Because an RDF/SPARQL server/DB is used for the backend, Seki is very webby at its core, meaning server-server communications (e.g. addressing remote Linked Data) will be simplified.
+
+In the near term the plan is to clone various well-known kinds of apps and see what can be added thanks to the Semantic Web goodness. As most apps require the following in some form, this functionality is high on the todo list:
+* simple content managent (largely implemented)
+* user access control (in-progress)
+
+Also high on the list is to provide query federation facilities, to e.g. automatically catalog/annotate/expand documents.
+
+Later the plan is to set Seki up as a general-purpose Web agent container, allow custom behaviour to be defined using pluggable scripts with declarative configuration. 
+
+*** Components ***
+
+* Server
+* Client
+* Routing engine (based on a rules engine)
+* Templater
+* User Manager (in progress)
+* Plugin script runner (todo)
 
 ![Block Diagram](https://github.com/danja/seki/raw/master/docs/other/seki-full.png)
 

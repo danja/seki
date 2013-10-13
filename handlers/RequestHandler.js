@@ -15,6 +15,14 @@ var ProxyHandler = require('./ProxyHandler');
 var TurtleHandler = require('./TurtleHandler');
 var JSONHandler = require('./JSONHandler');
 
+var RegistrationHandler = require('./RegistrationHandler');
+
+var notAuthHeaders = {
+    "Host": config.sekiHost + ":" + config.sekiPort,
+    'Content-Type': 'text/plain',
+    'WWW-Authenticate': 'Basic realm="Secure Area"'
+};
+
 var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 
 nools.Flow.prototype.setRequest = function(request) { this.request = request; }
@@ -197,7 +205,12 @@ return;
             return handler[sekiRequest.method](sekiRequest, sekiResponse);
         }
         
-        if (sekiRequest.method == "POST") {
+        if (sekiRequest.method == "POST") { //// AUTHENTICATION
+            if(sekiRequest.url == "/users/register") {
+                var register = new RegistrationHandler();
+                register.handle(sekiRequest, sekiResponse);
+                return;
+            }
             if (!auth.Basic(sekiRequest)) {
                 sekiResponse.writeHead(401, notAuthHeaders);
                 sekiResponse.end("401 Not Authorized");

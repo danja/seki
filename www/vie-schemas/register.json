@@ -1,19 +1,63 @@
 {
-  "@context": {
-    "login": "http://purl.org/stuff/usermanagement#login",
-    "password": "http://purl.org/stuff/usermanagement#password",
-    "fullname": "http://purl.org/stuff/usermanagement#fullname",
-    "email": "http://purl.org/stuff/usermanagement#email",
-    "profile": "http://purl.org/stuff/usermanagement#profile"
-  },
-  
-    "@id": "http://hyperdata.org/users/danny",
-    "@type": "um:User",
-    "um:login": "danny",
-    "um:fullname": "Danny Ayers",
-    "um:password": "sasha",
-    "um:email": "danny.ayers@gmail.com",
-    "um:profile": "http://dannyayers.com/foaf.rdf"
+"types": {
+    "User": {
+        "ancestors": [
+        "Thing"
+        ], 
+        "comment": "A user.", 
+        "comment_plain": "A user.", 
+        "id": "User", 
+        "label": "User", 
+        "properties": [
+         
+        ], 
+        "specific_properties": [], 
+        "subtypes": [], 
+        "supertypes": [], 
+        "url": "http://purl.org/stuff/usermanagement#User"
+    }
+},
+"properties": {
+    "login": {
+
+        "comment": "login name", 
+        "comment_plain": "login name", 
+        "domains": [ "User" ], 
+        "id": "login", 
+        "label": "Login", 
+        "ranges": [ "Text" ]
+    },
+    "fullname": {
+        "comment": "full name", 
+        "comment_plain": "full name", 
+        "domains": [ "User" ], 
+        "id": "fullname", 
+        "label": "Full name", 
+        "ranges": [ "Text" ]
+    },
+    "password": {
+        "comment": "password", 
+        "comment_plain": "password", 
+        "domains": [ "User" ], 
+        "id": "password", 
+        "label": "Password", 
+        "ranges": [ "Text" ]
+    },
+    "email": {
+        "comment": "email", 
+        "comment_plain": "email", 
+        "domains": [ "User" ], 
+        "id": "email", 
+        "label": "Email", 
+        "ranges": [ "URL" ]
+    },
+    "profile": {
+        "comment": "login name", 
+        "comment_plain": "login name", 
+        "domains": [ "User" ], 
+        "id": "login", 
+        "label": "login", 
+        "ranges": [ "URL" ]
+    }
+    }
 }
-
-

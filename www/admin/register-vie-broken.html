@@ -1,0 +1,110 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Register</title>
+    <link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="../css/seki-general.css" />
+            <script src="../js/underscore-min.js"></script>
+              <script src="../js/jquery/jquery-1.10.2.js"></script>
+      <script src="../js/backbone-min.js"></script>
+
+  <!-- script src="js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="js/jquery/ui/minified/jquery.ui.dialog.min.js"></script -->
+
+  <!-- script src="../js/register.js"></script -->
+  
+     <!-- script src="../create/deps/vie-min.js"></script -->
+    <script src="../js/jquery.rdfquery.min.js"></script>
+    
+    <script src="../js/backbone-forms.min.js"></script>
+    
+    <script src="../js/backbone-forms-list.min.js"></script>
+    
+    <script src="../js/vie.js"></script>
+    
+    <!--script src="../js/vie-widgets.js"></script -->
+     
+   <script>
+   jQuery(document).ready(function() {
+   
+       console.log("PPP");
+var vie = new VIE();
+    console.log("QQQ");
+// vie.RDFaEntities.getInstances();
+vie.loadSchema("/vie-schemas/register.json", {
+  baseNS : "http://purl.org/stuff/usermanagement#",
+  success: function () {
+      console.log("RRR");
+    var type = 'User';
+
+    // Create an entity with the type we're interested in
+    var ent = new vie.Entity({
+      '@type': type,
+      'login' : 'qwe'
+   
+    });
+    //    '<http://purl.org/stuff/usermanagement#login>': 'danny'
+        console.log("SSS");
+          console.log("Model : "+Backbone.Model);
+        console.log("Schema = "+JSON.stringify(VIE.Util.getFormSchema(ent)));
+   var schema =     VIE.Util.getFormSchema(ent)
+    // Generate the form
+    var form = new Backbone.Form({
+      model: ent,
+      fields: [
+        'login',
+        'fullname',
+        'password',
+        'email',
+        'profile'
+      ]
+    });
+         console.log("TTT");
+    form.render();
+
+    console.log("AAA");
+    jQuery('#formholder').append(jQuery('<h2>Form for editing a ' + type + '</h2>'));
+        console.log("BBB");
+    jQuery('#formholder').append(form.el); 
+  },
+  error: function (err) {
+  console.log("ERROR! "+err);
+    jQuery('.results').append('<div class="msg">Something went wrong with loading the ontology from Schema.org!</di>');
+    }
+});
+  });
+   </script>
+
+</head>
+<body>
+<div class="example">
+<div id="formholder" class="well"></div>
+</div>
+<br/>
+<!--
+     <div id="new-user">
+      <h2>Register</h2>
+      <form id="register" action="/users/register" method="post">
+      <br/> Login
+      <input id="login" name="login" value="danny"/>
+      <br/> Full Name
+    <input id="fullname" name="fullname" value="Danny Ayers" />
+    <br/> email
+    <input id="email" name="email" value="danny.ayers@gmail.com"/>
+    <br/> password
+    <input id="password" name="password" value="sasha" />
+        <br/> password
+    <input id="passwordconfirm" name="passwordconfirm" value="sasha" />
+    <br/> FOAF Profile
+        <input id="profile" name="profile" value="http://dannyayers.com/foaf.rdf" />
+    <br/>
+    - input id="context" name="context" class="hidden" value="this is the context" / -
+        <input type="submit" value="Post"/>
+      </form>
+    </div>
+  -->  
+<div id="context">this is the context</div>
+</body>
+</html>

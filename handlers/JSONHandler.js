@@ -52,7 +52,7 @@ JSONHandler.prototype = {
       // now received body of request
       sekiRequest .on('end', function() { 
           log.debug("JSON PUT end event");
-              var options = { "format" : 'application/nquads' };
+        //      var options = { "format" : 'application/nquads' };
      
               var bodyMap = JSON.parse(body);
               
@@ -102,7 +102,8 @@ JSONHandler.prototype = {
               var graphURI = config.uriBase+"/"+section[1];
               
            //   log.debug("graphURI = "+graphURI);
-              options.format = 'application/nquads';
+         //     options.format = 'application/nquads';
+              var options = { "format" : 'application/nquads' };
               var processor = new jsonld.JsonLdProcessor();
               processor.normalize(bodyMap, options, jsonLdProcessorCallback);
               

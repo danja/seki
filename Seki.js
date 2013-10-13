@@ -59,11 +59,7 @@ var graphHeaders = {
     "Host": config.sekiHost + ":" + config.sekiPort
 };
 
-var notAuthHeaders = {
-    "Host": config.sekiHost + ":" + config.sekiPort,
-    'Content-Type': 'text/plain',
-    'WWW-Authenticate': 'Basic realm="Secure Area"'
-};
+
 
 /*
  * mapping URIs to static files on the filesystem
