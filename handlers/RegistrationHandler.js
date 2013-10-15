@@ -55,21 +55,34 @@ RegistrationHandler.prototype = {
                            
                            // console.log(post_body);
                            // turn the POST parameters into a map (JSON object)
-                           var bodyMap = qs.parse(post_body);
-                           
-                           log.debug("parsed post_body \n" + JSON.stringify(post_body));
+                    //       var bodyMap = qs.parse(post_body);
+                           var bodyMap = JSON.parse(post_body);
+                   
                            log.debug("replaceMap \n" + JSON.stringify(bodyMap));
                            
                            // VALIDATE MESSAGE
                            var options = { "format" : 'application/nquads' };
 
                            var processor = new jsonld.JsonLdProcessor();
-                           // try - catch
+                      
                            processor.normalize(bodyMap, options, 
                                function(err, turtle) {
+                                   if(err) {
+                                       log.debug("JsonLd parse error "+err);
+                                   };
                                    log.debug("POSTed Turtle = "+turtle);
+                                   var client = new StoreClient(); // is same as in JSONHandler
+                                   var headers = {
+                                       "Location" : config.uriBase+"/users/"+bodyMap["login"],
+                                       "Content-type" : "text/html; charset=utf-8"
+                                   };
+                                   var callback = function(){ // hmm, 303 not 201 Created
+                                       sekiResponse.writeHead(303, headers); // 201 Created
+                                       sekiResponse.end();
+                                   };
+                                   client.sendTurtle(config.uriBase+"/users", turtle, callback) ;
                                    
-                               
+                             
                            }
                         );
                            return;
