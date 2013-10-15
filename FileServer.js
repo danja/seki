@@ -16,6 +16,8 @@
 
 var Log = require('log'), log = new Log('debug');
 var fs = require('fs'); // filesystem module
+var htmlTemplates = require('./templates/HtmlTemplates');
+var freemarker = require('./templates/freemarker');
 
 var mimeTypes = {
     "html": "text/html",
@@ -44,11 +46,11 @@ exports = module.exports = function fileServer(){
             }
             var dir = __dirname + "/www/";
             
-          log.debug("\n\nIN FileServer dir = " + dir);
-        log.debug("tweakedPathname = " + tweakedPathname);
+       //   log.debug("\n\nIN FileServer dir = " + dir);
+      //  log.debug("tweakedPathname = " + tweakedPathname);
             var path = require('path').resolve(dir, tweakedPathname);
-            log.debug("__dirname = " + __dirname);
-            log.debug("PATH = " + path);
+        //    log.debug("__dirname = " + __dirname);
+        //    log.debug("PATH = " + path);
 
                     var uri = url.parse(req.url).pathname;
                     var filename = p.join(process.cwd(), "www/", unescape(uri));
@@ -72,13 +74,22 @@ exports = module.exports = function fileServer(){
             log.debug("FILE PIPED");
             // res.end(); /////////////////////
             return;
-        } else if (stat.isDirectory()) {
-            // path exists, is a directory
-            log.debug("\n*** stat.isDirectory()\n");
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.write('Index of '+uri+'\n');
-            res.write('TODO : SHOW INDEX\n');
-            res.end();
+        } else if (stat.isDirectory()) {  // path exists, is a directory     
+            //   log.debug("\n*** stat.isDirectory()\n");
+            var callback = function(err, files) {
+                var uri = url.parse(req.url).pathname;
+                if(files.indexOf("index.html") != -1) {
+                    res.writeHead(303, {"Location": uri+"index.html"});
+                 //   res.write(html);
+                    res.end();
+                };
+                var bindings = { "uris" : files };
+                var html = freemarker.render(htmlTemplates.uriList, bindings);
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.write(html);
+                res.end();
+            }
+            fs.readdir(filename, callback)
         //    return;
             } else {
                 // Symbolic link, other?
@@ -86,6 +97,7 @@ exports = module.exports = function fileServer(){
                 log.debug("FAILED WITH filename = "+filename+"\n\n");
                 res.writeHead(500, {'Content-Type': 'text/plain'});
                 res.write('500 Internal server error\n');
+                res.write("FAILED WITH filename = "+filename+"\n\n");
                 res.end();
             }
             return;

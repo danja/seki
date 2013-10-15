@@ -80,8 +80,10 @@
   </head>
 
   <body>
-<p>Hallo View</p>
-<p>postViewTemplate</p>
+<div>
+<a href="/admin/register.html">Register</a> <a href="/admin/login.html">login</a> 
+</div>
+
 
     <div xmlns:sioc="http://rdfs.org/sioc/ns#" 
          xmlns:dcterms="http://purl.org/dc/terms/" 

@@ -76,8 +76,10 @@ var htmlTemplates = {
 			    <body> \
 			  <h1>${title}</h1> \
 			  <ul> \
-			  		<li><a href=\"${uri}\">${uri}</a></li> \
-			  				</ul>\
+			  <#list uris as uri> \
+			  <li><a href=\"${uri}\">${uri}</a></li> \
+			  </#list>  \
+			  </ul>\
 			  </body> \
 			  </html> \
 			  ",
