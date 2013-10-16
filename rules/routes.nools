@@ -1,3 +1,6 @@
+import("./proxy.nools");
+import("./pages.nools");
+
 define ReqRes {
 
 request : '',
@@ -14,7 +17,7 @@ define RequestRouter {
  //   headers : '',
     method : '',
     path : '',
- //   accept : '',
+   accept : '',
  //   contentType : '',
  //   target : '',
 
@@ -22,8 +25,8 @@ define RequestRouter {
         this.method = requestParams["method"];
         this.path = requestParams["path"];
     
-       //     this.headers = requestParams["headers"];
-    //    this.accept = requestParams["headers"]["accept"];
+           this.headers = requestParams["headers"];
+        this.accept = requestParams["accept"];
     //    this.contentType = requestParams["headers"]["content-type"];
     //    this.target = '';
     }
@@ -36,18 +39,13 @@ define Route {
     constructor : function() {
     this.route = { 
         path : '',
-        target : ''
+        target : '',
+        queryTemple : '',
+        viewTemplate : ''
         };
     }      
 }
 
-rule Always {
-    when { 
-        rr : RequestRouter 1 == 1;
-    } then {   
-        log.debug("*** RULE RUN ***"); 
-    }
-}
 
 rule Post {
     when {
@@ -58,21 +56,7 @@ rule Post {
     }
 }
 
-rule ProxyStore {
-    when {
-        rr : RequestRouter  rr.path.substring(0, 7) == "/store/";
-        r : Route r.route["target"] == "";
-    }
-    then {
-        log.debug("*** Proxy rule triggered ***"); 
-        modify(r, function(){this.route["path"] = rr.path.substring(6);});
-        modify(r, function(){this.route["target"] = "ProxyHandler";});
-        
-      //      log.debug("PATH = "+r.route["path"]);
-          //     log.debug("Target = "+r.route["target"]);
-     //   halt();
-    }
-}
+
 
 
 

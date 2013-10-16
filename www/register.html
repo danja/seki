@@ -1,0 +1,70 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Register</title>
+    <link rel="stylesheet" href="../css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="../css/seki-general.css" />
+            <script src="../js/underscore-min.js"></script>
+              <script src="../js/jquery/jquery-1.10.2.js"></script>
+      <script src="../js/backbone.js"></script>
+    <script src="../js/backbone-forms.js"></script>
+</head>
+<body>
+<div id="formContainer">
+
+
+</div>
+
+ <script>
+   jQuery(document).ready(function() {
+   var User = Backbone.Model.extend({
+       url: "/users/register",
+    schema: {
+        login:      'Text',
+        name:       'Text',
+        fullname:   'Text',
+        email:     'Text',
+        password:   'Password',
+        profile:   'Text'
+    }
+});
+    
+var user = new User();
+
+var context = {
+    "login": "http://purl.org/stuff/usermanagement#login", 
+    "password": "http://purl.org/stuff/usermanagement#password", 
+    "fullname": "http://purl.org/stuff/usermanagement#fullname", 
+    "email": "http://purl.org/stuff/usermanagement#email", 
+    "profile": "http://purl.org/stuff/usermanagement#profile" 
+  };
+  
+var form = new Backbone.Form({
+url: '/users/register',
+    model: user
+}).render();
+
+
+$('#formContainer').append(form.el);
+
+$('#formContainer').append("<input id='submit' type='submit' value='Register' name='submit' />");
+
+
+        $('#submit').click(function() {
+        
+        form.commit();
+        user.set('@context',context);
+user.set('@id', "http://hyperdata.org/users/"+user.get("login"));
+user.set('@type', "http://purl.org/stuff/usermanagement#User");
+         console.log(user);
+         user.save();
+      }); 
+     
+  });
+
+   </script>
+
+</body>
+</html>

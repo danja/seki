@@ -76,11 +76,13 @@ RequestHandler.prototype = {
         var reqres = new ReqRes(sekiRequest, sekiResponse);
         session.assert(reqres);
         
+        var accept = sekiRequest.headers["accept"] ? request.headers["accept"] : '';
         var requestParams = {
             //    "headers" : sekiRequest.headers,
             "method" : sekiRequest.method,
-            "path" :  sekiRequest.url
-            // "accept" : request.headers["accept"];
+            "path" :  sekiRequest.url,
+            "headers" : sekiRequest.headers,
+            "accept" : accept
             //     "contentType" : request.headers["content-type"];
             //     this.target = '';
         };

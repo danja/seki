@@ -81,7 +81,7 @@
 
   <body>
 <div>
-<a href="/admin/register.html">Register</a> <a href="/admin/login.html">login</a> 
+<a href="/register.html">Register</a> <a href="/login.html">login</a> 
 </div>
 
 

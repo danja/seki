@@ -39,11 +39,11 @@ function loadDefaultData(){
     var sampleFiles = fs.readdirSync(config.samplesDir);
 
     var defaultDataFiles = {
-       "users" : ["../data/bootstrap/usermanagement.ttl"],
-       "content" : ["../data/samples/delicious.ttl"],
-    //    "vocabs" : ["../www/vocabs/sioc-types.ttl"]
-      "vocabs" : vocabFilenames,
-      "misc" : ["../www/vocabs/commontag.ttl"] // for experimentation
+       "users" : ["./data/bootstrap/usermanagement.ttl"],
+     //  "content" : ["./data/samples/delicious.ttl"],
+  //      "vocabs" : ["../www/vocabs/sioc-types.ttl"]
+     "vocabs" : vocabFilenames
+  //    "misc" : ["./www/vocabs/commontag.ttl"] // for experimentation
        //      sioc.ttl  sioc-types.ttl 
         
     }

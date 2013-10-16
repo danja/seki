@@ -73,10 +73,10 @@ RegistrationHandler.prototype = {
                                    log.debug("POSTed Turtle = "+turtle);
                                    var client = new StoreClient(); // is same as in JSONHandler
                                    var headers = {
-                                       "Location" : config.uriBase+"/users/"+bodyMap["login"],
-                                       "Content-type" : "text/html; charset=utf-8"
+                                       "Location" : "/users/"+bodyMap["login"]+".html" // force html type
                                    };
                                    var callback = function(){ // hmm, 303 not 201 Created
+                                       sekiRequest.headers = { "Accept" : "text/html" };
                                        sekiResponse.writeHead(303, headers); // 201 Created
                                        sekiResponse.end();
                                    };

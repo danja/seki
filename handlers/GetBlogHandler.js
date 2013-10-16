@@ -1,7 +1,6 @@
 var http = require('http');
 var url = require('url');
-var special = require('../config/Special');
-// var templater = require('./templates/Templater');
+
 var sparqlTemplates = require('../templates/SparqlTemplates');
 var htmlTemplates = require('../templates/HtmlTemplates');
 var TurtleHandler = require('./TurtleHandler');

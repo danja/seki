@@ -15,12 +15,9 @@ var sparqlUserTemplates = {
      PREFIX um: <http://purl.org/stuff/usermanagement#> \ 
      \
      SELECT * WHERE { \
-     \
+         GRAPH <http://hyperdata.org/users> {\ 
         <http://hyperdata.org/users/${login}> a um:User ; \
-        um:login \"${login}\" ; \
-        um:password \"${password}\" ; \
-        um:hasRole <http://hyperdata.org/roles/default> . \
-     }",
+     }}",
 
 // used to insert a new item into the store
 insertUserTemplate : 

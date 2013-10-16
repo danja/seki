@@ -1,6 +1,6 @@
 var http = require('http');
 var url = require('url');
-var special = require('../config/Special');
+
 // var templater = require('./templates/Templater');
 var sparqlTemplates = require('../templates/SparqlTemplates');
 var htmlTemplates = require('../templates/HtmlTemplates');
@@ -30,8 +30,10 @@ function GetHandler() {
 
 // properties and methods
 GetHandler.prototype = {
-
-	"handle" : function(sekiRequest, sekiResponse) {
+    "handle" : function(sekiRequest, sekiResponse) {
+        return this.handleFull(sekiRequest, sekiResponse, null, null);
+    },
+	"handleFull" : function(sekiRequest, sekiResponse, queryTemplate, viewTemplate) {
         log.debug("GetHandler.handle");
 		var queryTemplate;
 		var viewTemplate;
@@ -44,14 +46,13 @@ GetHandler.prototype = {
       //  log.debug("RESOURCE = " + resource);
       //  log.debug("sekiRequest.url = " + sekiRequest.url);
 
-		if (special[sekiRequest.url]) {
-			queryTemplate = special[sekiRequest.url].sparqlTemplate;
-			viewTemplate = special[sekiRequest.url].htmlTemplate;
-		}
 
 	//	console.log("special[sekiRequest.url] = " + special[sekiRequest.url]);
      //   log.debug("queryTemplate = " + queryTemplate);
      //   log.debug("viewTemplate = " + viewTemplate);
+   //  log.debug("Headers = "+JSON.stringify(sekiRequest.headers));
+   //  log.debug("SUB "+sekiRequest.url.substring(sekiRequest.url.length-5));
+         if(sekiRequest.url.substring(sekiRequest.url.length-5) !=  ".html") {
 
 		if (accept && accept.indexOf("text/turtle") == 0) {
       //      log.debug("text/turtle requested");
@@ -62,10 +63,11 @@ GetHandler.prototype = {
 		
 		if (accept && accept.indexOf("application/json") == 0) {
       //      log.debug("application/json requested");
-            var handler = new GetJsonHandler();
+            var handler = new GetJsonHandler(); ////// DOESN'T EXIST!!!
             handler.handle(resource, sekiResponse);
             return;
         }
+         }
 
 		// Assume HTML is acceptable
 
