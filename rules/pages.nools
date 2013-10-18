@@ -2,20 +2,31 @@
  * Pages - regular HTML
  */
  
-rule Pages {
+rule GetPage {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method == "get";
         rr : RequestRouter  (rr.accept.indexOf("text/html") != -1) || (rr.accept.indexOf("application/xhtml+xml") != -1);
         r : Route r.route["target"] == "";
-    }
-    then {
-        log.debug("*** Pages rule triggered ***"); 
-     //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
-        modify(r, function(){this.route["target"] = "GetHandler";});
+    } then {
+        log.debug("*** GetPage rule triggered ***"); 
+        modify(r, function(){this.route["targetFunction"] = "GetHandler";});
         modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
         modify(r, function(){this.route["viewTemplate"] = "contentTemplate";});
-      //      log.debug("PATH = "+r.route["path"]);
-          //     log.debug("Target = "+r.route["target"]);
-     //   halt();
     }
 }
+
+rule CreatePage {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method == "post";
+        rr : RequestRouter  (rr.accept.indexOf("text/html") != -1) || (rr.accept.indexOf("application/xhtml+xml") != -1);
+        r : Route r.route["target"] == "";
+    } then {
+        log.debug("*** CreatePage rule triggered ***"); 
+     //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        modify(r, function(){this.route["targetFunction"] = "CreateHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
+    }
+}
+

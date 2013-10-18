@@ -14,6 +14,8 @@ var defaultConfig = {
 //		staticPort : 8889
         
         uriBase : "http://hyperdata.org", // used in the RDF
+        
+        handleLegacyJSON : false,
 		
 	/*
 	 * Settings for the Seki Server (this)

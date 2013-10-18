@@ -4,7 +4,7 @@ PREFIX sioc: <http://rdfs.org/sioc/ns#>
 
 SELECT ?title ?content ?date ?nick WHERE {
 
-	<http://hyperdata.org/seki/Hello> a sioc:Post ;
+	<http://hyperdata.org/pages/Hello> a sioc:Post ;
    		dc:title ?title;
    		sioc:content ?content ;
    		foaf:maker ?maker ;

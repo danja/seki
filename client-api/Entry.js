@@ -10,7 +10,7 @@ var client = new GenericClient();
 var queryPath = '/store'+config.client['queryEndpoint'];
 var auth = new Buffer("danja:sasha").toString('base64');
 
-var createOptions = {
+var createJSONOptions = {
     hostname: config.server['host'],
     port: config.server['port'],
     // path: '/store'+config.client['updateEndpoint'],
@@ -21,13 +21,35 @@ var createOptions = {
     }
 };
 
-var getOptions = {
+var createHTMLOptions = {
+    hostname: config.server['host'],
+    port: config.server['port'],
+    // path: '/store'+config.client['updateEndpoint'],
+    method: 'PUT',
+    headers : {
+        'Content-Type' : 'text/html',
+        'Authorization' : 'Basic '+auth
+    }
+};
+
+var getHTMLOptions = {
     hostname: config.server['host'],
     port: config.server['port'],
     // path: '/store'+config.client['updateEndpoint'],
     method: 'GET',
     headers : {
-  //      'Content-Type' : 'application/json',
+        'Accept' : 'text/html',
+        'Authorization' : 'Basic '+auth
+    }
+};
+
+var getJSONOptions = {
+    hostname: config.server['host'],
+    port: config.server['port'],
+    // path: '/store'+config.client['updateEndpoint'],
+    method: 'GET',
+    headers : {
+        'Accept' : 'application/json',
         'Authorization' : 'Basic '+auth
     }
 };
@@ -39,21 +61,38 @@ function Entry() {
 // properties and methods
 Entry.prototype = {
     
-    "fileCreate" : function(path, filename, callback) {
+    "fileCreateJSON" : function(path, filename, callback) {
    //     log.debug("fileCreate called")
-        this.create(path, fs.readFileSync(filename, 'utf8'), callback);
+        this.createJSON(path, fs.readFileSync(filename, 'utf8'), callback);
     },
     
-    "create" : function(path, json, callback) {
+    "createJSON" : function(path, json, callback) {
   //     log.debug("create called");
-        createOptions["path"] = path;
-        client.call(createOptions, json, callback);
+        createJSONOptions["path"] = path;
+        client.call(createJSONOptions, json, callback);
     },
     
-    "get" : function(path, callback) {
+    "getJSON" : function(path, callback) {
+        //  log.debug("get called with path = "+path);
+        getJSONOptions["path"] = path;
+        client.call(getJSONOptions, '', callback);
+    },
+    
+    "fileCreateHTML" : function(path, filename, callback) {
+        //     log.debug("fileCreate called")
+        this.createHTML(path, fs.readFileSync(filename, 'utf8'), callback);
+    },
+    
+    "createHTML" : function(path, html, callback) {
+        //     log.debug("create called");
+        createHTMLOptions["path"] = path;
+        client.call(createHTMLOptions, html, callback);
+    },
+    
+    "getHTML" : function(path, callback) {
    //  log.debug("get called with path = "+path);
-        getOptions["path"] = path;
-        client.call(getOptions, '', callback);
+        getHTMLOptions["path"] = path;
+        client.call(getHTMLOptions, '', callback);
     },
 }
 

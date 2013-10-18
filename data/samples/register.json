@@ -8,12 +8,12 @@
   },
   
     "@id": "http://hyperdata.org/users/danny",
-    "@type": "um:User",
-    "um:login": "danny",
-    "um:fullname": "Danny Ayers",
-    "um:password": "sasha",
-    "um:email": "danny.ayers@gmail.com",
-    "um:profile": "http://dannyayers.com/foaf.rdf"
+    "@type": "http://purl.org/stuff/usermanagement#User",
+    "login": "danny",
+    "fullname": "Danny Ayers",
+    "password": "sasha",
+    "email": "danny.ayers@gmail.com",
+    "profile": "http://dannyayers.com/foaf.rdf"
 }
 
 

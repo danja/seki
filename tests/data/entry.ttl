@@ -2,7 +2,7 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
 
-<http://hyperdata.org/Hello> a sioc:Post ;
+<http://hyperdata.org/pages/Hello> a sioc:Post ;
    dc:title "Hello World!";
    sioc:content "This is a test." ;
    foaf:maker <http://dannyayers.com/me#> ;

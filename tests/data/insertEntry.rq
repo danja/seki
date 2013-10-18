@@ -5,7 +5,7 @@ PREFIX sioc: <http://rdfs.org/sioc/ns#>
 INSERT DATA {
 	GRAPH <http://hyperdata.org/seki> {
 
-		<http://hyperdata.org/seki/ApiTest> a sioc:Post ;
+		<http://hyperdata.org/pages/ApiTest> a sioc:Post ;
    			dc:title "Hello there!";
    			sioc:content "This is another test." ;
    			foaf:maker <http://dannyayers.com/me#> ;

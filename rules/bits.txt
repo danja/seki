@@ -5,16 +5,46 @@ rules files grouped by path functionality
 
 first agenda sorts out auth, second does routing
 
-rule ProxyDollar {
+
+
+POST pages - because need to create URL
+
+
+rule PostPages {
     when {
-        rr : RequestRouter rr.path.substring(0, 3) == "/$/";
-        r : Route r.map["target"] == "";
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  (rr.contentType == "text/html");
+        rr : RequestRouter  (rr.method == "post");
+        r : Route r.route["target"] == "";
     }
     then {
-        log.debug("*** Proxy rule triggered ***"); 
-        modify(r, function(){this.map["target"] = "ProxyHandler";});
-        modify(r, function(){this.map["path"] = rr.path});
+        log.debug("*** GetPages rule triggered ***"); 
+        //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        modify(r, function(){this.route["target"] = "GetHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
+        modify(r, function(){this.route["viewTemplate"] = "contentTemplate";});
+        //      log.debug("PATH = "+r.route["path"]);
+        //     log.debug("Target = "+r.route["target"]);
+        //   halt();
     }
+    
+rule PutPages {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  (rr.contentType == "text/html");
+        rr : RequestRouter  (rr.method == "put");
+        r : Route r.route["target"] == "";
+    }
+    then {
+        log.debug("*** GetPages rule triggered ***"); 
+        //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        modify(r, function(){this.route["target"] = "GetHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
+        modify(r, function(){this.route["viewTemplate"] = "contentTemplate";});
+        //      log.debug("PATH = "+r.route["path"]);
+        //     log.debug("Target = "+r.route["target"]);
+        //   halt();
+}
 }
 
 

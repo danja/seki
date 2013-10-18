@@ -94,19 +94,14 @@ GetHandler.prototype = {
 		var replaceMap = {
 			"uri" : resource
 		};
-		// var sparql = queryTemplater.fillTemplate(replaceMap);
 
 		var sparql = freemarker.render(queryTemplate, replaceMap);
 
 		// build the URL from the query
-		// var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparql);
-
 		// make the request to the SPARQL server
-		// var clientRequest = client.request("GET", queryPath, sparqlHeaders);
+        
 		config.client["method"] = "GET";
         config.client["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
-
-      // log.debug("OPTIONS IN GETHANDLER = "+JSON.stringify(config.client));
        
 		var clientRequest = http.request(config.client, function(queryResponse) {
 			queryResponse.setEncoding('utf8');
@@ -114,8 +109,6 @@ GetHandler.prototype = {
                 serveHTML(url, viewTemplate, sekiResponse, queryResponse); 
 
 			});
-
-
         sekiRequest.on('data', function() { // is needed?
         //    log.debug("ondata");
         });

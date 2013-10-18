@@ -29,7 +29,6 @@ PostHandler.prototype = {
 
 		var post_body = '';
 
-		// request body may come in chunks, join them together
 		sekiRequest.on('data', function(chunk) {
 			post_body += chunk;
 		});
@@ -37,44 +36,6 @@ PostHandler.prototype = {
 		// now received body of request
 		sekiRequest.on('end',
 						function() {
-                            log.debug("raw post_body \n" + post_body);
-							post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
-							post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
-
-                            // console.log(post_body);
-							// turn the POST parameters into a map (JSON object)
-							var replaceMap = qs.parse(post_body);
-
-                            log.debug("parsed post_body \n" + JSON.stringify(post_body));
-                            log.debug("replaceMap \n" + JSON.stringify(replaceMap));
-
-							replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
-								
-							replaceMap["date"] = new Date().toJSON();
-							var resourceType = replaceMap["type"];
-
-							// URI wasn't specified so generate one (if a target
-							// URI has been specified
-							// use that as a seed)
-							if (!replaceMap["uri"] || replaceMap["uri"] == "") {
-								replaceMap["uri"] = Utils
-										.mintURI(replaceMap["target"]);
-							}
-
-							// graph wasn't specified so create named graph
-							if (!replaceMap["graph"]
-									|| replaceMap["graph"] == "") {
-								replaceMap["graph"] = replaceMap["uri"];
-							}
-							replaceMap["type"] = Constants.rdfsTypes[resourceType];
-
-                            log.debug("resource type \n" + resourceType);
-                            log.debug("type \n"
-									+ Constants.rdfsTypes[resourceType]);
-
-							// verbosity("ReplaceMap =
-							// "+JSON.stringify(replaceMap));
-
 							var sparql;
 							if (replaceMap.target) { // if a target URI is specified, it's an annotation
 								sparql = freemarker.render(sparqlTemplates.insertAnnotationTemplate, replaceMap);
@@ -107,7 +68,51 @@ PostHandler.prototype = {
                             client.send(options, sparql, callback);
 	});
   
-}
+    },
+    "" : function() {
+        log.debug("raw post_body \n" + post_body);
+        
+        post_body = this.cleanContent(post_body);
+        
+        // console.log(post_body);
+        // turn the POST parameters into a map (JSON object)
+        var replaceMap = qs.parse(post_body);
+        
+        log.debug("parsed post_body \n" + JSON.stringify(post_body));
+        log.debug("replaceMap \n" + JSON.stringify(replaceMap));
+        
+        replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
+        
+        replaceMap["date"] = new Date().toJSON();
+        var resourceType = replaceMap["type"];
+        
+        // URI wasn't specified so generate one (if a target
+        // URI has been specified
+        // use that as a seed)
+        if (!replaceMap["uri"] || replaceMap["uri"] == "") {
+            replaceMap["uri"] = Utils
+            .mintURI(replaceMap["target"]);
+        }
+        
+        // graph wasn't specified so create named graph
+        if (!replaceMap["graph"]
+            || replaceMap["graph"] == "") {
+            replaceMap["graph"] = replaceMap["uri"];
+            }
+            replaceMap["type"] = Constants.rdfsTypes[resourceType];
+        
+        log.debug("resource type \n" + resourceType);
+        log.debug("type \n"
+        + Constants.rdfsTypes[resourceType]);
+        
+        // verbosity("ReplaceMap =
+        // "+JSON.stringify(replaceMap));
+    },
+    "cleanContent" : function(content) {
+        content = content.replace(/%0D/g,""); // remove carriage returns 
+        content = content.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
+        return content;
+    }
 }
 
 

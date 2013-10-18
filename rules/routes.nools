@@ -1,34 +1,20 @@
 import("./proxy.nools");
 import("./pages.nools");
 
-define ReqRes {
-
-request : '',
-response : '',
-    
-    constructor : function(request, response) {
-    this.request = request;
-    this.response = response;
-    }      
-}
-
 define RequestRouter {
 
- //   headers : '',
+    headers : '',
     method : '',
     path : '',
-   accept : '',
- //   contentType : '',
- //   target : '',
+    accept : '',
+    contentType : '',
 
     constructor : function(requestParams){
+        this.headers = requestParams["headers"];
         this.method = requestParams["method"];
         this.path = requestParams["path"];
-    
-           this.headers = requestParams["headers"];
         this.accept = requestParams["accept"];
-    //    this.contentType = requestParams["headers"]["content-type"];
-    //    this.target = '';
+        this.contentType = requestParams["content-type"];
     }
 }
 
@@ -37,24 +23,15 @@ define Route {
     route : {},
     
     constructor : function() {
-    this.route = { 
-        path : '',
-        target : '',
-        queryTemple : '',
-        viewTemplate : ''
-        };
-    }      
-}
-
-
-rule Post {
-    when {
-        rr : RequestRouter rr.method == "POST";
-    }
-    then {
-
+        this.route = { 
+            path : '',
+            targetFunction : '',
+            queryTemplate : '',
+            viewTemplate : ''
+        }      
     }
 }
+
 
 
 

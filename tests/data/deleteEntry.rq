@@ -3,8 +3,8 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
 WITH <http://hyperdata.org/seki>
-DELETE { <http://hyperdata.org/seki/ApiTest> ?p ?o }
-WHERE {<http://hyperdata.org/seki/ApiTest> ?p ?o } 
+DELETE { <http://hyperdata.org/pages/ApiTest> ?p ?o }
+WHERE {<http://hyperdata.org/pages/ApiTest> ?p ?o } 
 
 # DELETE DATA {
    # GRAPH <http://hyperdata.org/seki/Wello> {

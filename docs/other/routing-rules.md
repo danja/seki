@@ -42,6 +42,7 @@ user/private
 admin
 group
 user
+CRUD
 
 
 

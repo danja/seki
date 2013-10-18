@@ -5,15 +5,11 @@
 rule ProxyStore {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/store/";
-        r : Route r.route["target"] == "";
+        r : Route r.route["targetFunction"] == "";
     }
     then {
         log.debug("*** Proxy rule triggered ***"); 
         modify(r, function(){this.route["path"] = rr.path.substring(6);});
-        modify(r, function(){this.route["target"] = "ProxyHandler";});
-        
-      //      log.debug("PATH = "+r.route["path"]);
-          //     log.debug("Target = "+r.route["target"]);
-     //   halt();
+        modify(r, function(){this.route["targetFunction"] = "ProxyHandler";});
     }
 }

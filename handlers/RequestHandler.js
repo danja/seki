@@ -7,6 +7,8 @@ var Log = require('log'), log = new Log(config.logLevel);
 
 var Authenticator = require('../Authenticator');
 
+var GenericHandler = require('./GenericHandler');
+
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
 var VieJsonHandler = require('./VieJsonHandler');
@@ -25,29 +27,12 @@ var notAuthHeaders = {
 
 var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
 
-nools.Flow.prototype.setRequest = function(request) { this.request = request; }
-nools.Flow.prototype.setResponse = function(response) { this.response = response; }
-nools.Flow.prototype.getRequest = function() {return this.request; }
-nools.Flow.prototype.getResponse = function() {return this.response; }
-
-//Constructor
 function RequestHandler() {
-
-  //  this.reqres = {
-  //      "sekiRequest" : sekiRequest,
-  //      "sekiResponse" : sekiResponse
-  //  };
- //   var ReqRes = flow.getDefined("ReqRes");
-  //  this.reqres = new ReqRes(sekiRequest, sekiResponse);
 }
 
 RequestHandler.prototype = {
 
     "handle": function(sekiRequest, sekiResponse) {
-        flow.setRequest(sekiRequest);
-        flow.setResponse(sekiResponse);
-   //     var sekiRequest = request;
-  //      var sekiResponse = response;
         
         // works here
         sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
@@ -62,9 +47,7 @@ RequestHandler.prototype = {
         
         // setup rules engine - need to move this outofscope
        // var 
-        
-
-        
+ 
         var RequestRouter = flow.getDefined("RequestRouter");
         var Route = flow.getDefined("Route");
         
@@ -72,18 +55,16 @@ RequestHandler.prototype = {
         var session = flow.getSession(); // session isaninstance of flow
         // can check :  session.print();
         
-        var ReqRes = flow.getDefined("ReqRes");
-        var reqres = new ReqRes(sekiRequest, sekiResponse);
-        session.assert(reqres);
+
         
-        var accept = sekiRequest.headers["accept"] ? request.headers["accept"] : '';
+        var accept = sekiRequest.headers["accept"] ? sekiRequest.headers["accept"] : '';
         var requestParams = {
             //    "headers" : sekiRequest.headers,
             "method" : sekiRequest.method,
             "path" :  sekiRequest.url,
             "headers" : sekiRequest.headers,
-            "accept" : accept
-            //     "contentType" : request.headers["content-type"];
+            "accept" : accept,
+            "contentType" : sekiRequest.headers["content-type"]
             //     this.target = '';
         };
         
@@ -100,87 +81,40 @@ RequestHandler.prototype = {
         
         var r = new Route();
         session.assert(r);
-        
-        // https://github.com/C2FO/nools
-        // try flow.getSession().matchUntilHalt(function(err){
-        
-        var message = "HELLO!";
-        var handlerMap= { // move to config?
-            "ProxyHandler" : ProxyHandler
+
+        var handlerMap= { // move to config? // bypass altogether
+            "ProxyHandler" : ProxyHandler,
+            "GenericHandler" : GenericHandler
         }
         
-      //  var sekiRequest =  this.sekiRequest;
-      //  var sekiResponse = this.sekiResponse;
      var others = this.others;
-     
-     //var getRequest = this.getRequest;
-     
-   //  log.debug("getRequest = "+flow.getRequest());
-         // this is messing up request/response somehow... 
+
          session.match(function(err){
           
              if(err){
                  log.debug(err);
              }else{
                  log.debug("*** RULES DONE ***");
-               //  log.debug("ROUTE = "+this.targetMap["target"]);
-                // this.temp("BOOO");
-                 
-                 var target = r.route["target"];
-                 // targetMap["target"];
-                 
+                 var targetFunction = r.route["targetFunction"];
                  log.debug("r['route'] = "+JSON.stringify(r.route));
                  log.debug("r = "+JSON.stringify(r));                  
                  
-                 if(handlerMap[target]) {
+                 if(handlerMap[targetFunction]) {
                      log.debug("this is a MATCH");
-                     //        var handler = new this.handlerMap[target]();  
                      var options = { "path" : r.route["path"] };
-                 //    log.debug("999SEKI REQUEST HEADERS " + JSON.stringify(getRequest().headers));
-                 ;
-                     log.debug("TARGET = "+target);
-                     var handler = new handlerMap[target]();
-                     // new ProxyHandler();
-                     // this.t();
-                     
-                     log.debug("x SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
-         //   log.debug("this.sekiRequest ================="+ this.sekiRequest);
-                     // 
-                 //    reqres.request.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });           
+                     log.debug("TARGET = "+targetFunction);
+                     var handler = new handlerMap[targetFunction]();
+
+                     log.debug("x SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));         
                      
          handler.handle(sekiRequest, sekiResponse, options);
-         
-        
                      return;
              }
-        //      else {
               log.debug("this NOT is a MATCH");
-          //    ( new RequestHandler(this.sekiRequest, this.sekiResponse)).others();
              others(sekiRequest, sekiResponse);
-        //  return;
-        //     }
              }
-             
          });
-         
-     //    this.others(sekiRequest, sekiResponse);
-        return; // ???
-        
-       /*
-        
-        if (sekiRequest.url.substring(0, 7) == "/store/") {
-            var map = { 'path' : sekiRequest.url.substring(6) };
-            var handler =  new handlerMap["ProxyHandler"](); // new ProxyHandler();
-            handler.handle(sekiRequest, sekiResponse, map);
-            
-            return;
-           
-} else {
-    this.others(sekiRequest, sekiResponse);
-}
-
-return;
-*/
+        return;    
     },
 
     "others": function(sekiRequest, sekiResponse) {
@@ -264,19 +198,6 @@ return;
                 handler.handle(sekiRequest, sekiResponse);
                 return;
             }
-            
-            //         for(key in special) {
-            //             log.debug("KEY = "+key);
-            //             if (sekiRequest.url.substring(0, key.length) == key) {
-            //         //    if(Special[key]){
-            //                 log.debug("SPECIAL MATCH = "+key);
-            //                 var handler = special[key];
-            //                 log.debug("special = "+util.inspect(special));
-            //                 log.debug("handler = "+util.inspect(handler));
-            //                 handler.handle(sekiRequest, sekiResponse);
-            //                 return;
-            //         }
-            //         }
             log.debug("caught GET");
             var handler = new GetHandler();
             handler.handle(sekiRequest, sekiResponse);
