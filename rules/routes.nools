@@ -26,6 +26,8 @@ define Route {
         this.route = { 
             path : '',
             targetFunction : '',
+            responseHandler : '',
+            preprocessor : '',
             queryTemplate : '',
             viewTemplate : ''
         }      

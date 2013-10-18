@@ -36,6 +36,7 @@ PostHandler.prototype = {
 		// now received body of request
 		sekiRequest.on('end',
 						function() {
+                            var bodyMap = JSON.parse(post_body);
 							var sparql;
 							if (replaceMap.target) { // if a target URI is specified, it's an annotation
 								sparql = freemarker.render(sparqlTemplates.insertAnnotationTemplate, replaceMap);

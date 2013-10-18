@@ -14,6 +14,17 @@ var createJSONOptions = {
     hostname: config.server['host'],
     port: config.server['port'],
     // path: '/store'+config.client['updateEndpoint'],
+    method: 'POST',
+    headers : {
+        'Content-Type' : 'application/json',
+        'Authorization' : 'Basic '+auth
+    }
+};
+
+var updateJSONOptions = {
+    hostname: config.server['host'],
+    port: config.server['port'],
+    // path: '/store'+config.client['updateEndpoint'],
     method: 'PUT',
     headers : {
         'Content-Type' : 'application/json',
@@ -76,6 +87,17 @@ Entry.prototype = {
         //  log.debug("get called with path = "+path);
         getJSONOptions["path"] = path;
         client.call(getJSONOptions, '', callback);
+    },
+    
+    "fileUpdateJSON" : function(path, filename, callback) {
+        //     log.debug("fileCreate called")
+        this.updateJSON(path, fs.readFileSync(filename, 'utf8'), callback);
+    },
+    
+    "updateJSON" : function(path, json, callback) {
+        //     log.debug("create called");
+        updateJSONOptions["path"] = path;
+        client.call(updateJSONOptions, json, callback);
     },
     
     "fileCreateHTML" : function(path, filename, callback) {

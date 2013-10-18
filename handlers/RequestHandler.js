@@ -8,6 +8,8 @@ var Log = require('log'), log = new Log(config.logLevel);
 var Authenticator = require('../Authenticator');
 
 var GenericHandler = require('./GenericHandler');
+var CreateHandler = require('./CreateHandler');
+// var JSONConverter = require('./JSONConverter');
 
 var GetHandler = require('./GetHandler');
 var PostHandler = require('./PostHandler');
@@ -35,28 +37,23 @@ RequestHandler.prototype = {
     "handle": function(sekiRequest, sekiResponse) {
         
         // works here
-        sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
-        sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
+   //     sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
         
-        log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+  //      log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
     
         log.debug("REQUEST URL = " + sekiRequest.url);
-        log.debug("REQUEST METHOD = " + sekiRequest.method);
+ //       log.debug("REQUEST METHOD = " + sekiRequest.method);
         
         log.debug("\ngot past file server\n");
         
-        // setup rules engine - need to move this outofscope
-       // var 
+        // setup rules engine - move this outer scope?
  
         var RequestRouter = flow.getDefined("RequestRouter");
         var Route = flow.getDefined("Route");
-        
-        
+
         var session = flow.getSession(); // session isaninstance of flow
         // can check :  session.print();
-        
 
-        
         var accept = sekiRequest.headers["accept"] ? sekiRequest.headers["accept"] : '';
         var requestParams = {
             //    "headers" : sekiRequest.headers,
@@ -69,11 +66,7 @@ RequestHandler.prototype = {
         };
         
         // log.debug("headers"+JSON.stringify(requestParams["headers"]));
-        log.debug("method"+requestParams["method"]);
-        log.debug("path"+requestParams["path"]);
-        
-     //   session.assert(this.reqres);
-      //  var reqres = this.reqres;
+        log.debug("*** requestParams "+JSON.stringify(requestParams));
         
         var rr = new RequestRouter(requestParams);
 
@@ -84,7 +77,10 @@ RequestHandler.prototype = {
 
         var handlerMap= { // move to config? // bypass altogether
             "ProxyHandler" : ProxyHandler,
-            "GenericHandler" : GenericHandler
+         //   "GenericHandler" : GenericHandler,
+            
+            "CreateHandler" : CreateHandler,
+       //     "JSONToParams" : JSONConverter.jsonToParams
         }
         
      var others = this.others;
@@ -96,6 +92,7 @@ RequestHandler.prototype = {
              }else{
                  log.debug("*** RULES DONE ***");
                  var targetFunction = r.route["targetFunction"];
+                 log.debug("TARGET = "+targetFunction);
                  log.debug("r['route'] = "+JSON.stringify(r.route));
                  log.debug("r = "+JSON.stringify(r));                  
                  
@@ -104,10 +101,12 @@ RequestHandler.prototype = {
                      var options = { "path" : r.route["path"] };
                      log.debug("TARGET = "+targetFunction);
                      var handler = new handlerMap[targetFunction]();
-
-                     log.debug("x SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));         
-                     
-         handler.handle(sekiRequest, sekiResponse, options);
+                     var responseHandler = r.route["responseHandler"];
+                     if(responseHandler) {                
+                         handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler]);
+                     } else {            
+                        handler.handle(sekiRequest, sekiResponse, options);
+                     }
                      return;
              }
               log.debug("this NOT is a MATCH");

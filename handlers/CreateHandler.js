@@ -12,10 +12,12 @@ function CreateHandler() {
 
 // properties and methods
 CreateHandler.prototype = {
-    "handle": function(sekiRequest, sekiResponse) {
+    "handle": function(message, sekiResponse) {
         // this.value2 = argument + 100;
         console.log("CreateHandler. called");
     }
 }
+
+// ResponseHandler.handle(message, sekiResponse);
 
 module.exports = CreateHandler;

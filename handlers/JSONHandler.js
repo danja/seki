@@ -61,8 +61,6 @@ JSONHandler.prototype = {
               
               log.debug("targetUrl ======"+targetUrl);
 
-         //     var pathname = url.parse(resourceURI).pathname;          
-         //     var section = pathname.split("/");
               var graphURI = config.uriBase+"/pages";
               
               // *          [base] the base IRI to use.

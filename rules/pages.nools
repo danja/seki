@@ -5,7 +5,7 @@
 rule GetPage {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
-        rr : RequestRouter  rr.method == "get";
+        rr : RequestRouter  rr.method.toLowerCase()  == "get";
         rr : RequestRouter  (rr.accept.indexOf("text/html") != -1) || (rr.accept.indexOf("application/xhtml+xml") != -1);
         r : Route r.route["target"] == "";
     } then {
@@ -18,15 +18,15 @@ rule GetPage {
 
 rule CreatePage {
     when {
-        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
-        rr : RequestRouter  rr.method == "post";
-        rr : RequestRouter  (rr.accept.indexOf("text/html") != -1) || (rr.accept.indexOf("application/xhtml+xml") != -1);
-        r : Route r.route["target"] == "";
+        rr : RequestRouter  rr.path == "/pages";
+        rr : RequestRouter  rr.method.toLowerCase() == "post";
+        r : Route r.route["targetFunction"] == "WIBBLE";
     } then {
         log.debug("*** CreatePage rule triggered ***"); 
      //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
-        modify(r, function(){this.route["targetFunction"] = "CreateHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 
     }
 }
 

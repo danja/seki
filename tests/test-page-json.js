@@ -11,6 +11,7 @@ var ProxySparql = require("../client-api/ProxySparql");
 var TestHelpers = require("./TestHelpers");
 var helpers = new TestHelpers();
 
+var createPath = '/pages';
 var path = '/pages/ApiTest';
 
 exports.testDeleteEntry = function(test){ // just to make sure it's cleared
@@ -22,13 +23,13 @@ exports.testDeleteEntry = function(test){ // just to make sure it's cleared
     proxy.fileUpdate('data/deleteEntry.rq', callback);
 };
 
-exports.testCreate = function(test){
+exports.testUpdate = function(test){ // changed from create - needs extending
     var callback = function(status, headers, body) {
         test.equal(status, 201, "checking status is 201 :Created");
         test.done();
     }
     var entry = new Entry();
-    entry.fileCreateJSON(path, 'data/entry.json', callback);
+    entry.fileUpdateJSON(createPath, 'data/entry.json', callback);
 };
 
 exports.testExists = function(test){
@@ -37,7 +38,7 @@ exports.testExists = function(test){
         test.equal(status, 200, "checking status is 201 :Created");
         var putTitle = helpers.getJsonTitleFile('data/entry.json');
         var gotTitle = helpers.getHtmlTitle(body);
-      //  log.debug("title ="+gotTitle);
+        //  log.debug("title ="+gotTitle);
         test.equal(putTitle, gotTitle, "title should match");
         test.done();
     }
