@@ -29,9 +29,9 @@
          
          about="http://hyperdata.org/${uri}">
       <article typeof="sioc:Post" about="http://hyperdata.org${uri}">
-        <div id="title" class="editable" property="dcterms:title">${title}</div><!-- make this a link? -->
-        <div id="content" class="editable" property="sioc:content">${content}</div>
-        <div id="login" class="editable" property="um:login">${login}</div>
+        <span class="label">title:</span> <div id="title" class="editable" property="dcterms:title">${title}</div><!-- make this a link? -->
+        <span class="label">content:</span> <div id="content" class="editable" property="sioc:content">${content}</div>
+        <span class="label">login:</span> <div id="login" class="editable" property="um:login">${login}</div>
         <!-- div id="fullname" class="editable" property="um:fullname">${fullname}</div -->
       </article>
     </div>
@@ -73,7 +73,7 @@ $('#form').submit(function () {
 
     $.ajax({
         url: "${uri}",
-        type: "POST", 
+        type: "PUT", 
         data: JSON.stringify(data),
      //   dataType: "application/json",
         contentType: "application/json",

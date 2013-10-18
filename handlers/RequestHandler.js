@@ -17,7 +17,6 @@ var VieJsonHandler = require('./VieJsonHandler');
 var GetBlogHandler = require('./GetBlogHandler');
 var ProxyHandler = require('./ProxyHandler');
 var TurtleHandler = require('./TurtleHandler');
-var JSONHandler = require('./JSONHandler');
 
 var RegistrationHandler = require('./RegistrationHandler');
 

@@ -11,8 +11,8 @@ rule GetPage {
     } then {
         log.debug("*** GetPage rule triggered ***"); 
         modify(r, function(){this.route["targetFunction"] = "GetHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";});
-        modify(r, function(){this.route["viewTemplate"] = "contentTemplate";});
+        modify(r, function(){this.route["queryTemplate"] = "pageTemplate";});
+        modify(r, function(){this.route["viewTemplate"] = "pageTemplate";});
     }
 }
 

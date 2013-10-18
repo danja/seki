@@ -21,16 +21,17 @@ var sparqlTemplates = {
        ; \
        INSERT DATA { GRAPH <${graph}>{ ${body} }}",
     
-	itemTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+	pageTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
       \
-      SELECT DISTINCT ?title ?content ?date ?fullname WHERE { \
+      SELECT DISTINCT ?title ?content ?date ?login WHERE { \
              GRAPH <http://hyperdata.org/pages> {\
           <${uri}> a sioc:Post ; \
          dcterms:title ?title; \
          sioc:content ?content ; \
+         um:login ?login ; \
          dcterms:date ?date . \
             } \
 }", //     um:fullname ?fullname ; \

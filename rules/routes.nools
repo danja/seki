@@ -1,5 +1,6 @@
 import("./proxy.nools");
 import("./pages.nools");
+import("./with-extension.nools");
 
 define RequestRouter {
 
