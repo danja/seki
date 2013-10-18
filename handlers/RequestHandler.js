@@ -9,13 +9,11 @@ var Authenticator = require('../Authenticator');
 
 var GenericHandler = require('./GenericHandler');
 var CreateHandler = require('./CreateHandler');
-// var JSONConverter = require('./JSONConverter');
+var ProxyHandler = require('./ProxyHandler');
 
 var GetHandler = require('./GetHandler');
-var PostHandler = require('./PostHandler');
-var VieJsonHandler = require('./VieJsonHandler');
 var GetBlogHandler = require('./GetBlogHandler');
-var ProxyHandler = require('./ProxyHandler');
+
 var TurtleHandler = require('./TurtleHandler');
 
 var RegistrationHandler = require('./RegistrationHandler');
@@ -26,7 +24,7 @@ var notAuthHeaders = {
     'WWW-Authenticate': 'Basic realm="Secure Area"'
 };
 
-var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log, PostHandler: PostHandler}});
+var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log}});
 
 function RequestHandler() {
 }

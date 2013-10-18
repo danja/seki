@@ -3,5 +3,5 @@
 "@type":"<http://rdfs.org/sioc/ns#Post>",
 "<http://purl.org/dc/terms/title>":"Test Title",
 "<http://rdfs.org/sioc/ns#content>":"",
-"<http://purl.org/stuff/usermanagement#fullname>":""
+"<http://purl.org/stuff/usermanagement#login>":""
 }

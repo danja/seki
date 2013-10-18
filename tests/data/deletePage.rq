@@ -1,20 +1,3 @@
-PREFIX dc: <http://purl.org/dc/elements/1.1/> 
-PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
-PREFIX sioc: <http://rdfs.org/sioc/ns#> 
-
 WITH <http://hyperdata.org/pages>
 DELETE { <http://hyperdata.org/pages/ApiTest> ?p ?o }
 WHERE {<http://hyperdata.org/pages/ApiTest> ?p ?o } 
-
-# DELETE DATA {
-   # GRAPH <http://hyperdata.org/seki/Wello> {
-
-    #    <http://hyperdata.org/seki/ApiTest> a sioc:Post ;
-     #       dc:title "Hello there!";
-      #      sioc:content "This is another test." ;
-       #     foaf:maker <http://dannyayers.com/me#> ;
-        #    dc:date "2011-08-30T19:20Z" .
-
-      #  <http://dannyayers.com/me#> foaf:nick "danja" .
-# }
-#}

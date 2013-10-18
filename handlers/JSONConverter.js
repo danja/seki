@@ -5,7 +5,7 @@ var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var LegacyJSONUtils = require("./LegacyJSONUtils");
 
-function JSONConverter() {
+function JSONConverter() { /// NOT USED??????????????????????????
 }
 
 JSONConverter.jsonToParams = function(bodyMap) {
