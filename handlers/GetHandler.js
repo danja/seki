@@ -75,7 +75,7 @@ GetHandler.prototype = {
 			queryTemplate = sparqlTemplates.itemTemplate;
 		}
 		if (!viewTemplate) { // need smarter switching/lookup here
-            viewTemplate = htmlTemplates.contentTemplate;
+            viewTemplate = htmlTemplates.pageTemplate;
 		}
 
 		var urlParts = url.parse(sekiRequest.url, true);
@@ -127,9 +127,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
    //  log.debug("in serveHTML, viewTemplate = "+viewTemplate);
 	if (!viewTemplate) {
         viewTemplate = htmlTemplates.contentTemplate; // 
-	}
-
-;
+	};
 	var stream = saxer.createStream();
 
 	sekiResponse.pipe(stream);
@@ -141,13 +139,14 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
     
 
 	queryResponse.on('end', function() {
-     //   log.debug("querResponse end");
+      //  log.debug("\n\n\n\nquerResponse end\n\n\n\n");
 		stream.end();
 
 		var bindings = stream.bindings;
 
-		// verbosity("bindings " + JSON.stringify(bindings));
+		log.debug("\nbindings " + JSON.stringify(bindings));
 
+        /*
 		if (!bindings || !bindings.title) { // // this is shite
                         var creativeMap = {
                  "uri" : resource,
@@ -157,17 +156,18 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
                         }
                 // "uri" :  sekiRequest.url
             };
-            
+            */
 			sekiResponse.writeHead(200, sekiHeaders);
 
             bindings["uri"] = resource; 
+            
             
             var html = freemarker.render(viewTemplate, bindings);
 
 	//		log.info("404");
 		
-        //    log.debug("viewTemplate = "+viewTemplate);
-        //    log.debug("bindings = "+JSON.stringify(bindings));
+     //       log.debug("viewTemplate = "+viewTemplate);
+     //       log.debug("bindings = "+JSON.stringify(bindings));
 		sekiResponse.end(html);
 	});
 };

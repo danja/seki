@@ -77,7 +77,7 @@ RequestHandler.prototype = {
 
         var handlerMap= { // move to config? // bypass altogether
             "ProxyHandler" : ProxyHandler,
-         //   "GenericHandler" : GenericHandler,
+            "GenericHandler" : GenericHandler,
             
             "CreateHandler" : CreateHandler,
        //     "JSONToParams" : JSONConverter.jsonToParams
@@ -102,6 +102,7 @@ RequestHandler.prototype = {
                      log.debug("TARGET = "+targetFunction);
                      var handler = new handlerMap[targetFunction]();
                      var responseHandler = r.route["responseHandler"];
+                     log.debug("responseHandler = "+responseHandler);
                      if(responseHandler) {                
                          handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler]);
                      } else {            
@@ -197,6 +198,8 @@ RequestHandler.prototype = {
                 handler.handle(sekiRequest, sekiResponse);
                 return;
             }
+            
+            
             log.debug("caught GET");
             var handler = new GetHandler();
             handler.handle(sekiRequest, sekiResponse);

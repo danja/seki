@@ -20,7 +20,7 @@ rule CreatePage {
     when {
         rr : RequestRouter  rr.path == "/pages";
         rr : RequestRouter  rr.method.toLowerCase() == "post";
-        r : Route r.route["targetFunction"] == "WIBBLE";
+        r : Route r.route["targetFunction"] == "";
     } then {
         log.debug("*** CreatePage rule triggered ***"); 
      //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
@@ -28,5 +28,19 @@ rule CreatePage {
         modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
         modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 
     }
+}
+
+rule UpdatePage {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method.toLowerCase() == "put";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** CreatePage rule triggered ***"); 
+        //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 
+}
 }
 

@@ -58,25 +58,6 @@ StoreClient.prototype = {
             callback(queryResponse);
         };
         });
-//         function respond(queryResponse){
-// 
-//                 //                                console.log('STATUS: ' + res.statusCode);
-//                 //                                console.log('HEADERS: ' + JSON.stringify(res.headers));
-//                 queryResponse.setEncoding('utf8');
-//                 log.debug("IN SEND CALLING RESPOND");
-//                 if (callback) {
-//                     log.debug("IN SEND CALLING " + callback);
-//                      callback(queryResponse);
-//                 };
-//             
-//         }
-//         clientRequest.on('response', function(queryResponse) {
-//             log.debug("RESPONSE");
-//             response(queryResponse);
-//         });
-//         function response(queryResponse){
-//             callback(queryResponse);
-//         }
         clientRequest.write(sparql);
         clientRequest.end();
     },
@@ -138,9 +119,6 @@ StoreClient.prototype = {
                 log.debug("send2 SERIES results = " + results);
                 log.debug("send2 SERIES err = " + err);
             });
-
-
-
     },
 
     "sendTurtle": function(graphURI, turtle, callback) {
@@ -173,10 +151,10 @@ StoreClient.prototype = {
         var options = config.client;
         options["method"] = config.client["updateMethod"];
         options["path"] = config.client["updateEndpoint"];
-        log.debug("**** options = "+JSON.stringify(options));
-        log.debug("options[path] = "+options["path"]);
-        log.debug("replaceSparql = "+replaceSparql);
-        log.debug("finalCallback = "+JSON.stringify(finalCallback));
+    //    log.debug("**** options = "+JSON.stringify(options));
+    //    log.debug("options[path] = "+options["path"]);
+    //    log.debug("replaceSparql = "+replaceSparql);
+    //    log.debug("finalCallback = "+JSON.stringify(finalCallback));
         this.send(options, replaceSparql, finalCallback);
     },
 

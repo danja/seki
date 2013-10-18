@@ -12,9 +12,9 @@ function load(filename) {
 }
 
 var htmlTemplates = {
-    contentTemplate : (function() {
+    pageTemplate : (function() {
         // console.log("loading HTML editor template "+__dirname);
-        var path = require('path').resolve(__dirname, 'postViewTemplate.ftl');
+        var path = require('path').resolve(__dirname, 'pageTemplate.ftl');
         // console.log("path : "+path);
         var template = load(path);
         //console.log("TEMPLATE : "+template);

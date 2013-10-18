@@ -2,7 +2,7 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
-WITH <http://hyperdata.org/seki>
+WITH <http://hyperdata.org/pages>
 DELETE { <http://hyperdata.org/pages/ApiTest> ?p ?o }
 WHERE {<http://hyperdata.org/pages/ApiTest> ?p ?o } 
 

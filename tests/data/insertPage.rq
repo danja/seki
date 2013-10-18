@@ -3,7 +3,7 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX sioc: <http://rdfs.org/sioc/ns#> 
 
 INSERT DATA {
-	GRAPH <http://hyperdata.org/seki> {
+	GRAPH <http://hyperdata.org/pages> {
 
 		<http://hyperdata.org/pages/ApiTest> a sioc:Post ;
    			dc:title "Hello there!";

@@ -20,23 +20,23 @@ exports.testDeleteEntry = function(test){ // just to make sure it's cleared
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileUpdate('data/deleteEntry.rq', callback);
+    proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
-exports.testUpdate = function(test){ // changed from create - needs extending
+exports.testUpdate = function(test){ 
     var callback = function(status, headers, body) {
         test.equal(status, 201, "checking status is 201 :Created");
         test.done();
     }
     var entry = new Entry();
-    entry.fileUpdateJSON(createPath, 'data/entry.json', callback);
+    entry.fileUpdateJSON(path, 'data/page.json', callback);
 };
 
 exports.testExists = function(test){
     log.debug("Note : is checking HTML GET entry");
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status is 201 :Created");
-        var putTitle = helpers.getJsonTitleFile('data/entry.json');
+        var putTitle = helpers.getJsonTitleFile('data/page.json');
         var gotTitle = helpers.getHtmlTitle(body);
         //  log.debug("title ="+gotTitle);
         test.equal(putTitle, gotTitle, "title should match");
@@ -44,4 +44,13 @@ exports.testExists = function(test){
     }
     var entry = new Entry();
     entry.getHTML(path, callback);
+};
+
+exports.testCreate = function(test){ // changed from create - needs extending
+    var callback = function(status, headers, body) {
+        test.equal(status, 201, "checking status is 201 :Created");
+        test.done();
+    }
+    var entry = new Entry();
+    entry.fileCreateJSON(createPath, 'data/page.json', callback);
 };

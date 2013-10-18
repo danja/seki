@@ -27,13 +27,13 @@ var sparqlTemplates = {
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
       \
       SELECT DISTINCT ?title ?content ?date ?fullname WHERE { \
-      \
-      <${uri}> a sioc:Post ; \
+             GRAPH <http://hyperdata.org/pages> {\
+          <${uri}> a sioc:Post ; \
          dcterms:title ?title; \
          sioc:content ?content ; \
-         um:fullname ?fullname ; \
          dcterms:date ?date . \
-      }",
+            } \
+}", //     um:fullname ?fullname ; \
       
       pagedItemsTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
@@ -45,13 +45,12 @@ var sparqlTemplates = {
           ?uri a sioc:Post ; \
           dcterms:title ?title; \
           sioc:content ?content ; \
-          um:fullname ?fullname ; \
           dcterms:date ?date . \
       } \
       ORDER BY DESC(?date) \
       LIMIT ${limit} \
       OFFSET ${offset} \
-      ",
+      ", //           um:fullname ?fullname ; \
 
 	// used to insert a new item into the store
 	insertTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \

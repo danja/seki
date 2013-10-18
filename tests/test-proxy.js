@@ -11,7 +11,7 @@ exports.testDeleteInit = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileUpdate('data/deleteEntry.rq', callback);
+    proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
 exports.testEntryNotExistsInit = function(test){
@@ -22,7 +22,7 @@ exports.testEntryNotExistsInit = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileQuery('data/askEntry.rq', callback);
+    proxy.fileQuery('data/askPage.rq', callback);
 };
 
 
@@ -32,7 +32,7 @@ exports.testInsert = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileUpdate('data/insertEntry.rq', callback);    
+    proxy.fileUpdate('data/insertPage.rq', callback);    
 };
 
 
@@ -44,7 +44,7 @@ exports.testEntryExists = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileQuery('data/askEntry.rq', callback);
+    proxy.fileQuery('data/askPage.rq', callback);
 };
 
 exports.testDelete = function(test){
@@ -53,7 +53,7 @@ exports.testDelete = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileUpdate('data/deleteEntry.rq', callback);
+    proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
 exports.testEntryNotExists = function(test){
@@ -64,5 +64,5 @@ exports.testEntryNotExists = function(test){
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileQuery('data/askEntry.rq', callback);
+    proxy.fileQuery('data/askPage.rq', callback);
 };

@@ -28,10 +28,11 @@ JSONHandler.prototype = {
       return this.PUT(sekiRequest, sekiResponse);
   },
   
-  // TODO move to PutHandler
-  "PUT": function(sekiRequest, sekiResponse) {
+
+  "PUT": function(sekiRequest, sekiResponse) { // this is duplicated in CreateHandler
 
       console.log("JSONHandler.PUT called");
+      /*
       var body = '';
 
       sekiRequest.on('data', function(chunk) {
@@ -88,7 +89,7 @@ JSONHandler.prototype = {
                   client.replaceResource(graphURI, resourceURI, turtle, finalCallback);   
                
                   }   
-});
+}); */
   }
 }
 

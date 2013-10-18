@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Editor</title>
+    <title>${title}</title>
     <link href="/css/bootstrap.css" rel="stylesheet" />
     <link href="/css/fontawesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/hallo.css" />
@@ -29,9 +29,9 @@
          
          about="http://hyperdata.org/${uri}">
       <article typeof="sioc:Post" about="http://hyperdata.org${uri}">
-        <div id="title" class="editable" property="dcterms:title">Title</div>
-        <div id="content" class="editable" property="sioc:content">Content</div>
-        <div id="login" class="editable" property="um:login">login</div>
+        <div id="title" class="editable" property="dcterms:title">${title}</div><!-- make this a link? -->
+        <div id="content" class="editable" property="sioc:content">${content}</div>
+        <div id="login" class="editable" property="um:login">${login}</div>
         <!-- div id="fullname" class="editable" property="um:fullname">${fullname}</div -->
       </article>
     </div>
@@ -72,7 +72,7 @@ $('#form').submit(function () {
     console.log("POSTing "+JSON.stringify(data));
 
     $.ajax({
-        url: "http://localhost:8888/pages",
+        url: "${uri}",
         type: "POST", 
         data: JSON.stringify(data),
      //   dataType: "application/json",
@@ -84,7 +84,7 @@ $('#form').submit(function () {
                 complete: function(returnData) {
         
              console.log("JSON = "+JSON.stringify(returnData));
-                if (returnData.status == 201) { 
+                if (returnData.status == 201) { // may not be correct here
                     window.location = returnData.getResponseHeader('Location');
                 };
         }

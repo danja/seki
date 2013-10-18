@@ -55,7 +55,7 @@ exports = module.exports = function fileServer(){
                     var uri = url.parse(req.url).pathname;
                     var filename = p.join(process.cwd(), "www/", unescape(uri));
                     var stat;
-                    log.debug("filename = "+filename+"\n\n");
+                  //  log.debug("filename = "+filename+"\n\n");
                     try {
                         stat = fs.lstatSync(filename); // throws if path doesn't exist
                     } catch (e) {
@@ -65,13 +65,13 @@ exports = module.exports = function fileServer(){
         
         if (stat.isFile()) {
             // path exists, is a file
-            log.debug("\n*** stat.isFile()\n");
+         //   log.debug("\n*** stat.isFile()\n");
             var mimeType = mimeTypes[p.extname(filename).split(".")[1]];
             res.writeHead(200, {'Content-Type': mimeType} );
             
             var fileStream = fs.createReadStream(filename);
             fileStream.pipe(res);
-            log.debug("FILE PIPED");
+        //    log.debug("FILE PIPED");
             // res.end(); /////////////////////
             return;
         } else if (stat.isDirectory()) {  // path exists, is a directory     
