@@ -22,6 +22,7 @@
 
 <!-- a href="/register.html">Register</a> <a href="/login.html">login</a --> 
 
+
 <div id="content">
     <div xmlns:sioc="http://rdfs.org/sioc/ns#" 
          xmlns:dcterms="http://purl.org/dc/terms/" 
@@ -78,8 +79,9 @@ $('#form').submit(function () {
      //   dataType: "application/json",
         contentType: "application/json",
         success: function(returnData) {
-            alert("Success post");
+           // alert("Success post");
              console.log("JSON = "+JSON.stringify(returnData));
+
 },
                 complete: function(returnData) {
         

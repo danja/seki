@@ -14,7 +14,7 @@ exports.testDeleteInit = function(test){
     proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
-exports.testEntryNotExistsInit = function(test){
+exports.testPageNotExistsInit = function(test){
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");
@@ -36,7 +36,7 @@ exports.testInsert = function(test){
 };
 
 
-exports.testEntryExists = function(test){
+exports.testPageExists = function(test){
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.notEqual(body.indexOf("true"), -1, "body should contain 'true'");
@@ -56,7 +56,7 @@ exports.testDelete = function(test){
     proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
-exports.testEntryNotExists = function(test){
+exports.testPageNotExists = function(test){
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");

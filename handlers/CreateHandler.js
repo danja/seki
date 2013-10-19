@@ -14,7 +14,7 @@ function CreateHandler() {
 
 // properties and methods
 CreateHandler.prototype = {
-    "handle": function(message, sekiResponse) { // takes JSON
+    "handle": function(sekiResponse, message, route) { // takes JSON
         // this.value2 = argument + 100;
         console.log("CreateHandler.handle called");
         
@@ -52,8 +52,9 @@ CreateHandler.prototype = {
         processor.normalize(bodyMap, options, jsonLdProcessorCallback);
         
         function jsonLdProcessorCallback(err, turtle) {
+            if(err){
             log.debug("error in jsonLdProcessorCallback = "+err);
-            
+            };
             var client = new StoreClient();
             
             var finalCallback = function(){
@@ -70,7 +71,7 @@ CreateHandler.prototype = {
         return;
     },
     
-    "handleFormEncoded" : function() {
+    "handleFormEncoded" : function() { // not wired in
         log.debug("raw post_body \n" + post_body);
         
         post_body = this.cleanContent(post_body);

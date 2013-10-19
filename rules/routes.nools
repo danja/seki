@@ -15,7 +15,7 @@ define RequestRouter {
         this.method = requestParams["method"];
         this.path = requestParams["path"];
         this.accept = requestParams["accept"];
-        this.contentType = requestParams["content-type"];
+        this.contentType = requestParams["contentType"];
     }
 }
 
@@ -30,10 +30,12 @@ define Route {
             responseHandler : '',
             preprocessor : '',
             queryTemplate : '',
-            viewTemplate : ''
+            viewTemplate : '',
+            responseHeaders : ''
         }      
     }
 }
+
 
 
 

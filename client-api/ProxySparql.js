@@ -27,7 +27,7 @@ var updateOptions = {
 var queryOptions = {
     hostname: config.server['host'],
     port: config.server['port'],
- //   path: '/store'+config.client['queryEndpoint'],
+//   path: '/store'+config.client['queryEndpoint'],
     method: 'GET',
     headers : {
         'Authorization' : 'Basic '+auth
@@ -38,26 +38,26 @@ var queryOptions = {
 ProxySparql.prototype = {
     
 "fileUpdate" : function(filename, callback) {
-  //  log.debug("ProxySparql.fileUpdate called")
+//  log.debug("ProxySparql.fileUpdate called")
     this.update(fs.readFileSync(filename, 'utf8'), callback);
 },
 
 "update" : function(sparql, callback) {
- //   log.debug("update called");
+//   log.debug("update called");
     client.call(updateOptions, sparql, callback);
 },
 
 "fileQuery" : function(filename, callback) {
-  //  log.debug("fileQuery called");
+//  log.debug("fileQuery called");
     this.query(fs.readFileSync(filename, 'utf8'), callback);   
 },
- 
+
 "query"  : function(sparql, callback) {
-  //  log.debug("query called");
+//  log.debug("query called");
     var encoded = qs.escape(sparql);
-  //  log.debug("***** encoded = "+encoded);
+//  log.debug("***** encoded = "+encoded);
     queryOptions.path = queryPath + "?query="+encoded ;
-  //  log.debug("***** QUERY options = "+JSON.stringify(queryOptions));
+//  log.debug("***** QUERY options = "+JSON.stringify(queryOptions));
     client.call(queryOptions, '', callback);
 }
 }

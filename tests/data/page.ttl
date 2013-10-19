@@ -1,0 +1,13 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix um: <http://purl.org/stuff/usermanagement#> .
+
+<http://hyperdata.org/pages/ApiTest> a sioc:Post ;
+   dc:title "Test Title";
+   sioc:content "This is a test." ;
+   foaf:maker <http://dannyayers.com/me#> ;
+   um:login "danja" ;
+   dc:date "2011-08-30T19:00Z" .
+
+<http://dannyayers.com/me#> foaf:nick "danja" .

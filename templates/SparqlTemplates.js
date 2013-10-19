@@ -6,8 +6,8 @@ var sparqlTemplates = {
 	// used to retrieve an item from the store for display
 	// http://purl.org/dc/terms/
 
-    generalInsertTemplate : "${prefixes} \
-    INSERT DATA { GRAPH <${graph}>{ ${body} }}",
+    turtleInsertTemplate : "${prefixes} \
+            INSERT DATA { GRAPH <${graph}>{ ${body} }}",
     
     generalDeleteTemplate : "${prefixes} \
     DELETE DATA { GRAPH <${graph}>{ ${body} }}",

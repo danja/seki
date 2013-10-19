@@ -8,6 +8,8 @@ var Log = require('log'), log = new Log(config.logLevel);
 var Authenticator = require('../Authenticator');
 
 var GenericHandler = require('./GenericHandler');
+var TemplatingResponseHandler = require('./TemplatingResponseHandler');
+
 var CreateHandler = require('./CreateHandler');
 var ProxyHandler = require('./ProxyHandler');
 
@@ -34,7 +36,7 @@ RequestHandler.prototype = {
     "handle": function(sekiRequest, sekiResponse) {
         
         // works here
-   //     sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
+      sekiRequest.on('end', function() { log.debug("END EVENT!!!!!!!!!"); });
         
   //      log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
     
@@ -51,21 +53,22 @@ RequestHandler.prototype = {
         var session = flow.getSession(); // session isaninstance of flow
         // can check :  session.print();
 
-        var accept = sekiRequest.headers["accept"] ? sekiRequest.headers["accept"] : '';
+        var accept = sekiRequest.headers["accept"] ? sekiRequest.headers["accept"] : ''; // ????
+        
         var requestParams = {
             //    "headers" : sekiRequest.headers,
-            "method" : sekiRequest.method,
+            "method" : sekiRequest.method.toLowerCase(),
             "path" :  sekiRequest.url,
-            "headers" : sekiRequest.headers,
             "accept" : accept,
             "contentType" : sekiRequest.headers["content-type"]
-            //     this.target = '';
         };
         
         // log.debug("headers"+JSON.stringify(requestParams["headers"]));
         log.debug("*** requestParams "+JSON.stringify(requestParams));
         
         var rr = new RequestRouter(requestParams);
+        
+        
 
         session.assert(rr);
         
@@ -77,6 +80,7 @@ RequestHandler.prototype = {
             "GenericHandler" : GenericHandler,
             
             "CreateHandler" : CreateHandler,
+            "TemplatingResponseHandler" : TemplatingResponseHandler
        //     "JSONToParams" : JSONConverter.jsonToParams
         }
         
@@ -88,22 +92,24 @@ RequestHandler.prototype = {
                  log.debug(err);
              }else{
                  log.debug("*** RULES DONE ***");
+                 log.debug("ROUTE = "+JSON.stringify(r.route));
+                 
                  var targetFunction = r.route["targetFunction"];
-                 log.debug("TARGET = "+targetFunction);
-                 log.debug("r['route'] = "+JSON.stringify(r.route));
+
                  log.debug("r = "+JSON.stringify(r));                  
                  
                  if(handlerMap[targetFunction]) {
                      log.debug("this is a MATCH");
                      var options = { "path" : r.route["path"] };
                      log.debug("TARGET = "+targetFunction);
-                     var handler = new handlerMap[targetFunction]();
+                     var handler = new handlerMap[targetFunction](); //GenericHandler
                      var responseHandler = r.route["responseHandler"];
-                     log.debug("responseHandler = "+responseHandler);
+                     log.debug("responseHandler = "+responseHandler); // 
+         
                      if(responseHandler) {                
-                         handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler]);
+                         handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler], r.route);
                      } else {            
-                        handler.handle(sekiRequest, sekiResponse, options);
+                        handler.handle(sekiRequest, sekiResponse, options); //currently for ProxyHandler
                      }
                      return;
              }

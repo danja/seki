@@ -80,7 +80,7 @@ GetHandler.prototype = {
 
             resource = config.uriBase + urlParts.pathname;
 
-        //	log.debug("RESOURCE = " + resource);
+        	log.debug("RESOURCE = " + resource);
 
 
         //viewTemplate = htmlTemplates.postViewTemplate;
@@ -94,6 +94,7 @@ GetHandler.prototype = {
 
         var sparql = freemarker.render(queryTemplate, replaceMap);
 
+        log.debug("SPARQL = "+sparql);
         // build the URL from the query
         // make the request to the SPARQL server
         
@@ -107,11 +108,11 @@ GetHandler.prototype = {
 
             });
         sekiRequest.on('data', function() { // is needed?
-        //    log.debug("ondata");
+            log.debug("ondata");
         });
     // finish up
     sekiRequest.on('end', function() {
-//     log.debug("End of sekiRequest");
+    log.debug("End of sekiRequest");
         clientRequest.end();
     });
 }
@@ -130,12 +131,12 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
     sekiResponse.pipe(stream);
 
     queryResponse.on('data', function(chunk) {
-    //  log.debug("CHUNK: " + chunk);
+      log.debug("CHUNK: " + chunk);
         stream.write(chunk);
     });
 
     queryResponse.on('end', function() {
-
+        log.debug(" queryResponse.on('end'");
         stream.end();
 
         var bindings = stream.bindings;
@@ -146,7 +147,7 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
             bindings["uri"] = resource; 
 
             var html = freemarker.render(viewTemplate, bindings);
-
+            log.debug("sekiResponse.end(html)");
     //       log.debug("viewTemplate = "+viewTemplate);
     //       log.debug("bindings = "+JSON.stringify(bindings));
         sekiResponse.end(html);

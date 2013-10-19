@@ -14,14 +14,15 @@ var postHeaders = {
     'Content-Type' : 'application/x-www-form-urlencoded'
 };
 
-// Constructor
+// MERGE THIS INTO RequestHandler
+
 function GenericHandler() {
 }
 
 // properties and methods
 GenericHandler.prototype = {
     
-    "handle" : function(sekiRequest, sekiResponse, ResponseHandler) {
+    "handle" : function(sekiRequest, sekiResponse, ResponseHandler, route) {
         
         log.debug("GenericHandler.handle");
 
@@ -32,7 +33,7 @@ GenericHandler.prototype = {
         });
         sekiRequest.on('end', function() {
             var handler = new ResponseHandler();
-            handler.handle(message, sekiResponse);
+            handler.handle(sekiResponse, message, route);
         }
         );                  
     }

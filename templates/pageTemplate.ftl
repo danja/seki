@@ -21,7 +21,7 @@
     </header>
 
 <!-- a href="/register.html">Register</a> <a href="/login.html">login</a --> 
-
+<div id="notify">NOTIFY</div>
 <div id="content">
     <div xmlns:sioc="http://rdfs.org/sioc/ns#" 
          xmlns:dcterms="http://purl.org/dc/terms/" 
@@ -64,12 +64,10 @@ $('#form').submit(function () {
     };
     
     $(".editable").each(function(index, element){
-    // console.log( $( this ).text() );
-   //   console.log( $( this ).attr("id") );
         data[$(this).attr("id")] = $(this).html();
     });
 
-    console.log("POSTing "+JSON.stringify(data));
+  //  var message = "No Message";
 
     $.ajax({
         url: "${uri}",
@@ -78,7 +76,8 @@ $('#form').submit(function () {
      //   dataType: "application/json",
         contentType: "application/json",
         success: function(returnData) {
-            alert("Success post");
+           //  alert("Success post");
+                      
              console.log("JSON = "+JSON.stringify(returnData));
 },
                 complete: function(returnData) {
@@ -87,10 +86,12 @@ $('#form').submit(function () {
                 if (returnData.status == 201) { // may not be correct here
                     window.location = returnData.getResponseHeader('Location');
                 };
-        }
-        
-        
+                
+        } 
     });
+    //  $("#notify").val(message);
+   //   setTimeout( function(){$(#notify).hide();} , 40000);
+     //     $("#notify").delay(2000).fadeOut();
    return false;  
 
 
