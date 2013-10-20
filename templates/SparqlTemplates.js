@@ -8,11 +8,11 @@ var sparqlTemplates = {
 
     turtleInsertTemplate : "${prefixes} \
             INSERT DATA { GRAPH <${graph}>{ ${body} }}",
-    
-    generalDeleteTemplate : "${prefixes} \
-    DELETE DATA { GRAPH <${graph}>{ ${body} }}",
 
     resourceDeleteTemplate : "WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
+    
+    generalDeleteTemplate : "${prefixes} \
+        DELETE DATA { GRAPH <${graph}>{ ${body} }}",
     
     resourceExistsTemplate : "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
     

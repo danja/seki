@@ -32,8 +32,8 @@ GenericHandler.prototype = {
             message += chunk;
         });
         sekiRequest.on('end', function() {
-            var handler = new ResponseHandler();
-            handler.handle(sekiResponse, message, route);
+            var handler = new ResponseHandler(); // (sekiRequest, sekiResponse, message, route)
+            handler.handle(sekiRequest, sekiResponse, message, route);
         }
         );                  
     }

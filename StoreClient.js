@@ -33,7 +33,7 @@ StoreClient.prototype = {
     },
 
     // rename to "query"?
-    "send": function(options, sparql, callback) {
+    "send": function(options, sparql, callback) { 
       //  log.debug("initial send OPTIONS = "+JSON.stringify(options));
       //  log.debug("StoreClient.send");
       //  log.debug("callback = "+callback);
@@ -124,7 +124,7 @@ StoreClient.prototype = {
     "sendTurtle": function(graphURI, turtle, callback) {
         log.debug("StoreClient.sendTurtle");
         var sparqlUtils = new SparqlUtils();
-        var sparql = sparqlUtils.turtleToInsert(graphURI, turtle, callback);
+        var sparql = sparqlUtils.turtleToInsert(graphURI, turtle, callback); // why is callback called twice???
         log.debug("SPARQL = "+sparql);
         var options = config.client;
         options["method"] = config.client["updateMethod"];
@@ -132,6 +132,7 @@ StoreClient.prototype = {
         this.send(options, sparql, callback);
     },
 
+    // might not being used
     "replaceTurtle": function(graphURI, resourceURI, turtle, callback) {
         log.debug("StoreClient.replaceTurtle");
         log.debug("TURTLE = " + turtle);
@@ -184,7 +185,7 @@ StoreClient.prototype = {
 var client = new StoreClient();
 
 function send(options, sparql, nextCall) {
-    client.send(options, sparql, nextCall);
+    client.send(options, sparql, nextCall); 
 }
 
 module.exports = StoreClient;

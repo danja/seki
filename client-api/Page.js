@@ -21,16 +21,14 @@ var client = new GenericClient();
 var queryPath = '/store'+config.client['queryEndpoint'];
 var auth = new Buffer("danja:sasha").toString('base64');
 
-
-
 function clone(map){
     return JSON.parse(JSON.stringify(map));
 }
 
-function Entry() {
+function Page() {
 }
 
-Entry.prototype = {
+Page.prototype = {
     "options" : {
         hostname: config.server['host'],
         port: config.server['port'],
@@ -41,9 +39,10 @@ Entry.prototype = {
 
 // All formats *****************************************************************************    
     "delete" : function(path, callback) {
+       // log.debug("Page.delete");
         var options = clone(this.options);
         options.method = 'DELETE';
-        options["path"] = path;
+        options["path"] = path; 
         client.call(options, '', callback);
     },
     
@@ -57,6 +56,7 @@ Entry.prototype = {
         options.method = 'POST';
         options.headers["Content-Type"] = "text/turtle";
         options["path"] = path;
+       // log.debug("PATH in createTurtle = "+path);
         client.call(options, turtle, callback);
     },
     
@@ -131,4 +131,4 @@ Entry.prototype = {
     }
 }
 
-module.exports = Entry;
+module.exports = Page;

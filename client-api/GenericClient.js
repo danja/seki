@@ -11,7 +11,7 @@ function GenericClient() {
 GenericClient.prototype = {
     "call" : function(options, data, callback) {
    //   log.debug("GenericClient call called")
-    //      log.debug("options = "+JSON.stringify(options));
+      //    log.debug("options = "+JSON.stringify(options));
      //      log.debug("data = "+data);
         var request = http.request(options, function(response) {
       //          log.debug("Doing Request");

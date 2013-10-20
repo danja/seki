@@ -67,12 +67,18 @@ RequestHandler.prototype = {
         log.debug("*** requestParams "+JSON.stringify(requestParams));
         
         var rr = new RequestRouter(requestParams);
-        
-        
-
         session.assert(rr);
         
-        var r = new Route();
+        // there is redundancy between rr and r!
+        var  queryOptions = {
+            host: config.client["host"],
+            port: config.client["port"],
+            path: config.client["updateEndpoint"],
+            method: sekiRequest.method
+        };
+        
+        var r = new Route(queryOptions);
+
         session.assert(r);
 
         var handlerMap= { // move to config? // bypass altogether
@@ -94,14 +100,12 @@ RequestHandler.prototype = {
                  log.debug("*** RULES DONE ***");
                  log.debug("ROUTE = "+JSON.stringify(r.route));
                  
-                 var targetFunction = r.route["targetFunction"];
-
-                 log.debug("r = "+JSON.stringify(r));                  
+                 var targetFunction = r.route["targetFunction"];                 
                  
                  if(handlerMap[targetFunction]) {
                      log.debug("this is a MATCH");
-                     var options = { "path" : r.route["path"] };
-                     log.debug("TARGET = "+targetFunction);
+                     // 
+                   //  log.debug("TARGET = "+targetFunction);
                      var handler = new handlerMap[targetFunction](); //GenericHandler
                      var responseHandler = r.route["responseHandler"];
                      log.debug("responseHandler = "+responseHandler); // 
@@ -109,7 +113,8 @@ RequestHandler.prototype = {
                      if(responseHandler) {                
                          handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler], r.route);
                      } else {            
-                        handler.handle(sekiRequest, sekiResponse, options); //currently for ProxyHandler
+                         var options = { "path" : r.route["path"] };
+                         handler.handle(sekiRequest, sekiResponse, options); //currently for ProxyHandler
                      }
                      return;
              }

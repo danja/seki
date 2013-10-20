@@ -14,24 +14,21 @@ var helpers = new TestHelpers();
 var createPath = '/pages';
 var path = '/pages/ApiTest';
 
-/*
 exports.testDeletePage = function(test){ // just to make sure it's cleared
-    log.debug("deleting directly");
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
     }
     var page = new Page();
-    page.delete(createPath, '', callback);
+    page.delete(path, callback);
 };
-*/
+
 
 exports.testCreate = function(test){ // changed from create - needs extending
     var callback = function(status, headers, body) {
         test.equal(status, 201, "checking status is 201 :Created");
         test.done();
     }
-    
     var page = new Page();
     page.fileCreateTurtle(createPath, 'data/page.ttl', callback);
 };

@@ -14,7 +14,7 @@ function CreateHandler() {
 
 // properties and methods
 CreateHandler.prototype = {
-    "handle": function(sekiResponse, message, route) { // takes JSON
+    "handle": function(sekiRequest, sekiResponse, message, route) { // takes JSON
         // this.value2 = argument + 100;
         console.log("CreateHandler.handle called");
         

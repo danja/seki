@@ -1,15 +1,33 @@
 /*
- * Pages - regular HTML
+ * Pages 
+ * 
+ * sioc:Post items
  * 
  * TemplatingResponseHandler
  * (sekiResponse, message, queryTemplate, responseTemplate, responseOptions)
  */
 
-// {"method":"post","path":"/pages","accept":"","contentType":"text/turtle"}
-//         r : Route r.route["targetFunction"] == "";
 
-//         rr : RequestRouter  rr.path.substring(0, 7) == "/store/";
+// Common *************************************************************************************** 
+rule DeletePage {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method == "delete";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** Delete rule triggered ***"); 
+        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["path"] = rr.path;});
+        modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "resourceDeleteTemplate";}); // needs graph & uri
+        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};});
+        modify(r, function(){this.route["responseCode"] = "204";});
+    }
+}
 
+// Turtle ***************************************************************************************
 rule CreatePageTurtle {
     when {
         rr : RequestRouter  rr.path == "/pages";
@@ -18,10 +36,13 @@ rule CreatePageTurtle {
         r : Route r.route["targetFunction"] == "";
     } then {
         log.debug("*** CreatePageTurtle rule triggered ***"); 
-        //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["path"] = rr.path;});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
         modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
+        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};});
+        modify(r, function(){this.route["responseCode"] = "201";});
     }
 }
 
@@ -38,6 +59,8 @@ rule ReadPageTurtle {
         modify(r, function(){this.route["viewTemplate"] = "pageTemplate";});
     }
 }
+
+
 
 rule CreatePageJSON {
     when {

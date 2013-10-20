@@ -1,4 +1,5 @@
 import("./proxy.nools");
+import("./other-http-methods.nools");
 import("./pages.nools");
 import("./with-extension.nools");
 
@@ -22,17 +23,21 @@ define RequestRouter {
 define Route {
 
     route : {},
-    
-    constructor : function() {
+            
+    constructor : function(queryOptions) {
         this.route = { 
-            path : '',
+            path : '',            
+            graph : '',
             targetFunction : '',
             responseHandler : '',
             preprocessor : '',
             queryTemplate : '',
+            queryOptions : '',
             viewTemplate : '',
-            responseHeaders : ''
-        }      
+            responseHeaders : '',
+            responseCode : ''
+        };  
+        this.route.queryOptions = queryOptions;
     }
 }
 
