@@ -14,7 +14,9 @@ var helpers = new TestHelpers();
 var createPath = '/pages';
 var path = '/pages/ApiTest';
 
-exports.testDeletePage = function(test){ // just to make sure it's cleared
+
+
+exports.testDeleteInit = function(test){ // just to make sure it's cleared
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
@@ -33,18 +35,40 @@ exports.testCreate = function(test){ // changed from create - needs extending
     page.fileCreateTurtle(createPath, 'data/page.ttl', callback);
 };
 
+
+exports.testRead = function(test){ // callback( response.statusCode, JSON.stringify(response.headers), body);
+    var page = new Page();
+    log.debug("TEST READ");
+    page.readTurtle(path, 
+            function(status, headers, body) {
+                test.equal(status, 200, "checking status is 200 : Ok");
+                log.debug("\n*BODY = "+body+"||||");
+                helpers.readTurtleTitle(body, function(readTitle){
+                                       log.debug("\n\n*** readTitle = "+readTitle);
+                                        helpers.readTurtleTitleFile('data/page.ttl', function(titleInFile){
+                                          //     log.debug("\n\n*** readTitle = "+readTitle);
+                                         //  });
+                                           
+                                           log.debug("\n\n*** titleInFile = "+titleInFile);
+                                                test.equal(readTitle, titleInFile, "title should match");
+                                              test.done();
+
+                                       });         
+                                    });  
+            });
+}
+
 /*
 exports.testUpdate = function(test){ 
     var callback = function(status, headers, body) {
-        test.equal(status, 201, "checking status is 201 :Created");
+        test.equal(status, 303, "checking status is 303 :Created");
         test.done();
     }
     var page = new Page();
-    page.fileUpdateJSON(path, 'data/page.json', callback);
+    page.fileUpdateTurtle(path, 'data/newpage.ttl', callback);
 };
 
-exports.testExists = function(test){
-    log.debug("Note : is checking HTML GET page");
+exports.testReadUpdated = function(test){
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status is 201 :Created");
         var putTitle = helpers.readJsonTitleFile('data/page.json');
@@ -57,3 +81,14 @@ exports.testExists = function(test){
     page.readHTML(path, callback);
 };
 */
+exports.testDeletePage = function(test){ 
+    var callback = function(status, headers, body) {
+        test.equal(status, 204, "checking status");
+        test.done();
+    }
+    var page = new Page();
+    page.delete(path, callback);
+};
+
+
+// exports.testConfirmDeletedPage = function(test){ // do a GET/READ 

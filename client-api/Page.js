@@ -71,6 +71,16 @@ Page.prototype = {
         options["path"] = path;
         client.call(options, turtle, callback);
     },
+    
+    "readTurtle" : function(path, callback) {
+        log.debug("Page.readTurtle");
+        var options = clone(this.options);
+        options.method = 'GET';
+        options.headers["Accept"] = "text/turtle";
+        options["path"] = path;
+        log.debug("TEST OPTIONS = "+JSON.stringify(options));
+        client.call(options, '', callback);
+    },
 
 // JSON *****************************************************************************      
     "fileCreateJSON" : function(path, filename, callback) {
@@ -85,7 +95,7 @@ Page.prototype = {
         client.call(options, json, callback);
     },
     
-    "fileReadJSON" : function(path, filename, callback) {
+    "fileReadJSON" : function(path, filename, callback) { // why is file needed??
         this.readJSON(path, fs.readFileSync(filename, 'utf8'), callback);
     },
     

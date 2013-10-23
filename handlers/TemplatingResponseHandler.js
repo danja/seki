@@ -8,6 +8,7 @@ var Constants = require('../config/Constants');
 var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var SparqlUtils = require('../SparqlUtils');
+var saxer = require('../srx2map');
 
 var postHeaders = {// ?????????????????????????
     "Accept" : "application/sparql-results+xml",
@@ -19,65 +20,139 @@ function TemplatingResponseHandler() {
 }
 
 TemplatingResponseHandler.prototype = { 
-    
-    "handle" : function(sekiRequest, sekiResponse, message, route) {
+    "delete" : function(sekiRequest, sekiResponse, message, route) {
+        this.create(sekiRequest, sekiResponse, message, route);
+    },
         
-        log.debug("sekiRequest = "+sekiRequest);
-        log.debug("TemplatingResponseHandler.handle");
-        log.debug("\n\n\nROUTE = \n\n\n"+JSON.stringify(route)); 
-        
-        var resource = config.uriBase + route.path;
-        var graphURI = config.uriBase + "/" + route.graph;
-        
-        log.debug("RESOURCE = " + resource);
-        
-        log.debug("route.queryTemplate = " + route.queryTemplate);
-        
+    "create" : function(sekiRequest, sekiResponse, message, route) {
+        log.debug("TemplatingResponseHandler.create");
+        log.debug("RES = "+this.resource);
+
         var turtleSplit = SparqlUtils.extractPrefixes(message);
         var turtle = message;
         
-        var replaceMap = {
-            "graph" : graphURI,
-            "uri" : resource,
-            "prefixes" : turtleSplit.prefixes,
-            "body" : turtleSplit.body
-        };     
-        var sparql = freemarker.render(sparqlTemplates[route.queryTemplate], replaceMap);
+        this.replaceMap["prefixes"] = turtleSplit.prefixes;
+        this.replaceMap["body"] = turtleSplit.body;
+        
+        var sparql = freemarker.render(sparqlTemplates[route.queryTemplate], this.replaceMap);
         
         log.debug("SPARQL = "+sparql);
         
         log.debug("route.queryOptions = "+JSON.stringify(route.queryOptions));
+        
+        var headers = {
+            "Location" : route.path,
+            "Content-type" : "text/html; charset=utf-8"
+        };
 
-            var headers = {
-                "Location" : route.path,
-                "Content-type" : "text/html; charset=utf-8"
+            var finalCallback = function(){
+                log.debug("route.responseCode = "+route.responseCode);
+                log.debug("route.responseHeaders = "+JSON.stringify(route.responseHeaders));
+                sekiResponse.writeHead(route.responseCode, route.responseHeaders); // 201 Created
+                sekiResponse.end();
             };
-            if(!route.viewTemplate || route.viewTemplate=="") { // no response data expected
-                log.debug("\n\n\n\n\n\nNO DATA EXPECTED");
-                var finalCallback = function(){
-                    log.debug("route.responseCode = "+route.responseCode);
-                    log.debug("route.responseHeaders = "+JSON.stringify(route.responseHeaders));
-                    sekiResponse.writeHead(route.responseCode, route.responseHeaders); // 201 Created
-                    sekiResponse.end();
-                };
-                var client = new StoreClient();
-                log.debug("SENDING TO STORE");
-                log.debug("SPARQL = "+sparql);
-                log.debug("route.queryOptions = "+JSON.stringify(route.queryOptions));
-                client.send(route.queryOptions, sparql, finalCallback);   
-                return;
-            }
-            
-            var clientRequest = http.request(config.client, function(queryResponse) {
-                    queryResponse.setEncoding('utf8');
-                    this.respond(sekiResponse, queryResponse, route, replaceMap);
-                });
-       // }
-        
-        
+
+        var client = new StoreClient();
+        log.debug("SENDING TO STORE");
+        log.debug("SPARQL = "+sparql);
+        log.debug("route.queryOptions = "+JSON.stringify(route.queryOptions));
+        client.send(route.queryOptions, sparql, finalCallback);  
     },
     
-    "respond" : function(sekiResponse, queryResponse, route, replaceMap) {
+    // {"type":"read","path":"/pages/ApiTest","graph":"pages","targetFunction":"GenericHandler",
+    //"responseHandler":"TemplatingResponseHandler","preprocessor":"","queryTemplate":"turtleReadTemplate",
+    //"queryOptions":{"host":"localhost","port":3030,"path":"/seki/query","method":"GET"},
+    //"viewTemplate":"minimalViewTemplate","responseHeaders":{"Content-type":"text/turtle"},"responseCode":"200"}
+    
+    "read" : function(sekiRequest, sekiResponse, message, route) {
+        log.debug("TemplatingResponseHandler.read");
+
+        //  turtleReadTemplate : "CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
+       // this.replaceMap["body"] = turtleSplit.body;
+        
+        var sparql = freemarker.render(sparqlTemplates[route.queryTemplate], this.replaceMap);
+        
+      //   log.debug("SPARQL = "+sparql);
+        // build the URL from the query
+        // make the request to the SPARQL server
+        
+        var options = JSON.parse(JSON.stringify(config.client)); // clone
+        
+        options["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
+        options["method"] = "GET";
+        options["headers"] = sekiRequest.headers;
+             
+        var clientRequest = http.request(options, function(queryResponse) {
+           // log.debug("\n\n\nCALLING RESPOND");
+           // log.debug("ROUTE = "+JSON.stringify(route));
+            queryResponse.setEncoding('utf8');
+           // log.debug("queryResponse.headers = "+JSON.stringify(queryResponse.headers));
+            if(route.responseHeaders["Accept"] == "text/turtle"){
+                respondTurtle(sekiResponse, queryResponse, route);
+            } else {
+                respond(sekiResponse, queryResponse, route, this.replaceMap);
+            }
+        });
+        // no message to send so call right away
+        clientRequest.end();
+    },
+    
+    "handle" : function(sekiRequest, sekiResponse, message, route) {
+
+        log.debug("sekiRequest = "+sekiRequest);
+        log.debug("TemplatingResponseHandler.handle");
+        log.debug("\n\n\nROUTE = \n"+JSON.stringify(route)+"\n\n\n"); 
+    
+        /*
+        var resource = config.uriBase + route.path;; // del me
+        this.resource = config.uriBase + route.path;
+        var graphURI = config.uriBase + "/" + route.graph; // del me
+        this.graph = = config.uriBase + "/" + route.graph;
+        */
+        
+        this.replaceMap = {
+            "graph" : config.uriBase + "/" + route.graph,
+            "uri" : config.uriBase + route.path
+        };     
+        
+        if(route["type"] && route["type"] != "") { // temp
+            this[route["type"]](sekiRequest, sekiResponse, message, route);
+            return;
+        }
+
+        
+        log.debug("route.queryTemplate = " + route.queryTemplate);
+    }
+}
+
+function respondTurtle(sekiResponse, queryResponse, route) {
+    log.debug("RESPOND TURTLE");
+
+    var data = "";
+    
+    queryResponse.on('data', function(chunk) {
+        log.debug("CHUNK: " + chunk);
+        data += chunk;
+    });
+    
+    queryResponse.on('end', function() {
+        log.debug(" queryResponse.on('end'");
+        
+    //    log.debug("\nbindings " + JSON.stringify(bindings));
+        
+        sekiResponse.writeHead(200, route.responseHeaders);
+        
+        // bindings["uri"] = replaceMap.uri; 
+        // bindings["graph"] = replaceMap.graph;
+   //     var data = freemarker.render(viewTemplate, bindings);
+        log.debug("sekiResponse.end(html)");
+        //       log.debug("viewTemplate = "+viewTemplate);
+        //       log.debug("bindings = "+JSON.stringify(bindings));
+        sekiResponse.end(data);
+    });
+}
+    
+function respond(sekiResponse, queryResponse, route, replaceMap) {
         log.debug("RESPOND");
 
         var stream = saxer.createStream();
@@ -97,17 +172,16 @@ TemplatingResponseHandler.prototype = {
             
             log.debug("\nbindings " + JSON.stringify(bindings));
             
-            sekiResponse.writeHead(200, responseHeaders);
-            bindings["uri"] = replaceMap.uri; 
-            bindings["graph"] = replaceMap.graph;
-            var html = freemarker.render(viewTemplate, bindings);
+            sekiResponse.writeHead(200, route.responseHeaders);
+            
+            // bindings["uri"] = replaceMap.uri; 
+           // bindings["graph"] = replaceMap.graph;
+            var data = freemarker.render(viewTemplate, bindings);
             log.debug("sekiResponse.end(html)");
             //       log.debug("viewTemplate = "+viewTemplate);
             //       log.debug("bindings = "+JSON.stringify(bindings));
-            sekiResponse.end(html);
+            sekiResponse.end(data);
         });
     }
-    
-}
 
 module.exports = TemplatingResponseHandler;

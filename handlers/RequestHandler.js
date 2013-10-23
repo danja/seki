@@ -26,7 +26,7 @@ var notAuthHeaders = {
     'WWW-Authenticate': 'Basic realm="Secure Area"'
 };
 
-var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log}});
+var  flow = nools.compile(__dirname + "/../rules/routes.nools", {scope: {log : log, config : config}});
 
 function RequestHandler() {
 }
@@ -74,7 +74,8 @@ RequestHandler.prototype = {
             host: config.client["host"],
             port: config.client["port"],
             path: config.client["updateEndpoint"],
-            method: sekiRequest.method
+            method: sekiRequest.method,
+            headers: sekiRequest.headers
         };
         
         var r = new Route(queryOptions);

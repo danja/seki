@@ -3,6 +3,8 @@ var util = require("util");
 var config = require('../config/ConfigDefault').config;
 var Log = require('log'), log = new Log(config.logLevel);
 var jsdom = require("jsdom");
+// var rdf = require('../lib/node-rdf/lib/rdf');
+
 
 // Constructor
 function TestHelpers() {
@@ -11,6 +13,44 @@ function TestHelpers() {
 // properties and methods
 TestHelpers.prototype = {
         
+    /*
+    "readTurtleFile" : function(filename, callback) {
+        var turtle = fs.readFileSync(filename, 'utf8');
+        return this.readTurtle(turtle, callback);
+    },
+    
+    "readTurtle" :function(turtle, callback) {
+        var parser = new TurtleParser(); // new environment
+        
+    },
+    */
+    
+    "readTurtleTitleFile" : function(filename, callback) {
+    //    log.debug("readTurtleTitleFile");
+        var turtle = fs.readFileSync(filename, 'utf8');
+        return this.readTurtleTitle(turtle, callback);
+    },
+    
+    "readTurtleTitle" :function(turtle, callback) {
+      //  log.debug("readTurtleTitle="+turtle);
+        
+        var turtleParser = new (require('../lib/node-rdf/lib/TurtleParser').Turtle);
+        
+        
+        turtleParser.parse(turtle, function(graph){
+         //   console.log(JSON.stringify(graph)); 
+
+            graph.forEach(function(triple){
+          //  console.log("RESULTS ="+JSON.stringify(triple)); 
+            if(triple.predicate.value == "http://purl.org/dc/elements/1.1/title") {
+            //  console.log("TITLE ="+triple.object.value); 
+                callback(triple.object.value);
+                return;
+            };
+            });
+        });
+    },
+    
 "getJsonTitleFile" : function(filename) {
     var json = fs.readFileSync(filename, 'utf8');
     return this.getJsonTitle(json);

@@ -16,6 +16,7 @@ rule DeletePage {
         r : Route r.route["targetFunction"] == "";
     } then {
         log.debug("*** Delete rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "delete";});
         modify(r, function(){this.route["graph"] = "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
         modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
@@ -36,32 +37,46 @@ rule CreatePageTurtle {
         r : Route r.route["targetFunction"] == "";
     } then {
         log.debug("*** CreatePageTurtle rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "create";});
         modify(r, function(){this.route["graph"] = "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
         modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
-        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};});
+        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
         modify(r, function(){this.route["responseCode"] = "201";});
     }
 }
+
+// {"method":"get","path":"/pages/ApiTest","accept":"text/turtle"}
+//    r : Route r.route["target"] == "";
+//   modify(r, function(){this.route.queryOptions["headers"]["Accept"] = rr.accept;});
 
 rule ReadPageTurtle {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
         rr : RequestRouter  rr.method.toLowerCase()  == "get";
-        rr : RequestRouter  (rr.accept.indexOf("text/html") != -1) || (rr.accept.indexOf("application/xhtml+xml") != -1);
-        r : Route r.route["target"] == "";
+        rr : RequestRouter  rr.accept == "text/turtle";
+        r : Route r.route["targetFunction"] == "";
     } then {
-        log.debug("*** GetPage rule triggered ***"); 
-        modify(r, function(){this.route["targetFunction"] = "GetHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "pageTemplate";});
-        modify(r, function(){this.route["viewTemplate"] = "pageTemplate";});
+        log.debug("*** ReadPageTurtle rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "read";});
+        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["path"] = rr.path;});
+      
+        modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
+        modify(r, function(){this.route["queryOptions"]["path"] = config.client["queryEndpoint"];});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "turtleReadTemplate";}); // needs graph & uri
+        modify(r, function(){this.route["viewTemplate"] = "minimalViewTemplate";}); // needs graph & uri
+        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        modify(r, function(){this.route["responseHeaders"] = {"Accept" : "text/turtle"};});
+        modify(r, function(){this.route["responseCode"] = "200";});
     }
 }
 
 
-
+// JSON ******************************************************************************************************
 rule CreatePageJSON {
     when {
         rr : RequestRouter  rr.path == "/pages";

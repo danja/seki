@@ -26,13 +26,14 @@ define Route {
             
     constructor : function(queryOptions) {
         this.route = { 
+            type : '', // one of create/read/update/delete
             path : '',            
             graph : '',
             targetFunction : '',
             responseHandler : '',
             preprocessor : '',
             queryTemplate : '',
-            queryOptions : '',
+            queryOptions : {"headers":{}},
             viewTemplate : '',
             responseHeaders : '',
             responseCode : ''
@@ -40,10 +41,3 @@ define Route {
         this.route.queryOptions = queryOptions;
     }
 }
-
-
-
-
-
-
-
