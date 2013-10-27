@@ -38,18 +38,18 @@ exports.testCreate = function(test){ // changed from create - needs extending
 
 exports.testRead = function(test){ // callback( response.statusCode, JSON.stringify(response.headers), body);
     var page = new Page();
-    log.debug("TEST READ");
+ //   log.debug("TEST READ");
     page.readTurtle(path, 
             function(status, headers, body) {
                 test.equal(status, 200, "checking status is 200 : Ok");
-                log.debug("\n*BODY = "+body+"||||");
+             //   log.debug("\n*BODY = "+body+"||||");
                 helpers.readTurtleTitle(body, function(readTitle){
-                                       log.debug("\n\n*** readTitle = "+readTitle);
+                                     //  log.debug("\n\n*** readTitle = "+readTitle);
                                         helpers.readTurtleTitleFile('data/page.ttl', function(titleInFile){
                                           //     log.debug("\n\n*** readTitle = "+readTitle);
                                          //  });
                                            
-                                           log.debug("\n\n*** titleInFile = "+titleInFile);
+                                          // log.debug("\n\n*** titleInFile = "+titleInFile);
                                                 test.equal(readTitle, titleInFile, "title should match");
                                               test.done();
 
@@ -58,29 +58,41 @@ exports.testRead = function(test){ // callback( response.statusCode, JSON.string
             });
 }
 
-/*
 exports.testUpdate = function(test){ 
     var callback = function(status, headers, body) {
-        test.equal(status, 303, "checking status is 303 :Created");
+        test.equal(status, 201, "checking status is 201 :Created");
         test.done();
     }
     var page = new Page();
     page.fileUpdateTurtle(path, 'data/newpage.ttl', callback);
 };
 
-exports.testReadUpdated = function(test){
-    var callback = function(status, headers, body) {
-        test.equal(status, 200, "checking status is 201 :Created");
-        var putTitle = helpers.readJsonTitleFile('data/page.json');
-        var gotTitle = helpers.readHtmlTitle(body);
-        //  log.debug("title ="+gotTitle);
-        test.equal(putTitle, gotTitle, "title should match");
-        test.done();
-    }
+///////////////////////////// tests pass up to here
+
+/*
+exports.testUpdated = function(test){ // callback( response.statusCode, JSON.stringify(response.headers), body);
     var page = new Page();
-    page.readHTML(path, callback);
-};
-*/
+    log.debug("TEST READ");
+    page.readTurtle(path, 
+                    function(status, headers, body) {
+                        test.equal(status, 200, "checking status is 200 : Ok");
+                        log.debug("\n*BODY = "+body+"||||");
+                        helpers.readTurtleTitle(body, function(readTitle){
+                            log.debug("\n\n*** readTitle = "+readTitle);
+                            helpers.readTurtleTitleFile('data/newpage.ttl', function(titleInFile){
+                                //     log.debug("\n\n*** readTitle = "+readTitle);
+                                //  });
+                                
+                                log.debug("\n\n*** titleInFile = "+titleInFile);
+                                test.equal(readTitle, titleInFile, "title should match");
+                                test.done();
+                                
+                            });         
+                        });  
+                    });
+}
+
+
 exports.testDeletePage = function(test){ 
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
@@ -90,5 +102,5 @@ exports.testDeletePage = function(test){
     page.delete(path, callback);
 };
 
-
+*/
 // exports.testConfirmDeletedPage = function(test){ // do a GET/READ 

@@ -61,6 +61,7 @@ RequestHandler.prototype = {
             "path" :  sekiRequest.url,
             "accept" : accept,
             "contentType" : sekiRequest.headers["content-type"]
+            // Fuseki SAID : 415 Must be application/sparql-update or application/x-www-form-urlencoded (got text/turtle)
         };
         
         // log.debug("headers"+JSON.stringify(requestParams["headers"]));
@@ -75,8 +76,16 @@ RequestHandler.prototype = {
             port: config.client["port"],
             path: config.client["updateEndpoint"],
             method: sekiRequest.method,
-            headers: sekiRequest.headers
+            headers: {
+                "accept" : sekiRequest.headers["accept"],
+            }
+         //   headers: sekiRequest.headers
         };
+        
+        if(sekiRequest.headers["content-type"]){
+            queryOptions["headers"]["content-type"] = sekiRequest.headers["content-type"];
+        }
+    //    queryOptions["headers"]["Content-type"] = "";
         
         var r = new Route(queryOptions);
 

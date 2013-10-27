@@ -40,10 +40,12 @@ TemplatingResponseHandler.prototype = {
         
         log.debug("route.queryOptions = "+JSON.stringify(route.queryOptions));
         
+        /*
         var headers = {
             "Location" : route.path,
             "Content-type" : "text/html; charset=utf-8"
         };
+        */
 
             var finalCallback = function(){
                 log.debug("route.responseCode = "+route.responseCode);
@@ -70,26 +72,46 @@ TemplatingResponseHandler.prototype = {
         //  turtleReadTemplate : "CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
        // this.replaceMap["body"] = turtleSplit.body;
         
+        log.debug("Query Template = "+route.queryTemplate);
+        
         var sparql = freemarker.render(sparqlTemplates[route.queryTemplate], this.replaceMap);
         
       //   log.debug("SPARQL = "+sparql);
         // build the URL from the query
         // make the request to the SPARQL server
         
-        var options = JSON.parse(JSON.stringify(config.client)); // clone
+        var options = JSON.parse(JSON.stringify(route.queryOptions)); // clone
         
         options["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
         options["method"] = "GET";
-        options["headers"] = sekiRequest.headers;
-             
+        
+    //    options["headers"] = 
+        //sekiRequest.headers;
+       
+       // NEED TO ADD QUERYHEADERS TO ROUTE ?????
+          
+        log.debug("\n\nROUTE = "+JSON.stringify(route));
+        log.debug("\n\noptions = "+JSON.stringify(options));
+        log.debug("\n\nconfig.client = "+JSON.stringify(config.client));
+        log.debug("\n\nsekiRequest.headers = "+JSON.stringify(sekiRequest.headers)+"\n\n");
+       
+        /*
+         * var options = {
+         * hostname: 'www.google.com',
+         * port: 80,
+         * path: '/upload',
+         * method: 'POST'
+    };*/
+        
         var clientRequest = http.request(options, function(queryResponse) {
-           // log.debug("\n\n\nCALLING RESPOND");
-           // log.debug("ROUTE = "+JSON.stringify(route));
+          
             queryResponse.setEncoding('utf8');
-           // log.debug("queryResponse.headers = "+JSON.stringify(queryResponse.headers));
-            if(route.responseHeaders["Accept"] == "text/turtle"){
+            log.debug("route.responseHeaders = "+JSON.stringify(route.responseHeaders));
+            if(route.queryOptions["headers"]["accept"] == "text/turtle"){ ////// SHOULD BE ON QUERYOPTIONS
+                log.debug("\n\n\nCALLING RESPONDTurtle");
                 respondTurtle(sekiResponse, queryResponse, route);
             } else {
+                log.debug("\n\n\nCALLING RESPOND");
                 respond(sekiResponse, queryResponse, route, this.replaceMap);
             }
         });
@@ -145,7 +167,7 @@ function respondTurtle(sekiResponse, queryResponse, route) {
         // bindings["uri"] = replaceMap.uri; 
         // bindings["graph"] = replaceMap.graph;
    //     var data = freemarker.render(viewTemplate, bindings);
-        log.debug("sekiResponse.end(html)");
+        log.debug("sekiResponse.end(data)");
         //       log.debug("viewTemplate = "+viewTemplate);
         //       log.debug("bindings = "+JSON.stringify(bindings));
         sekiResponse.end(data);

@@ -24,7 +24,7 @@ GenericHandler.prototype = {
     
     "handle" : function(sekiRequest, sekiResponse, ResponseHandler, route) {
         
-        log.debug("GenericHandler.handle");
+       // log.debug("GenericHandler.handle");
 
         var message = '';
         
@@ -32,7 +32,7 @@ GenericHandler.prototype = {
             message += chunk;
         });
         sekiRequest.on('end', function() {
-            log.debug("GenericHandler.handle ON END");
+       //     log.debug("GenericHandler.handle ON END");
             var handler = new ResponseHandler(); // (sekiRequest, sekiResponse, message, route)
             handler.handle(sekiRequest, sekiResponse, message, route);
         }

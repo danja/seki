@@ -54,7 +54,7 @@ Page.prototype = {
     "createTurtle" : function(path, turtle, callback) {
         var options = clone(this.options);
         options.method = 'POST';
-        options.headers["Content-Type"] = "text/turtle";
+        options.headers["Content-Type"] = "text/turtle"; 
         options["path"] = path;
        // log.debug("PATH in createTurtle = "+path);
         client.call(options, turtle, callback);
@@ -73,12 +73,12 @@ Page.prototype = {
     },
     
     "readTurtle" : function(path, callback) {
-        log.debug("Page.readTurtle");
+     //   log.debug("Page.readTurtle");
         var options = clone(this.options);
         options.method = 'GET';
         options.headers["Accept"] = "text/turtle";
         options["path"] = path;
-        log.debug("TEST OPTIONS = "+JSON.stringify(options));
+     //   log.debug("TEST OPTIONS = "+JSON.stringify(options));
         client.call(options, '', callback);
     },
 

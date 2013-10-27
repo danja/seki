@@ -29,6 +29,8 @@ rule DeletePage {
 }
 
 // Turtle ***************************************************************************************
+//         rr : RequestRouter  rr.contentType == "text/turtle";
+// rr : RequestRouter  rr.headers["content-type"] == "text/turtle";
 rule CreatePageTurtle {
     when {
         rr : RequestRouter  rr.path == "/pages";
@@ -40,6 +42,7 @@ rule CreatePageTurtle {
         modify(r, function(){this.route["type"] = "create";});
         modify(r, function(){this.route["graph"] = "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
+        modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
         modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
@@ -47,10 +50,7 @@ rule CreatePageTurtle {
         modify(r, function(){this.route["responseCode"] = "201";});
     }
 }
-
-// {"method":"get","path":"/pages/ApiTest","accept":"text/turtle"}
-//    r : Route r.route["target"] == "";
-//   modify(r, function(){this.route.queryOptions["headers"]["Accept"] = rr.accept;});
+// application/sparql-update
 
 rule ReadPageTurtle {
     when {
@@ -65,16 +65,37 @@ rule ReadPageTurtle {
         modify(r, function(){this.route["path"] = rr.path;});
       
         modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
+        
         modify(r, function(){this.route["queryOptions"]["path"] = config.client["queryEndpoint"];});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["queryTemplate"] = "turtleReadTemplate";}); // needs graph & uri
         modify(r, function(){this.route["viewTemplate"] = "minimalViewTemplate";}); // needs graph & uri
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        modify(r, function(){this.route["responseHeaders"] = {"Accept" : "text/turtle"};});
+        
         modify(r, function(){this.route["responseCode"] = "200";});
     }
 }
 
+// requestParams {"method":"put","path":"/pages/ApiTest","accept":"","contentType":"text/turtle"}
+rule UpdatePageTurtle {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method.toLowerCase() == "put";
+        rr : RequestRouter  rr.contentType == "text/turtle";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** UpdatePageTurtle rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "create";});
+        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["path"] = rr.path;});
+        modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
+        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
+        modify(r, function(){this.route["responseCode"] = "201";});
+    }
+}
 
 // JSON ******************************************************************************************************
 rule CreatePageJSON {
@@ -86,6 +107,8 @@ rule CreatePageJSON {
     } then {
         log.debug("*** CreatePage rule triggered ***"); 
      //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
+        // application/sparql-update
+        modify(r, function(){this.route["queryOptions"]["headers"]["Content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
         modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 

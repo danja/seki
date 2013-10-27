@@ -27,6 +27,11 @@ var CORS = require('connect-cors');
 // var corser = require('../lib/corser');
 // @TODO refactor verbosity out (is also in PostHandler and GetHandler)
 
+// didn't work
+// var cx = require('concurixjs')();
+// cx.start();
+
+
 /*
  * Seki support scripts imports
  */
