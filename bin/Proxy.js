@@ -58,7 +58,7 @@ http.createServer(function(clientRequest, clientResponse) {
     });
 
     proxyRequest.on('error', function(e) {
-        log.debug('problem with proxy request: ' + e.message);
+        console.log('problem with proxy request: ' + e.message);
     });
 
     var sentData = '';
