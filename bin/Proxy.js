@@ -1,7 +1,7 @@
 /*
  * Simple proxy server for troubleshooting HTTP communications
  *
- * runs on node.js
+ * runs on Node - http://nodejs.org/
  *
  * modify settings in source as required
  *
@@ -11,10 +11,17 @@
 
 var http = require('http');
 
+// Settings ------------------------------------
 var targetHost = "localhost";
 var targetPort = 8080;
+
 var proxyHost = "localhost";
 var proxyPort = 8888;
+
+// note http:// not required, e.g.
+// var targetHost = "google.com";
+// var targetPort = 80;
+// ----------------------------------------------
 
 console.log("\nProxy addressing " + targetHost + ":" + targetPort);
 console.log("Serving on " + proxyHost + ":" + proxyPort);
