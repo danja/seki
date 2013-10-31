@@ -1,4 +1,4 @@
-java -Xms2048M -Xmx2048M -jar ../jena-fuseki-0.2.7/fuseki-server.jar --verbose --update --config ../config/seki-config.ttl --pages ../jena-fuseki-0.2.7/pages
+java -Xms2048M -Xmx2048M -jar ../jena-fuseki-1.0.0/fuseki-server.jar --verbose --update --config ../config/seki-config.ttl --pages ../jena-fuseki-1.0.0/pages
 
 # was just -Xmx1200M
 
