@@ -65,24 +65,13 @@ ProxyHandler.prototype = {
         });
         
         sekiRequest.on('end', function() {
-       //    log.debug("sekiRequest.on end");
+         log.debug("ProxyHandler sekiRequest.on end");
             proxyRequest.end();
         });
         sekiRequest.on('close', function() { // shouldn't be needed?
      //       log.debug("sekiRequest.on close");
             proxyRequest.end();
         });
-        sekiRequest.on('finish', function() { // shouldn't be needed?
-          //        log.debug("sekiRequest.on finish");
-            proxyRequest.end();
-        });
-  //     proxyRequest.end(); // the end block above should do this, seems wrong like this
-        sekiRequest.addListener('end', function () {
-         //   log.debug("sekiRequest.on end listener");
-            // will get called in node v0.10.3 because we called req.resume()
-            proxyRequest.end();
-        });
-     //   proxyRequest.end();
 }
 }
 

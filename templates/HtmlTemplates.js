@@ -58,7 +58,7 @@ var htmlTemplates = {
 	})(),
 	
 	sourceEditorTemplate : (function() {
-		console.log("loading source editor template "+__dirname);
+		// console.log("loading source editor template "+__dirname);
 		var path = require('path').resolve(__dirname, 'sourceEditorForm.ftl');
 		console.log("path : "+path);
 		var template = load(path);
