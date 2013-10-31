@@ -10,7 +10,8 @@ var Log = require('log'),
     log = new Log(config.logLevel);
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
+var Log = require('log'),
+    log = new Log(config.logLevel);
 // var sparqlTemplates = require('./templates/SparqlTemplates');
 // var freemarker = require('./templates/freemarker');
 var SparqlUtils = require("./SparqlUtils");
@@ -33,37 +34,37 @@ StoreClient.prototype = {
     },
 
     // rename to "query"?
-    "send": function(options, sparql, callback) { 
-      //  log.debug("initial send OPTIONS = "+JSON.stringify(options));
-      //  log.debug("StoreClient.send");
-      //  log.debug("callback = "+callback);
+    "send": function(options, sparql, callback) {
+        //  log.debug("initial send OPTIONS = "+JSON.stringify(options));
+        //  log.debug("StoreClient.send");
+        //  log.debug("callback = "+callback);
         for (var name in config.client) { // merge constants
             if (!options[name]) {
                 options[name] = config.client[name];
             }
         }
 
-     //   log.debug("\n\nIN StoreClient request OPTIONS = "+JSON.stringify(options));
-        
+        //   log.debug("\n\nIN StoreClient request OPTIONS = "+JSON.stringify(options));
+
         var clientRequest = http.request(options);
         clientRequest.on('err', function() {
             log.debug("ERROR!" + err);
         });
-        
+
         clientRequest.on('response', function(queryResponse) {
             queryResponse.setEncoding('utf8');
-  //      log.debug("IN SEND CALLING RESPOND");
-        if (callback) {
-       //     log.debug("IN SEND CALLING " + callback);
-            callback(queryResponse);
-        };
+            //      log.debug("IN SEND CALLING RESPOND");
+            if (callback) {
+                //     log.debug("IN SEND CALLING " + callback);
+                callback(queryResponse);
+            };
         });
         clientRequest.write(sparql);
         clientRequest.end();
     },
-    
+
     /* this was used to chain two commands, before Barry Norton pointed out that it could be done
-     * directly in the SPARQL simply by putting a ";" between operations. Left here for reference 
+     * directly in the SPARQL simply by putting a ";" between operations. Left here for reference
      * in case I need to do the async thing again somewhere else.
      */
     "send2": function(options, sparql1, clientCallback1, sparql2, clientCallback2) {
@@ -77,6 +78,7 @@ StoreClient.prototype = {
         }
 
         async.series([
+
                 function(callback) {
                     var clientRequest1 = http.request(options, function(queryResponse) {
                         queryResponse.setEncoding('utf8');
@@ -92,7 +94,7 @@ StoreClient.prototype = {
                     log.debug("SENDING " + sparql1.substring(0, 40));
                     clientRequest1.write(sparql1);
                     clientRequest1.end();
-                  
+
                 },
                 function(callback) {
                     var clientRequest2 = http.request(options, function(queryResponse) {
@@ -110,7 +112,7 @@ StoreClient.prototype = {
                     log.debug("SENDING " + sparql2.substring(0, 40));
                     clientRequest2.write(sparql2);
                     clientRequest2.end();
-                  
+
                 }
             ],
             // optional callback
@@ -125,7 +127,7 @@ StoreClient.prototype = {
         log.debug("StoreClient.sendTurtle");
         var sparqlUtils = new SparqlUtils();
         var sparql = sparqlUtils.turtleToInsert(graphURI, turtle, callback); // why is callback called twice???
-        log.debug("SPARQL = "+sparql);
+        log.debug("SPARQL = " + sparql);
         var options = config.client;
         options["method"] = config.client["updateMethod"];
         options["path"] = config.client["updateEndpoint"];
@@ -144,7 +146,7 @@ StoreClient.prototype = {
         //   log.debug("SPARQL = "+sparql);
         this.send(options, sparql, callback);
     },
-    
+
     "replaceResource": function(graphURI, resourceURI, turtle, finalCallback) {
         log.debug("\n\n*** StoreClient.replaceResource");
         var sparqlUtils = new SparqlUtils();
@@ -152,10 +154,10 @@ StoreClient.prototype = {
         var options = config.client;
         options["method"] = config.client["updateMethod"];
         options["path"] = config.client["updateEndpoint"];
-    //    log.debug("**** options = "+JSON.stringify(options));
-    //    log.debug("options[path] = "+options["path"]);
-    //    log.debug("replaceSparql = "+replaceSparql);
-    //    log.debug("finalCallback = "+JSON.stringify(finalCallback));
+        //    log.debug("**** options = "+JSON.stringify(options));
+        //    log.debug("options[path] = "+options["path"]);
+        //    log.debug("replaceSparql = "+replaceSparql);
+        //    log.debug("finalCallback = "+JSON.stringify(finalCallback));
         this.send(options, replaceSparql, finalCallback);
     },
 
@@ -185,7 +187,7 @@ StoreClient.prototype = {
 var client = new StoreClient();
 
 function send(options, sparql, nextCall) {
-    client.send(options, sparql, nextCall); 
+    client.send(options, sparql, nextCall);
 }
 
 module.exports = StoreClient;

@@ -16,41 +16,41 @@ var freemarker = require('./templates/freemarker');
 // var client = new StoreClient();
 
 function SparqlUtils() {
-  //  log.debug("StoreClient = "+StoreClient);
+    //  log.debug("StoreClient = "+StoreClient);
+}
+
+SparqlUtils.extractPrefixes = function(turtle) {
+    // log.debug("extractPrefixes TURTLE "+turtle);
+    var prefixPattern = /(@)(prefix.+)(\.)/gmi;
+    var matches;
+    var prefixList = [];
+
+    while (matches = prefixPattern.exec(turtle)) {
+        prefixList.push(matches[2]);
     }
-    
-    SparqlUtils.extractPrefixes = function(turtle) {
-        // log.debug("extractPrefixes TURTLE "+turtle);
-        var prefixPattern = /(@)(prefix.+)(\.)/gmi;
-        var matches;
-        var prefixList = [];
-        
-        while (matches = prefixPattern.exec(turtle)) {
-            prefixList.push(matches[2]);
-        }
-        var prefixes = prefixList.join("\n");
-        var body = turtle.replace(/@prefix.+\./gmi, "");
-        //                 log.debug("");
-        //                 log.debug("PREFIXES = "+prefixes);
-        //                 log.debug("");
-        //                 log.debug("BODY = "+body);
-        //                 log.debug("");
-        return {
-            "prefixes": prefixes,
-            "body": body
-        };
+    var prefixes = prefixList.join("\n");
+    var body = turtle.replace(/@prefix.+\./gmi, "");
+    //                 log.debug("");
+    //                 log.debug("PREFIXES = "+prefixes);
+    //                 log.debug("");
+    //                 log.debug("BODY = "+body);
+    //                 log.debug("");
+    return {
+        "prefixes": prefixes,
+        "body": body
     };
-    
-    ///////////////////////////////////
-    // TODO Refactor out common pieces
-    ////////////////////////////////////
-    SparqlUtils.prototype = {
+};
+
+///////////////////////////////////
+// TODO Refactor out common pieces
+////////////////////////////////////
+SparqlUtils.prototype = {
 
     "createGraph": function(graphURI) {
         var sparql = "CREATE SILENT GRAPH <" + graphURI + ">";
     },
     "turtleToInsert": function(graphURI, turtle) {
-       // log.debug("turtleToInsert "+turtle);
+        // log.debug("turtleToInsert "+turtle);
         var turtleSplit = SparqlUtils.extractPrefixes(turtle);
 
         var replaceMap = {
@@ -61,11 +61,11 @@ function SparqlUtils() {
         var sparql = freemarker.render(sparqlTemplates.turtleInsertTemplate, replaceMap);
         return sparql;
     },
-    
+
     "turtleToReplace": function(graphURI, resourceURI, turtle) {
-     //   log.debug("turtleToReplace "+turtle);
+        //   log.debug("turtleToReplace "+turtle);
         var turtleSplit = SparqlUtils.extractPrefixes(turtle);
-        
+
         var replaceMap = {
             "graph": graphURI,
             "uri": resourceURI,
@@ -76,10 +76,10 @@ function SparqlUtils() {
         return sparql;
     },
 
-    
+
     "resourceToDelete": function(graphURI, resourceURI) {
-        log.debug("resourceToDelete "+resourceURI+" in graph "+graphURI);
-        
+        log.debug("resourceToDelete " + resourceURI + " in graph " + graphURI);
+
         var replaceMap = {
             "graph": graphURI,
             "uri": resourceURI
@@ -88,17 +88,17 @@ function SparqlUtils() {
         return sparql;
     },
 
- 
+
 
     /*
      * a resource here means the set of triples <knownResource> ?p ?o
      */
     "resourceToReplace": function(graphURI, resourceURI, turtle) {
         var turtleSplit = SparqlUtils.extractPrefixes(turtle);
-        
+
         var replaceMap = {
             "graph": graphURI,
-            "uri" : resourceURI,
+            "uri": resourceURI,
             "prefixes": turtleSplit.prefixes,
             "body": turtleSplit.body
         };

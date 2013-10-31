@@ -1,3 +1,3 @@
-cd ../
-node --debug Seki &
-node-inspector --web-port=8181
+cd.. /
+    node--debug Seki &
+    node - inspector--web - port = 8181

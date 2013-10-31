@@ -3,27 +3,27 @@
  * parts like ${this} will be replaced
  */
 var sparqlTemplates = {
-	// used to retrieve an item from the store for display
-	// http://purl.org/dc/terms/
+    // used to retrieve an item from the store for display
+    // http://purl.org/dc/terms/
 
-    turtleInsertTemplate : "${prefixes} \
+    turtleInsertTemplate: "${prefixes} \
             INSERT DATA { GRAPH <${graph}>{ ${body} }}",
 
-    turtleReadTemplate : "CONSTRUCT { <${uri}> ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
-            
-    resourceDeleteTemplate : "WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
-    
-    generalDeleteTemplate : "${prefixes} \
+    turtleReadTemplate: "CONSTRUCT { <${uri}> ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
+
+    resourceDeleteTemplate: "WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }",
+
+    generalDeleteTemplate: "${prefixes} \
         DELETE DATA { GRAPH <${graph}>{ ${body} }}",
-    
-    resourceExistsTemplate : "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
-    
-    simpleReplaceTemplate : "${prefixes} \
+
+    resourceExistsTemplate: "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
+
+    simpleReplaceTemplate: "${prefixes} \
        WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }\
        ; \
        INSERT DATA { GRAPH <${graph}>{ ${body} }}",
-    
-	pageTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+
+    pageTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
@@ -37,8 +37,8 @@ var sparqlTemplates = {
          dcterms:date ?date . \
             } \
 }", //     um:fullname ?fullname ; \
-      
-      pagedItemsTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+
+    pagedItemsTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
@@ -55,8 +55,8 @@ var sparqlTemplates = {
       OFFSET ${offset} \
       ", //           um:fullname ?fullname ; \
 
-	// used to insert a new item into the store
-	insertTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+    // used to insert a new item into the store
+    insertTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
         PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
         PREFIX sioc: <http://rdfs.org/sioc/ns#> \
         PREFIX x: <http://purl.org/stuff/> \
@@ -70,8 +70,8 @@ var sparqlTemplates = {
            foaf:maker [ foaf:nick \"${nick}\" ] ;\
            dcterms:date \"${date}\" .\
         }}",
-        
-	insertAnnotationTemplate : "PREFIX dcterms: <http://purl.org/dc/terms/> \
+
+    insertAnnotationTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
             PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
             PREFIX sioc: <http://rdfs.org/sioc/ns#> \
             PREFIX x: <http://purl.org/stuff/> \
@@ -87,9 +87,9 @@ var sparqlTemplates = {
                dcterms:date \"${date}\" .\
             }}",
 
-	listGraphURIs : "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }",
-    
-    vocabTemplate : "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
+    listGraphURIs: "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }",
+
+    vocabTemplate: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
     \
     SELECT * WHERE { GRAPH <${graph}> { \
@@ -107,7 +107,7 @@ var sparqlTemplates = {
             OPTIONAL { ?p rdfs:domain ?domain } \
             OPTIONAL { ?p rdfs:range ?range } \
         }}}"
-}; 
+};
 
 // make it visible to other scripts
 module.exports = sparqlTemplates;

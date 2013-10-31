@@ -4,7 +4,7 @@ var fs = require("fs");
 
 // var html = fs.readFileSync('./big-rdfa.html', 'utf8');
 
- var html = fs.readFileSync('../tests/data/page.html', 'utf8');
+var html = fs.readFileSync('../tests/data/page.html', 'utf8');
 // var p = new jsonld();
 // rdfa-api
 
@@ -40,23 +40,19 @@ jsdom.env(html,
 */
 
 var request = require('request'),
-cheerio = require('cheerio');
+    cheerio = require('cheerio');
 
 var scripts = jquery.rdfa.js
 depends on
-jquery.uri.js
-*  jquery.xmlns.js
-*  jquery.curie.js
-*  jquery.datatype.js
-*  jquery.rdf.js
+jquery.uri.js * jquery.xmlns.js * jquery.curie.js * jquery.datatype.js * jquery.rdf.js
 
 
-    var $ = cheerio.load(html);
-    
-    // Exactly the same code that we used in the browser before:
-    $('article').each(function() {
-        console.log($(this).text());
-    });
+var $ = cheerio.load(html);
+
+// Exactly the same code that we used in the browser before:
+$('article').each(function() {
+    console.log($(this).text());
+});
 
 /*
 var jsdom = require("jsdom");

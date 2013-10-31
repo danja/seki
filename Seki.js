@@ -1,13 +1,14 @@
 #!/bin/env node
+
 /**
-* Main Seki script
-*
-* see README.md
-* 
-* yuidoc
-* @class Seki
-* @constructor
-*/
+ * Main Seki script
+ *
+ * see README.md
+ *
+ * yuidoc
+ * @class Seki
+ * @constructor
+ */
 
 /*
  * library module imports
@@ -48,7 +49,8 @@ var htmlTemplates = require('./templates/HtmlTemplates');
 
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
+var Log = require('log'),
+    log = new Log(config.logLevel);
 
 
 
@@ -70,7 +72,7 @@ var graphHeaders = {
 
 /*
  * mapping URIs to static files on the filesystem
- * 
+ *
  */
 var files = {
     "/": config.wwwDir + "/index.html",
@@ -115,16 +117,16 @@ var app = connect()
         log.debug("SEKI");
         var handler = new RequestHandler();
         handler.handle(sekiRequest, sekiResponse);
-       // onRequest(sekiRequest, sekiResponse);
+        // onRequest(sekiRequest, sekiResponse);
     });
 
-    app.listen(config.server["port"], config.server["host"]);
+app.listen(config.server["port"], config.server["host"]);
 
 log.debug("Seki serving on " + config.server["host"] + ":" + config.server["port"]);
-log.debug("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"] );
+log.debug("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"]);
 
 // When deployed, keep running despite exceptions
-if(!config.dev) {
+if (!config.dev) {
     process.on('uncaughtException', function(err) {
         console.error(err.stack);
     });
@@ -144,22 +146,22 @@ if(!config.dev) {
 /*
  * Reads a file from the filesystem and writes its data to response (typically a
  * browser)
- * 
+ *
  * IS THIS BEING USED???
  */
 
 /**
-* My method description.  Like other pieces of your comment blocks, 
-* this can span multiple lines.
-*
-* @method methodName
-* @param {String} foo Argument 1
-* @param {Object} config A config object
-* @param {String} config.name The name on the config object
-* @param {Function} config.callback A callback function on the config object
-* @param {Boolean} [extra=false] Do extra, optional work
-* @return {Boolean} Returns true on success
-*/
+ * My method description.  Like other pieces of your comment blocks,
+ * this can span multiple lines.
+ *
+ * @method methodName
+ * @param {String} foo Argument 1
+ * @param {Object} config A config object
+ * @param {String} config.name The name on the config object
+ * @param {Function} config.callback A callback function on the config object
+ * @param {Boolean} [extra=false] Do extra, optional work
+ * @return {Boolean} Returns true on success
+ */
 function serveFile(sekiResponse, status, file) {
     log.debug("FILE = " + file);
 

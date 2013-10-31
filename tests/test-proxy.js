@@ -1,11 +1,12 @@
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
-var testCase  = require('nodeunit').testCase;
+var Log = require('log'),
+    log = new Log(config.logLevel);
+var testCase = require('nodeunit').testCase;
 
 var ProxySparql = require("../client-api/ProxySparql");
 var fs = require("fs");
 
-exports.testDeleteInit = function(test){
+exports.testDeleteInit = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
@@ -14,7 +15,7 @@ exports.testDeleteInit = function(test){
     proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
-exports.testPageNotExistsInit = function(test){
+exports.testPageNotExistsInit = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");
@@ -26,17 +27,17 @@ exports.testPageNotExistsInit = function(test){
 };
 
 
-exports.testInsert = function(test){
+exports.testInsert = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
     }
     var proxy = new ProxySparql();
-    proxy.fileUpdate('data/insertPage.rq', callback);    
+    proxy.fileUpdate('data/insertPage.rq', callback);
 };
 
 
-exports.testPageExists = function(test){
+exports.testPageExists = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.notEqual(body.indexOf("true"), -1, "body should contain 'true'");
@@ -47,7 +48,7 @@ exports.testPageExists = function(test){
     proxy.fileQuery('data/askPage.rq', callback);
 };
 
-exports.testDelete = function(test){
+exports.testDelete = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
@@ -56,7 +57,7 @@ exports.testDelete = function(test){
     proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
-exports.testPageNotExists = function(test){
+exports.testPageNotExists = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 200, "checking status");
         test.equal(body.indexOf("true"), -1, "body shouldn't contain 'true'");

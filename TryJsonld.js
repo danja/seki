@@ -9,7 +9,7 @@ var data = {
         "email": "http://purl.org/stuff/usermanagement#email",
         "profile": "http://purl.org/stuff/usermanagement#profile"
     },
-    
+
     "@id": "http://hyperdata.org/users/danny",
     "@type": "um:User",
     "um:login": "danny",
@@ -35,6 +35,6 @@ processor.normalize(data, options, callback);
 // });
 
 function callback(err, data) {
-    console.log("err = "+err);
-    console.log("data = "+data);
+    console.log("err = " + err);
+    console.log("data = " + data);
 }

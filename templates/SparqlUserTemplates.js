@@ -5,9 +5,8 @@
 var sparqlUserTemplates = {
     // used to retrieve an item from the store for display
     // http://purl.org/dc/terms/
-    
-    listUsersTemplate : 
-    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
+
+    listUsersTemplate: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
      PREFIX owl: <http://www.w3.org/2002/07/owl#> \
      PREFIX dcterms: <http://purl.org/dc/terms/> \
@@ -19,9 +18,8 @@ var sparqlUserTemplates = {
         <http://hyperdata.org/users/${login}> a um:User ; \
      }}",
 
-// used to insert a new item into the store
-insertUserTemplate : 
-"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
+    // used to insert a new item into the store
+    insertUserTemplate: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
 PREFIX owl: <http://www.w3.org/2002/07/owl#> \
 PREFIX dcterms: <http://purl.org/dc/terms/> \

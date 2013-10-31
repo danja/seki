@@ -12,99 +12,98 @@ function TurtleHandler() {
 // properties and methods
 TurtleHandler.prototype = {
 
-	value1 : "default_value",
-	
-	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-put
-	"PUT" : function(uri, data, callback){
+    value1: "default_value",
 
-		console.log("URI in PUT = "+uri);
-		var client = http.createClient(config.sparqlPort, config.sparqlHost);
-		var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(uri);
-		// HERE HERE HERE
-		var headers = {
-				"Content-type" : "text/turtle"
-			}
-		var clientRequest = client.request("PUT", queryPath, headers);
-		clientRequest.end(data);
-		
-		// handle SPARQL server response
-		clientRequest.on('response', function(queryResponse) {
-			callback(queryResponse.statusCode,
-					queryResponse.headers);
-		});
-	},
+    // uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-put
+    "PUT": function(uri, data, callback) {
 
-	// uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-get
-	"GET" : function(uri, outputStream) {
-		var client = http.createClient(config.sparqlPort, config.sparqlHost);
-		
-		// console.log("TurtleHandler.GET called");
+        console.log("URI in PUT = " + uri);
+        var client = http.createClient(config.sparqlPort, config.sparqlHost);
+        var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(uri);
+        // HERE HERE HERE
+        var headers = {
+            "Content-type": "text/turtle"
+        }
+        var clientRequest = client.request("PUT", queryPath, headers);
+        clientRequest.end(data);
 
-		var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(uri);
-		// verbosity("queryPath =" + queryPath);
-		var clientRequest = client.request("GET", queryPath, headers.graph);
-		clientRequest.end();
+        // handle SPARQL server response
+        clientRequest.on('response', function(queryResponse) {
+            callback(queryResponse.statusCode,
+                queryResponse.headers);
+        });
+    },
 
-		// handle SPARQL server response
-		clientRequest.on('response', function(queryResponse) {
-			// serve status & headers
+    // uses http://www.w3.org/TR/sparql11-http-rdf-update/#http-get
+    "GET": function(uri, outputStream) {
+        var client = http.createClient(config.sparqlPort, config.sparqlHost);
 
-			// console.log("STATTUS=" + queryResponse.statusCode);
-			if(outputStream.writeHead) { // if it supports this methods, do it
-			outputStream.writeHead(queryResponse.statusCode,
-					queryResponse.headers);
-			}
+        // console.log("TurtleHandler.GET called");
 
-			// response body may come in chunks, whatever, just pass them on
-			queryResponse.on('data', function(chunk) {
-				// verbosity("headers " +
-				// JSON.stringify(queryResponse.headers));
-				outputStream.write(chunk);
-			});
-			// the SPARQL server response has finished, so finish up this
-			// response
-			queryResponse.on('end', function() {
-				outputStream.end();
-			});
-		});
-	},
+        var queryPath = config.sparqlGraphEndpoint + "?graph=" + escape(uri);
+        // verbosity("queryPath =" + queryPath);
+        var clientRequest = client.request("GET", queryPath, headers.graph);
+        clientRequest.end();
 
-	/* utility - gets list of named graph URIs
-	 * as object bindings
-	 * used by admin/Admin.js
-	 */
-	getGraphs : function(callback) {
-		// the client that will talk to the SPARQL server
-		var client = http.createClient(config.sparqlPort, config.sparqlHost);
-		var queryPath = config.sparqlQueryEndpoint + "?query="
-				+ escape(sparqlTemplates.listGraphURIs);
-		console.log("queryPath =" + queryPath);
-		var clientRequest = client.request("GET", queryPath, headers.graph);
-		clientRequest.end();
+        // handle SPARQL server response
+        clientRequest.on('response', function(queryResponse) {
+            // serve status & headers
 
-		var saxer = require('./srx2map_multi');
-		var stream = saxer.createStream();
+            // console.log("STATTUS=" + queryResponse.statusCode);
+            if (outputStream.writeHead) { // if it supports this methods, do it
+                outputStream.writeHead(queryResponse.statusCode,
+                    queryResponse.headers);
+            }
 
-		// handle SPARQL server response
-		clientRequest.on('response', function(queryResponse) {
-			console.log("STATUS=" + queryResponse.statusCode);
+            // response body may come in chunks, whatever, just pass them on
+            queryResponse.on('data', function(chunk) {
+                // verbosity("headers " +
+                // JSON.stringify(queryResponse.headers));
+                outputStream.write(chunk);
+            });
+            // the SPARQL server response has finished, so finish up this
+            // response
+            queryResponse.on('end', function() {
+                outputStream.end();
+            });
+        });
+    },
 
-			var data = "";
-			// response body may come in chunks, whatever, just pass them on
+    /* utility - gets list of named graph URIs
+     * as object bindings
+     * used by admin/Admin.js
+     */
+    getGraphs: function(callback) {
+        // the client that will talk to the SPARQL server
+        var client = http.createClient(config.sparqlPort, config.sparqlHost);
+        var queryPath = config.sparqlQueryEndpoint + "?query=" + escape(sparqlTemplates.listGraphURIs);
+        console.log("queryPath =" + queryPath);
+        var clientRequest = client.request("GET", queryPath, headers.graph);
+        clientRequest.end();
 
-			queryResponse.on('data', function(chunk) {
-				// console.log(chunk);
-				stream.write(chunk);
-			});
+        var saxer = require('./srx2map_multi');
+        var stream = saxer.createStream();
 
-			queryResponse.on('end', function() {
+        // handle SPARQL server response
+        clientRequest.on('response', function(queryResponse) {
+            console.log("STATUS=" + queryResponse.statusCode);
 
-				stream.end();
+            var data = "";
+            // response body may come in chunks, whatever, just pass them on
 
-				callback(stream.bindings);
-			});
-		});
-	}
+            queryResponse.on('data', function(chunk) {
+                // console.log(chunk);
+                stream.write(chunk);
+            });
+
+            queryResponse.on('end', function() {
+
+                stream.end();
+
+                callback(stream.bindings);
+            });
+        });
+    }
 };
 
 module.exports = TurtleHandler;

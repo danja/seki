@@ -6,37 +6,36 @@ var StoreClient = require("../StoreClient");
 var freemarker = require('../templates/freemarker');
 var Constants = require('../config/Constants');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
+var Log = require('log'),
+    log = new Log(config.logLevel);
 
 var postHeaders = {
-    "Accept" : "application/sparql-results+xml",
-    "Host" : config.sekiHost + ":" + config.sekiPort,
-    'Content-Type' : 'application/x-www-form-urlencoded'
+    "Accept": "application/sparql-results+xml",
+    "Host": config.sekiHost + ":" + config.sekiPort,
+    'Content-Type': 'application/x-www-form-urlencoded'
 };
 
 // MERGE THIS INTO RequestHandler
 
-function GenericHandler() {
-}
+function GenericHandler() {}
 
 // properties and methods
 GenericHandler.prototype = {
-    
-    "handle" : function(sekiRequest, sekiResponse, ResponseHandler, route) {
-        
-       // log.debug("GenericHandler.handle");
+
+    "handle": function(sekiRequest, sekiResponse, ResponseHandler, route) {
+
+        // log.debug("GenericHandler.handle");
 
         var message = '';
-        
+
         sekiRequest.on('data', function(chunk) {
             message += chunk;
         });
         sekiRequest.on('end', function() {
-       //     log.debug("GenericHandler.handle ON END");
+            //     log.debug("GenericHandler.handle ON END");
             var handler = new ResponseHandler(); // (sekiRequest, sekiResponse, message, route)
             handler.handle(sekiRequest, sekiResponse, message, route);
-        }
-        );                  
+        });
     }
 
 }

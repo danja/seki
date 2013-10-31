@@ -1,13 +1,11 @@
-
-function ScopeTest() {
-}
+function ScopeTest() {}
 
 ScopeTest.prototype = {
-    "t" : function() {
-       console.log("TTTTTTTTTTTTTTTTT");
+    "t": function() {
+        console.log("TTTTTTTTTTTTTTTTT");
     },
-    "r" : function() {
-       this.t();
+    "r": function() {
+        this.t();
     }
 }
 

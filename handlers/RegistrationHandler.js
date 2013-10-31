@@ -10,84 +10,88 @@ var StoreClient = require("../StoreClient");
 var freemarker = require('../templates/freemarker');
 var Constants = require('../config/Constants');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'), log = new Log(config.logLevel);
+var Log = require('log'),
+    log = new Log(config.logLevel);
 
 // var util = require("util");
 
 var jsonld = require('../lib/jsonld/jsonld');
 
 var postHeaders = {
-    "Accept" : "application/sparql-results+xml",
-    "Host" : config.sekiHost + ":" + config.sekiPort,
-    'Content-Type' : 'application/x-www-form-urlencoded'
+    "Accept": "application/sparql-results+xml",
+    "Host": config.sekiHost + ":" + config.sekiPort,
+    'Content-Type': 'application/x-www-form-urlencoded'
 };
 
 // Constructor
-function RegistrationHandler() {
-}
+function RegistrationHandler() {}
 
 // properties and methods
 RegistrationHandler.prototype = {
-    
-    "handle" : function(sekiRequest, sekiResponse) {
-        
+
+    "handle": function(sekiRequest, sekiResponse) {
+
         log.debug("RegistrationHandler.handle");
-        
+
         // check media type of data..?
-        
+
         var post_body = '';
-        
+
         // request body may come in chunks, join them together
         sekiRequest.on('data', function(chunk) {
             post_body += chunk;
         });
-        
+
         var validate = this.validate;
-        log.debug("validate = "+validate);
+        log.debug("validate = " + validate);
         // now received body of request
         sekiRequest.on('end',
-                       function() {
-                           log.debug("raw post_body \n" + post_body);
-                       //    log.debug("THISSSSSSSSSSSSSSSSSSS\n"+util.inspect(this));
-                           
-                           post_body = post_body.replace(/%0D/g,""); // remove carriage returns 
-                           post_body = post_body.replace(/%0A/g,""); // remove newlines - Fuseki complains otherwise
-                           
-                           // console.log(post_body);
-                           // turn the POST parameters into a map (JSON object)
-                    //       var bodyMap = qs.parse(post_body);
-                           var bodyMap = JSON.parse(post_body);
-                   
-                           log.debug("replaceMap \n" + JSON.stringify(bodyMap));
-                           
-                           // VALIDATE MESSAGE
-                           var options = { "format" : 'application/nquads' };
+            function() {
+                log.debug("raw post_body \n" + post_body);
+                //    log.debug("THISSSSSSSSSSSSSSSSSSS\n"+util.inspect(this));
 
-                           var processor = new jsonld.JsonLdProcessor();
-                      
-                           processor.normalize(bodyMap, options, 
-                               function(err, turtle) {
-                                   if(err) {
-                                       log.debug("JsonLd parse error "+err);
-                                   };
-                                   log.debug("POSTed Turtle = "+turtle);
-                                   var client = new StoreClient(); // is same as in JSONHandler
-                                   var headers = {
-                                       "Location" : "/users/"+bodyMap["login"]+".html" // force html type
-                                   };
-                                   var callback = function(){ // hmm, 303 not 201 Created
-                                       sekiRequest.headers = { "Accept" : "text/html" };
-                                       sekiResponse.writeHead(303, headers); // 201 Created
-                                       sekiResponse.end();
-                                   };
-                                   client.sendTurtle(config.uriBase+"/users", turtle, callback) ;
-                                   
-                             
-                           }
-                        );
-                           return;
-                          // replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
-                           /*
+                post_body = post_body.replace(/%0D/g, ""); // remove carriage returns 
+                post_body = post_body.replace(/%0A/g, ""); // remove newlines - Fuseki complains otherwise
+
+                // console.log(post_body);
+                // turn the POST parameters into a map (JSON object)
+                //       var bodyMap = qs.parse(post_body);
+                var bodyMap = JSON.parse(post_body);
+
+                log.debug("replaceMap \n" + JSON.stringify(bodyMap));
+
+                // VALIDATE MESSAGE
+                var options = {
+                    "format": 'application/nquads'
+                };
+
+                var processor = new jsonld.JsonLdProcessor();
+
+                processor.normalize(bodyMap, options,
+                    function(err, turtle) {
+                        if (err) {
+                            log.debug("JsonLd parse error " + err);
+                        };
+                        log.debug("POSTed Turtle = " + turtle);
+                        var client = new StoreClient(); // is same as in JSONHandler
+                        var headers = {
+                            "Location": "/users/" + bodyMap["login"] + ".html" // force html type
+                        };
+                        var callback = function() { // hmm, 303 not 201 Created
+                            sekiRequest.headers = {
+                                "Accept": "text/html"
+                            };
+                            sekiResponse.writeHead(303, headers); // 201 Created
+                            sekiResponse.end();
+                        };
+                        client.sendTurtle(config.uriBase + "/users", turtle, callback);
+
+
+                    }
+                );
+                return;
+                // replaceMap["content"] = replaceMap["content"].replace(/\"/g, "\\\"");
+                /*
                            replaceMap["date"] = new Date().toJSON();
                            var resourceType = replaceMap["type"];
                            
@@ -144,8 +148,8 @@ RegistrationHandler.prototype = {
                            log.debug("PostHandler calling StoreClient with options "+JSON.stringify(options));
                            client.send(options, sparql, callback);
         */
-                       });
-                               
+            });
+
     }
 }
 
