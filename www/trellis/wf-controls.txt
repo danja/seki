@@ -1,0 +1,16 @@
+Zoom in	alt + right
+Zoom out	alt + left
+Expand / collapse	 control + space
+Indent	 tab
+Outdent	 shift + tab
+(or hit 'enter' on an empty line)
+Move	alt + shift + arrows
+Add a note	 shift + enter
+Complete	 control + enter
+Delete	 control + shift + backspace
+Search	 escape
+Show/hide completed	 control + o
+Star page	 control + shift + ∗
+Switch between pages	 control + ;
+(hold control while switching)
+Keyboard shortcuts	 control + ?
