@@ -1,197 +1,223 @@
-.ts-entry {
-    background-color: white;
+/*  Trellis CSS
+    danja 2013-11-05
+---------------------*/
+* {
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.3em;
 }
-
-.ts-drag {
-float:right;
+html {
+    background-color: #eee;
+}
+body {
+    text-align: center;
+    overflow-y: scroll;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: #444;
+    background-color: #fff;
+    font-size: 13px;
+    font-family: Freesans, sans-serif;
+    padding: 2em 4em;
+    width: 860px;
+    margin: 15px auto;
+    box-shadow: 1px 1px 8px #444;
+    -mox-box-shadow: 1px 1px 8px #444;
+    -webkit-box-shadow: 1px -1px 8px #444;
+}
+.page {
+background-color: #fff;
+    position: relative;
+    left: -7px;
+  /*  float: left; */
+    display: block;
+  /*  width: 76.5em; */
+}
+.page ul {
+    margin: 0 0 1em 1.2em;
+}
+.page ol {
+    margin: 0 0 1em 1.6em;
+}
+.page ul ul, .page ol ul {
+    margin: 0 0 0 1.2em;
+    font-size: 0.95em;
+}
+.page ul ol, .page ol ol {
+    margin: 0 0 0 1.6em;
+    font-size: 0.95em;
+}
+#trellis-header {
+    width:70em;
+}
+#trellis-header dt {
+    width:66em;
+}
+.trellis-undo {
+    float:right;
+}
+#trellis, #dragHelper {
+    display: block;
+    margin: 0;
+    list-style: none;
+}
+#dragHelper {
+    background: #eee;
+}
+#trellis ul, #dragHelper ul {
+    font-size: 1em;
+    list-style: none;
+}
+#trellis li, #dragHelper li {
+    display: block;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+#trellis dl, #dragHelper div {
+    position: relative;
+    display: block;
+    height: 19px;
+    border-top: 1px solid #eee;
+    padding-top: 1px;
+    background:#fff;
+}
+#trellis dt, #dragHelper dt {
+    float: left;
+    font-weight: bold;
+    font-size: 1.1em;
+    line-height: 1em;
+    margin-left: 16px;
+    padding: 0 0 0 1px;
+}
+#trellis dd, #dragHelper dd {
+    float: left;
+}
+#trellis .ts-actions, #dragHelper .ts-actions {
+    display: none;
+    padding: 3px 2px 0 5px;
+}
+#trellis .ts-status, #dragHelper .ts-status {
+    position: absolute;
+    top: 3px;
+    right: 0;
+}
+#trellis dl:hover dd, #trellis dd:hover {
+    display: block;
+}
+#trellis dd strong, #dragHelper dd strong {
+    display: none;
+}
+#trellis a, #dragHelper a {
+    border: none;
+}
+#trellis .ts-expander, #dragHelper .ts-expander {
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+#trellis .ts-open, #dragHelper .ts-open {
+  /*  background: url(../img/ts-li.gif) left repeat-y; */
+}
+#trellis .ts-open > dl > .ts-expander, #dragHelper .ts-open > dl > .ts-expander {
+    display: block;
+    width: 15px;
+    height: 1em;
+    background: url(../img/ts-open.gif) 50% 50% no-repeat;
+}
+#trellis .ts-closed > dl > .ts-expander, #dragHelper .ts-closed > dl > .ts-expander {
+    display: block;
+    width: 15px;
+    height: 1em;
+    background: url(../img/ts-closed.gif) 50% 50% no-repeat;
+}
+#trellis .ts-closed ul, #dragHelper .ts-closed ul {
+    display: none;
+}
+/*
+.ts-move, .ts-delete, .ts-addChild, .ts-workFlow {
+    display: block;
+    float: right;
+    width: 16px;
+    height: 16px;
+    text-indent: -5000px;
+    margin: 0 1px 0 0;
+    background: url(../img/ts-move.png) top left no-repeat;
+}
+*/
+.ts-actions * {
+    cursor: pointer;
+}
+.ts-card, .ts-workFlow, .ts-addChild, .ts-delete {
+   display:none; 
+    float: right;
+  /*  font-size: 150%; */
+  /*  margin: 0 1px 0 0; */
+}
+.ts-move {
+ /*   background-image: url(../img/ts-move.png); */
+}
+/*
+.ts-delete {
+    background-image: url(../img/ts-delete.png);
+}
+.ts-addChild {
+    background-image: url(../img/ts-addChild.png);
+}
+*/
+/*
+.ts-card {
+    background-image: url(../img/ts-unpub.png);
+}
+*/
+/*
+.ts-workFlow {
+    background-image: none;
+}
+*/
+ .dragRow td {
+    background-color: silver;
 }
 
 .ts-highlight {
-    background-color: cyan;
+    background-color: #ddd;
 }
 
-html {
-			background-color: #eee;
-		}
-
-		body {
-			-webkit-border-radius: 10px;
-			   -moz-border-radius: 10px;
-			        border-radius: 10px;
-			color: #444;
-			background-color: #fff;
-			font-size: 13px;
-			font-family: Freesans, sans-serif;
-			padding: 2em 4em;
-			width: 860px;
-			margin: 15px auto;
-			box-shadow:				1px 1px 8px #444;
-			-mox-box-shadow:		1px 1px 8px #444;
-			-webkit-box-shadow:		1px -1px 8px #444;
-		}
-
-		a, a:visited {
-			color: #4183C4;
-			text-decoration: none;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-
-		pre, code {
-			font-size: 12px;
-		}
-
-		pre {
-			width: 100%;
-			overflow: auto;
-		}
-
-		small {
-			font-size: 90%;
-		}
-
-		small code {
-			font-size: 11px;
-		}
-
-		.placeholder {
-			outline: 1px dashed #4183C4;
-			/*-webkit-border-radius: 3px;
-			-moz-border-radius: 3px;
-			border-radius: 3px;
-			margin: -1px;*/
-		}
-
-		.mjs-nestedSortable-error {
-			background: #fbe3e4;
-			border-color: transparent;
-		}
-
-		ol {
-			margin: 0;
-			padding: 0;
-			padding-left: 30px;
-		}
-
-		ol.sortable, ol.sortable ol {
-			margin: 0 0 0 25px;
-			padding: 0;
-			list-style-type: none;
-		}
-
-		ol.sortable {
-			margin: 4em 0;
-		}
-
-		.sortable li {
-			margin: 5px 0 0 0;
-			padding: 0;
-		}
-
-		.sortable li div  {
-                padding: 6px;
-			margin: 0;
-		/*	border: 1px solid #d4d4d4;
-			-webkit-border-radius: 3px;
-			-moz-border-radius: 3px;
-			border-radius: 3px;
-			border-color: #D4D4D4 #D4D4D4 #BCBCBC;
-			
-			cursor: move;
-			background: #f6f6f6;
-			background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed));
-			background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-			background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-			background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-			background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
-                        */
-		}
-
-		.sortable li.mjs-nestedSortable-branch div {
-                /*
-			background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #f0ece9 100%);
-			background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#f0ece9 100%);
-*/
-		}
-
-		.sortable li.mjs-nestedSortable-leaf div {
-                /*
-			background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #bcccbc 100%);
-			background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#bcccbc 100%);
-*/
-		}
-
-		li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
-			border-color: #999;
-			background: #fafafa;
-		}
-
-		.disclose {
-			cursor: pointer;
-			width: 10px;
-			display: none;
-		}
-
-		.sortable li.mjs-nestedSortable-collapsed > ol {
-			display: none;
-		}
-
-		.sortable li.mjs-nestedSortable-branch > div > .disclose {
-			display: inline-block;
-		}
-
-		.sortable li.mjs-nestedSortable-collapsed > div > .disclose > span:before {
-			content: '+ ';
-		}
-
-		.sortable li.mjs-nestedSortable-expanded > div > .disclose > span:before {
-			content: '- ';
-		}
-
-		h1 {
-			font-size: 2em;
-			margin-bottom: 0;
-		}
-
-		h2 {
-			font-size: 1.2em;
-			font-weight: normal;
-			font-style: italic;
-			margin-top: .2em;
-			margin-bottom: 1.5em;
-		}
-
-		h3 {
-			font-size: 1em;
-			margin: 1em 0 .3em;;
-		}
-
-		p, ol, ul, pre, form {
-			margin-top: 0;
-			margin-bottom: 1em;
-		}
-
-		dl {
-			margin: 0;
-		}
-
-		dd {
-			margin: 0;
-			padding: 0 0 0 1.5em;
-		}
-
-		code {
-			background: #e5e5e5;
-		}
-
-		input {
-			vertical-align: text-bottom;
-		}
-
-		.notice {
-			color: #c33;
-		}
+#sortHelper {
+    height: 1px !important;
+    background: #000;
+    margin: 0 !important;
+    padding: 0;
+    position: relative;
+    z-index: 100;
+}
+#sortHelper + li {
+    margin-top: 0;
+}
+#dropMenu {
+    background: #333;
+    color:#eee;
+    position:absolute;
+    display:none;
+    z-index:1000;
+}
+#dropMenu ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-indent:0;
+}
+#dropMenu li {
+    margin:0;
+    padding:5px 10px;
+    width:100px;
+    cursor:pointer;
+    font-weight:bold;
+}
+#trellis .dropzone {
+    height:6px;
+    background-color:#fff;
+    border-bottom:4px solid #fff;
+}

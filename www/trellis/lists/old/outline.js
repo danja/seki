@@ -3,33 +3,67 @@
 $(document).ready(function(){
 console.log("READY");
 // MOVE THIS
+/*
+$( ".ts-card" ).keydown(function() {
+  alert( "Handler for .keydown() called." );
+});
+*/
 
-$('.ts-entry').mouseover(function(){
-          $(this).addClass('ts-highlight');
+ $(function() {
+ 
+ $( "li" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );
+      }
+    });
+ 
+ $( ".sortable" ).sortable({
+      revert: true
+    });
+    $( "div" ).draggable({
+    //   connectToSortable: ".sortable",
+    //  helper: "clone",
+    //  revert: "invalid"
+    });
+  });
+  
+$('.sortable li div').click(function(){ 
+//  $(this).sortable( "option", "disabled", true );
+console.log("clicked");
+ // $(this).removeClass("ui-sortable");
+  });
+  
+$('.sortable li div').mouseover(function(){ // .ts-entry
+         // $(this).addClass('ts-highlight');
+      //   $(this).attr("contenteditable", "true");
+          $(".ts-drag").remove();   
+          $(this).append("<span class='ts-drag'>&#8597;</span>");
         });
-        
-        $('.ts-entry').mouseout(function(){
-          $(this).removeClass('ts-highlight');
+      
+        $('.sortable li div').mouseout(function(){
+               //   $(this).remove("span");
+       //       if(!$(this).hasClass(".ts-drag")) {
+       //     $(".ts-drag").remove();       
+       //     };
+      //    $(this).removeClass('ts-highlight');
         });
         
 $('.ts-card').click(function() {
 console.log("ts-card clicked");
-		$(function() {
+		//$(function() {
     $( "#card" ).dialog({
       height: 140,
       modal: true
     });
-  });
-  /*
-    $( "#card" ).dialog({
-      height: 140,
-      modal: true
-    });
-    */
+ // });
   });
   
 		// });
 ///////////////////////////////////////////
+/*
 		$('ol.sortable').nestedSortable({
 			forcePlaceholderSize: true,
 			handle: 'div',
@@ -46,8 +80,9 @@ console.log("ts-card clicked");
 			expandOnHover: 700,
 			startCollapsed: true
 		});
-
+*/
 		$('.disclose').on('click', function() {
+                 $(this).closest('li').removeClass('ts-highlight');
 			$(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
 		})
 
