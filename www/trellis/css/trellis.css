@@ -137,7 +137,7 @@ background-color: #fff;
     display: none;
 }
 /*
-.ts-move, .ts-delete, .ts-addChild, .ts-workFlow {
+.ts-move, .ts-delete, .ts-addChild, .ts-handle {
     display: block;
     float: right;
     width: 16px;
@@ -150,10 +150,23 @@ background-color: #fff;
 .ts-actions * {
     cursor: pointer;
 }
-.ts-card, .ts-workFlow, .ts-addChild, .ts-delete {
-   display:none; 
+
+.ts-card, .ts-handle, .ts-addChild, .ts-delete {
+    cursor:pointer;
+    display:none; 
+    font-weight:bold;
+    color: green;
+    padding:0px 5px 0px 5px;
+    /*  font-size: 150%; */
+    /*  margin: 0 1px 0 0; */
+}
+
+.ts-handle {
+    cursor:move;
+color: blue;
     float: right;
-  /*  font-size: 150%; */
+   font-size: 150%; 
+   font-weight:bold;
   /*  margin: 0 1px 0 0; */
 }
 .ts-move {
@@ -173,7 +186,7 @@ background-color: #fff;
 }
 */
 /*
-.ts-workFlow {
+.ts-handle {
     background-image: none;
 }
 */

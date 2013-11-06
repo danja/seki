@@ -1,23 +1,54 @@
-﻿//init functions
+﻿ //init functions
 $(function() {
-    $('.ts-title').attr('contenteditable', 'true');
-    
-        $('.ts-entry').mouseover(function(){ // .ts-entry
-         $(this).find(".ts-title").addClass('ts-highlight');
-         $(this).find(".ts-card").show(); //////////////////////// better to add HTML element??
-         $(this).find(".ts-addChild").show();
-         $(this).find(".ts-workFlow").show();
-         $(this).find(".ts-delete").show();
-         });
-      
-        $('.ts-entry').mouseout(function(){
-          $(this).find(".ts-title").removeClass('ts-highlight');
-          $(this).find(".ts-card").hide();
-          $(this).find(".ts-addChild").hide();
-          $(this).find(".ts-workFlow").hide();
-          $(this).find(".ts-delete").hide();
+    $('#toArray').click(function(e) {
+        console.log("toArray clicked");
+        arraied = $('#trellis').toArray({
+            startDepthCount: 0
         });
-    
+        //      console.log("arraied = "+JSON.stringify(arraied));
+        // nestedSortable('toArray', {startDepthCount: 0});
+        console.log("<");
+        arraied = dump(arraied);
+        console.log(">");
+        (typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
+            $('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
+    });
+
+   $('.ts-title').attr('contenteditable', 'true');
+
+/*
+    $("#trellis li") //.draggable()
+    .click(function() {
+        console.log("click");
+        $(this).draggable({
+            disabled: false
+        });
+        $(this).find('.ts-title').attr('contenteditable', 'false');
+    }).dblclick(function() {
+        console.log("clickdbl");
+        $(this).draggable({
+            disabled: true
+        });
+  $(this).find('.ts-title').attr('contenteditable', 'true');
+    });
+    */
+
+    $('.ts-entry').mouseover(function() { // .ts-entry
+        $(this).find(".ts-title").addClass('ts-highlight');
+        $(this).find(".ts-card").show(); //////////////////////// better to add HTML element??
+        $(this).find(".ts-addChild").show();
+        $(this).find(".ts-handle").show();
+        $(this).find(".ts-delete").show();
+    });
+
+    $('.ts-entry').mouseout(function() {
+        $(this).find(".ts-title").removeClass('ts-highlight');
+        $(this).find(".ts-card").hide();
+        $(this).find(".ts-addChild").hide();
+        $(this).find(".ts-handle").hide();
+        $(this).find(".ts-delete").hide();
+    });
+
     $('#trellis li').prepend('<div class="dropzone"></div>');
 
     $('#trellis dl, #trellis .dropzone').droppable({
@@ -31,25 +62,35 @@ $(function() {
             }
             if (child) {
                 li.addClass('ts-open').removeClass('ts-closed').children('ul').append(ui.draggable);
-            }
-            else {
+            } else {
                 li.before(ui.draggable);
             }
-			$('#trellis li.ts-open').not(':has(li:not(.ui-draggable-dragging))').removeClass('ts-open');
-            li.find('dl,.dropzone').css({ backgroundColor: '', borderColor: '' });
+            $('#trellis li.ts-open').not(':has(li:not(.ui-draggable-dragging))').removeClass('ts-open');
+            li.find('dl,.dropzone').css({
+                backgroundColor: '',
+                borderColor: ''
+            });
             trellisHistory.commit();
         },
         over: function() {
-            $(this).filter('dl').css({ backgroundColor: '#ccc' });
-            $(this).filter('.dropzone').css({ borderColor: '#aaa' });
+            $(this).filter('dl').css({
+                backgroundColor: '#ccc'
+            });
+            $(this).filter('.dropzone').css({
+                borderColor: '#aaa'
+            });
         },
         out: function() {
-            $(this).filter('dl').css({ backgroundColor: '' });
-            $(this).filter('.dropzone').css({ borderColor: '' });
+            $(this).filter('dl').css({
+                backgroundColor: ''
+            });
+            $(this).filter('.dropzone').css({
+                borderColor: ''
+            });
         }
     });
     $('#trellis li').draggable({
-        handle: ' > dl',
+        handle: ' dd', // ' > dl'
         opacity: .8,
         addClasses: false,
         helper: 'clone',
@@ -63,10 +104,10 @@ $(function() {
         if (e.ctrlKey && (e.which == 122 || e.which == 26))
             trellisHistory.restoreState();
     });
-	$('.ts-expander').on('click', function() {
-		$(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
-		return false;
-	});
+    $('.ts-expander').on('click', function() {
+        $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
+        return false;
+    });
 });
 
 var trellisHistory = {
@@ -76,7 +117,11 @@ var trellisHistory = {
     //note: doesn't commit the save until commit() is called!
     //this is because we might decide to cancel the move
     saveState: function(item) {
-        trellisHistory.temp = { item: $(item), itemParent: $(item).parent(), itemAfter: $(item).prev() };
+        trellisHistory.temp = {
+            item: $(item),
+            itemParent: $(item).parent(),
+            itemAfter: $(item).prev()
+        };
     },
     commit: function() {
         if (trellisHistory.temp != null) trellisHistory.stack.push(trellisHistory.temp);
@@ -87,8 +132,7 @@ var trellisHistory = {
         if (h == null) return;
         if (h.itemAfter.length > 0) {
             h.itemAfter.after(h.item);
-        }
-        else {
+        } else {
             h.itemParent.prepend(h.item);
         }
         //checks the classes on the lists
@@ -96,4 +140,3 @@ var trellisHistory = {
         $('#trellis li:has(ul li):not(.ts-closed)').addClass('ts-open');
     }
 }
-
