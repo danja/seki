@@ -1,52 +1,100 @@
 ﻿ //init functions
 $(function() {
+
+    var keyCodes = {
+        "tab": 9
+    }
+    /*
+     altKey - alt/option key                                    *
+     ctrlKey - control key
+     shiftKey - shift key
+     metaKey - control key on PCs, control and/or command key on Macs
+     */
+
     $('.ts-entry').keydown(function(e) {
         $(this).find(".ts-title").addClass('ts-selected');
-        var keyCode = e.keyCode || e.which; 
-        console.log( "Handler for .keydown() called = "+keyCode);
-        if ( event.which == 13 ) {
+
+        var parent = $(this).parent("li");
+
+        var keyCode = e.keyCode || e.which;
+        console.log("Handler for .keydown() called = " + keyCode);
+        if (keyCode == keyCodes["tab"]) {
+            if (e.shiftKey) {
+                ts_outdent($(parent));
+            } else {
+                ts_indent($(parent));
+            }
             event.preventDefault();
         }
+
     });
-    
+
+    function ts_indent($li) {
+        console.log("TAB");
+        
+        var prev = $li.prev("li");
+        console.log("prev = " + prev.length + "   " + prev.attr("class"));
+        if (prev.length) {
+            if (prev.hasClass("ts-open") || prev.hasClass("ts-closed")) {
+                console.log("has ts-open/closed");
+                
+                var prevUL = prev.children("ul");
+                console.log("prevUL = " + prevUL.length + "   " + prevUL.attr("class"));
+                $li.remove();
+                prevUL.append($li);
+            } else {
+                $li.remove();
+                var ul = $('<ul/>').appendTo(prev);
+                ul.append($li);
+                prev.addClass("ts-open");
+            }
+        }
+        event.preventDefault();
+    }
+
+    function ts_outdent($li) {
+        console.log("UNTAB");
+        event.preventDefault();
+    }
+
     $('.ts-entry').click(function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).find(".ts-title").addClass('ts-selected');
         ts_highlight(this);
     });
-    
-    $(document).click(function(e) { 
-        if ( $(e.target).closest('.ts-title').length === 0 ) {
+
+    $(document).click(function(e) {
+        if ($(e.target).closest('.ts-title').length === 0) {
             $(".ts-title").removeClass('ts-selected');
-        //    ts_unhighlight(this);
+            //    ts_unhighlight(this);
         };
-        
+
     });
 
-   $('.ts-title').attr('contenteditable', 'true');
-   
-   $('.ts-entry').mouseover(function() { // .ts-entry
-       $(this).find(".ts-title").addClass('ts-highlight');
-       $(this).find(".ts-handle").show();
-       // ts_highlight(this);
-      
-   });
-   
-   
-   $('.ts-entry').mouseout(function() {
-    //   ts_unhighlight(this);
-       $(this).find(".ts-title").removeClass('ts-highlight');
-       $(this).find(".ts-handle").hide();
-   });
+    $('.ts-title').attr('contenteditable', 'true');
 
-   
-   function ts_highlight(node) {
-       $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
-       $(node).find(".ts-addChild").show();
-       $(node).find(".ts-delete").show();
-   }
+    $('.ts-entry').mouseover(function() { // .ts-entry
+        $(this).find(".ts-title").addClass('ts-highlight');
+        $(this).find(".ts-handle").show();
+        // ts_highlight(this);
 
-   /*
+    });
+
+
+    $('.ts-entry').mouseout(function() {
+        //   ts_unhighlight(this);
+        $(this).find(".ts-title").removeClass('ts-highlight');
+        $(this).find(".ts-handle").hide();
+    });
+
+
+    function ts_highlight(node) {
+        $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
+        $(node).find(".ts-addChild").show();
+        $(node).find(".ts-delete").show();
+    }
+
+    /*
    function ts_unhighlight(node) {
        //   $(node).find(".ts-title").removeClass('ts-highlight');
        $(node).find(".ts-card").hide();
@@ -55,11 +103,11 @@ $(function() {
    }
    */
 
-   $('#toTurtle').click(function() {
-       
-      toTurtle("http://hyperdata.org/");
-   });
-   
+    $('#toTurtle').click(function() {
+
+        toTurtle("http://hyperdata.org/");
+    });
+
     $('#trellis li').prepend('<div class="dropzone"></div>');
 
     $('#trellis dl, #trellis .dropzone').droppable({
@@ -125,20 +173,20 @@ $(function() {
  * generate node id
  * uses date.format.js (to minimise browser support issues)
  * datetime+milliseconds+4-digit random
- * 
+ *
  * e.g. nid-2013-11-06-17-46-54-269-7829
- * 
+ *
  * differs from ISO date because jQuery can get confused by colons
  * see http://blog.stevenlevithan.com/archives/date-time-format
  */
 var generateID = function() {
     // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-    
-    var r = ''+Math.floor((Math.random()*10000));
+
+    var r = '' + Math.floor((Math.random() * 10000));
     var pad = "0000";
-    var rnd = (pad+r).slice(-pad.length);
+    var rnd = (pad + r).slice(-pad.length);
     var now = new Date();
-    return "nid-"+dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l")+"-"+rnd;
+    return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
 };
 
 var trellisHistory = {
