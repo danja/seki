@@ -5,7 +5,7 @@
     font-size: 100%;
     margin: 0;
     padding: 0;
-    line-height: 1.3em;
+  /*  line-height: 1.3em; */
 }
 html {
     background-color: #eee;
@@ -64,7 +64,7 @@ background-color: #fff;
     list-style: none;
 }
 #dragHelper {
-    background: #eee;
+    background: #ddd;
 }
 #trellis ul, #dragHelper ul {
     font-size: 1em;
@@ -79,16 +79,16 @@ background-color: #fff;
 #trellis dl, #dragHelper div {
     position: relative;
     display: block;
-    height: 19px;
-    border-top: 1px solid #eee;
-    padding-top: 1px;
+    height: 19px;  
+    border-top: 1px solid #efe;
+  /*  padding-top: 1px; */
     background:#fff;
 }
 #trellis dt, #dragHelper dt {
     float: left;
-    font-weight: bold;
+  /*  font-weight: bold; */
     font-size: 1.1em;
-    line-height: 1em;
+  /*  line-height: 1em; */
     margin-left: 16px;
     padding: 0 0 0 1px;
 }
@@ -136,6 +136,10 @@ background-color: #fff;
 #trellis .ts-closed ul, #dragHelper .ts-closed ul {
     display: none;
 }
+
+.ts-title {
+    outline: 0px;
+}
 /*
 .ts-move, .ts-delete, .ts-addChild, .ts-handle {
     display: block;
@@ -151,9 +155,9 @@ background-color: #fff;
     cursor: pointer;
 }
 
-.ts-card, .ts-handle, .ts-addChild, .ts-delete {
+.ts-card, .ts-addChild, .ts-delete {
     cursor:pointer;
-    display:none; 
+   /*  display:none; */
     font-weight:bold;
     color: green;
     padding:0px 5px 0px 5px;
@@ -162,11 +166,13 @@ background-color: #fff;
 }
 
 .ts-handle {
+    display:none; 
     cursor:move;
 color: blue;
     float: right;
    font-size: 150%; 
    font-weight:bold;
+   padding:0px 5px 0px 5px;
   /*  margin: 0 1px 0 0; */
 }
 .ts-move {
@@ -195,7 +201,11 @@ color: blue;
 }
 
 .ts-highlight {
-    background-color: #ddd;
+    background-color: #eee;
+}
+
+.ts-selected {
+    background-color: #ffa;
 }
 
 #sortHelper {
@@ -230,7 +240,7 @@ color: blue;
     font-weight:bold;
 }
 #trellis .dropzone {
-    height:6px;
+    height:6px; /* was 6px */
     background-color:#fff;
-    border-bottom:4px solid #fff;
+    border-bottom:2px solid #fff; /* was 4px */
 }

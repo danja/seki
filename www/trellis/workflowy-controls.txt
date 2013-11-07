@@ -1,16 +1,27 @@
-Zoom in	alt + right
-Zoom out	alt + left
-Expand / collapse	 control + space
-Indent	 tab
-Outdent	 shift + tab
-(or hit 'enter' on an empty line)
+Expand / collapse	 control + space : 32
+
+Indent	 tab : 9
+Outdent	 shift + tab : 9
+
+Zoom in	alt + right : 39
+Zoom out	alt + left : 37
+
+(or hit 'enter' on an empty line) : 13
 Move	alt + shift + arrows
 Add a note	 shift + enter
 Complete	 control + enter
-Delete	 control + shift + backspace
-Search	 escape
-Show/hide completed	 control + o
-Star page	 control + shift + ∗
-Switch between pages	 control + ;
+Delete	 control + shift + backspace : 8
+Search	 escape : 27
+Show/hide completed	 control + o : 79
+Star page	 control + shift + ∗ : 56
+Switch between pages	 control + ; : 186
 (hold control while switching)
-Keyboard shortcuts	 control + ?
+Keyboard shortcuts	 control + ? : 191
+
+if (e.altKey) { // alt/option key is down
+            // don't submit
+        }
+altKey - alt/option key
+ctrlKey - control key
+shiftKey - shift key
+metaKey - control key on PCs, control and/or command key on Macs

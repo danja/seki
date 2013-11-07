@@ -1,54 +1,65 @@
 ﻿ //init functions
 $(function() {
-    $('#toArray').click(function(e) {
-        console.log("toArray clicked");
-        arraied = $('#trellis').toArray({
-            startDepthCount: 0
-        });
-        //      console.log("arraied = "+JSON.stringify(arraied));
-        // nestedSortable('toArray', {startDepthCount: 0});
-        console.log("<");
-        arraied = dump(arraied);
-        console.log(">");
-        (typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
-            $('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
+    $('.ts-entry').keydown(function(e) {
+        $(this).find(".ts-title").addClass('ts-selected');
+        var keyCode = e.keyCode || e.which; 
+        console.log( "Handler for .keydown() called = "+keyCode);
+        if ( event.which == 13 ) {
+            event.preventDefault();
+        }
+    });
+    
+    $('.ts-entry').click(function() {
+        $(".ts-title").removeClass('ts-selected');
+        $(this).find(".ts-title").addClass('ts-selected');
+        ts_highlight(this);
+    });
+    
+    $(document).click(function(e) { 
+        if ( $(e.target).closest('.ts-title').length === 0 ) {
+            $(".ts-title").removeClass('ts-selected');
+        //    ts_unhighlight(this);
+        };
+        
     });
 
    $('.ts-title').attr('contenteditable', 'true');
+   
+   $('.ts-entry').mouseover(function() { // .ts-entry
+       $(this).find(".ts-title").addClass('ts-highlight');
+       $(this).find(".ts-handle").show();
+       // ts_highlight(this);
+      
+   });
+   
+   
+   $('.ts-entry').mouseout(function() {
+    //   ts_unhighlight(this);
+       $(this).find(".ts-title").removeClass('ts-highlight');
+       $(this).find(".ts-handle").hide();
+   });
 
-/*
-    $("#trellis li") //.draggable()
-    .click(function() {
-        console.log("click");
-        $(this).draggable({
-            disabled: false
-        });
-        $(this).find('.ts-title').attr('contenteditable', 'false');
-    }).dblclick(function() {
-        console.log("clickdbl");
-        $(this).draggable({
-            disabled: true
-        });
-  $(this).find('.ts-title').attr('contenteditable', 'true');
-    });
-    */
+   
+   function ts_highlight(node) {
+       $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
+       $(node).find(".ts-addChild").show();
+       $(node).find(".ts-delete").show();
+   }
 
-    $('.ts-entry').mouseover(function() { // .ts-entry
-        $(this).find(".ts-title").addClass('ts-highlight');
-        $(this).find(".ts-card").show(); //////////////////////// better to add HTML element??
-        $(this).find(".ts-addChild").show();
-        $(this).find(".ts-handle").show();
-        $(this).find(".ts-delete").show();
-    });
+   /*
+   function ts_unhighlight(node) {
+       //   $(node).find(".ts-title").removeClass('ts-highlight');
+       $(node).find(".ts-card").hide();
+       $(node).find(".ts-addChild").hide();
+       $(node).find(".ts-delete").hide();
+   }
+   */
 
-    $('.ts-entry').mouseout(function() {
-        $(this).find(".ts-title").removeClass('ts-highlight');
-        $(this).find(".ts-card").hide();
-        $(this).find(".ts-addChild").hide();
-        $(this).find(".ts-handle").hide();
-        $(this).find(".ts-delete").hide();
-    });
-
+   $('#toTurtle').click(function() {
+       
+      toTurtle("http://hyperdata.org/");
+   });
+   
     $('#trellis li').prepend('<div class="dropzone"></div>');
 
     $('#trellis dl, #trellis .dropzone').droppable({
@@ -109,6 +120,26 @@ $(function() {
         return false;
     });
 });
+
+/*
+ * generate node id
+ * uses date.format.js (to minimise browser support issues)
+ * datetime+milliseconds+4-digit random
+ * 
+ * e.g. nid-2013-11-06-17-46-54-269-7829
+ * 
+ * differs from ISO date because jQuery can get confused by colons
+ * see http://blog.stevenlevithan.com/archives/date-time-format
+ */
+var generateID = function() {
+    // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+    
+    var r = ''+Math.floor((Math.random()*10000));
+    var pad = "0000";
+    var rnd = (pad+r).slice(-pad.length);
+    var now = new Date();
+    return "nid-"+dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l")+"-"+rnd;
+};
 
 var trellisHistory = {
     stack: new Array(),
