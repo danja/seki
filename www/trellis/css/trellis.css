@@ -137,6 +137,10 @@ background-color: #fff;
     display: none;
 }
 
+#ts-entry-template {
+    display: none
+}
+
 .ts-title {
     outline: 0px;
 }

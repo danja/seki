@@ -2,7 +2,8 @@
 $(function() {
 
     var keyCodes = {
-        "tab": 9
+        "tab": 9,
+        "return":13
     }
     /*
      altKey - alt/option key                                    *
@@ -14,15 +15,18 @@ $(function() {
     $('.ts-entry').keydown(function(e) {
         $(this).find(".ts-title").addClass('ts-selected');
 
-        var parent = $(this).parent("li");
+        var li = $(this).parent("li");
 
         var keyCode = e.keyCode || e.which;
         console.log("Handler for .keydown() called = " + keyCode);
+        if (keyCode == keyCodes["return"]) {
+            ts_insert($(li));
+        }
         if (keyCode == keyCodes["tab"]) {
             if (e.shiftKey) {
-                ts_outdent($(parent));
+                ts_outdent($(li));
             } else {
-                ts_indent($(parent));
+                ts_indent($(li));
             }
             event.preventDefault();
         }
@@ -54,21 +58,37 @@ $(function() {
 
     function ts_outdent($li) {
         console.log("UNTAB");
+        var target = $li.parent().parent();
+        console.log("target.html() = "+target.html());
+        if(target.length) {
+        $li.remove();
+        target.append($li);
+        }
+        event.preventDefault();
+    }
+    
+    function ts_insert($li) {
+        console.log("INSERT");
+        var template = $("#ts-entry-template").clone();
+        var newLI = $('<li/>').appendTo($li);
+        newLI.append(template);
+        // newLI.children("dl")
+        template.attr("id", generateID());
+        template.show();
         event.preventDefault();
     }
 
-    $('.ts-entry').click(function() {
+    $('.ts-entry').click(function(){
         $(".ts-title").removeClass('ts-selected');
         $(this).find(".ts-title").addClass('ts-selected');
-        ts_highlight(this);
+        ts_highlight($(this));
     });
-
+    
     $(document).click(function(e) {
         if ($(e.target).closest('.ts-title').length === 0) {
             $(".ts-title").removeClass('ts-selected');
             //    ts_unhighlight(this);
         };
-
     });
 
     $('.ts-title').attr('contenteditable', 'true');
