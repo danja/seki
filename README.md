@@ -6,7 +6,7 @@ It operates as a Web server, building queries from HTTP requests (from a browser
 or another service) and passing them to the SPARQL server, formatting the 
 results (to HTML, JSON...) and passing them back to the client.
 
-*Warning* So far Seki is very experimental/incomplete, don't expect anything to work out of the box. (It is under active development, so watch this space and/or [@danja on Twitter](https://twitter.com/danja).
+_Warning_ So far Seki is very experimental/incomplete, don't expect anything to work out of the box. (It is under active development, so watch this space and/or [@danja on Twitter](https://twitter.com/danja).
 
 ### Uses 
 
