@@ -2,7 +2,7 @@ function toTurtle(baseURI) {
     var turtle = "@prefix dc: <http://purl.org/dc/terms/> . \n";
     turtle += "@prefix ts: <http://hyperdata.org/trellis/> . \n\n";
 
-    var callback = function($node) {
+    var callback = function($node, index) {
 
         var $entryNode = $node.children("dl");
         var id = $entryNode.attr("id");
@@ -17,7 +17,9 @@ function toTurtle(baseURI) {
         }
         turtle += "<" + baseURI + id + "> a ts:Node; \n";
         turtle += "   dc:title \"" + title + "\" ; \n";
+        turtle += "   ts:index \"" + index + "\" ; \n";
         turtle += "   ts:parent <" + parentURI + "> .";
+
         turtle += "\n";
 
     }
@@ -31,7 +33,7 @@ function toTurtle(baseURI) {
 
 function recurseTree($ul, callback) {
     $ul.children("li").each(function(index) {
-        callback($(this));
+        callback($(this),index);
         recurseTree($(this).children("ul"), callback);
 
         //     callback(this);

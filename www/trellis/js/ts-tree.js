@@ -3,7 +3,9 @@ $(function() {
 
     var keyCodes = {
         "tab": 9,
-        "return":13
+        "return": 13,
+        "down": 40,
+        "up": 38
     }
     /*
      altKey - alt/option key                                    *
@@ -11,6 +13,13 @@ $(function() {
      shiftKey - shift key
      metaKey - control key on PCs, control and/or command key on Macs
      */
+    
+    $('.ts-expander').on('click', function() {
+        $(".ts-title").removeClass('ts-selected');
+        $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
+       // return false;
+        event.preventDefault();
+    });
 
     $('.ts-entry').keydown(function(e) {
         $(this).find(".ts-title").addClass('ts-selected');
@@ -30,18 +39,80 @@ $(function() {
             }
             event.preventDefault();
         }
-
+        if (keyCode == keyCodes["down"]) {
+            ts_down($(li));
+            event.preventDefault();
+        }
+        if (keyCode == keyCodes["up"]) {
+            ts_up($(li));
+            event.preventDefault();
+        }
     });
+
+    function ts_up($li) {
+      
+        var prevLI = $li.prev("li");
+        console.log("prevLI.length "+prevLI.length);
+        
+        if(prevLI.length == 0) {
+           prevLI = $li.parent().closest("li");
+        }
+        
+        /*
+        while(prevLI.children("ul").length) { // descend tree
+            console.log("prevLI.childrenul).length "+prevLI.children("ul").length);
+            var kids = $(prevLI.children("ul")[0]).children("li");
+            prevLI = $(kids[kids.length-1]);
+        }
+        */
+        
+        $(".ts-title").removeClass('ts-selected');
+        var title = $(prevLI).find(".ts-title");
+        console.log("tl" + title.length);
+        if (title.length > 1) {
+            title = $($(prevLI).find(".ts-title")[0]);
+        }
+        title.focus();
+        title.addClass('ts-selected');
+    }
+    
+    function ts_down($li) {
+        console.log("down");
+
+        var nextLI = $li.next("li"); // easy one
+        
+        if (nextLI.length == 0) {
+            nextLI = $li.parent("ul").parent("li").next("li");
+        }
+        
+       ///  if($li.hasClass("tl-open")){
+            
+        if ($li.children("ul").length) {
+            nextLI = $($li.children("ul").children("li")[0]);
+        }
+        
+      //  console.log("nextLI.length " + nextLI.length);
+        $(".ts-title").removeClass('ts-selected');
+
+        //  console.log("Q "+$($(nextLI).children("li")).html());
+        var title = $(nextLI).find(".ts-title");
+      //  console.log("tl" + title.length);
+        if (title.length > 1) {
+            title = $($(nextLI).find(".ts-title")[0]);
+        }
+        title.focus();
+        title.addClass('ts-selected');
+    }
 
     function ts_indent($li) {
         console.log("TAB");
-        
+
         var prev = $li.prev("li");
         console.log("prev = " + prev.length + "   " + prev.attr("class"));
         if (prev.length) {
             if (prev.hasClass("ts-open") || prev.hasClass("ts-closed")) {
                 console.log("has ts-open/closed");
-                
+
                 var prevUL = prev.children("ul");
                 console.log("prevUL = " + prevUL.length + "   " + prevUL.attr("class"));
                 $li.remove();
@@ -59,14 +130,14 @@ $(function() {
     function ts_outdent($li) {
         console.log("UNTAB");
         var target = $li.parent().parent();
-        console.log("target.html() = "+target.html());
-        if(target.length) {
-        $li.remove();
-        target.append($li);
+        console.log("target.html() = " + target.html());
+        if (target.length) {
+            $li.remove();
+            target.append($li);
         }
         event.preventDefault();
     }
-    
+
     function ts_insert($li) {
         console.log("INSERT");
         var template = $("#ts-entry-template").clone();
@@ -78,12 +149,12 @@ $(function() {
         event.preventDefault();
     }
 
-    $('.ts-entry').click(function(){
+    $('.ts-entry').click(function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).find(".ts-title").addClass('ts-selected');
         ts_highlight($(this));
     });
-    
+
     $(document).click(function(e) {
         if ($(e.target).closest('.ts-title').length === 0) {
             $(".ts-title").removeClass('ts-selected');
@@ -107,12 +178,19 @@ $(function() {
         $(this).find(".ts-handle").hide();
     });
 
+    /*
+    function ts_highlight(node) {
+        $(".ts-title").removeClass('ts-highlight');
+        $(node).find(".ts-title").removeClass('ts-highlight');
+    }
+*/
 
     function ts_highlight(node) {
         $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
         $(node).find(".ts-addChild").show();
         $(node).find(".ts-delete").show();
     }
+
 
     /*
    function ts_unhighlight(node) {
@@ -182,10 +260,6 @@ $(function() {
     $(document).bind('keypress', function(e) {
         if (e.ctrlKey && (e.which == 122 || e.which == 26))
             trellisHistory.restoreState();
-    });
-    $('.ts-expander').on('click', function() {
-        $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
-        return false;
     });
 });
 
