@@ -72,7 +72,7 @@ RequestHandler.prototype = {
         };
 
         // log.debug("headers"+JSON.stringify(requestParams["headers"]));
-        log.debug("*** requestParams " + JSON.stringify(requestParams));
+        log.debug("*** requestParams " + JSON.stringify(requestParams, null, 4));
 
         var rr = new RequestRouter(requestParams);
         session.assert(rr);
@@ -116,7 +116,7 @@ RequestHandler.prototype = {
                 log.debug(err);
             } else {
                 log.debug("*** RULES DONE ***");
-                log.debug("ROUTE = " + JSON.stringify(r.route));
+                log.debug("ROUTE = " + JSON.stringify(r.route, null, 4));
 
                 var targetFunction = r.route["targetFunction"];
 

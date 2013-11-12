@@ -57,7 +57,44 @@ TemplatingResponseHandler.prototype = {
         var client = new StoreClient();
         log.debug("SENDING TO STORE");
         log.debug("SPARQL = " + sparql);
+        log.debug("route.queryOptions = " + JSON.stringify(route.queryOptions, null, 4));
+        client.send(route.queryOptions, sparql, finalCallback);
+    },
+    
+    "update": function(sekiRequest, sekiResponse, message, route) {
+        log.debug("TemplatingResponseHandler.update");
+        log.debug("RES = " + this.resource);
+        
+        var turtleSplit = SparqlUtils.extractPrefixes(message);
+        var turtle = message;
+        
+        this.replaceMap["prefixes"] = turtleSplit.prefixes;
+        this.replaceMap["body"] = turtleSplit.body;
+        
+        var sparql = freemarker.render(sparqlTemplates[route.queryTemplate], this.replaceMap);
+        
+        log.debug("SPARQL = " + sparql);
+        
         log.debug("route.queryOptions = " + JSON.stringify(route.queryOptions));
+        
+        /*
+         *  var headers = {
+         *      "Location" : route.path,
+         *      "Content-type" : "text/html; charset=utf-8"
+    };
+    */
+        
+        var finalCallback = function() {
+            log.debug("route.responseCode = " + route.responseCode);
+            log.debug("route.responseHeaders = " + JSON.stringify(route.responseHeaders));
+            sekiResponse.writeHead(route.responseCode, route.responseHeaders); // 201 Created
+            sekiResponse.end();
+        };
+        
+        var client = new StoreClient();
+        log.debug("SENDING TO STORE");
+        log.debug("SPARQL = " + sparql);
+        log.debug("route.queryOptions = " + JSON.stringify(route.queryOptions, null, 4));
         client.send(route.queryOptions, sparql, finalCallback);
     },
 
@@ -133,7 +170,7 @@ TemplatingResponseHandler.prototype = {
         */
 
         this.replaceMap = {
-            "graph": config.uriBase + "/" + route.graph,
+            "graph": config.uriBase + route.graph, // SLASH HERE  + "/"
             "uri": config.uriBase + route.path
         };
 

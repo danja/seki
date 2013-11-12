@@ -45,7 +45,7 @@ rule CreatePageTurtle {
         modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
+        modify(r, function(){this.route["queryTemplate"] = "turtleCreateTemplate";}); 
         modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
         modify(r, function(){this.route["responseCode"] = "201";});
     }
@@ -77,6 +77,10 @@ rule ReadPageTurtle {
 }
 
 // requestParams {"method":"put","path":"/pages/ApiTest","accept":"","contentType":"text/turtle"}
+
+//         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+
+// note GRAPH
 rule UpdatePageTurtle {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
@@ -85,13 +89,35 @@ rule UpdatePageTurtle {
         r : Route r.route["targetFunction"] == "";
     } then {
         log.debug("*** UpdatePageTurtle rule triggered ***"); 
-        modify(r, function(){this.route["type"] = "create";});
-        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["type"] = "update";});
+        modify(r, function(){this.route["graph"] = config.uriBase+"/pages";});
         modify(r, function(){this.route["path"] = rr.path;});
+        modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
         modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "turtleInsertTemplate";}); 
+        modify(r, function(){this.route["queryTemplate"] = "turtleUpdateTemplate";}); 
+        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
+        modify(r, function(){this.route["responseCode"] = "201";});
+    }
+}
+
+// very similar to abbove
+rule UpdateTrellisTurtle {
+    when {
+        rr : RequestRouter  rr.method.toLowerCase() == "put";
+        rr : RequestRouter  rr.contentType == "text/turtle";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** UpdatePageTurtle rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "update";});
+        modify(r, function(){this.route["graph"] = rr.path;});
+        modify(r, function(){this.route["path"] = rr.path;});
+        modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
+        modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "turtleTrellisTemplate";}); 
         modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
         modify(r, function(){this.route["responseCode"] = "201";});
     }

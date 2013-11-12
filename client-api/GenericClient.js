@@ -14,7 +14,7 @@ GenericClient.prototype = {
         //      log.debug("data = "+data);
         options["agent"] = false; // see http://nodejs.org/api/http.html#http_http_request_options_callback
         var request = http.request(options, function(response) {
-            //        log.debug("Doing Request");
+           //        log.debug("Doing Request");
             //          log.debug('STATUS: ' + response.statusCode);
             //          log.debug('HEADERS: ' + JSON.stringify(response.headers));
             response.setEncoding('utf8');
@@ -24,8 +24,8 @@ GenericClient.prototype = {
                 body += chunk;
             });
             response.on("end", function(data) {
-                //   body += data;
-                //  log.debug("body "+body);
+                  body += data;
+                log.debug("body "+body);
                 callback(response.statusCode, JSON.stringify(response.headers), body);
             });
         });

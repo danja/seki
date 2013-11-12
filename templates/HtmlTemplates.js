@@ -1,6 +1,8 @@
 /*
  * Templates used to build HTML
  * parts like %this% will be replaced
+ * 
+ *  * TODO remove ...Template from names
  */
 
 var fs = require('fs'); // filesystem module

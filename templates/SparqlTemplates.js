@@ -1,12 +1,14 @@
 /*
  * Templates used to build SPARQL
  * parts like ${this} will be replaced
+ * 
+ * TODO remove ...Template from names
  */
 var sparqlTemplates = {
     // used to retrieve an item from the store for display
     // http://purl.org/dc/terms/
 
-    turtleInsertTemplate: "${prefixes} \
+    turtleCreateTemplate: "${prefixes} \
             INSERT DATA { GRAPH <${graph}>{ ${body} }}",
 
     turtleReadTemplate: "CONSTRUCT { <${uri}> ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
@@ -18,10 +20,15 @@ var sparqlTemplates = {
 
     resourceExistsTemplate: "ASK { GRAPH <${graph}> { <${uri}> ?p ?o } }",
 
-    simpleReplaceTemplate: "${prefixes} \
+    turtleUpdateTemplate: "${prefixes} \
        WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }\
        ; \
        INSERT DATA { GRAPH <${graph}>{ ${body} }}",
+       
+    turtleTrellisTemplate: "${prefixes} \
+       WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }\
+       ; \
+       INSERT DATA { GRAPH <${graph}>{ ${body} <${graph}> a <http://hyperdata.org/trellis/Tree> }}",
 
     pageTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \

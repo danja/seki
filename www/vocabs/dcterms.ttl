@@ -1,14 +1,14 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcam: <http://purl.org/dc/dcam/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://purl.org/dc/terms/>
-    dcterms:modified "2010-10-11" ;
-    dcterms:publisher <http://purl.org/dc/aboutdcmi#DCMI> ;
-    dcterms:title "DCMI Metadata Terms in the /terms/ namespace"@en-us .
+    dcterms:modified "2008-01-14" ;
+    dcterms:publisher "The Dublin Core Metadata Initiative"@en-us ;
+    dcterms:title "DCMI Namespace for metadata terms in the http://purl.org/dc/terms/ namespace"@en-us ;
+    rdfs:comment "To comment on this schema, please contact dcmifb@dublincore.org." .
 
 dcterms:Agent
     dcterms:description "Examples of Agent include person, organization, and software agent."@en-us ;
@@ -27,7 +27,7 @@ dcterms:AgentClass
     rdfs:comment "A group of agents."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Agent Class"@en-us ;
-    rdfs:subClassOf dcterms:AgentClass .
+    rdfs:subClassOf rdfs:Class .
 
 dcterms:BibliographicResource
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#BibliographicResource-001> ;
@@ -50,12 +50,12 @@ dcterms:Box
 dcterms:DCMIType
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#DCMIType-003> ;
     dcterms:issued "2000-07-11" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a dcam:VocabularyEncodingScheme ;
     rdfs:comment "The set of classes specified by the DCMI Type Vocabulary, used to categorize the nature or genre of the resource."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "DCMI Type Vocabulary"@en-us ;
-    rdfs:seeAlso <http://dublincore.org/documents/dcmi-type-vocabulary/>, <http://purl.org/dc/dcmitype/> .
+    rdfs:seeAlso <http://dublincore.org/documents/dcmi-type-vocabulary/> .
 
 dcterms:DDC
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#DDC-003> ;
@@ -334,16 +334,6 @@ dcterms:RFC4646
     rdfs:label "RFC 4646"@en-us ;
     rdfs:seeAlso <http://www.ietf.org/rfc/rfc4646.txt> .
 
-dcterms:RFC5646
-    dcterms:description "RFC 5646 obsoletes RFC 4646."@en-us ;
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#RFC5646-001> ;
-    dcterms:issued "2010-10-11" ;
-    a rdfs:Datatype ;
-    rdfs:comment "The set of tags constructed according to RFC 5646 for the identification of languages."@en-us ;
-    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-    rdfs:label "RFC 5646"@en-us ;
-    rdfs:seeAlso <http://www.ietf.org/rfc/rfc5646.txt> .
-
 dcterms:RightsStatement
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#RightsStatement-001> ;
     dcterms:issued "2008-01-14" ;
@@ -433,34 +423,34 @@ dcterms:accessRights
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/rights>, dcterms:rights .
 
 dcterms:accrualMethod
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualMethod-003> ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualMethod-002> ;
     dcterms:issued "2005-06-13" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "The method by which items are added to a collection."@en-us ;
-    rdfs:domain <http://purl.org/dc/dcmitype/Collection> ;
+    rdfs:domain dcterms:Collection ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Accrual Method"@en-us ;
     rdfs:range dcterms:MethodOfAccrual .
 
 dcterms:accrualPeriodicity
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualPeriodicity-003> ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualPeriodicity-002> ;
     dcterms:issued "2005-06-13" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "The frequency with which items are added to a collection."@en-us ;
-    rdfs:domain <http://purl.org/dc/dcmitype/Collection> ;
+    rdfs:domain dcterms:Collection ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Accrual Periodicity"@en-us ;
     rdfs:range dcterms:Frequency .
 
 dcterms:accrualPolicy
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualPolicy-003> ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#accrualPolicy-002> ;
     dcterms:issued "2005-06-13" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "The policy governing the addition of items to a collection."@en-us ;
-    rdfs:domain <http://purl.org/dc/dcmitype/Collection> ;
+    rdfs:domain dcterms:Collection ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Accrual Policy"@en-us ;
     rdfs:range dcterms:Policy .
@@ -469,13 +459,13 @@ dcterms:alternative
     dcterms:description "The distinction between titles and alternative titles is application-specific."@en-us ;
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#alternative-003> ;
     dcterms:issued "2000-07-11" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "An alternative name for the resource."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Alternative Title"@en-us ;
-    rdfs:range rdfs:Literal ;
-    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/title>, dcterms:title .
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/title>, dcterms:title ;
+    skos:note "In current practice, this term is used primarily with literal values; however, there are important uses with non-literal values as well.  As of December 2007, the DCMI Usage Board is leaving this range unspecified pending an investigation of options."@en-us .
 
 dcterms:audience
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#audience-003> ;
@@ -523,10 +513,10 @@ dcterms:conformsTo
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/relation>, dcterms:relation .
 
 dcterms:contributor
-    dcterms:description "Examples of a Contributor include a person, an organization, or a service."@en-us ;
+    dcterms:description "Examples of a Contributor include a person, an organization, or a service. Typically, the name of a Contributor should be used to indicate the entity."@en-us ;
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#contributorT-001> ;
     dcterms:issued "2008-01-14" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "An entity responsible for making contributions to the resource."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
@@ -558,17 +548,16 @@ dcterms:created
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/date>, dcterms:date .
 
 dcterms:creator
-    dcterms:description "Examples of a Creator include a person, an organization, or a service."@en-us ;
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#creatorT-002> ;
+    dcterms:description "Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity."@en-us ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#creatorT-001> ;
     dcterms:issued "2008-01-14" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "An entity primarily responsible for making the resource."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Creator"@en-us ;
     rdfs:range dcterms:Agent ;
-    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/creator>, dcterms:contributor ;
-    owl:equivalentProperty <http://xmlns.com/foaf/0.1/maker> .
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/creator>, dcterms:contributor .
 
 dcterms:date
     dcterms:description "Date may be used to express temporal information at any level of granularity.  Recommended best practice is to use an encoding scheme, such as the W3CDTF profile of ISO 8601 [W3CDTF]."@en-us ;
@@ -866,10 +855,10 @@ dcterms:provenance
     rdfs:range dcterms:ProvenanceStatement .
 
 dcterms:publisher
-    dcterms:description "Examples of a Publisher include a person, an organization, or a service."@en-us ;
+    dcterms:description "Examples of a Publisher include a person, an organization, or a service. Typically, the name of a Publisher should be used to indicate the entity."@en-us ;
     dcterms:hasVersion <http://dublincore.org/usage/terms/history/#publisherT-001> ;
     dcterms:issued "2008-01-14" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
     rdfs:comment "An entity responsible for making the resource available."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
@@ -1001,15 +990,15 @@ dcterms:temporal
     rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/coverage>, dcterms:coverage .
 
 dcterms:title
-    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#titleT-002> ;
+    dcterms:description "A name given to the resource."@en-us ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#titleT-001> ;
     dcterms:issued "2008-01-14" ;
-    dcterms:modified "2010-10-11" ;
+    dcterms:modified "2008-01-14" ;
     a rdf:Property ;
-    rdfs:comment "A name given to the resource."@en-us ;
     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
     rdfs:label "Title"@en-us ;
-    rdfs:range rdfs:Literal ;
-    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/title> .
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/title> ;
+    skos:note "In current practice, this term is used primarily with literal values; however, there are important uses with non-literal values as well.  As of December 2007, the DCMI Usage Board is leaving this range unspecified pending an investigation of options."@en-us .
 
 dcterms:type
     dcterms:description "Recommended best practice is to use a controlled vocabulary such as the DCMI Type Vocabulary [DCMITYPE]. To describe the file format, physical medium, or dimensions of the resource, use the Format element."@en-us ;

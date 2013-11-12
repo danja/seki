@@ -21,7 +21,7 @@
     </header>
 
 <!-- a href="/register.html">Register</a> <a href="/login.html">login</a --> 
-<div id="notify">NOTIFY</div>
+<!-- div id="notify">NOTIFY</div -->
 <div id="content">
     <div xmlns:sioc="http://rdfs.org/sioc/ns#" 
          xmlns:dcterms="http://purl.org/dc/terms/" 

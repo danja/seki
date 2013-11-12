@@ -1,11 +1,8 @@
 Expand / collapse	 control + space : 32
-
 Indent	 tab : 9
 Outdent	 shift + tab : 9
-
 Zoom in	alt + right : 39
 Zoom out	alt + left : 37
-
 (or hit 'enter' on an empty line) : 13
 Move	alt + shift + arrows
 Add a note	 shift + enter

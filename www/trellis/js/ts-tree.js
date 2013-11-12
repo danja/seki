@@ -201,9 +201,13 @@ $(function() {
    }
    */
 
-    $('#toTurtle').click(function() {
-
-        toTurtle("http://hyperdata.org/");
+    $('#save').click(function() {
+        var turtle = '';
+        
+        ts_toTurtle("http://hyperdata.org/", function(turtle){
+        // targetURL, graphURI, turtle
+        ts_save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
+        });
     });
 
     $('#trellis li').prepend('<div class="dropzone"></div>');

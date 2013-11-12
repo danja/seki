@@ -17,7 +17,7 @@ var createPath = '/pages';
 var path = '/pages/ApiTest';
 
 exports.testDeletePage = function(test) { // just to make sure it's cleared
-    log.debug("deleting via proxy");
+   // log.debug("deleting via proxy");
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
@@ -41,7 +41,7 @@ exports.testExists = function(test) {
         test.equal(status, 200, "checking status is 201 :Created");
         var putTitle = helpers.getJsonTitleFile('data/page.json');
         var gotTitle = helpers.getHtmlTitle(body);
-        log.debug("title =" + gotTitle);
+      //  log.debug("title =" + gotTitle);
         test.equal(putTitle, gotTitle, "title should match");
         test.done();
     }
