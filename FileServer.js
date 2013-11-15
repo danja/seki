@@ -25,8 +25,10 @@ var mimeTypes = {
     "jpeg": "image/jpeg",
     "jpg": "image/jpeg",
     "png": "image/png",
+    "gif": "image/gif",
     "js": "text/javascript",
-    "css": "text/css"
+    "css": "text/css",
+    "ttl": "text/turtle"
 };
 var p = require('path');
 

@@ -2,39 +2,51 @@
 @prefix ts: <http://hyperdata.org/trellis/> . 
 
 <http://hyperdata.org/nid-2013-11-06-17-46-54-255-0000> a ts:RootNode . 
-<http://hyperdata.org/nid-2013-11-06-17-46-54-255-0369> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-255-0369> a ts:Node; 
    dc:title "Add priority number to each line 1-5" ; 
+   ts:index "0" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-255-0000> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-261-8067> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-261-8067> a ts:Node; 
    dc:title "Add copy and paste" ; 
+   ts:index "1" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-255-0000> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-265-8865> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-265-8865> a ts:Node; 
    dc:title "Three" ; 
+   ts:index "0" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-261-8067> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-265-5134> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-265-5134> a ts:Node; 
    dc:title "Four" ; 
+   ts:index "0" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-265-8865> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-266-1939> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-266-1939> a ts:Node; 
    dc:title "Five" ; 
+   ts:index "1" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-265-8865> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-266-7852> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-266-7852> a ts:Node; 
    dc:title "Six" ; 
+   ts:index "2" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-265-8865> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-267-2310> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-267-2310> a ts:Node; 
    dc:title "Seven" ; 
+   ts:index "1" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-261-8067> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-268-9847> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-268-9847> a ts:Node; 
    dc:title "Eight" ; 
+   ts:index "2" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-261-8067> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-268-7935> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-268-7935> a ts:Node; 
    dc:title "Nine" ; 
+   ts:index "2" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-255-0000> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-269-7831> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-269-7831> a ts:Node; 
    dc:title "Ten" ; 
+   ts:index "0" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-268-7935> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-269-7829> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-269-7829> a ts:Node; 
    dc:title "Twelve" ; 
+   ts:index "1" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-268-7935> .
-<http://hyperdata.org/nid-2013-11-06-17-46-54-269-7830> a ts:Node; 
+<http://hyperdata.org/trellis/nid-2013-11-06-17-46-54-269-7830> a ts:Node; 
    dc:title "Eleven" ; 
+   ts:index "3" ; 
    ts:parent <http://hyperdata.org/nid-2013-11-06-17-46-54-255-0000> .

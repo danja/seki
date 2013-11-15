@@ -16,9 +16,10 @@ function ts_toTurtle(baseURI, callback) {
             parentURI += parent.children("dl").attr("id");
         }
         turtle += "<" + baseURI + "trellis/" + id + "> a ts:Node; \n";
+        /* not needed ?
         if(kidCount == 0){
             turtle += "  a ts:LeafNode; \n";
-        }
+        } */
         turtle += "   dc:title \"" + title + "\" ; \n";
         turtle += "   ts:index \"" + index + "\" ; \n";
         turtle += "   ts:parent <" + parentURI + "> .";
@@ -41,4 +42,19 @@ function ts_recurseTree($ul, printout) {
             ts_recurseTree(kids, printout);
         }
     });
+}
+
+function ts_renderHTML(turtle) {
+   //  var parser = new n3.Parser();
+    var parser = new require('n3').Parser();
+    parser.parse('@prefix c: <http://example.org/cartoons#>.\n' +
+    'c:Tom a c:Cat.\n' +
+    'c:Jerry a c:Mouse;\n' +
+    '        c:smarterThan c:Tom.',
+    function (error, triple) {
+        if (triple)
+            console.log(triple.subject, triple.predicate, triple.object, '.');
+        else
+            console.log("# That's all, folks!")
+    });   
 }
