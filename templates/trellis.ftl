@@ -23,10 +23,9 @@
     <script type="text/javascript" src="js/date.format.js"></script>
 
     <!-- Trellis-specific -->
-    <script type="text/javascript" src="js/ts-ajax.js"></script>
           <script type="text/javascript" src="js/n3-browser.js"></script>
-    <script type="text/javascript" src="js/ts-serialise.js"></script>
-    <script type="text/javascript" src="js/ts-tree.js"></script>
+    <script type="text/javascript" src="js/trellis-comms.js"></script>
+    <script type="text/javascript" src="js/trellis-ui.js"></script>
   
 
     <title>Trellis</title>

@@ -114,6 +114,7 @@ background-color: #fff;
     border: none;
 }
 #trellis .ts-expander, #dragHelper .ts-expander {
+cursor:pointer;
     position: absolute;
     left: 0;
     top: 4px;

@@ -1,3 +1,31 @@
+
+Trellis.save  = function(targetURL, graphURI, turtle){
+    // console.log("\n"+turtle+"\n");
+    $.ajax({
+        type: "PUT",
+        url: targetURL,
+        data: turtle,
+        contentType: "text/turtle"
+    })
+    .done(function( msg ) {
+        alert( "Data Saved: " + msg );
+    });
+}
+
+Trellis.load  = function(url, callback){
+    
+    $.ajax({
+        url: url,
+        dataType: "text/turtle"
+    })
+    .done(function(turtle) {
+        callback(turtle);
+    });
+}
+
+/*
+ * data manipulation
+ */
 function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
     var turtle = "@prefix dc: <http://purl.org/dc/terms/> . \n";
     turtle += "@prefix ts: <http://hyperdata.org/trellis/> . \n\n";

@@ -1,6 +1,12 @@
 ﻿ //init functions
 $(function() {
+    Trellis.init();
+});
 
+var Trellis = Trellis || {};
+
+Trellis.init  = function(){
+        
     var keyCodes = {
         "tab": 9,
         "return": 13,
@@ -206,7 +212,7 @@ $(function() {
         
         ts_toTurtle("http://hyperdata.org/", function(turtle){
         // targetURL, graphURI, turtle
-        ts_save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
+        Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
         
         ts_renderHTML(turtle, $("#output"));
         
@@ -268,7 +274,7 @@ $(function() {
         if (e.ctrlKey && (e.which == 122 || e.which == 26))
             trellisHistory.restoreState();
     });
-});
+}
 
 /*
  * generate node id
