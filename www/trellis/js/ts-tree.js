@@ -208,7 +208,7 @@ $(function() {
         // targetURL, graphURI, turtle
         ts_save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
         
-        ts_renderHTML(turtle)
+        ts_renderHTML(turtle, $("#output"));
         
         });
     });
