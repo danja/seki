@@ -5,9 +5,8 @@ $(function() {
 
 var Trellis = Trellis || {};
 
-Trellis.init  = function(){
-        
-    
+Trellis.init = function() {
+
     var keyCodes = {
         "tab": 9,
         "return": 13,
@@ -20,18 +19,30 @@ Trellis.init  = function(){
      shiftKey - shift key
      metaKey - control key on PCs, control and/or command key on Macs
      */
-    
-    $( "#shortcutsButton" )
-    .button()
-    .click(function( event ) {
-        $( "#shortcutsText" ).dialog();
-        event.preventDefault();
+
+    $('#saveButton').button().click(function() {
+        var turtle = '';
+        
+        ts_toTurtle("http://hyperdata.org/", function(turtle) {
+            // targetURL, graphURI, turtle
+            Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
+            console.log("TURTLE : "+turtle);
+            ts_renderHTML(turtle, $("#output"));
+            
+        });
     });
     
+    $("#shortcutsButton")
+        .button()
+        .click(function(event) {
+            $("#shortcuts-text").toggle();
+            event.preventDefault();
+        });
+
     $('.ts-expander').on('click', function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
-       // return false;
+        // return false;
         event.preventDefault();
     });
 
@@ -64,14 +75,14 @@ Trellis.init  = function(){
     });
 
     function ts_up($li) {
-      
+
         var prevLI = $li.prev("li");
-        console.log("prevLI.length "+prevLI.length);
-        
-        if(prevLI.length == 0) {
-           prevLI = $li.parent().closest("li");
+        console.log("prevLI.length " + prevLI.length);
+
+        if (prevLI.length == 0) {
+            prevLI = $li.parent().closest("li");
         }
-        
+
         /*
         while(prevLI.children("ul").length) { // descend tree
             console.log("prevLI.childrenul).length "+prevLI.children("ul").length);
@@ -79,7 +90,7 @@ Trellis.init  = function(){
             prevLI = $(kids[kids.length-1]);
         }
         */
-        
+
         $(".ts-title").removeClass('ts-selected');
         var title = $(prevLI).find(".ts-title");
         console.log("tl" + title.length);
@@ -89,28 +100,24 @@ Trellis.init  = function(){
         title.focus();
         title.addClass('ts-selected');
     }
-    
+
     function ts_down($li) {
         console.log("down");
 
         var nextLI = $li.next("li"); // easy one
-        
+
         if (nextLI.length == 0) {
             nextLI = $li.parent("ul").parent("li").next("li");
         }
-        
-       ///  if($li.hasClass("tl-open")){
-            
+
         if ($li.children("ul").length) {
             nextLI = $($li.children("ul").children("li")[0]);
         }
-        
-      //  console.log("nextLI.length " + nextLI.length);
+
         $(".ts-title").removeClass('ts-selected');
 
-        //  console.log("Q "+$($(nextLI).children("li")).html());
         var title = $(nextLI).find(".ts-title");
-      //  console.log("tl" + title.length);
+
         if (title.length > 1) {
             title = $($(nextLI).find(".ts-title")[0]);
         }
@@ -166,14 +173,13 @@ Trellis.init  = function(){
     $('.ts-entry').click(function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).find(".ts-title").addClass('ts-selected');
-    //    ts_highlight($(this));
+        //    ts_highlight($(this));
         $(this).find(".ts-actions").show();
     });
 
     $(document).click(function(e) {
         if ($(e.target).closest('.ts-title').length === 0) {
             $(".ts-title").removeClass('ts-selected');
-            //    ts_unhighlight(this);
         };
     });
 
@@ -183,7 +189,6 @@ Trellis.init  = function(){
         $(".ts-handle").hide();
         $(".ts-title").removeClass('ts-highlight'); //from previous
         $(this).find(".ts-title").addClass('ts-highlight');
-      //   $(this).find(".ts-handle").show();
         $(this).find(".ts-handle").css("display", "block");
         $(this).find(".ts-actions").show();
     });
@@ -191,46 +196,18 @@ Trellis.init  = function(){
     $('.ts-entry').mouseleave(function() { // .ts-entry
         $(this).find(".ts-actions").hide();
     });
-    
+
     $('.ts-root').mouseleave(function() { // .ts-entry
-   //     $(this).find(".ts-title").removeClass('ts-highlight');
+        //     $(this).find(".ts-title").removeClass('ts-highlight');
         $(".ts-title").removeClass('ts-highlight');
         $(this).find(".ts-handle").hide();
     });
 
-
-    /*
-    function ts_highlight(node) {
-        $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
-        $(node).find(".ts-addChild").show();
-        $(node).find(".ts-delete").show();
-    }
-
-
-  
-   function ts_unhighlight(node) {
-       //   $(node).find(".ts-title").removeClass('ts-highlight');
-       $(node).find(".ts-card").hide();
-       $(node).find(".ts-addChild").hide();
-       $(node).find(".ts-delete").hide();
-   }
-   */
-
-    $('#save').click(function() {
-        var turtle = '';
-        
-        ts_toTurtle("http://hyperdata.org/", function(turtle){
-        // targetURL, graphURI, turtle
-        Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
-        
-        ts_renderHTML(turtle, $("#output"));
-        
-        });
-    });
+    
 
     $('#trellis li').prepend('<div class="dropzone"></div>');
 
-    $('#trellis dl, #trellis .dropzone').droppable({
+    $('#trellis .ts-entry, #trellis .dropzone').droppable({
         accept: '#trellis li',
         tolerance: 'pointer',
         drop: function(e, ui) {
@@ -245,14 +222,14 @@ Trellis.init  = function(){
                 li.before(ui.draggable);
             }
             $('#trellis li.ts-open').not(':has(li:not(.ui-draggable-dragging))').removeClass('ts-open');
-            li.find('dl,.dropzone').css({
+            li.find('.ts-entry,.dropzone').css({
                 backgroundColor: '',
                 borderColor: ''
             });
             trellisHistory.commit();
         },
         over: function() {
-            $(this).filter('dl').css({
+            $(this).filter('ts-entry').css({
                 backgroundColor: '#ccc'
             });
             $(this).filter('.dropzone').css({
@@ -260,7 +237,7 @@ Trellis.init  = function(){
             });
         },
         out: function() {
-            $(this).filter('dl').css({
+            $(this).filter('.ts-entry').css({
                 backgroundColor: ''
             });
             $(this).filter('.dropzone').css({
@@ -269,7 +246,7 @@ Trellis.init  = function(){
         }
     });
     $('#trellis li').draggable({
-        handle: ' dd', // ' > dl'
+        handle: '.ts-handle', // ' > dl' // dd
         opacity: .8,
         addClasses: false,
         helper: 'clone',

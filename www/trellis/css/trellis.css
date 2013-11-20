@@ -1,39 +1,94 @@
 /*  Trellis CSS
     danja 2013-11-05
 ---------------------*/
-* {
+ * {
     font-size: 100%;
     margin: 0;
     padding: 0;
-  /*  line-height: 1.3em; */
+    /*  line-height: 1.3em; */
 }
 html {
     background-color: #eee;
 }
 body {
-    text-align: center;
-    overflow-y: scroll;
+}
+#menu-box {
+    float: left;
+    text-align: left;
+    background-color: #666;
+    width: 140px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    /* margin: 15px auto; */
+    margin:16px 0px 0px 16px;
+    padding: 5px;
+}
+.toolbar ul {
+   
+    list-style-type:none;
+    margin:0;
+    padding: .2em 0;
+    background-color: #666;
+    color: #FFF;
+    /* width: 100%; */
+  /*  font: normal arial, helvetica, sans-serif; */
+}
+.toolbar li {
+    /*  display:inline; */
+    text-align: center;
+    text-decoration: none;
+    background-color: #666;
+    color: #FFF;
+}
+.toolbar button {
+    font-family:'jurademibold', Arial, sans-serif;
+    /* display:block; */
+    margin: 5px;
+    width:130px;
+}
+
+#shortcuts-text {
+display:none;
+position: fixed;
+top: 200px;
+left: 10px;
+margin: 5px;
+width:130px;
+}
+
+#container {
+    position: fixed;
+    top: 0;
+    left: 200px;
+    text-align: center;
+    /* overflow-y: scroll; */
+    /*
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+margin: 15px auto;
+*/
     color: #444;
     background-color: #fff;
     font-size: 13px;
     font-family: Freesans, sans-serif;
     padding: 2em 4em;
     width: 860px;
-    margin: 15px auto;
+    margin: auto;
     box-shadow: 1px 1px 8px #444;
     -mox-box-shadow: 1px 1px 8px #444;
     -webkit-box-shadow: 1px -1px 8px #444;
+    height: 1000px;
 }
 .page {
-background-color: #fff;
-    position: relative;
+    margin: 15px auto;
+    background-color: #fff;
+    /*  position: relative; */
     left: -7px;
-  /*  float: left; */
+    /*  float: left; */
     display: block;
-  /*  width: 76.5em; */
+    /*  width: 76.5em; */
 }
 .page ul {
     margin: 0 0 1em 1.2em;
@@ -58,110 +113,124 @@ background-color: #fff;
 .trellis-undo {
     float:right;
 }
-#trellis, #dragHelper {
+#trellis {
     display: block;
     margin: 0;
     list-style: none;
 }
-#dragHelper {
-    background: #ddd;
-}
-#trellis ul, #dragHelper ul {
+#trellis ul {
     font-size: 1em;
     list-style: none;
 }
-#trellis li, #dragHelper li {
+#trellis li {
     display: block;
     width: 100%;
     display: block;
     clear: both;
 }
-#trellis dl, #dragHelper div {
+#trellis .ts-entry {
+    /* dl */
     position: relative;
     display: block;
-    height: 19px;  
+    height: 19px;
     border-top: 1px solid #efe;
-  /*  padding-top: 1px; */
+    /*  padding-top: 1px; */
     background:#fff;
 }
-#trellis dt, #dragHelper dt {
+/*
+#trellis dt{
     float: left;
-  /*  font-weight: bold; */
+
     font-size: 1.1em;
-  /*  line-height: 1em; */
+
     margin-left: 16px;
     padding: 0 0 0 1px;
 }
-#trellis dd, #dragHelper dd {
+*/
+
+/*
+#trellis dd {
     float: left;
 }
-
-#trellis .ts-actions, #dragHelper .ts-actions {
-   display: none; 
+*/
+ #trellis .ts-actions {
+    display: none;
     padding: 3px 2px 0 5px;
 }
-#trellis .ts-status, #dragHelper .ts-status {
+#trellis .ts-dragger {
     position: absolute;
     top: 3px;
     right: 0;
 }
-#trellis div:hover {
-display: block;
+.ts-handle {
+    position: relative;
+    left: -850px;
+    display:none;
+    cursor:move;
+    color: blue;
+    float: left;
+    font-size: 100%;
+    font-weight:noraml;
+    padding:0px 15px 0px 15px;
+    /*  margin: 0 1px 0 0; */
 }
-
+#trellis div:hover {
+    display: block;
+}
+/*
 #trellis dl:hover dd, #trellis dd:hover {
     display: block;
 }
-#trellis dd strong, #dragHelper dd strong {
+*/
+
+/*
+#trellis dd strong {
     display: none;
 }
-#trellis a, #dragHelper a {
+*/
+ #trellis a {
     border: none;
 }
-#trellis .ts-expander, #dragHelper .ts-expander {
-cursor:pointer;
+#trellis .ts-expander {
+    cursor:pointer;
     position: absolute;
     left: 0;
     top: 4px;
 }
-#trellis .ts-open, #dragHelper .ts-open {
-  /*  background: url(../img/ts-li.gif) left repeat-y; */
+#trellis .ts-open {
+    /*  background: url(../img/ts-li.gif) left repeat-y; */
 }
-#trellis .ts-open > dl > .ts-expander, #dragHelper .ts-open > dl > .ts-expander {
+#trellis .ts-open > .ts-entry > .ts-expander {
+    /* .ts-open > dl > .ts-expander  */
     display: block;
-    width: 15px;
+    width: 20px;
+    /* 15px */
     height: 1em;
     background: url(../img/ts-open.gif) 50% 50% no-repeat;
 }
-#trellis .ts-closed > dl > .ts-expander, #dragHelper .ts-closed > dl > .ts-expander {
+#trellis .ts-closed > .ts-entry > .ts-expander {
     display: block;
-    width: 15px;
+    width: 20px;
+    /* 15px */
     height: 1em;
     background: url(../img/ts-closed.gif) 50% 50% no-repeat;
 }
-#trellis .ts-closed ul, #dragHelper .ts-closed ul {
+#trellis .ts-closed ul {
     display: none;
 }
-
 #ts-entry-template {
     display: none
 }
-
 .ts-title {
-    font-family: 'jurademibold', Arial, sans-serif;
+    font-family:'jurademibold', Arial, sans-serif;
     outline: 0px;
+    float: left;
+    /*  font-weight: bold; */
+    font-size: 1.1em;
+    /*  line-height: 1em; */
+    margin-left: 16px;
+    padding: 0 0 0 1px;
 }
-/*
-.ts-move, .ts-delete, .ts-addChild, .ts-handle {
-    display: block;
-    float: right;
-    width: 16px;
-    height: 16px;
-    text-indent: -5000px;
-    margin: 0 1px 0 0;
-    background: url(../img/ts-move.png) top left no-repeat;
-}
-*/
 .ts-actions * {
     float: left;
     cursor: pointer;
@@ -169,53 +238,15 @@ cursor:pointer;
     color: green;
     padding:0px 5px 0px 15px;
 }
-
-.ts-handle {
-    position: relative;
-    left: -850px;
-    display:none; 
-    cursor:move;
-color: blue;
-
-    float: left; 
-  font-size: 100%; 
-   font-weight:noraml;
-   padding:0px 15px 0px 15px;
-  /*  margin: 0 1px 0 0; */
-}
-.ts-move {
- /*   background-image: url(../img/ts-move.png); */
-}
-/*
-.ts-delete {
-    background-image: url(../img/ts-delete.png);
-}
-.ts-addChild {
-    background-image: url(../img/ts-addChild.png);
-}
-*/
-/*
-.ts-card {
-    background-image: url(../img/ts-unpub.png);
-}
-*/
-/*
-.ts-handle {
-    background-image: none;
-}
-*/
- .dragRow td {
+.dragRow td {
     background-color: silver;
 }
-
 .ts-highlight {
     background-color: #eee;
 }
-
 .ts-selected {
     background-color: #ffa;
 }
-
 #sortHelper {
     height: 1px !important;
     background: #000;
@@ -248,7 +279,9 @@ color: blue;
     font-weight:bold;
 }
 #trellis .dropzone {
-    height:6px; /* was 6px */
+    height:6px;
+    /* was 6px */
     background-color:#fff;
-    border-bottom:2px solid #fff; /* was 4px */
+    border-bottom:2px solid #fff;
+    /* was 4px */
 }

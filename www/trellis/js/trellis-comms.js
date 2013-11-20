@@ -32,7 +32,7 @@ function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
 
     var ts_printout = function($node, kidCount, index, callback) {
 
-        var $entryNode = $node.children("dl");
+        var $entryNode = $node.find(".ts-entry");
         var id = $entryNode.attr("id");
         var title = $entryNode.find(".ts-title").html();
 
@@ -41,7 +41,7 @@ function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
         if (parent.hasClass("ts-root")) {
             parentURI += parent.attr("id");
         } else {
-            parentURI += parent.children("dl").attr("id");
+            parentURI += parent.children(".ts-entry").attr("id");
         }
         turtle += "<" + baseURI + "trellis/" + id + "> a ts:Node; \n";
         /* not needed ?
@@ -99,11 +99,13 @@ function ts_renderHTML(turtle, containerElement) {
                 //    console.log("O = " + triple.object);
                 }
             } else {
-                buildTree(store);
+                buildTree(store, containerElement);
                 console.log("Parsed.")
             }
         });
-    var buildTree = function(store) {
+    
+    var buildTree = function(store, containerElement) {
+        console.log("build tree");
         var root = store.find(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://hyperdata.org/trellis/RootNode')[0].subject;
         var ul = $('<ul/>').appendTo(containerElement);
         var buildChildren = function(nodeURI, container) {
