@@ -3,7 +3,11 @@
 
 <head>
 
+
+    <link rel="stylesheet" type="text/css" media="screen" href="js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css" />
+    
     <link rel="stylesheet" type="text/css" media="screen" href="css/trellis.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/fonts.css" />       
 
     <!-- jQuery/UI scripts -->
     <script type="text/javascript" src="js/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
@@ -18,16 +22,14 @@
 
     <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.button.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.dialog.js"></script>
-
+        
     <!-- misc 3rd party -->
     <script type="text/javascript" src="js/date.format.js"></script>
 
     <!-- Trellis-specific -->
     <script type="text/javascript" src="js/n3-browser.js"></script>
-        <script type="text/javascript" src="js/trellis-ui.js"></script>
+    <script type="text/javascript" src="js/trellis-ui.js"></script>
     <script type="text/javascript" src="js/trellis-comms.js"></script>
-
-  
 
     <title>Trellis</title>
 </head>
@@ -184,6 +186,10 @@
     <p>Output</p>
     <div id="output"></div>
 
+        <button id="shortcutsButton">Shortcuts</button>
+      <div id="shortcutsText" title="Shortcuts">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
 </body>
 
 </html>

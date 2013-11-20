@@ -7,6 +7,7 @@ var Trellis = Trellis || {};
 
 Trellis.init  = function(){
         
+    
     var keyCodes = {
         "tab": 9,
         "return": 13,
@@ -19,6 +20,13 @@ Trellis.init  = function(){
      shiftKey - shift key
      metaKey - control key on PCs, control and/or command key on Macs
      */
+    
+    $( "#shortcutsButton" )
+    .button()
+    .click(function( event ) {
+        $( "#shortcutsText" ).dialog();
+        event.preventDefault();
+    });
     
     $('.ts-expander').on('click', function() {
         $(".ts-title").removeClass('ts-selected');
