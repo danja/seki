@@ -95,8 +95,9 @@ background-color: #fff;
 #trellis dd, #dragHelper dd {
     float: left;
 }
+
 #trellis .ts-actions, #dragHelper .ts-actions {
-    display: none;
+   display: none; 
     padding: 3px 2px 0 5px;
 }
 #trellis .ts-status, #dragHelper .ts-status {
@@ -104,6 +105,10 @@ background-color: #fff;
     top: 3px;
     right: 0;
 }
+#trellis div:hover {
+display: block;
+}
+
 #trellis dl:hover dd, #trellis dd:hover {
     display: block;
 }
@@ -158,17 +163,11 @@ cursor:pointer;
 }
 */
 .ts-actions * {
+    float: left;
     cursor: pointer;
-}
-
-.ts-card, .ts-addChild, .ts-delete {
-    cursor:pointer;
-   /*  display:none; */
     font-weight:bold;
     color: green;
-    padding:0px 5px 0px 5px;
-    /*  font-size: 150%; */
-    /*  margin: 0 1px 0 0; */
+    padding:0px 5px 0px 15px;
 }
 
 .ts-handle {

@@ -166,7 +166,8 @@ Trellis.init  = function(){
     $('.ts-entry').click(function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).find(".ts-title").addClass('ts-selected');
-        ts_highlight($(this));
+    //    ts_highlight($(this));
+        $(this).find(".ts-actions").show();
     });
 
     $(document).click(function(e) {
@@ -184,15 +185,21 @@ Trellis.init  = function(){
         $(this).find(".ts-title").addClass('ts-highlight');
       //   $(this).find(".ts-handle").show();
         $(this).find(".ts-handle").css("display", "block");
+        $(this).find(".ts-actions").show();
     });
 
-
+    $('.ts-entry').mouseleave(function() { // .ts-entry
+        $(this).find(".ts-actions").hide();
+    });
+    
     $('.ts-root').mouseleave(function() { // .ts-entry
    //     $(this).find(".ts-title").removeClass('ts-highlight');
+        $(".ts-title").removeClass('ts-highlight');
         $(this).find(".ts-handle").hide();
     });
 
 
+    /*
     function ts_highlight(node) {
         $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??
         $(node).find(".ts-addChild").show();
@@ -200,7 +207,7 @@ Trellis.init  = function(){
     }
 
 
-    /*
+  
    function ts_unhighlight(node) {
        //   $(node).find(".ts-title").removeClass('ts-highlight');
        $(node).find(".ts-card").hide();
