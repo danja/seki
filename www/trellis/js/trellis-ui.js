@@ -179,25 +179,19 @@ Trellis.init  = function(){
     $('.ts-title').attr('contenteditable', 'true');
 
     $('.ts-entry').mouseover(function() { // .ts-entry
+        $(".ts-handle").hide();
+        $(".ts-title").removeClass('ts-highlight'); //from previous
         $(this).find(".ts-title").addClass('ts-highlight');
-        $(this).find(".ts-handle").show();
-        // ts_highlight(this);
-
+      //   $(this).find(".ts-handle").show();
+        $(this).find(".ts-handle").css("display", "block");
     });
 
 
-    $('.ts-entry').mouseout(function() {
-        //   ts_unhighlight(this);
-        $(this).find(".ts-title").removeClass('ts-highlight');
+    $('.ts-root').mouseleave(function() { // .ts-entry
+   //     $(this).find(".ts-title").removeClass('ts-highlight');
         $(this).find(".ts-handle").hide();
     });
 
-    /*
-    function ts_highlight(node) {
-        $(".ts-title").removeClass('ts-highlight');
-        $(node).find(".ts-title").removeClass('ts-highlight');
-    }
-*/
 
     function ts_highlight(node) {
         $(node).find(".ts-card").show(); //////////////////////// better to add HTML element??

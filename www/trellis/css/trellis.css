@@ -172,13 +172,16 @@ cursor:pointer;
 }
 
 .ts-handle {
+    position: relative;
+    left: -850px;
     display:none; 
     cursor:move;
 color: blue;
-    float: right;
-   font-size: 150%; 
-   font-weight:bold;
-   padding:0px 5px 0px 5px;
+
+    float: left; 
+  font-size: 100%; 
+   font-weight:noraml;
+   padding:0px 15px 0px 15px;
   /*  margin: 0 1px 0 0; */
 }
 .ts-move {
