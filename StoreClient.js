@@ -6,12 +6,10 @@ var http = require('http');
 var util = require('util');
 
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
 var Constants = require('./config/Constants');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('./lib/nog/nog'),
+log = new Nog(config.logLevel);
 // var sparqlTemplates = require('./templates/SparqlTemplates');
 // var freemarker = require('./templates/freemarker');
 var SparqlUtils = require("./SparqlUtils");

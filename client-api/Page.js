@@ -12,8 +12,8 @@
 var fs = require('fs');
 var http = require('http');
 var config = require('../config/ConfigDefault').config;
-var Log = require('../lib/nog/nog'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+    log = new Nog(config.logLevel);
 var qs = require("querystring");
 
 var GenericClient = require("./GenericClient");

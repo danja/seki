@@ -1,6 +1,4 @@
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
 var testCase = require('nodeunit').testCase;
 var fs = require("fs");
 

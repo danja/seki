@@ -1,7 +1,7 @@
 var http = require('http');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 
 // Constructor
 function GenericClient() {}
@@ -24,8 +24,10 @@ GenericClient.prototype = {
                 body += chunk;
             });
             response.on("end", function(data) {
+                if(data) {
                   body += data;
-                log.debug("body "+body);
+                }
+          //      log.debug("body "+body);
                 callback(response.statusCode, JSON.stringify(response.headers), body);
             });
         });

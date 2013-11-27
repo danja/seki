@@ -49,8 +49,9 @@ SparqlUtils.prototype = {
     "createGraph": function(graphURI) {
         var sparql = "CREATE SILENT GRAPH <" + graphURI + ">";
     },
+    
     "turtleToInsert": function(graphURI, turtle) {
-        // log.debug("turtleToInsert "+turtle);
+        log.debug("turtleToInsert "+turtle);
         var turtleSplit = SparqlUtils.extractPrefixes(turtle);
 
         var replaceMap = {
@@ -58,7 +59,7 @@ SparqlUtils.prototype = {
             "prefixes": turtleSplit.prefixes,
             "body": turtleSplit.body
         }
-        var sparql = freemarker.render(sparqlTemplates.turtleInsertTemplate, replaceMap);
+        var sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);
         return sparql;
     },
 
@@ -72,7 +73,7 @@ SparqlUtils.prototype = {
             "prefixes": turtleSplit.prefixes,
             "body": turtleSplit.body
         }
-        var sparql = freemarker.render(sparqlTemplates.simpleReplaceTemplate, replaceMap);
+        var sparql = freemarker.render(sparqlTemplates.turtleUpdateTemplate, replaceMap); // simpleReplaceTemplate
         return sparql;
     },
 
@@ -102,7 +103,7 @@ SparqlUtils.prototype = {
             "prefixes": turtleSplit.prefixes,
             "body": turtleSplit.body
         };
-        var sparql = freemarker.render(sparqlTemplates.simpleReplaceTemplate, replaceMap);
+        var sparql = freemarker.render(sparqlTemplates.turtleUpdateTemplate, replaceMap); // turtleUpdateTemplate
         return sparql;
     }
 }

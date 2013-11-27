@@ -1,2 +1,2 @@
-cd ../src
-node Seki.js
+cd ../
+node --use_strict Seki.js
