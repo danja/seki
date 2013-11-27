@@ -6,8 +6,8 @@ var sparqlTemplates = require('../templates/SparqlTemplates');
 var htmlTemplates = require('../templates/HtmlTemplates');
 var TurtleHandler = require('./TurtleHandler');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 var freemarker = require('../templates/freemarker');
 var saxer = require('../srx2map');
 
@@ -105,7 +105,8 @@ GetHandler.prototype = {
         var clientRequest = http.request(config.client, function(queryResponse) {
             queryResponse.setEncoding('utf8');
 
-            serveHTML(url, viewTemplate, sekiResponse, queryResponse);
+            log.debug("url = "+JSON.stringify(url));
+            serveHTML(urlParts.pathname, viewTemplate, sekiResponse, queryResponse); //////////////////
 
         });
         sekiRequest.on('data', function() { // is needed?
@@ -123,7 +124,8 @@ GetHandler.prototype = {
  * Handles GET requests (typically from a browser)
  */
 function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
-    //  log.debug("in serveHTML, viewTemplate = "+viewTemplate);
+   //  log.debug("in serveHTML, viewTemplate = "+viewTemplate);
+    log.debug("in serveHTML, resource = "+resource);
     if (!viewTemplate) {
         viewTemplate = htmlTemplates.contentTemplate; // 
     };
@@ -146,6 +148,8 @@ function serveHTML(resource, viewTemplate, sekiResponse, queryResponse) {
 
         sekiResponse.writeHead(200, sekiHeaders);
         bindings["uri"] = resource;
+        
+        log.debug("\nbindings2 " + JSON.stringify(bindings));
 
         var html = freemarker.render(viewTemplate, bindings);
         log.debug("sekiResponse.end(html)");

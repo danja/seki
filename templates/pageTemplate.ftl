@@ -27,7 +27,7 @@
          xmlns:dcterms="http://purl.org/dc/terms/" 
          xmlns:um="http://purl.org/stuff/usermanagement#"
          
-         about="http://hyperdata.org/${uri}">
+         about="http://hyperdata.org${uri}">
       <article typeof="sioc:Post" about="http://hyperdata.org${uri}">
         <span class="label">title:</span> <div id="title" class="editable" property="dcterms:title">${title}</div><!-- make this a link? -->
         <span class="label">content:</span> <div id="content" class="editable" property="sioc:content">${content}</div>

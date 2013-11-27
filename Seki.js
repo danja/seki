@@ -49,8 +49,8 @@ var htmlTemplates = require('./templates/HtmlTemplates');
 
 var Admin = require('./admin/Admin');
 var config = require('./config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('./lib/nog/nog'),
+log = new Nog(config.logLevel);
 
 
 
