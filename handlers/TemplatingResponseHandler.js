@@ -6,8 +6,8 @@ var StoreClient = require("../StoreClient");
 var freemarker = require('../templates/freemarker');
 var Constants = require('../config/Constants');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 var SparqlUtils = require('../SparqlUtils');
 var saxer = require('../srx2map');
 
@@ -168,10 +168,12 @@ TemplatingResponseHandler.prototype = {
         var graphURI = config.uriBase + "/" + route.graph; // del me
         this.graph = = config.uriBase + "/" + route.graph;
         */
+        
+        
 
         this.replaceMap = {
-            "graph": config.uriBase + route.graph, // SLASH HERE  + "/"
-            "uri": config.uriBase + route.path
+            "graph": route.graph, // SLASH HERE  + "/" config.uriBase + 
+            "uri": config.uriBase + route.path //  
         };
 
         if (route["type"] && route["type"] != "") { // temp

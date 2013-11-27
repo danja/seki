@@ -65,25 +65,25 @@ Page.prototype = {
     },
 
     "updateTurtle": function(path, turtle, callback) {
-        log.debug("PUTTING "+turtle);
+     //   log.debug("PUTTING "+turtle);
         var options = clone(this.options);
     
         options.method = 'PUT';
         options.headers["Content-Type"] = "text/turtle";
         options["path"] = path;
     //    log.debug("PATH "+path);
-        log.debug("OPTIONS "+JSON.stringify(options, null, 4));
+      //  log.debug("OPTIONS "+JSON.stringify(options, null, 4));
         client.call(options, turtle, callback);
     },
 
     "readTurtle": function(path, callback) {
-           log.debug("Page.readTurtle");
+       //    log.debug("Page.readTurtle");
         var options = clone(this.options);
     
         options.method = 'GET';
         options.headers["Accept"] = "text/turtle";
         options["path"] = path;
-           log.debug("TEST OPTIONS = "+JSON.stringify(options));
+      //     log.debug("TEST OPTIONS = "+JSON.stringify(options));
         client.call(options, '', callback);
     },
 

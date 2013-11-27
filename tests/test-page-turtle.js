@@ -16,7 +16,6 @@ var helpers = new TestHelpers();
 var createPath = '/pages';
 var path = '/pages/ApiTest';
 
-
 exports.testDeleteInit = function(test) { // just to make sure it's cleared
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
@@ -36,10 +35,10 @@ exports.testCreate = function(test) { // changed from create - needs extending
 };
 
 exports.testRead = function(test) { // callback( response.statusCode, JSON.stringify(response.headers), body);
-    log.debug("starting testRead");
+  //  log.debug("starting testRead");
     read(test, 'data/page.ttl');
+    test.done();
 }
-
 
 exports.testUpdate = function(test) {
     var callback = function(status, headers, body) {
@@ -55,12 +54,13 @@ exports.testUpdate = function(test) {
 
 exports.testUpdated = function(test) { // callback( response.statusCode, JSON.stringify(response.headers), body);
     read(test, 'data/newpage.ttl');
+    test.done();
 }
 
 
 var read = function(test, dataFile) {
     var page = new Page();
-    log.debug("READ");
+  //  log.debug("READ");
     var titleInFile = '';
     var readTitle = '';
     var turtle = '';
@@ -69,7 +69,7 @@ var read = function(test, dataFile) {
     
     function(callback) { // get the title from the file
         helpers.readTurtleTitleFile(dataFile, function(title) {
-                log.debug("\n\n* titleInFile = " + title);
+            //    log.debug("\n\n* titleInFile = " + title);
             titleInFile = title;
         });
         callback(null);
@@ -77,24 +77,24 @@ var read = function(test, dataFile) {
     
     function(callback) { // read the turtle from web
         var cb = function(status, headers, body) {
-               log.debug("GETing turtle CALLBACK");
+            //   log.debug("GETing turtle CALLBACK");
             test.equal(status, 200, "checking status is 200 : Ok");
-                 log.debug("\n*BODY = " + body + "||||");
+            //     log.debug("\n*BODY = " + body + "||||");
             turtle = body;
             callback(null);
         };
-         log.debug("GETing turtle");
+      //   log.debug("GETing turtle");
         page.readTurtle(path, cb);
     },
     
     function(callback) { // read the title from the turtle
         var cb = function(title) {
             readTitle = title;
-              log.debug("\n\n*** readTitle = " + readTitle);
-               log.debug("\n\n*** titleInFile = " + titleInFile);
+         //     log.debug("\n\n*** readTitle = " + readTitle);
+        //       log.debug("\n\n*** titleInFile = " + titleInFile);
             callback(null);
         };
-          log.debug("\n\n*** readTitle = "+readTitle);
+    //      log.debug("\n\n+++ readTitle = "+readTitle);
         helpers.readTurtleTitle(turtle, cb);
     },
     
@@ -106,6 +106,7 @@ var read = function(test, dataFile) {
     ]);
     
 }
+
 /*
 exports.testUpdated = function(test){ // callback( response.statusCode, JSON.stringify(response.headers), body);
     var page = new Page();
