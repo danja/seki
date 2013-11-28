@@ -1,6 +1,6 @@
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 var StoreClient = require("../StoreClient");
 var url = require("url");
 var util = require("util");
@@ -16,12 +16,12 @@ function CreateHandler() {}
 CreateHandler.prototype = {
     "handle": function(sekiRequest, sekiResponse, message, route) { // takes JSON
         // this.value2 = argument + 100;
-        console.log("CreateHandler.handle called");
+        log.debug("CreateHandler.handle called");
 
         var bodyMap = JSON.parse(message);
 
         //    if(config.handleLegacyJSON) { // removes extra <<< - check need
-        bodyMap = LegacyJSONUtils.tweak(bodyMap);
+       // bodyMap = LegacyJSONUtils.tweak(bodyMap);
         //    };
 
         log.debug("BODYMAP = " + bodyMap);

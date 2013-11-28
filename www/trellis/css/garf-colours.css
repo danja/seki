@@ -1,0 +1,47 @@
+navitem_t {
+	color: #AC9EA7;
+}
+
+header_t {
+	color: #73788A;
+}
+
+navitem_b {
+	background-color: #56513A;
+}
+
+header_b {
+	background-color: #A4CEFA;
+}
+
+navitem_th {
+	color: #CCCCCC;
+}
+
+footer_b {
+	background-color: #7F807E;
+}
+
+navitem_bh {
+	background-color: #8B767D;
+}
+
+content_b {
+	background-color: #D5D9DA;
+}
+
+content_t {
+	color: #161110;
+}
+
+sidebar_b {
+	background-color: #888270;
+}
+
+::selection {
+    background: #ffb7b7; /* Safari */
+}
+::-moz-selection {
+    background: #ffb7b7; /* Firefox */
+}
+

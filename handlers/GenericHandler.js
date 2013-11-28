@@ -6,8 +6,8 @@ var StoreClient = require("../StoreClient");
 var freemarker = require('../templates/freemarker');
 var Constants = require('../config/Constants');
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 
 var postHeaders = {
     "Accept": "application/sparql-results+xml",

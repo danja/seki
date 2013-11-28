@@ -1,0 +1,139 @@
+.etch-section { border: 1px solid #fff; padding: 18px 21px; margin-bottom: 7px; clear: both; position: relative; overflow: visible !important; z-index: 10000;
+/*    background: -moz-linear-gradient(top, #FFF 0%, #FFF 80%, #F2F2F2 100%); /* firefox */
+/*    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF), color-stop(80%,#FFF), color-stop(100%,#F2F2F2)); /* webkit */
+    background: #fff;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1); -moz-box-shadow: 0 0 5px rgba(0,0,0,.1); box-shadow: 0 0 5px rgba(0,0,0,.1);
+    -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+}
+.etch-section:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.etch-section .etch-inner-pane { border: 1px solid #e6e6e6; background: #f5f5f5; padding: 15px; overflow: hidden; }
+.etch-section .inner-pane:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.etch-section a { text-decoration: none; }
+.etch-section .etch-section-delete { position: absolute; top: -14px; right: -14px; width: 28px; height: 28px; background: url('images/etch/delete.png') no-repeat;
+    text-align: center; font-size: 18px; line-height: 24px; z-index: 100; }
+.etch-section .etch-section-delete:hover { background-position: -58px 0; }
+
+/*=== Link List Module ===*/
+.etch-link-list { list-style-type: none; }
+.etch-link-list li { margin: 0; }
+.etch-link-list a { color: #999; }
+.etch-link-list a:hover { color: #3b6eae; }
+.etch-link-list.etch-inline li{ display: inline; }
+
+/*=== Page Tabs Module ===*/
+/* requires .link-list */
+.etch-tabs { margin: 0; }
+.etch-tabs li { margin-right: 25px; display: inline; /*padding-bottom: 10px;*/ }
+.etch-tabs li.etch-current a { color: #3b6eae; }
+
+/*=== Image Tools ===*/
+.etch-image-tools { position: absolute; display: none; z-index: 5000; }
+.etch-image-tools .etch-buttons { background: rgba(0,0,0,.5); padding: 4px; overflow: hidden; width: auto; display: inline-block;
+        -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+
+.etch-image-tools .editor-button { border-color: #666; }
+.etch-image-tools .etch-editor-button span { background-image: url('images/etch/image_tools_icons.png'); }
+
+.etch-image-tools .etch-left span { background-position: 0 0; }
+.etch-image-tools .etch-center span { background-position: -31px 0; }
+.etch-image-tools .etch-right span { background-position: -62px 0; }
+.etch-image-tools .etch-delete span { background-position: -93px 0; }
+
+/*=== Image Uploader ===*/
+.etch-image-uploader { position: fixed; left: 50%; top: 35%; width: 557px; margin-left: -290px;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,.5);  }
+.etch-image-uploader input[type=text] { padding: 5px; border: 1px solid #ddd; display: inline; }
+.etch-image-uploader .etch-web-search-upload,
+.etch-image-uploader .etch-url-upload { display: none; }
+.etch-image-uploader label { display: block; }
+
+.etch-image-uploader input[type=text] { width: 200px; padding: 7px;}
+.etch-image-uploader .etch-gallery-pane { margin: 15px 0 0 -11px; }
+.etch-image-uploader .etch-gallery-pane .image-wrap:hover { outline: 3px solid #3b6eae; }
+.etch-image-uploader .etch-gallery-pane .media { overflow: visible; }
+.etch-image-uploader .etch-arrows { display: inline-block; }
+.etch-image-uploader a.etch-cancel { float: right; }
+
+
+/*=== Image Cropper ===*/
+
+.etch-image-cropper { position: fixed; left: 50%; top: 50%; margin-left: -540px; margin-top: -238px; height: 435px; width: 1045px; z-index: 10000; }
+.etch-image-cropper .etch-crop-section { width: 430px; float: left; border-right: 1px solid #ddd; padding-right: 20px; margin-right: 20px; text-align: center; }
+.etch-image-cropper .etch-aspect-links { margin-bottom: 15px; }
+.etch-image-cropper .etch-raw-image-wrapper { overflow: hidden; display: inline-block; }
+.etch-image-cropper .etch-crop-size-wrapper { width: 132px; height: 132px; border: 1px solid #ddd; overflow: hidden; float: left; margin-right: 10px; }
+.etch-image-cropper .etch-crop-preview-wrapper { height: 400px; overflow: hidden; position: relative; color: #666; width: 570px; }
+.etch-image-cropper .etch-crop-preview-wrapper:after { display: block; content: ''; width: 100%; height: 30px; position: absolute; bottom: 0;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 80%, #fff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(80%,rgba(255,255,255,.9)), color-stop(100%,rgba(255,255,255,1)));
+}
+.etch-image-cropper .etch-crop-size-wrapper { margin: 5px 10px 0 0; }
+.etch-image-cropper .etch-aspect-links .etch-button { color: #fff; }
+.etch-image-cropper .etch-cancel { float: right; }
+.etch-image-cropper .etch-crop-dimensions { position: absolute; margin: 3px; background: rgba(0,0,0,.5); border-radius: 5px; color: #fff; padding: 0 5px; text-shadow: 0 0 3px rgba(0,0,0,.5)}
+.etch-image-cropper .etch-natural-dimensions { color: #999; }
+
+/*=== Gallery ===*/
+.etch-gallery .etch-tabs { overflow: hidden; position: relative; bottom: -1px; z-index: 100; }
+.etch-gallery .etch-tabs .etch-current { background: url('images/mpages/grey_tab_arrow.png') bottom center no-repeat; }
+.etch-gallery .etch-media { width: 124px; height: 155px; float: left; margin: 0 0 10px 10px; font-size: 11px; line-height: 1.2;  }
+.etch-gallery .etch-media-wrap { margin: 0 0 5px 0; position: relative; height: 94px; }
+.etch-gallery .etch-media-wrap .etch-image-wrap { position: relative; max-height: 94px;  overflow: hidden; *zoom: 1; }
+.etch-gallery a.etch-media-source { border: none; }
+.etch-gallery .etch-play-icon { position: absolute; bottom: 5px; left: 5px; height: 18px; width: 18px; background: url('images/mpages/video_play_icon.png'); }
+.etch-gallery .etch-media-wrap img { width: 120px; }
+
+.etch-gallery .etch-gallery-container { overflow: hidden; *zoom: 1; padding: 15px 15px 15px 5px; border: 1px solid #e6e6e6; background: #f5f5f5; }
+
+.etch-gallery .etch-media-content { padding: 0 5px; }
+.etch-gallery .etch-gallery-pane .etch-head { line-height: 1.3; margin-bottom: 5px; overflow: hidden; *zoom:1; }
+.etch-gallery .etch-arrows { float: right; margin: 0 20px 0 0; }
+
+/*=== Media Module ===*/
+.etch-media { overflow: hidden; *zoom: 1; }
+.etch-media .etch-media-wrap { float: left; margin-right: 15px; }
+/*.media .media-wrap a { border: 1px solid #e6e6e6; padding: 1px; display: block; background-color: #fff; }*/
+.etch-media .etch-media-wrap img { display: block; border: 1px solid #e6e6e6; padding: 1px; background-color: #fff; }
+.etch-media .etch-media-content { overflow: hidden; *zoom: 1; }
+.etch-media .etch-body p { margin-bottom: 0; }
+.etch-media .etch-head,
+.etch-media .etch-foot { font-size: 11px; color: #999; }
+
+/*=== Arrows ===*/
+.etch-arrows .etch-arrow { display: block; height: 14px; width: 9px;  }
+.etch-arrows .etch-left-arrow { background: url('images/etch/arrow_left.png') }
+.etch-arrows .etch-right-arrow { background: url('images/etch/arrow_right.png') }
+
+.etch-arrows .etch-left-arrow,
+.etch-arrows .etch-right-arrow { float: left; margin-left: 10px; }
+
+/*=== Images ===*/
+img.etch-float-right,
+img.float-right { display: block; float: right; margin: 5px 0 0 10px; }
+img.etch-float-left,
+img.float-left { display: block; float: left; margin: 5px 10px 0 0; }
+img.etch-centered, 
+img.centered { float: none; display: block; margin: 5px auto 5px auto; }
+
+/*=== Buttons ===*/
+.etch-button { background: #3b6eae; border: 1px solid #3165a4; color: #fff; padding: 5px 10px; margin: 0;
+    -webkit-border-radius: 3px; 
+    background: #4a7ebf;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+
+}
+.etch-button:hover { background: #5889cc; color: #fff; }
+
+.etch-button.etch-ext { background: #fff; color: #3b6eae; border-color: #becada; text-shadow: none;  }
+.etch-button.etch-ext:hover { background: #f7f7f7; }
+.etch-button.etch-ext1 { -webkit-box-shadow: inset 0 0 2px rgba(255, 255, 255, .5); -moz-box-shadow: inset 0 0 2px rgba(255, 255, 255, .5); box-shadow: inset 0 0 2px rgba(255, 255, 255, .5); }
+.etch-button.etch-ext2 { display: block; background: #e5e5e5; border: 1px solid #bdbdbd; color: #535353; text-shadow: 0 1px 0 #fff;
+    text-align: center;
+    background-image: -moz-linear-gradient(center bottom, #cdcdcd 0%, #efefef 100%);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EFEFEF), to(#cdcdcd));
+    -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+    -webkit-box-shadow: inset 1px 0 0 #ededed, inset 0 1px 0 #ededed, inset -1px 0 0 #ededed, inset 0 -1px 0 #ededed; 
+}
+.etch-button.etch-ext2:hover { background: #eee; }
+
+

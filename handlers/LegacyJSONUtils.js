@@ -1,8 +1,17 @@
+/*
+ * was done for create.js/VIE which used an out-of-date
+ * version of JSON-LD
+ * consider deleting
+ */
+var config = require('../config/ConfigDefault').config;
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
+
 function LegacyJSONUtils() {}
 
 // static method
 LegacyJSONUtils.tweak = function(bodyMap) {
-    console.log("LegacyJSONUtils tweak called");
+    log.debug("LegacyJSONUtils tweak called");
 
     for (var i = 0; i < bodyMap["@type"].length; i++) {
         if (bodyMap["@type"][i][0] == "<") {
