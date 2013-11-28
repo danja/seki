@@ -22,6 +22,7 @@
          editableClick: etch.editableInit,
          
          save: function() {
+             $('.etch-editor-panel').remove();
              var title = this.$('.title').text();
              var content = this.$('.content').text();
              
