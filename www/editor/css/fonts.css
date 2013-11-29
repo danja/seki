@@ -1,0 +1,50 @@
+/* p { font-family: 'juramedium', Arial, sans-serif; } */
+
+
+@font-face {
+    font-family: 'chantelli_antiquaregular';
+    src: url('../fonts/chantelli_antiqua-webfont-webfont.eot');
+    src: url('../fonts/chantelli_antiqua-webfont-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/chantelli_antiqua-webfont-webfont.woff') format('woff'),
+    url('../fonts/chantelli_antiqua-webfont-webfont.ttf') format('truetype'),
+    url('../fonts/chantelli_antiqua-webfont-webfont.svg#chantelli_antiquaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'juramedium';
+    src: url('../fonts/jura-medium-webfont.eot');
+    src: url('../fonts/jura-medium-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/jura-medium-webfont.woff') format('woff'),
+    url('../fonts/jura-medium-webfont.ttf') format('truetype'),
+    url('../fonts/jura-medium-webfont.svg#juramedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'jurademibold';
+    src: url('../fonts/jura-demibold-webfont.eot');
+    src: url('../fonts/jura-demibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/jura-demibold-webfont.woff') format('woff'),
+    url('../fonts/jura-demibold-webfont.ttf') format('truetype'),
+    url('../fonts/jura-demibold-webfont.svg#jurademibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+   
+}
+
+
+@font-face {
+    font-family: 'noticia_textregular';
+    src: url('../fonts/noticiatext-regular-webfont.eot');
+    src: url('../fonts/noticiatext-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noticiatext-regular-webfont.woff') format('woff'),
+    url('../fonts/noticiatext-regular-webfont.ttf') format('truetype'),
+    url('../fonts/noticiatext-regular-webfont.svg#noticia_textregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

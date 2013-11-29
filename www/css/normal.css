@@ -1,0 +1,37 @@
+.title {
+    font-family:'jurademibold', Arial, sans-serif;
+}
+
+.content {
+    font-family: Freesans, sans-serif;
+}
+
+#header {
+color: #6E5654;
+background-color: #BFCADC;
+}
+
+#center {
+    color: #0F0F0B;
+    background-color: #E5E5E5;
+}
+
+
+#left {
+    background-color: #6E5654;
+    color: #0F0F0B;
+}
+
+
+#right {
+    background-color: #FFBC8B;
+    color: #607043;
+}
+
+
+#footer{
+color: #6E5654;
+    background-color: #8E879C;
+}
+
+
