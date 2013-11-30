@@ -48,6 +48,8 @@ G+](https://plus.google.com/b/102910670341143019851/102910670341143019851/posts)
 Also [TODO 
 List](https://workflowy.com/shared/dd5976b2-b48f-9096-0357-105f34b4d6ed/)
 
+Note 2013-11-30 : there's a README.md in each directory giving overview of its contents.
+
 Note 2013-08-27 : packaging etc. still in progress, but I have managed to get a 
 live instance running on OpenShift (Red Hat's hosting service) at 
 http://seki-hyperdata.rhcloud.com/welcome, backed by a Fuseki store hosted at 

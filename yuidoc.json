@@ -1,7 +1,7 @@
 {
     "name": "Seki API",
     "description": "Seki API",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "url": "https://plus.google.com/b/102910670341143019851/102910670341143019851",
 	"logo": "file:///docs/other/seki.png",
 		"paths": "admin, client-api, config, converters, data, handlers, misc, rules, templates, tests, usermanager, utils, www",

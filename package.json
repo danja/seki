@@ -1,6 +1,6 @@
 {
   "name": "Seki",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Semantic Web middleware",
   "main": "Seki.js",
   "dependencies": {},
@@ -25,8 +25,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "node Seki.js",
-    "test": "tests/run-tests.js"
+    "start": "node src/Seki.js",
+    "test": "src/tests/run-tests.js"
   },
   "docco_husky": {
     "output_dir": "docs/source",             
