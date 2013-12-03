@@ -145,22 +145,14 @@ Trellis.init = function() {
     function ts_insert($li) {
         console.log("INSERT");
         var template = $("#li-template").clone(true); // deepWithDataAndEvents
-        template.removeClass("hidden"); 
+        template.removeClass("hidden");
         template.removeAttr("id");
-       template.find("#nid-template").attr("id", generateID());
-  
-        
+        template.find("#nid-template").attr("id", generateID());
         $li.after(template);
-     
         template.show();
-        
-        
         $li.find(".ts-title").removeClass('ts-selected');
-        // .attr('contenteditable', 'false');
-        $('.ts-title')
-        template.find(".ts-title").addClass('ts-selected');
-        // .attr('contenteditable', 'true');
-        
+        template.find(".date").text(generateDate());
+        template.find(".ts-title").addClass('ts-selected').focus();
         event.preventDefault();
     }
 
@@ -197,9 +189,49 @@ Trellis.init = function() {
         $(this).find(".ts-handle").hide();
     });
 
+    function ts_delete($li) {
+        console.log("delete");
+        $($li).remove();
+    }
 
+    /* *** Actions *** */
+    $('.ts-addChild').click(function() {
+        var li = $(this).closest("li");
+        ts_insert($(li));
+    });
 
-    $('#trellis li').prepend('<div class="dropzone"></div>');
+    $('.ts-delete').click(function() {
+        var li = $(this).closest("li");
+        ts_delete($(li));
+    });
+
+    $(".ts-card").click(function(event) {
+        populateCard($(this).closest(".ts-entry"));
+        //  $("#card").toggle();
+        event.preventDefault();
+    });
+
+    function populateCard($entry) {
+        console.log("populate card");
+        var displayed = $("#card-nid").text();
+        var nid = $entry.attr("id");
+        var title = $entry.find(".ts-title").text();
+        var date = $entry.find(".date").text();
+        console.log("nid = " + nid);
+        $("#card-nid").text(nid);
+        $("#card-title").text(title);
+        $("#card-date").text(date);
+
+        if (nid == displayed) {
+            $("#card").toggle();
+        } else {
+            $("#card").show();
+        }
+
+    }
+    ///////////////////////////////////////////////////
+
+    $('#trellis li').prepend('<div class="dropzone"></div>'); // TODO move
 
     $('#trellis .ts-entry, #trellis .dropzone').droppable({
         accept: '#trellis li',
@@ -227,7 +259,7 @@ Trellis.init = function() {
                 backgroundColor: '#ccc'
             });
             $(this).filter('.dropzone').css({
-                borderColor: '#aaa'
+                borderColor: '#66e'
             });
         },
         out: function() {
@@ -249,58 +281,67 @@ Trellis.init = function() {
             trellisHistory.saveState(this);
         }
     });
+
     $('.trellis-undo').click(trellisHistory.restoreState);
+
     $(document).bind('keypress', function(e) {
         if (e.ctrlKey && (e.which == 122 || e.which == 26))
             trellisHistory.restoreState();
     });
-    
-    
+
+
     $('#saveButton').button().click(function() {
         var turtle = '';
-        
+
         ts_toTurtle("http://hyperdata.org/", function(turtle) {
             // targetURL, graphURI, turtle
             Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
             console.log("TURTLE : " + turtle);
             ts_renderHTML(turtle, $("#output"));
-            
+
         });
     });
-    
+
     $("#shortcutsButton")
-    .button()
-    .click(function(event) {
-        $("#shortcuts-text").toggle();
-        event.preventDefault();
-    });
-}
+        .button()
+        .click(function(event) {
+            $("#shortcuts-text").toggle();
+            event.preventDefault();
+        });
 
-/*
- * generate node id
- * uses date.format.js (to minimise browser support issues)
- * datetime+milliseconds+4-digit random
- *
- * e.g. nid-2013-11-06-17-46-54-269-7829
- *
- * differs from ISO date because jQuery can get confused by colons
- * see http://blog.stevenlevithan.com/archives/date-time-format
- */
-var generateID = function() {
-    // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
 
-    var r = '' + Math.floor((Math.random() * 10000));
-    var pad = "0000";
-    var rnd = (pad + r).slice(-pad.length);
-    var now = new Date();
-    return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
-};
 
-var generateDate = function() {
-    // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-    var now = new Date();
-    return  now.format("isoUtcDateTime");
-};
+    /*
+     * generate node id
+     * uses date.format.js (to minimise browser support issues)
+     * datetime+milliseconds+4-digit random
+     *
+     * e.g. nid-2013-11-06-17-46-54-269-7829
+     *
+     * differs from ISO date because jQuery can get confused by colons
+     * see http://blog.stevenlevithan.com/archives/date-time-format
+     */
+    var generateID = function() {
+        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+
+        var r = '' + Math.floor((Math.random() * 10000));
+        var pad = "0000";
+        var rnd = (pad + r).slice(-pad.length);
+        var now = new Date();
+        return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
+    };
+
+    var generateDate = function() {
+        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+        var now = new Date();
+        return now.format("isoUtcDateTime");
+    };
+
+
+} // Trellis namespace
+
+
+
 
 var trellisHistory = {
     stack: new Array(),
