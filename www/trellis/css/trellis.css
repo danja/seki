@@ -12,6 +12,26 @@ html {
 }
 body {
 }
+#header-outer {
+    margin: auto;
+    color: #fff;
+    background-color: #444;
+    text-align: center;
+    padding: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#header, #footer {
+    margin-right: 400px;
+    display: block;
+    font-family:'jurademibold', Arial, sans-serif;
+    font-size: 150%;
+    font-weight: 150%;
+}
 .hidden {
     display: none;
 }
@@ -68,7 +88,8 @@ body {
     margin:16px 0px 0px 16px;
     padding: 5px;
     background: #fff;
-    box-shadow: 1px 1px 1px #444; /* box-shadow: h-shadow v-shadow blur spread color inset; */
+    box-shadow: 1px 1px 1px #444;
+    /* box-shadow: h-shadow v-shadow blur spread color inset; */
     -mox-box-shadow: 1px 1px 1px #444;
     -webkit-box-shadow: 1px 1px 1px #444;
 }
@@ -82,7 +103,7 @@ body {
 }
 #container {
     position: fixed;
-    top: 0;
+    top: 35px;
     left: 200px;
     text-align: center;
     overflow-y: scroll;
@@ -131,14 +152,10 @@ margin: 15px auto;
  #card {
     display: none;
     width: 25%;
-    
     border-color: #aaa;
     border-style:solid;
     border-width:1px;
-    
-    /* RC width */
     padding: 0 10px;
-    /* RC padding */
     position: relative;
     float: right;
     margin-right: 2%;
@@ -146,6 +163,7 @@ margin: 15px auto;
 }
 #card-title {
     display: block;
+    word-break: break-all;
     width: 105%;
     text-align: center;
     color: #fff;
@@ -164,6 +182,7 @@ margin: 15px auto;
     border-top-right-radius: 10px;
 }
 #card-nid {
+    font-size: 80%;
     color : #00c;
     padding: 5px 0px 5px 0px;
 }
@@ -171,6 +190,7 @@ margin: 15px auto;
     padding: 5px 0px 5px 0px;
 }
 #card-date {
+    font-size: 80%;
     color: #666;
     padding: 5px 0px 5px 0px;
 }
