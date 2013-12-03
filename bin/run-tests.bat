@@ -1,2 +1,2 @@
-cd ../tests
+cd ../../tests
 nodeunit run-tests.js

@@ -18,7 +18,7 @@ var path = '/pages/ApiTest';
 
 exports.testDeleteInit = function(test) { // just to make sure it's cleared
     var callback = function(status, headers, body) {
-        test.equal(status, 204, "checking status");
+        test.equal(status, 204, "checking status is 204");
         test.done();
     }
     var page = new Page();
@@ -48,8 +48,6 @@ exports.testUpdate = function(test) {
     var page = new Page();
     page.fileUpdateTurtle(path, 'data/newpage.ttl', callback);
 };
-
-///////////////////////////// tests pass up to here
 
 
 exports.testUpdated = function(test) { // callback( response.statusCode, JSON.stringify(response.headers), body);

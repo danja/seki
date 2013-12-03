@@ -16,6 +16,14 @@ background-color: #eee;
 body {    
 }
 
+.hidden {
+    display: none;
+}
+
+.date {
+    display: none;
+}
+
 #menu-box {
     float: left;
     text-align: left;

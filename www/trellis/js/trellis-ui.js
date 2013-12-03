@@ -20,24 +20,7 @@ Trellis.init = function() {
      metaKey - control key on PCs, control and/or command key on Macs
      */
 
-    $('#saveButton').button().click(function() {
-        var turtle = '';
 
-        ts_toTurtle("http://hyperdata.org/", function(turtle) {
-            // targetURL, graphURI, turtle
-            Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
-            console.log("TURTLE : " + turtle);
-            ts_renderHTML(turtle, $("#output"));
-
-        });
-    });
-
-    $("#shortcutsButton")
-        .button()
-        .click(function(event) {
-            $("#shortcuts-text").toggle();
-            event.preventDefault();
-        });
 
     $('.ts-expander').on('click', function() {
         $(".ts-title").removeClass('ts-selected');
@@ -161,12 +144,23 @@ Trellis.init = function() {
 
     function ts_insert($li) {
         console.log("INSERT");
-        var template = $("#ts-entry-template").clone();
-        var newLI = $('<li/>').appendTo($li);
-        newLI.append(template);
-        // newLI.children("dl")
-        template.attr("id", generateID());
+        var template = $("#li-template").clone(true); // deepWithDataAndEvents
+        template.removeClass("hidden"); 
+        template.removeAttr("id");
+       template.find("#nid-template").attr("id", generateID());
+  
+        
+        $li.after(template);
+     
         template.show();
+        
+        
+        $li.find(".ts-title").removeClass('ts-selected');
+        // .attr('contenteditable', 'false');
+        $('.ts-title')
+        template.find(".ts-title").addClass('ts-selected');
+        // .attr('contenteditable', 'true');
+        
         event.preventDefault();
     }
 
@@ -260,6 +254,26 @@ Trellis.init = function() {
         if (e.ctrlKey && (e.which == 122 || e.which == 26))
             trellisHistory.restoreState();
     });
+    
+    
+    $('#saveButton').button().click(function() {
+        var turtle = '';
+        
+        ts_toTurtle("http://hyperdata.org/", function(turtle) {
+            // targetURL, graphURI, turtle
+            Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
+            console.log("TURTLE : " + turtle);
+            ts_renderHTML(turtle, $("#output"));
+            
+        });
+    });
+    
+    $("#shortcutsButton")
+    .button()
+    .click(function(event) {
+        $("#shortcuts-text").toggle();
+        event.preventDefault();
+    });
 }
 
 /*
@@ -280,6 +294,12 @@ var generateID = function() {
     var rnd = (pad + r).slice(-pad.length);
     var now = new Date();
     return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
+};
+
+var generateDate = function() {
+    // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+    var now = new Date();
+    return  now.format("isoUtcDateTime");
 };
 
 var trellisHistory = {
