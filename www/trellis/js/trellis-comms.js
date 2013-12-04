@@ -30,15 +30,15 @@ Trellis.toTurtle = function(baseURI, callback) { // TODO use node-n3/browserify
     turtle += "@prefix ts: <http://hyperdata.org/trellis/> . \n\n";
 
     var ts_printout = function($node, kidCount, index, callback) {
-        console.log("$Node = "+$node.html());
+        console.log("$Node = " + $node.html());
         var $entryNode = $node.find(".ts-entry");
-        console.log("$entryNode = "+$entryNode.html());
+        console.log("$entryNode = " + $entryNode.html());
         var id = $entryNode.attr("id");
         var title = $entryNode.find(".ts-title").text();
         var created = $entryNode.find("span[property='created']").text();
-        
+
         var parent = $node.parent().parent();
-        var parentURI = baseURI;
+        var parentURI = baseURI + "trellis/";
         if (parent.hasClass("ts-root")) {
             parentURI += parent.attr("id");
         } else {
@@ -56,11 +56,11 @@ Trellis.toTurtle = function(baseURI, callback) { // TODO use node-n3/browserify
         turtle += "\n";
     }
 
-    turtle += "<" + baseURI + $(".ts-root").attr("id") + "> a ts:RootNode . \n";
+    turtle += "<" + baseURI + "trellis/" + $(".ts-root").attr("id") + "> a ts:RootNode . \n";
 
     var startNode = $("#trellis > div > ul");
-    console.log("start node = "+startNode.html());
-    
+    console.log("start node = " + startNode.html());
+
     Trellis.recurseTree(startNode, ts_printout); // ul:first ts-root
 
     callback(turtle);
@@ -103,19 +103,28 @@ Trellis.renderHTML = function(turtle, containerElement) {
                     //    console.log("O = " + triple.object);
                 }
             } else {
-                buildTree(store, containerElement);
+                buildTree(store, containerElement, divNode);
                 console.log("Parsed.")
             }
         });
 
-    var buildTree = function(store, containerElement) {
-        console.log("build tree");
+    var buildTree = function(store, containerElement, template) {
+        // console.log("build tree");
         var root = store.find(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://hyperdata.org/trellis/RootNode')[0].subject;
-        var ul = $('<ul/>').appendTo(containerElement);
+        // var ul = $('<ul/>').appendTo(containerElement);
+
+
         var buildChildren = function(nodeURI, container) {
-            console.log("build children "+nodeURI+ "        "+ container.html());
+
+            console.log("build children nodeURI=" + nodeURI + "  container=" + container.html());
             var children = store.find(null, 'http://hyperdata.org/trellis/parent', nodeURI);
-            //   console.log("children = "+JSON.stringify(children));
+            if (children.length) {
+                var container = $('<ul />').appendTo(container);
+            } else {
+                return;
+            }
+
+            console.log("children = " + JSON.stringify(children));
             var sortedChildren = new Array(children.length);
             for (var i = 0; i < children.length; i++) {
                 // console.log(children[i]);
@@ -126,27 +135,26 @@ Trellis.renderHTML = function(turtle, containerElement) {
                 sortedChildren[sortedIndex] = children[i].subject;
             }
             for (var i = 0; i < sortedChildren.length; i++) {
-                var text = store.find(sortedChildren[i], 'http://purl.org/dc/terms/title', null)[0].object;
+                var current = sortedChildren[i];
+                var text = store.find(current, 'http://purl.org/dc/terms/title', null)[0].object;
                 text = text.substring(1, text.length - 1); // strip quotes
                 //  var newContainer = container.append("<li>"+text+"</li>");
-                var node = divNode.clone(true);
+                var newDiv = template.clone(true);
+                $(newDiv).find(".ts-title").append(text);
+
+
                 var split = sortedChildren[i].split("/");
                 var nid = split[split.length - 1];
-                // console.log("nid = "+nid);
-              
-                var nid =   $(node).find("#nid-template").attr("id", nid)
-                // [0].text();
-                $(node).find(".ts-title").append(text);
-                // .setAttr("id", sortedChildren[i]);
-                //  var li = container.append("<li/>");
-                //  li.append(node);
+                $(newDiv).attr("id", nid);
+                console.log("nid = " + nid);
+
                 var li = $('<li class="ts-open" />').appendTo(container);
-                li.append(node);
-                buildChildren(nid, li);
+                li.append(newDiv);
+                buildChildren(sortedChildren[i], li);
             }
         }
 
-        buildChildren(root, ul);
+        buildChildren(root, containerElement);
 
         //  console.log("store = "+JSON.stringify(store));
     }

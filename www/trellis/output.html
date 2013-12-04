@@ -2,8 +2,10 @@
 <html>
 
 <head>
+    <link rel="stylesheet" type="text/css" media="screen" href="js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="css/trellis.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/fonts.css" />
 
     <!-- jQuery/UI scripts -->
     <script type="text/javascript" src="js/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
@@ -33,7 +35,7 @@
     
     $.get( "sample.ttl", function(turtle) {
  // $( ".page" ).html( data );
-  var containerElement = $( ".page" );
+  var containerElement = $( "#trellis" );
   Trellis.renderHTML(turtle, containerElement);
   
   // alert( "Load was performed." );
@@ -46,13 +48,27 @@
     <title>Outline</title>
 </head>
 
-<body>
-    <div class="page">
-       
-    </div>
+<body>    
+        <div id="container">
+        <div class="page">
+            <div id="trellis">
+            </div>
+        </div>
+        </div>
     
-    <input type="submit" name="toTurtle" id="toTurtle" value="To Turtle" />
-    <pre id="toTurtleOutput"></pre>
+<div id="ts-entry-template" class="ts-entry ui-droppable">
+                            <span class="ts-expander">&nbsp;</span>
+                            <span class="ts-title ts-highlight ts-selected" contenteditable="true">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <div class="ts-actions" style="display: block;">
+                                <span class="ts-addChild" title="Add Child">+</span>
+                                <span class="ts-delete" title="Delete">x</span>
+                                <span class="ts-card" title="Card">&#9634;</span>
+                            </div>
+                            <div class="ts-dragger">
+                                <span class="ts-handle" title="Drag" style="display: block;">&#8597;</span>
+                            </div>
+                            <span class="date" property="created"></span>
+                        </div>
 </body>
 
 </html>
