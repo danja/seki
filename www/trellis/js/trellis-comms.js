@@ -25,7 +25,7 @@ Trellis.load = function(url, callback) {
 /*
  * data manipulation
  */
-function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
+Trellis.toTurtle = function(baseURI, callback) { // TODO use node-n3/browserify
     var turtle = "@prefix dc: <http://purl.org/dc/terms/> . \n";
     turtle += "@prefix ts: <http://hyperdata.org/trellis/> . \n\n";
 
@@ -34,8 +34,9 @@ function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
         var $entryNode = $node.find(".ts-entry");
         console.log("$entryNode = "+$entryNode.html());
         var id = $entryNode.attr("id");
-        var title = $entryNode.find(".ts-title").html();
-
+        var title = $entryNode.find(".ts-title").text();
+        var created = $entryNode.find("span[property='created']").text();
+        
         var parent = $node.parent().parent();
         var parentURI = baseURI;
         if (parent.hasClass("ts-root")) {
@@ -49,6 +50,7 @@ function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
             turtle += "  a ts:LeafNode; \n";
         } */
         turtle += "   dc:title \"" + title + "\" ; \n";
+        turtle += "   dc:created \"" + created + "\" ; \n";
         turtle += "   ts:index \"" + index + "\" ; \n";
         turtle += "   ts:parent <" + parentURI + "> .";
         turtle += "\n";
@@ -59,18 +61,17 @@ function ts_toTurtle(baseURI, callback) { // TODO use node-n3/browserify
     var startNode = $("#trellis > div > ul");
     console.log("start node = "+startNode.html());
     
-    ts_recurseTree(startNode, ts_printout); // ul:first ts-root
+    Trellis.recurseTree(startNode, ts_printout); // ul:first ts-root
 
     callback(turtle);
 }
 
-
-function ts_recurseTree($ul, printout) {
+Trellis.recurseTree = function($ul, printout) {
     $ul.children("li").each(function(index) {
         var kids = $(this).children("ul");
         printout($(this), kids.length, index);
         if (kids.length) {
-            ts_recurseTree(kids, printout);
+            Trellis.recurseTree(kids, printout);
         }
     });
 }
@@ -84,7 +85,7 @@ function ts_recurseTree($ul, printout) {
  var mickey = store.find(':Mickey', null, null)[0];
  console.log(mickey.subject, mickey.predicate, mickey.object, '.');
  */
-function ts_renderHTML(turtle, containerElement) {
+Trellis.renderHTML = function(turtle, containerElement) {
     //  var parser = new n3.Parser();
     var divNode = $("#ts-entry-template");
     // .clone(true)
@@ -112,6 +113,7 @@ function ts_renderHTML(turtle, containerElement) {
         var root = store.find(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://hyperdata.org/trellis/RootNode')[0].subject;
         var ul = $('<ul/>').appendTo(containerElement);
         var buildChildren = function(nodeURI, container) {
+            console.log("build children "+nodeURI+ "        "+ container.html());
             var children = store.find(null, 'http://hyperdata.org/trellis/parent', nodeURI);
             //   console.log("children = "+JSON.stringify(children));
             var sortedChildren = new Array(children.length);
@@ -131,13 +133,16 @@ function ts_renderHTML(turtle, containerElement) {
                 var split = sortedChildren[i].split("/");
                 var nid = split[split.length - 1];
                 // console.log("nid = "+nid);
-                $(node).find("#nid-template").attr("id", nid);
+              
+                var nid =   $(node).find("#nid-template").attr("id", nid)
+                // [0].text();
                 $(node).find(".ts-title").append(text);
                 // .setAttr("id", sortedChildren[i]);
                 //  var li = container.append("<li/>");
                 //  li.append(node);
                 var li = $('<li class="ts-open" />').appendTo(container);
                 li.append(node);
+                buildChildren(nid, li);
             }
         }
 

@@ -23,15 +23,18 @@
     <script type="text/javascript" src="js/date.format.js"></script>
 
     <!-- Trellis-specific -->
-    <script type="text/javascript" src="js/ts-serialise.js"></script>
+    <script type="text/javascript" src="js/n3-browser.js"></script>
+    <script type="text/javascript" src="js/trellis-ui.js"></script>
+    <script type="text/javascript" src="js/trellis-comms.js"></script>
     <!-- script type="text/javascript" src="js/ts-tree.js"></script -->
     <script>
 
     $(function() {
     
-    $.get( "sample.ttl", function( data ) {
-  $( ".page" ).html( data );
-  
+    $.get( "sample.ttl", function(turtle) {
+ // $( ".page" ).html( data );
+  var containerElement = $( ".page" );
+  Trellis.renderHTML(turtle, containerElement);
   
   // alert( "Load was performed." );
 });

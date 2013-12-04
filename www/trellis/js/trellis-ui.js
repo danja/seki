@@ -293,11 +293,11 @@ Trellis.init = function() {
     $('#saveButton').button().click(function() {
         var turtle = '';
 
-        ts_toTurtle("http://hyperdata.org/", function(turtle) {
+        Trellis.toTurtle("http://hyperdata.org/", function(turtle) {
             // targetURL, graphURI, turtle
             Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
             console.log("TURTLE : " + turtle);
-            ts_renderHTML(turtle, $("#output"));
+            Trellis.renderHTML(turtle, $("#output"));
 
         });
     });
