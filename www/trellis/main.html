@@ -28,24 +28,63 @@
     <script type="text/javascript" src="js/n3-browser.js"></script>
     <script type="text/javascript" src="js/trellis-ui.js"></script>
     <script type="text/javascript" src="js/trellis-comms.js"></script>
-    <!-- script type="text/javascript" src="js/ts-tree.js"></script -->
     <script>
         $(function() {
-            $.get("sample.ttl", function(turtle) {
-                // $( ".page" ).html( data );
-                var containerElement = $("#trellis");
-                Trellis.renderHTML(turtle, containerElement);
+
+              $.get("sample.ttl", function(turtle) {
+              
+               var containerElement = $("#trellis");
+               Trellis.renderHTML(turtle, containerElement);
                 Trellis.init();
-                // alert( "Load was performed." );
-            });
-
-        });
+               
+             });
+                  });
+                  
+                  /*
+                                $.get("sample.ttl", function(turtle) {
+              
+               var containerElement = $("#trellis");
+               Trellis.renderHTML(turtle, containerElement);
+               
+             }).done(function(){
+                         Trellis.init();
+             });
+                  });
+                  */
     </script>
+    <title>Trellis</title>
 
-    <title>Outline</title>
 </head>
 
 <body>
+    <div id="header-outer">
+        <div id="header">&#8225;&nbsp;&nbsp;Trellis&nbsp;&nbsp;&#8225;</div>
+    </div>
+
+    <div id="menu-box">
+        <div class="toolbar">
+            <ul>
+                <li>
+                    <button id="shortcutsButton">Shortcuts</button>
+                </li>
+                <li>
+                    <button id="saveButton">Save</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="shortcuts-text" title="Shortcuts" class="text-box">
+        <p>Expand / collapse control + space
+            <br/>Indent tab
+            <br/>Outdent shift + tab
+            <br/>Zoom in alt + right
+            <br/>Zoom out alt + left
+            <br/>(or hit 'enter' on an empty line)
+            <br/>Move alt + shift + arrows
+            <br/>Delete control + shift + backspace</p>
+    </div>
+
     <div id="container">
         <div class="page">
             <div id="trellis">
@@ -53,10 +92,9 @@
         </div>
     </div>
 
-
-    <div id="ts-entry-template" class="ts-entry ui-droppable">
+    <div id="nid-template" class="ts-entry ui-droppable hidden">
         <span class="ts-expander">&nbsp;</span>
-        <span class="ts-title" contenteditable="true">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ts-title" property="title"></span>
         <div class="ts-actions" style="display: block;">
             <span class="ts-addChild" title="Add Child">+</span>
             <span class="ts-delete" title="Delete">x</span>
@@ -66,6 +104,16 @@
             <span class="ts-handle" title="Drag" style="display: block;">&#8597;</span>
         </div>
         <span class="date" property="created"></span>
+    </div>
+
+    <div id="card" title="Card" class="text-box">
+        <div id="card-title">Title</div>
+        <div id="card-content">
+            <div id="card-nid">nid</div>
+
+            <p>This is the card</p>
+            <div id="card-date">date</div>
+        </div>
     </div>
 </body>
 

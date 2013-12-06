@@ -1,7 +1,7 @@
 ﻿ //init functions
-$(function() {
-    Trellis.init();
-});
+// $(function() {
+   // Trellis.init();
+// });
 
 var Trellis = Trellis || {};
 
@@ -19,9 +19,11 @@ Trellis.init = function() {
      shiftKey - shift key
      metaKey - control key on PCs, control and/or command key on Macs
      */
+    
+    $('.ts-title').attr('contenteditable', 'true'); // needed?
 
-
-
+    $('#trellis li').prepend('<div class="dropzone"></div>');  // needed?
+    
     $('.ts-expander').on('click', function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
@@ -60,7 +62,7 @@ Trellis.init = function() {
     function ts_up($li) {
 
         var prevLI = $li.prev("li");
-        console.log("prevLI.length " + prevLI.length);
+        // console.log("prevLI.length " + prevLI.length);
 
         if (prevLI.length == 0) {
             prevLI = $li.parent().closest("li");
@@ -144,15 +146,22 @@ Trellis.init = function() {
 
     function ts_insert($li) {
         console.log("INSERT");
-        var template = $("#li-template").clone(true); // deepWithDataAndEvents
+        var template = $("#nid-template").clone(true); // deepWithDataAndEvents
         template.removeClass("hidden");
-        template.removeAttr("id");
-        template.find("#nid-template").attr("id", generateID());
-        $li.after(template);
+        //template.removeAttr("id");
+        //template.find("#nid-template").attr("id", generateID());
+        template.attr("id", generateID());
+        
+        var newLi = $("<li><div class='dropzone ui-droppable NEW'></div></li>");
+        newLi.append(template);
+    //    $li.append("<div class='dropzone ui-droppable'></div>");
+        
+        $li.after(newLi);
         template.show();
         $li.find(".ts-title").removeClass('ts-selected');
         template.find(".date").text(generateDate());
-        template.find(".ts-title").addClass('ts-selected').focus();
+        template.find(".ts-title").addClass('ts-selected').addClass('ts-highlight').focus();
+        // ts-highlight ts-selected
         event.preventDefault();
     }
 
@@ -169,7 +178,7 @@ Trellis.init = function() {
         };
     });
 
-    $('.ts-title').attr('contenteditable', 'true');
+
 
     $('.ts-entry').mouseover(function() { // .ts-entry
         $(".ts-handle").hide();
@@ -231,7 +240,7 @@ Trellis.init = function() {
     }
     ///////////////////////////////////////////////////
 
-    $('#trellis li').prepend('<div class="dropzone"></div>'); // TODO move
+  
 
     $('#trellis .ts-entry, #trellis .dropzone').droppable({
         accept: '#trellis li',

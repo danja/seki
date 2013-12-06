@@ -8,13 +8,13 @@
    ts:index "0" ; 
    ts:parent <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-255-0000> .
 <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-261-8067> a ts:Node; 
-   dc:title "Add copy and pasteThreeFourFiveSixSevenEight" ; 
-   dc:created "2013-12-04T08:46:02Z2013-12-04T08:46:03Z2013-12-04T08:46:04Z2013-12-04T08:46:05Z2013-12-04T08:46:06Z2013-12-04T08:46:07Z2013-12-04T08:46:08Z" ; 
+   dc:title "Add copy and paste" ; 
+   dc:created "2013-12-04T08:46:02Z" ; 
    ts:index "1" ; 
    ts:parent <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-255-0000> .
 <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-265-8865> a ts:Node; 
-   dc:title "ThreeFourFiveSix" ; 
-   dc:created "2013-12-04T08:46:03Z2013-12-04T08:46:04Z2013-12-04T08:46:05Z2013-12-04T08:46:06Z" ; 
+   dc:title "Three" ; 
+   dc:created "2013-12-04T08:46:03Z" ; 
    ts:index "0" ; 
    ts:parent <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-261-8067> .
 <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-265-5134> a ts:Node; 
@@ -43,7 +43,7 @@
    ts:index "2" ; 
    ts:parent <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-261-8067> .
 <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-268-7935> a ts:Node; 
-   dc:title "NineTenTwelve" ; 
+   dc:title "Nine" ; 
    dc:created "2013-12-04T08:46:09Z" ; 
    ts:index "2" ; 
    ts:parent <http://hyperdata.org/trellis/nid-2011-11-11-17-46-54-255-0000> .
