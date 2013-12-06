@@ -52,6 +52,31 @@ rule CreatePageTurtle {
 }
 // application/sparql-update
 
+//  
+rule ReadGraphTurtle {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 8) == "/graphs/";
+        rr : RequestRouter  rr.method.toLowerCase()  == "get";
+        rr : RequestRouter  rr.accept == "text/turtle";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** ReadGraphTurtle rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "read";});
+        modify(r, function(){this.route["graph"] =  rr.path;});
+        modify(r, function(){this.route["path"] = rr.path;});
+        
+        modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
+        
+        modify(r, function(){this.route["queryOptions"]["path"] = config.client["queryEndpoint"];});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "readGraphTemplate";}); // needs graph & uri
+        modify(r, function(){this.route["viewTemplate"] = "minimalViewTemplate";}); // needs graph & uri
+        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        
+        modify(r, function(){this.route["responseCode"] = "200";});
+    }
+}
+
 rule ReadPageTurtle {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
@@ -102,14 +127,14 @@ rule UpdatePageTurtle {
     }
 }
 
-// very similar to abbove
-rule UpdateTrellisTurtle {
+rule UpdateGraphTurtle {
     when {
+        rr : RequestRouter  rr.path.substring(0, 8) == "/graphs/";
         rr : RequestRouter  rr.method.toLowerCase() == "put";
         rr : RequestRouter  rr.contentType == "text/turtle";
         r : Route r.route["targetFunction"] == "";
     } then {
-        log.debug("*** UpdatePageTurtle rule triggered ***"); 
+        log.debug("*** UpdateGraphTurtle rule triggered ***"); 
         modify(r, function(){this.route["type"] = "update";});
         modify(r, function(){this.route["graph"] = rr.path;});
         modify(r, function(){this.route["path"] = rr.path;});
@@ -117,11 +142,13 @@ rule UpdateTrellisTurtle {
         modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "turtleTrellisTemplate";}); 
+        modify(r, function(){this.route["queryTemplate"] = "updateGraphTemplate";}); 
         modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
         modify(r, function(){this.route["responseCode"] = "201";});
     }
 }
+
+
 
 // JSON ******************************************************************************************************
 rule CreatePageJSON {

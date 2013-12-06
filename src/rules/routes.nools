@@ -1,6 +1,7 @@
 import("./proxy.nools");
 import("./other-http-methods.nools");
 import("./pages.nools");
+import("./graphs.nools");
 import("./with-extension.nools");
 
 define RequestRouter {

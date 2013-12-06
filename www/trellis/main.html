@@ -31,12 +31,30 @@
     <script>
         $(function() {
 
-              $.get("sample.ttl", function(turtle) {    // sample.ttl // should be calling Trellis.load .. http://localhost:8888/pages/trellis
+        var success = function(turtle) {    // sample.ttl // should be calling Trellis.load .. http://localhost:8888/pages/trellis
                var containerElement = $("#trellis");
                Trellis.renderHTML(turtle, containerElement);
                 Trellis.init();     
                 Trellis.initDragDrop();  
-             });
+             };
+        // jQuery.get( url [, data ] [, success(data, textStatus, jqXHR) ] [, dataType ] )
+        $.ajax({
+  url: "http://localhost:8888/graphs/trellis",
+  headers:  {
+        Accept: "text/turtle"
+    } ,
+  data: "",
+  success: success
+});
+
+/*
+              $.get("http://localhost:8888/graphs/trellis", function(turtle) {    // sample.ttl // should be calling Trellis.load .. http://localhost:8888/pages/trellis
+               var containerElement = $("#trellis");
+               Trellis.renderHTML(turtle, containerElement);
+                Trellis.init();     
+                Trellis.initDragDrop();  
+             }, "text/turtle");
+             */
                   });
     </script>
     <title>Trellis</title>

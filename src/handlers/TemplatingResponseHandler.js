@@ -172,9 +172,12 @@ TemplatingResponseHandler.prototype = {
         
 
         this.replaceMap = {
-            "graph": route.graph, // SLASH HERE  + "/" config.uriBase + 
+            "graph": config.uriBase+route.graph, // SLASH HERE  + "/" config.uriBase + 
             "uri": config.uriBase + route.path //  
         };
+        
+        log.debug("replaceMap = " + JSON.stringify(this.replaceMap, null,4));
+        
 
         if (route["type"] && route["type"] != "") { // temp
             this[route["type"]](sekiRequest, sekiResponse, message, route);

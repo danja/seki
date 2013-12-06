@@ -261,7 +261,7 @@ Trellis.init = function() {
 
         Trellis.toTurtle("http://hyperdata.org/", function(turtle) {
             // targetURL, graphURI, turtle
-            Trellis.save("http://localhost:8888/pages/trellis", "http://hyperdata.org/pages/trellis", turtle);
+            Trellis.save("http://localhost:8888/graphs/trellis", "http://hyperdata.org/graphs/trellis", turtle);
             console.log("TURTLE : " + turtle);
             Trellis.renderHTML(turtle, $("#output"));
 
