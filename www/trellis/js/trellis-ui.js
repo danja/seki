@@ -121,12 +121,15 @@ Trellis.init = function() {
 
                 var prevUL = prev.children("ul");
                 console.log("prevUL = " + prevUL.length + "   " + prevUL.attr("class"));
+                //
+                var $liClone = $li.clone(true);
                 $li.remove();
-                prevUL.append($li);
+                prevUL.append($liClone);
             } else {
+                var $liClone = $li.clone(true);
                 $li.remove();
                 var ul = $('<ul/>').appendTo(prev);
-                ul.append($li);
+                ul.append($liClone);
                 prev.addClass("ts-open");
             }
         }
@@ -162,6 +165,7 @@ Trellis.init = function() {
         template.find(".date").text(generateDate());
         template.find(".ts-title").addClass('ts-selected').addClass('ts-highlight').focus();
         // ts-highlight ts-selected
+        Trellis.initDragDrop();
         event.preventDefault();
     }
 
@@ -242,6 +246,67 @@ Trellis.init = function() {
 
   
 
+
+
+    $('.trellis-undo').click(trellisHistory.restoreState);
+
+    $(document).bind('keypress', function(e) {
+        if (e.ctrlKey && (e.which == 122 || e.which == 26))
+            trellisHistory.restoreState();
+    });
+
+
+    $('#saveButton').button().click(function() {
+        var turtle = '';
+
+        Trellis.toTurtle("http://hyperdata.org/", function(turtle) {
+            // targetURL, graphURI, turtle
+            Trellis.save("http://localhost:8888/pages/trellis", "http://hyperdata.org/pages/trellis", turtle);
+            console.log("TURTLE : " + turtle);
+            Trellis.renderHTML(turtle, $("#output"));
+
+        });
+    });
+
+    $("#shortcutsButton")
+        .button()
+        .click(function(event) {
+            $("#shortcuts-text").toggle();
+            event.preventDefault();
+        });
+
+
+
+    /*
+     * generate node id
+     * uses date.format.js (to minimise browser support issues)
+     * datetime+milliseconds+4-digit random
+     *
+     * e.g. nid-2013-11-06-17-46-54-269-7829
+     *
+     * differs from ISO date because jQuery can get confused by colons
+     * see http://blog.stevenlevithan.com/archives/date-time-format
+     */
+    var generateID = function() {
+        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+
+        var r = '' + Math.floor((Math.random() * 10000));
+        var pad = "0000";
+        var rnd = (pad + r).slice(-pad.length);
+        var now = new Date();
+        return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
+    };
+
+    var generateDate = function() {
+        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+        var now = new Date();
+        return now.format("isoUtcDateTime");
+    };
+
+
+} // Trellis.init namespace
+
+Trellis.initDragDrop = function() {
     $('#trellis .ts-entry, #trellis .dropzone').droppable({
         accept: '#trellis li',
         tolerance: 'pointer',
@@ -290,67 +355,7 @@ Trellis.init = function() {
             trellisHistory.saveState(this);
         }
     });
-
-    $('.trellis-undo').click(trellisHistory.restoreState);
-
-    $(document).bind('keypress', function(e) {
-        if (e.ctrlKey && (e.which == 122 || e.which == 26))
-            trellisHistory.restoreState();
-    });
-
-
-    $('#saveButton').button().click(function() {
-        var turtle = '';
-
-        Trellis.toTurtle("http://hyperdata.org/", function(turtle) {
-            // targetURL, graphURI, turtle
-            Trellis.save("http://localhost:8888/outlines/test1", "http://hyperdata.org/outlines/test1", turtle);
-            console.log("TURTLE : " + turtle);
-            Trellis.renderHTML(turtle, $("#output"));
-
-        });
-    });
-
-    $("#shortcutsButton")
-        .button()
-        .click(function(event) {
-            $("#shortcuts-text").toggle();
-            event.preventDefault();
-        });
-
-
-
-    /*
-     * generate node id
-     * uses date.format.js (to minimise browser support issues)
-     * datetime+milliseconds+4-digit random
-     *
-     * e.g. nid-2013-11-06-17-46-54-269-7829
-     *
-     * differs from ISO date because jQuery can get confused by colons
-     * see http://blog.stevenlevithan.com/archives/date-time-format
-     */
-    var generateID = function() {
-        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-
-        var r = '' + Math.floor((Math.random() * 10000));
-        var pad = "0000";
-        var rnd = (pad + r).slice(-pad.length);
-        var now = new Date();
-        return "nid-" + dateFormat(now, "UTC:yyyy-mm-dd-HH-MM-ss-l") + "-" + rnd;
-    };
-
-    var generateDate = function() {
-        // isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-        var now = new Date();
-        return now.format("isoUtcDateTime");
-    };
-
-
-} // Trellis namespace
-
-
-
+}
 
 var trellisHistory = {
     stack: new Array(),

@@ -114,6 +114,7 @@ Trellis.renderHTML = function(turtle, containerElement) {
             } else {
                 buildTree(store, containerElement, divNode);
                 console.log("Parsed.")
+                Trellis.initDragDrop();
             }
         });
 

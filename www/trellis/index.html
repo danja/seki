@@ -35,6 +35,7 @@
             //   var containerElement = $("#trellis");
             //   Trellis.renderHTML(turtle, containerElement);
             Trellis.init();
+            Trellis.initDragDrop();
             // });
 
         });
@@ -272,7 +273,7 @@
 
     <div id="nid-template" class="ts-entry ui-droppable hidden">
         <span class="ts-expander">&nbsp;</span>
-        <span class="ts-title ts-highlight ts-selected" contenteditable="true">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ts-title ts-highlight ts-selected" contenteditable="true">&nbsp;</span>
         <div class="ts-actions" style="display: block;">
             <span class="ts-addChild" title="Add Child">+</span>
             <span class="ts-delete" title="Delete">x</span>

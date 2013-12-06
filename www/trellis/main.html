@@ -31,26 +31,13 @@
     <script>
         $(function() {
 
-              $.get("sample.ttl", function(turtle) {
-              
+              $.get("sample.ttl", function(turtle) {    // sample.ttl // should be calling Trellis.load .. http://localhost:8888/pages/trellis
                var containerElement = $("#trellis");
                Trellis.renderHTML(turtle, containerElement);
-                Trellis.init();
-               
+                Trellis.init();     
+                Trellis.initDragDrop();  
              });
                   });
-                  
-                  /*
-                                $.get("sample.ttl", function(turtle) {
-              
-               var containerElement = $("#trellis");
-               Trellis.renderHTML(turtle, containerElement);
-               
-             }).done(function(){
-                         Trellis.init();
-             });
-                  });
-                  */
     </script>
     <title>Trellis</title>
 
@@ -93,15 +80,15 @@
     </div>
 
     <div id="nid-template" class="ts-entry ui-droppable hidden">
-        <span class="ts-expander">&nbsp;</span>
+        <span class="ts-expander"></span>
         <span class="ts-title" property="title"></span>
-        <div class="ts-actions" style="display: block;">
+        <div class="ts-actions">
             <span class="ts-addChild" title="Add Child">+</span>
             <span class="ts-delete" title="Delete">x</span>
             <span class="ts-card" title="Card">&#9634;</span>
         </div>
         <div class="ts-dragger">
-            <span class="ts-handle" title="Drag" style="display: block;">&#8597;</span>
+            <span class="ts-handle" title="Drag">&#8597;</span>
         </div>
         <span class="date" property="created"></span>
     </div>
