@@ -1,3 +1,12 @@
+/*
+ * Utilities for client access to remote Seki
+ *
+ * at /store
+ * entries are each a named graph
+ * 
+ * Proxies SPARQL requests/response to/from remote endpoint
+ *
+ */
 var fs = require('fs');
 var http = require('http');
 var config = require('../config/ConfigDefault').config;

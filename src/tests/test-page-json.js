@@ -26,6 +26,16 @@ exports.testDeletePage = function(test) { // just to make sure it's cleared
     proxy.fileUpdate('data/deletePage.rq', callback);
 };
 
+exports.testCreate = function(test) { // changed from create - needs extending
+    var callback = function(status, headers, body) {
+        test.equal(status, 201, "checking status is 201 :Created");
+        test.done();
+    }
+    var page = new Page();
+    page.fileCreateJSON(createPath, 'data/page.json', callback);
+};
+
+
 exports.testUpdate = function(test) {
     var callback = function(status, headers, body) {
         test.equal(status, 201, "checking status is 201 :Created");
@@ -34,6 +44,7 @@ exports.testUpdate = function(test) {
     var page = new Page();
     page.fileUpdateJSON(path, 'data/page.json', callback);
 };
+
 
 exports.testExists = function(test) {
     log.debug("Note : is checking HTML GET page");
@@ -53,11 +64,4 @@ exports.testExists = function(test) {
     page.readHTML(path, callback);
 };
 
-exports.testCreate = function(test) { // changed from create - needs extending
-    var callback = function(status, headers, body) {
-        test.equal(status, 201, "checking status is 201 :Created");
-        test.done();
-    }
-    var page = new Page();
-    page.fileCreateJSON(createPath, 'data/page.json', callback);
-};
+

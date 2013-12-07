@@ -86,18 +86,8 @@ var files = {
     //	"404" : config.wwwDir + "/form.html" // /404.html
 };
 
-// var fileServer = connect().use(connect.static(config.wwwDir)).use(
-//		connect.directory(config.wwwDir)).use(CORS({})).listen(config.staticPort);
+// log.debug("logging...");
 
-
-
-log.debug("logging...");
-//connect()
-//.use(connect.logger('dev'))
-//.use(connect.static('public'))
-//.use(function(req, res){
-//    res.end('hello world\n');
-//})
 
 commander
     .version('pre-alpha')
@@ -105,11 +95,9 @@ commander
     .parse(process.argv);
 
 if (commander.init) {
-    console.log('*** INITIALIZING ***');
+    log.info('*** INITIALIZING ***');
     Bootstrap();
 }
-
-
 
 /*
  * A little connect chain
@@ -117,7 +105,7 @@ if (commander.init) {
 var app = connect()
     .use(fileServer())
     .use(function(sekiRequest, sekiResponse) {
-        log.debug("SEKI");
+        // log.debug("SEKI");
         var handler = new RequestHandler();
         handler.handle(sekiRequest, sekiResponse);
         // onRequest(sekiRequest, sekiResponse);
@@ -125,8 +113,8 @@ var app = connect()
 
 app.listen(config.server["port"], config.server["host"]);
 
-log.debug("Seki serving on " + config.server["host"] + ":" + config.server["port"]);
-log.debug("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"]);
+log.info("Seki serving on " + config.server["host"] + ":" + config.server["port"]);
+log.info("addressing SPARQL on " + config.client["host"] + ":" + config.client["port"]);
 
 // When deployed, keep running despite exceptions
 if (!config.dev) {

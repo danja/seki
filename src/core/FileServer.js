@@ -52,16 +52,16 @@ exports = module.exports = function fileServer() {
         var dir = __dirname + "/../../www/"; // TODO specify via config
 
         // /home/danny/workspace-javascript/seki/src/core/www/
-          log.debug("\n\nIN FileServer dir = " + dir);
-         log.debug("tweakedPathname = " + tweakedPathname);
+     //     log.debug("\n\nIN FileServer dir = " + dir);
+      //   log.debug("tweakedPathname = " + tweakedPathname);
         var path = require('path').resolve(dir, tweakedPathname);
-            log.debug("__dirname = " + __dirname);
-            log.debug("PATH = " + path);
+       //     log.debug("__dirname = " + __dirname);
+       //     log.debug("PATH = " + path);
 
         var uri = url.parse(req.url).pathname;
         var filename = p.join(process.cwd(), "../www/", unescape(uri));
         var stat;
-         log.debug("filename = "+filename+"\n\n");
+   //      log.debug("filename = "+filename+"\n\n");
         try {
             stat = fs.lstatSync(filename); // throws if path doesn't exist
         } catch (e) {
@@ -108,7 +108,7 @@ exports = module.exports = function fileServer() {
         } else {
             // Symbolic link, other?
             // TODO: follow symlinks?  security?
-            log.debug("FAILED WITH filename = " + filename + "\n\n");
+            log.error("FAILED WITH filename = " + filename + "\n\n");
             res.writeHead(500, {
                 'Content-Type': 'text/plain'
             });

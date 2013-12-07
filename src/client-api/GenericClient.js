@@ -1,3 +1,10 @@
+/*
+ * Utilities for client access to remote Seki
+ *
+ * low-level access to remote HTTP server (typically the SPARQL store)
+ *
+ */
+
 var http = require('http');
 var config = require('../config/ConfigDefault').config;
 var Nog = require('../lib/nog/nog'),

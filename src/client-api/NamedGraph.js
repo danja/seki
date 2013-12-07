@@ -1,14 +1,12 @@
 /*
  * Utilities for client access to remote Seki
  *
- * under /pages/
- * entries are each a sioc:Post
+ * under /graphs/
+ * entries are each a named graph
  * 
- * a Page is a little tree:
- *       <resource> ?p ? o
  * 
- * Create is HTTP POST to /pages
- * Update is HTTP PUT to /pages/{name}
+ * Create is HTTP POST to /graphs
+ * Update is HTTP PUT to /graphs/{name}
  *
  * Create, Read, Update for different media types
  *
@@ -18,9 +16,15 @@
 var fs = require('fs');
 var http = require('http');
 var config = require('../config/ConfigDefault').config;
+
+var SparqlUtils = require('../core/SparqlUtils');
+var freemarker = require('../templates/freemarker');
+
 var Nog = require('../lib/nog/nog'),
     log = new Nog(config.logLevel);
 var qs = require("querystring");
+
+// IS VERY VERY SIMILAR TO Page.js!!!
 
 var GenericClient = require("./GenericClient");
 var client = new GenericClient();
@@ -32,9 +36,9 @@ function clone(map) {
     return JSON.parse(JSON.stringify(map));
 }
 
-function Page() {}
+function Graph() {}
 
-Page.prototype = {
+Graph.prototype = {
     "options": {
         hostname: config.server['host'],
         port: config.server['port'],
@@ -45,7 +49,7 @@ Page.prototype = {
 
     // All formats *****************************************************************************    
     "delete": function(path, callback) {
-        // log.debug("Page.delete");
+        // log.debug("Graph.delete");
         var options = clone(this.options);
         options.method = 'DELETE';
         options["path"] = path;
@@ -58,11 +62,25 @@ Page.prototype = {
     },
 
     "createTurtle": function(path, turtle, callback) {
+        /*
+        var turtleSplit = SparqlUtils.extractPrefixes(turtle);
+
+        var replaceMap = {
+            "prefixes" : turtleSplit.prefixes,
+            "body": turtleSplit.body
+        };
+        
+        var template = "${prefixes} \
+            INSERT DATA { GRAPH <${graph}>{ ${body} }}";
+        
+        var sparql = freemarker.render(template, replaceMap);
+        */
+
         var options = clone(this.options);
         options.method = 'POST';
         options.headers["Content-Type"] = "text/turtle";
         options["path"] = path;
-        // log.debug("PATH in createTurtle = "+path);
+      //  log.debug("PATH in createTurtle = "+path);
         client.call(options, turtle, callback);
     },
 
@@ -83,13 +101,13 @@ Page.prototype = {
     },
 
     "readTurtle": function(path, callback) {
-       //    log.debug("Page.readTurtle");
+       //    log.debug("Graph.readTurtle");
         var options = clone(this.options);
     
         options.method = 'GET';
         options.headers["Accept"] = "text/turtle";
         options["path"] = path;
-      //     log.debug("TEST OPTIONS = "+JSON.stringify(options));
+     //    log.debug("TEST OPTIONS = "+JSON.stringify(options));
         client.call(options, '', callback);
     },
 
@@ -103,7 +121,7 @@ Page.prototype = {
         options.method = 'POST';
         options.headers["Content-Type"] = "application/json";
         options["path"] = path;
-      //  log.debug("JSON = "+JSON.stringify(json, null, 4));
+        log.debug("JSON = "+JSON.stringify(json, null, 4));
         client.call(options, json, callback);
     },
 
@@ -153,4 +171,4 @@ Page.prototype = {
     }
 }
 
-module.exports = Page;
+module.exports = Graph;

@@ -3,23 +3,24 @@
  */
 var nools = require("../lib/nools/index"); // rules engine
 var config = require('../config/ConfigDefault').config;
-var Log = require('log'),
-    log = new Log(config.logLevel);
+var Nog = require('../lib/nog/nog'),
+log = new Nog(config.logLevel);
 
 var Authenticator = require('../core/Authenticator');
 
+// Definitely in use
 var GenericHandler = require('./GenericHandler');
 var TemplatingResponseHandler = require('./TemplatingResponseHandler');
-
-var CreateHandler = require('./CreateHandler');
 var ProxyHandler = require('./ProxyHandler');
 
+var CreateHandler = require('./CreateHandler');
+
+// Not sure
 var GetHandler = require('./GetHandler');
 var GetBlogHandler = require('./GetBlogHandler');
-
 var TurtleHandler = require('./TurtleHandler');
-
 var RegistrationHandler = require('./RegistrationHandler');
+
 
 var notAuthHeaders = {
     "Host": config.sekiHost + ":" + config.sekiPort,
@@ -41,16 +42,16 @@ RequestHandler.prototype = {
     "handle": function(sekiRequest, sekiResponse) {
 
         // works here
-        sekiRequest.on('end', function() {
-            log.debug("END EVENT!!!!!!!!!");
-        });
+     //   sekiRequest.on('end', function() {
+      //      log.debug("END EVENT!!!!!!!!!");
+     //   });
 
         //      log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
 
-        log.debug("REQUEST URL = " + sekiRequest.url);
+        log.debug("request = " + sekiRequest.url);
         //       log.debug("REQUEST METHOD = " + sekiRequest.method);
 
-        log.debug("\ngot past file server\n");
+        log.debug("got past file server");
 
         // setup rules engine - move this outer scope?
 
@@ -71,9 +72,6 @@ RequestHandler.prototype = {
             // Fuseki SAID : 415 Must be application/sparql-update or application/x-www-form-urlencoded (got text/turtle)
         };
 
-        // log.debug("headers"+JSON.stringify(requestParams["headers"]));
-        log.debug("*** requestParams " + JSON.stringify(requestParams, null, 4));
-
         var rr = new RequestRouter(requestParams);
         session.assert(rr);
 
@@ -93,7 +91,6 @@ RequestHandler.prototype = {
         if (sekiRequest.headers["content-type"]) {
             queryOptions["headers"]["content-type"] = sekiRequest.headers["content-type"];
         }
-        //    queryOptions["headers"]["Content-type"] = "";
 
         var r = new Route(queryOptions);
 
@@ -115,18 +112,18 @@ RequestHandler.prototype = {
             if (err) {
                 log.debug(err);
             } else {
-                log.debug("*** RULES DONE ***");
+                log.debug("*** RULES ***");
                 log.debug("ROUTE = " + JSON.stringify(r.route, null, 4));
 
                 var targetFunction = r.route["targetFunction"];
 
                 if (handlerMap[targetFunction]) {
-                    log.debug("this is a MATCH");
+                
                     // 
                     //  log.debug("TARGET = "+targetFunction);
                     var handler = new handlerMap[targetFunction](); //GenericHandler
                     var responseHandler = r.route["responseHandler"];
-                    log.debug("responseHandler = " + responseHandler); // 
+                    log.debug("rules MATCH, responseHandler = " + responseHandler); // 
 
                     if (responseHandler) {
                         handler.handle(sekiRequest, sekiResponse, handlerMap[responseHandler], r.route);
@@ -138,7 +135,7 @@ RequestHandler.prototype = {
                     }
                     return;
                 }
-                log.debug("this NOT is a MATCH");
+                log.debug("--- NO MATCH ---");
                 others(sekiRequest, sekiResponse);
             }
         });

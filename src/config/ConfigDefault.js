@@ -1,3 +1,6 @@
+var Nog = require('../lib/nog/nog'),
+log = new Nog("debug");
+
 var config;
 var defaultConfig = {
 
@@ -67,12 +70,12 @@ try {
         config[prop] = defaultConfig[prop];
     }
 
-    console.log("Using Config.js");
-    console.log(JSON.stringify(config));
+    log.info("Using Config.js");
+    log.debug(JSON.stringify(config));
 } // fall back on config-default.js
 catch (e) {
     config = defaultConfig;
-    console.log("No Config.js so using ConfigDefault.js");
+    log.info("No Config.js so using ConfigDefault.js");
 }
 
 

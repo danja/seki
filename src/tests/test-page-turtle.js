@@ -16,6 +16,7 @@ var helpers = new TestHelpers();
 var createPath = '/pages';
 var path = '/pages/ApiTest';
 
+
 exports.testDeleteInit = function(test) { // just to make sure it's cleared
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status is 204");
@@ -39,6 +40,7 @@ exports.testRead = function(test) { // callback( response.statusCode, JSON.strin
     read(test, 'data/page.ttl');
     test.done();
 }
+
 
 exports.testUpdate = function(test) {
     var callback = function(status, headers, body) {

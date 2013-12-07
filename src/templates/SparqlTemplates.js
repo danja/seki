@@ -8,6 +8,8 @@ var sparqlTemplates = {
     // used to retrieve an item from the store for display
     // http://purl.org/dc/terms/
 
+// Graph-oriented
+    
     turtleCreateTemplate: "${prefixes} \
             INSERT DATA { GRAPH <${graph}>{ ${body} }}",
             
@@ -17,6 +19,9 @@ var sparqlTemplates = {
             WITH <${graph}> DELETE { ?s ?p ?o } WHERE {  ?s ?p ?o }\
             ; \
             INSERT DATA { GRAPH <${graph}>{ ${body} }}",
+            
+            dropGraphTemplate: "DROP GRAPH <${graph}>",
+// Resource-oriented
 
     turtleReadTemplate: "CONSTRUCT { <${uri}> ?p ?o } WHERE { GRAPH <${graph}>{ <${uri}> ?p ?o  }}",
 
@@ -37,6 +42,8 @@ var sparqlTemplates = {
        ; \
        INSERT DATA { GRAPH <${graph}>{ ${body} <${graph}> a <http://hyperdata.org/trellis/Tree> }}",
 
+// page-oriented
+       
     pageTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
@@ -52,7 +59,7 @@ var sparqlTemplates = {
             } \
 }", //     um:fullname ?fullname ; \
 
-    pagedItemsTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
+    multiPageTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
@@ -101,6 +108,8 @@ var sparqlTemplates = {
                dcterms:date \"${date}\" .\
             }}",
 
+// Other functions 
+            
     listGraphURIs: "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {} }",
 
     vocabTemplate: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \

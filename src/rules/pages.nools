@@ -8,7 +8,6 @@
  */
 
 
-// Common *************************************************************************************** 
 rule DeletePage {
     when {
         rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
@@ -17,7 +16,7 @@ rule DeletePage {
     } then {
         log.debug("*** Delete rule triggered ***"); 
         modify(r, function(){this.route["type"] = "delete";});
-        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["graph"] = config.uriBase + "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
         modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
@@ -40,7 +39,7 @@ rule CreatePageTurtle {
     } then {
         log.debug("*** CreatePageTurtle rule triggered ***"); 
         modify(r, function(){this.route["type"] = "create";});
-        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["graph"] = config.uriBase + "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
         modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
@@ -53,29 +52,7 @@ rule CreatePageTurtle {
 // application/sparql-update
 
 //  
-rule ReadGraphTurtle {
-    when {
-        rr : RequestRouter  rr.path.substring(0, 8) == "/graphs/";
-        rr : RequestRouter  rr.method.toLowerCase()  == "get";
-        rr : RequestRouter  rr.accept == "text/turtle";
-        r : Route r.route["targetFunction"] == "";
-    } then {
-        log.debug("*** ReadGraphTurtle rule triggered ***"); 
-        modify(r, function(){this.route["type"] = "read";});
-        modify(r, function(){this.route["graph"] =  rr.path;});
-        modify(r, function(){this.route["path"] = rr.path;});
-        
-        modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
-        
-        modify(r, function(){this.route["queryOptions"]["path"] = config.client["queryEndpoint"];});
-        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "readGraphTemplate";}); // needs graph & uri
-        modify(r, function(){this.route["viewTemplate"] = "minimalViewTemplate";}); // needs graph & uri
-        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        
-        modify(r, function(){this.route["responseCode"] = "200";});
-    }
-}
+
 
 rule ReadPageTurtle {
     when {
@@ -86,7 +63,7 @@ rule ReadPageTurtle {
     } then {
         log.debug("*** ReadPageTurtle rule triggered ***"); 
         modify(r, function(){this.route["type"] = "read";});
-        modify(r, function(){this.route["graph"] = "pages";});
+        modify(r, function(){this.route["graph"] = config.uriBase + "pages";});
         modify(r, function(){this.route["path"] = rr.path;});
       
         modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
@@ -127,27 +104,6 @@ rule UpdatePageTurtle {
     }
 }
 
-rule UpdateGraphTurtle {
-    when {
-        rr : RequestRouter  rr.path.substring(0, 8) == "/graphs/";
-        rr : RequestRouter  rr.method.toLowerCase() == "put";
-        rr : RequestRouter  rr.contentType == "text/turtle";
-        r : Route r.route["targetFunction"] == "";
-    } then {
-        log.debug("*** UpdateGraphTurtle rule triggered ***"); 
-        modify(r, function(){this.route["type"] = "update";});
-        modify(r, function(){this.route["graph"] = rr.path;});
-        modify(r, function(){this.route["path"] = rr.path;});
-        modify(r, function(){this.route["queryOptions"]["method"] = "POST";});
-        modify(r, function(){this.route["queryOptions"]["headers"]["content-type"] = "application/sparql-update";});
-        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
-        modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "updateGraphTemplate";}); 
-        modify(r, function(){this.route["responseHeaders"] = {"Location" : "/"};}); 
-        modify(r, function(){this.route["responseCode"] = "201";});
-    }
-}
-
 
 
 // JSON ******************************************************************************************************
@@ -164,7 +120,7 @@ rule CreatePageJSON {
         modify(r, function(){this.route["queryOptions"]["headers"]["Content-type"] = "application/sparql-update";});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 
+        modify(r, function(){this.route["queryTemplate"] = "pageTemplate";}); 
     }
 }
 
@@ -179,7 +135,7 @@ rule UpdatePageJSON {
         //   modify(r, function(){this.route["path"] = rr.path.substring(6);});
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "CreateHandler";});
-        modify(r, function(){this.route["queryTemplate"] = "itemTemplate";}); 
+        modify(r, function(){this.route["queryTemplate"] = "pageTemplate";}); 
 }
 }
 
