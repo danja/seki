@@ -30,21 +30,21 @@ Trellis.toTurtle = function(baseURI, callback) { // TODO use node-n3/browserify
     turtle += "@prefix ts: <http://hyperdata.org/trellis/> . \n\n";
 
     var ts_printout = function($node, kidCount, index, callback) {
-      // console.log("$Node = " + $node.html());
-       var divNodes = $node.find("> div");
-       
-       // console.log("$entryNode = " + $entryNode.html());
-       
-        var $entryNode = $(divNodes[1]); 
-        
+        // console.log("$Node = " + $node.html());
+        var divNodes = $node.find("> div");
+
+        // console.log("$entryNode = " + $entryNode.html());
+
+        var $entryNode = $(divNodes[1]);
+
         var id = $entryNode.attr("id");
-        
+
         var title = $entryNode.find("span[property='title']").text();
-        
+
         console.log("title = " + title);
-        
+
         var created = $entryNode.find("span[property='created']").text();
-        
+
         var parent = $node.parent().parent();
         var parentURI = baseURI + "trellis/";
         if (parent.hasClass("ts-root")) {
@@ -52,7 +52,7 @@ Trellis.toTurtle = function(baseURI, callback) { // TODO use node-n3/browserify
         } else {
             parentURI += parent.children(".ts-entry").attr("id");
         }
-        
+
         turtle += "<" + baseURI + "trellis/" + id + "> a ts:Node; \n";
         /* not needed ?
         if(kidCount == 0){
@@ -121,7 +121,7 @@ Trellis.renderHTML = function(turtle, containerElement) {
     var buildTree = function(store, containerElement, template) {
         // console.log("build tree");
         var root = store.find(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://hyperdata.org/trellis/RootNode')[0].subject;
-        
+
         var rootSplit = root.split("/");
         var rootId = rootSplit[rootSplit.length - 1];
         containerElement = $('<div/>').appendTo(containerElement).attr("id", rootId);
@@ -134,7 +134,7 @@ Trellis.renderHTML = function(turtle, containerElement) {
             if (children.length) {
                 container.addClass("ts-open");
                 var container = $('<ul />').appendTo(container);
-               
+
             } else {
                 return;
             }
@@ -157,10 +157,10 @@ Trellis.renderHTML = function(turtle, containerElement) {
                 //  var newContainer = container.append("<li>"+text+"</li>");
                 var created = store.find(current, 'http://purl.org/dc/terms/created', null)[0].object;
                 created = created.substring(1, created.length - 1);
-                
+
                 var newDiv = template.clone(true);
                 newDiv.removeClass("hidden");
-             //   $(newDiv).find(".ts-title").append(text);
+                //   $(newDiv).find(".ts-title").append(text);
                 $(newDiv).find("span[property='title']").append(text);
                 $(newDiv).find("span[property='created']").append(created);
 

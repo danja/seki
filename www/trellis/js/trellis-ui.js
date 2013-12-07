@@ -1,6 +1,6 @@
 ﻿ //init functions
 // $(function() {
-   // Trellis.init();
+// Trellis.init();
 // });
 
 var Trellis = Trellis || {};
@@ -19,11 +19,11 @@ Trellis.init = function() {
      shiftKey - shift key
      metaKey - control key on PCs, control and/or command key on Macs
      */
-    
+
     $('.ts-title').attr('contenteditable', 'true'); // needed?
 
-    $('#trellis li').prepend('<div class="dropzone"></div>');  // needed?
-    
+    $('#trellis li').prepend('<div class="dropzone"></div>'); // needed?
+
     $('.ts-expander').on('click', function() {
         $(".ts-title").removeClass('ts-selected');
         $(this).parent().parent().toggleClass('ts-open').toggleClass('ts-closed');
@@ -154,11 +154,11 @@ Trellis.init = function() {
         //template.removeAttr("id");
         //template.find("#nid-template").attr("id", generateID());
         template.attr("id", generateID());
-        
+
         var newLi = $("<li><div class='dropzone ui-droppable NEW'></div></li>");
         newLi.append(template);
-    //    $li.append("<div class='dropzone ui-droppable'></div>");
-        
+        //    $li.append("<div class='dropzone ui-droppable'></div>");
+
         $li.after(newLi);
         template.show();
         $li.find(".ts-title").removeClass('ts-selected');
@@ -244,7 +244,7 @@ Trellis.init = function() {
     }
     ///////////////////////////////////////////////////
 
-  
+
 
 
 

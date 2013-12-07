@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" media="screen" href="js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="css/trellis.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/fonts.css" />
+
+    <!-- jQuery/UI scripts -->
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.position.js"></script>
+
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.sortable.js"></script>
+
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.button.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3/ui/jquery.ui.dialog.js"></script>
+
+    <!-- misc 3rd party -->
+    <script type="text/javascript" src="js/date.format.js"></script>
+
+    <!-- Trellis-specific -->
+    <script type="text/javascript" src="js/n3-browser.js"></script>
+    <script type="text/javascript" src="js/trellis-ui.js"></script>
+    <script type="text/javascript" src="js/trellis-comms.js"></script>
+    <script>
+        $(function() {
+
+            //  $.get("sample.ttl", function(turtle) {
+            //   var containerElement = $("#trellis");
+            //   Trellis.renderHTML(turtle, containerElement);
+            Trellis.init();
+            Trellis.initDragDrop();
+            // });
+
+        });
+    </script>
+    <title>Trellis</title>
+
+</head>
+
+<body>
+    <div id="header-outer">
+        <div id="header">&#8225;&nbsp;&nbsp;Trellis&nbsp;&nbsp;&#8225;</div>
+    </div>
+
+    <div id="menu-box">
+        <div class="toolbar">
+            <ul>
+                <li>
+                    <button id="shortcutsButton">Shortcuts</button>
+                </li>
+                <li>
+                    <button id="saveButton">Save</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="shortcuts-text" title="Shortcuts" class="text-box">
+        <p>Expand / collapse control + space
+            <br/>Indent tab
+            <br/>Outdent shift + tab
+            <br/>Zoom in alt + right
+            <br/>Zoom out alt + left
+            <br/>(or hit 'enter' on an empty line)
+            <br/>Move alt + shift + arrows
+            <br/>Delete control + shift + backspace</p>
+    </div>
+
+    <div id="container">
+        <div class="page">
+            <div id="trellis">
+                <div class="ts-root" id="nid-2011-11-11-17-46-54-255-0000">
+
+                    <ul>
+                        <li>
+                            <div id="nid-2011-11-11-17-46-54-255-0369" class="ts-entry">
+                                <span class="ts-expander">&nbsp;</span>
+                                <span class="ts-title" property="title">Add priority number to each line 1-5</span>
+                                <div class="ts-actions">
+                                    <span class="ts-addChild" title="Add Child">+</span>
+                                    <span class="ts-delete" title="Delete">x</span>
+                                    <span class="ts-card" title="Card">&#9634;</span>
+                                </div>
+                                <div class="ts-dragger">
+                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                </div>
+                                <span class="date" property="created">2013-12-04T08:46:01Z</span>
+                            </div>
+                        </li>
+                        <li class="ts-open">
+                            <div id="nid-2011-11-11-17-46-54-261-8067" class="ts-entry">
+                                <span class="ts-expander">&nbsp;</span>
+                                <span class="ts-title" property="title">Add copy and paste</span>
+                                <div class="ts-actions">
+                                    <span class="ts-addChild" title="Add Child">+</span>
+                                    <span class="ts-delete" title="Delete">x</span>
+                                    <span class="ts-card" title="Card">&#9634;</span>
+                                </div>
+                                <div class="ts-dragger">
+                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                </div>
+                                <span class="date" property="created">2013-12-04T08:46:02Z</span>
+                            </div>
+                            <ul>
+                                <li class="ts-open">
+                                    <div id="nid-2011-11-11-17-46-54-265-8865" class="ts-entry">
+                                        <span class="ts-expander">&nbsp;</span>
+                                        <span class="ts-title" property="title">Three</span>
+                                        <div class="ts-actions">
+                                            <span class="ts-addChild" title="Add Child">+</span>
+                                            <span class="ts-delete" title="Delete">x</span>
+                                            <span class="ts-card" title="Card">&#9634;</span>
+                                        </div>
+                                        <div class="ts-dragger">
+                                            <span class="ts-handle" title="Drag">&#8597;</span>
+                                        </div>
+                                        <span class="date" property="created">2013-12-04T08:46:03Z</span>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div id="nid-2011-11-11-17-46-54-265-5134" class="ts-entry">
+                                                <span class="ts-expander">&nbsp;</span>
+                                                <span class="ts-title" property="title">Four</span>
+                                                <div class="ts-actions">
+                                                    <span class="ts-addChild" title="Add Child">+</span> 
+                                                    <span class="ts-delete" title="Delete">x</span>
+                                                    <span class="ts-card" title="Card">&#9634;</span>
+                                                </div>
+                                                <div class="ts-dragger">
+                                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                                </div>
+                                                <span class="date" property="created">2013-12-04T08:46:04Z</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div id="nid-2011-11-11-17-46-54-266-1939" class="ts-entry">
+                                                <span class="ts-expander">&nbsp;</span>
+                                                <span class="ts-title" property="title">Five</span>
+                                                <div class="ts-actions">
+                                                    <span class="ts-addChild" title="Add Child">+</span>
+                                                    <span class="ts-delete" title="Delete">x</span>
+                                                    <span class="ts-card" title="Card">&#9634;</span>
+                                                </div>
+                                                <div class="ts-dragger">
+                                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                                </div>
+                                                <span class="date" property="created">2013-12-04T08:46:05Z</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div id="nid-2011-11-11-17-46-54-266-7852" class="ts-entry">
+                                                <span class="ts-expander">&nbsp;</span>
+                                                <span class="ts-title" property="title">Six</span>
+                                                <div class="ts-actions">
+                                                    <span class="ts-addChild" title="Add Child">+</span>
+                                                    <span class="ts-delete" title="Delete">x</span>
+                                                    <span class="ts-card" title="Card">&#9634;</span>
+                                                </div>
+                                                <div class="ts-dragger">
+                                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                                </div>
+                                                <span class="date" property="created">2013-12-04T08:46:06Z</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div id="nid-2011-11-11-17-46-54-267-2310" class="ts-entry">
+                                        <span class="ts-expander">&nbsp;</span>
+                                        <span class="ts-title" property="title">Seven</span>
+                                        <div class="ts-actions">
+                                            <span class="ts-addChild" title="Add Child">+</span>
+                                            <span class="ts-delete" title="Delete">x</span>
+                                            <span class="ts-card" title="Card">&#9634;</span>
+                                        </div>
+                                        <div class="ts-dragger">
+                                            <span class="ts-handle" title="Drag">&#8597;</span>
+                                        </div>
+                                        <span class="date" property="created">2013-12-04T08:46:07Z</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div id="nid-2011-11-11-17-46-54-268-9847" class="ts-entry">
+                                        <span class="ts-expander">&nbsp;</span>
+                                        <span class="ts-title" property="title">Eight</span>
+                                        <div class="ts-actions">
+                                            <span class="ts-addChild" title="Add Child">+</span>
+                                            <span class="ts-delete" title="Delete">x</span>
+                                            <span class="ts-card" title="Card">&#9634;</span>
+                                        </div>
+                                        <div class="ts-dragger">
+                                            <span class="ts-handle" title="Drag">&#8597;</span>
+                                        </div>
+                                        <span class="date" property="created">2013-12-04T08:46:08Z</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ts-open">
+                            <div id="nid-2011-11-11-17-46-54-268-7935" class="ts-entry">
+                                <span class="ts-expander">&nbsp;</span>
+                                <span class="ts-title" property="title">Nine</span>
+                                <div class="ts-actions">
+                                    <span class="ts-addChild" title="Add Child">+</span>
+                                    <span class="ts-delete" title="Delete">x</span>
+                                    <span class="ts-card" title="Card">&#9634;</span>
+                                </div>
+                                <div class="ts-dragger">
+                                    <span class="ts-handle" title="Drag">&#8597;</span>
+                                </div>
+                                <span class="date" property="created">2013-12-04T08:46:09Z</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div id="nid-2011-11-11-17-46-54-269-7831" class="ts-entry">
+                                        <span class="ts-expander">&nbsp;</span>
+                                        <span class="ts-title" property="title">Ten</span>
+                                        <div class="ts-actions">
+                                            <span class="ts-addChild" title="Add Child">+</span>
+                                            <span class="ts-delete" title="Delete">x</span>
+                                            <span class="ts-card" title="Card">&#9634;</span>
+                                        </div>
+                                        <div class="ts-dragger">
+                                            <span class="ts-handle" title="Drag">&#8597;</span>
+                                        </div>
+                                    </div>
+                                    <span class="date" property="created">2013-12-04T08:46:10Z</span>
+                                </li>
+                                <li>
+                                    <div id="nid-2011-11-11-17-46-54-269-7829" class="ts-entry">
+                                        <span class="ts-expander">&nbsp;</span>
+                                        <span class="ts-title" property="title">Twelve</span>
+                                        <div class="ts-actions">
+                                            <span class="ts-addChild" title="Add Child">+</span>
+                                            <span class="ts-delete" title="Delete">x</span>
+                                            <span class="ts-card" title="Card">&#9634;</span>
+                                        </div>
+                                        <div class="ts-dragger">
+                                            <span class="ts-handle" title="Drag">&#8597;</span>
+                                        </div>
+                                    </div>
+                                    <span class="date" property="created">2013-12-04T08:46:11Z</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div id="nid-2011-11-11-17-46-54-269-7830" class="ts-entry">
+                                <span class="ts-expander">&nbsp;</span>
+                                <span class="ts-title" property="title">Eleven</span>
+                                <div class="ts-actions">
+                                    <span class="ts-addChild" title="Add Child">+</span>
+                                    <span class="ts-delete" title="Delete">x</span>
+                                    <span class="ts-card" title="Card">&#9634;</span>
+                                </div>
+                                <div class="ts-dragger">
+                                    <span class="ts-handle" title="Drag"></span>
+                                </div>
+                                <span class="date" property="created">2013-12-04T08:46:12Z</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nid-template" class="ts-entry ui-droppable hidden">
+        <span class="ts-expander">&nbsp;</span>
+        <span class="ts-title ts-highlight ts-selected" contenteditable="true">&nbsp;</span>
+        <div class="ts-actions" style="display: block;">
+            <span class="ts-addChild" title="Add Child">+</span>
+            <span class="ts-delete" title="Delete">x</span>
+            <span class="ts-card" title="Card">&#9634;</span>
+        </div>
+        <div class="ts-dragger">
+            <span class="ts-handle" title="Drag" style="display: block;">&#8597;</span>
+        </div>
+        <span class="date" property="created"></span>
+    </div>
+
+    <div id="card" title="Card" class="text-box">
+        <div id="card-title">Title</div>
+        <div id="card-content">
+            <div id="card-nid">nid</div>
+
+            <p>This is the card</p>
+            <div id="card-date">date</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -385,7 +385,7 @@ margin: 15px auto;
     height:8px;
     /* was 6px */
     background-color:#fff;
-    border-top:1px solid #afa;
+    border-top:4px solid #dfd;
     /* ruled lines */
     /* was 4px #dfd; */
 }

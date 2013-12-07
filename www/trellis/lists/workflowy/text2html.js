@@ -49,6 +49,7 @@ function ListTree(title) {
 
 // dummy tree
 // called by test.js
+/*
 function text2html2(source) {
 	var root = new ListTree("root");
 	var child1 = new ListTree("child1");
@@ -59,6 +60,7 @@ function text2html2(source) {
 	// console.log(JSON.stringify(root, null, '\t'));
 	return result;
 }
+*/
 
 // parses Workflowy format - maybe ok
 // will called by test.js
@@ -90,37 +92,38 @@ function text2html(source) {
 			text += escape(char);
 		}
 		if (inText && char == "\n") { // read line
-			console.log("* text = " + text);
+			// console.log("* text = " + text);
 			inText = false;
 
 			var diff = indent - previousIndent;
-			console.log(previousIndent + " [" + diff + "] " + indent + " ");
+		//	console.log(previousIndent + " [" + diff + "] " + indent + " ");
 
 			var newList = new ListTree(text);
-
+            
+            console.log("node "+text);
 			if (current.parent) {
-				console.log("parent = " + current.parent.title);
+                console.log(current.title + " hasParent = " + current.parent.title);
 			}
-			console.log("current = " + current.title);
-			console.log("new = " + newList.title);
+		//	console.log("current = " + current.title);
+		//	console.log("new = " + newList.title);
 
-			console.log("diff = " + diff);
+		//	console.log("diff = " + diff);
 
 			if (diff == 0) {
 				current.addChild(newList);
 				// previousList = newList;
-				console.log("adding " + newList.title + " to " + current.title);
+			//	console.log("adding " + newList.title + " to " + current.title);
 			}
 			if (diff > 0) {
 				var current = current.lastChild();
 
 				current.addChild(newList);
-				console.log("last = " + current.title);
-				console.log("adding " + newList.title + " to " + current.title);
+				//console.log("last = " + current.title);
+				//console.log("adding " + newList.title + " to " + current.title);
 			}
 			if (diff < 0) {
 				for ( var j = 0; j < -diff; j++) {
-					console.log("getting parent of " + current.title);
+				//	console.log("getting parent of " + current.title);
 					current = current.parent;
 				}
 //				console.log("new list2 " + newList.title);
@@ -144,11 +147,15 @@ function text2html(source) {
 		}
 
 	}
-	result = root.toHTML();
-	// result = JSON.stringify(list, null, '\t');
+	
+    
+  //  result = text2html(source);
+    // result = root.toHTML();
+    
+	// result = JSON.stringify(root, null, 4);
 	// result = parent.toHTML();
 	// console.log(JSON.stringify(current, null, '\t'));
-	return result;
+//	return result;
 	// 
 }
 
