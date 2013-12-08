@@ -3,7 +3,7 @@
  */
 //       rr : RequestRouter  rr.path.substring(rr.path.length-5) == ".html";   rr.path.lastIndexOf(".html") == (
  
- rule HTMLExtension {
+rule HTMLExtension {
     when {
         rr : RequestRouter  rr.path.length - 5 == rr.path.lastIndexOf(".html");
         r : Route r.route["target"] == "";

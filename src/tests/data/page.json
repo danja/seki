@@ -1,7 +1,7 @@
 {
-"@subject":"<http://hyperdata.org/pages/ApiTest>",
-"@type":"<http://rdfs.org/sioc/ns#Post>",
-"<http://purl.org/dc/terms/title>":"Test Title",
-"<http://rdfs.org/sioc/ns#content>":"",
-"<http://purl.org/stuff/usermanagement#login>":""
+"@id":"http://hyperdata.org/pages/ApiTest",
+"@type":"http://rdfs.org/sioc/ns#Post",
+"http://purl.org/dc/terms/title":"Test Title",
+"http://rdfs.org/sioc/ns#content":"the content",
+"http://purl.org/stuff/usermanagement#login":"the login"
 }

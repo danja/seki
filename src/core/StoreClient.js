@@ -146,7 +146,7 @@ StoreClient.prototype = {
     },
 
     "replaceResource": function(graphURI, resourceURI, turtle, finalCallback) {
-        log.debug("\n\n*** StoreClient.replaceResource");
+        log.debug("StoreClient.replaceResource");
         var sparqlUtils = new SparqlUtils();
         var replaceSparql = sparqlUtils.resourceToReplace(graphURI, resourceURI, turtle);
         var options = config.client;

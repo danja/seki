@@ -16,14 +16,17 @@ var helpers = new TestHelpers();
 var createPath = '/pages';
 var path = '/pages/ApiTest';
 
+
 exports.testDeletePage = function(test) { // just to make sure it's cleared
    // log.debug("deleting via proxy");
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
     }
-    var proxy = new ProxySparql();
-    proxy.fileUpdate('data/deletePage.rq', callback);
+    //var proxy = new ProxySparql();
+   // proxy.fileUpdate('data/deletePage.rq', callback);
+   var page = new Page();
+   page.delete(path, callback);
 };
 
 exports.testCreate = function(test) { // changed from create - needs extending
@@ -34,6 +37,7 @@ exports.testCreate = function(test) { // changed from create - needs extending
     var page = new Page();
     page.fileCreateJSON(createPath, 'data/page.json', callback);
 };
+
 
 
 exports.testUpdate = function(test) {
@@ -47,21 +51,15 @@ exports.testUpdate = function(test) {
 
 
 exports.testExists = function(test) {
-    log.debug("Note : is checking HTML GET page");
     var callback = function(status, headers, body) {
-     
         test.equal(status, 200, "checking status is 200");
-    
-        var putTitle = helpers.getJsonTitleFile('data/page.json');
-        
-        log.debug("HERE putTitle "+putTitle);
-        var gotTitle = helpers.getHtmlTitle(body);
-        log.debug("title =" + gotTitle);
-        test.equal(putTitle, gotTitle, "title should match");
+        var fileTitle = helpers.getJsonTitleFile('data/page.json');
+        var webTitle = helpers.getJsonTitle(body);
+        test.equal(fileTitle, webTitle, "title should match");
         test.done();
     }
     var page = new Page();
-    page.readHTML(path, callback);
+    page.readJSON(path, callback);
 };
 
 

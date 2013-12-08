@@ -1,4 +1,7 @@
 /*
+ * 
+ * RENAME TO ViewTemplates
+ * 
  * Templates used to build HTML
  * parts like %this% will be replaced
  * 
@@ -68,8 +71,27 @@ var htmlTemplates = {
         return template;
     })(),
 
+    // JSON Templates
+    
+    minimalView: "${body}",
     // ( function(){} )();
 
+    
+    jsonPage : "{ \
+        \"@context\": { \
+            \"title\": \"http://purl.org/dc/terms/title\", \
+            \"content\": \"http://rdfs.org/sioc/ns#content\", \
+            \"date\": \"http://purl.org/dc/terms/date\", \
+            \"login\": \"http://purl.org/stuff/usermanagement#login\" \
+        }, \
+        \"@id\":\"${uri}\", \
+        \"@type\":\"http://rdfs.org/sioc/ns#Post\", \
+        \"title\": \"${title}\", \
+        \"content\": \"${content}\", \
+        \"date\": \"${date}\", \
+        \"login\": \"${login}\" \
+    }",
+    
     uriList: "<html xmlns='http://www.w3.org/1999/xhtml'> \
 			    <head> \
 			      <meta charset=\"utf-8\" /> \

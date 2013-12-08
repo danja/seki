@@ -2,6 +2,8 @@
  * Templates used to build SPARQL
  * parts like ${this} will be replaced
  * 
+ * RENAME TO QueryTemplates
+ * 
  * TODO remove ...Template from names
  */
 var sparqlTemplates = {
@@ -44,7 +46,7 @@ var sparqlTemplates = {
 
 // page-oriented
        
-    pageTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
+    readPage: "PREFIX dcterms: <http://purl.org/dc/terms/> \
       PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
       PREFIX sioc: <http://rdfs.org/sioc/ns#> \
       PREFIX um: <http://purl.org/stuff/usermanagement#> \
@@ -77,10 +79,9 @@ var sparqlTemplates = {
       ", //           um:fullname ?fullname ; \
 
     // used to insert a new item into the store
-    insertTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
+    createPage: "PREFIX dcterms: <http://purl.org/dc/terms/> \
         PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
         PREFIX sioc: <http://rdfs.org/sioc/ns#> \
-        PREFIX x: <http://purl.org/stuff/> \
         \
         INSERT DATA { \
         GRAPH <${graph}>{\
@@ -91,6 +92,22 @@ var sparqlTemplates = {
            foaf:maker [ foaf:nick \"${nick}\" ] ;\
            dcterms:date \"${date}\" .\
         }}",
+        
+        // 
+    updatePage: "PREFIX dcterms: <http://purl.org/dc/terms/> \
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/> \
+        PREFIX sioc: <http://rdfs.org/sioc/ns#> \
+        WITH <${graph}> DELETE { <${uri}> ?p ?o } WHERE {  <${uri}> ?p ?o }\
+        \
+        INSERT DATA { \
+            GRAPH <${graph}>{\
+                \
+                <${uri}> a ${type} ;\
+                dcterms:title \"${title}\";\
+                sioc:content \"${content}\" ;\
+                foaf:maker [ foaf:nick \"${nick}\" ] ;\
+                dcterms:date \"${date}\" .\
+}}",
 
     insertAnnotationTemplate: "PREFIX dcterms: <http://purl.org/dc/terms/> \
             PREFIX foaf: <http://xmlns.com/foaf/0.1/> \

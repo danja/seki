@@ -57,9 +57,10 @@ TestHelpers.prototype = {
     },
 
     "getJsonTitle": function(json) {
-        //   log.debug("checking JSON "+json);
         var object = JSON.parse(json);
-        return object["<http://purl.org/dc/terms/title>"];
+        var simple = object["title"];
+        var namespaced = object["http://purl.org/dc/terms/title"];
+        return namespaced ? namespaced : simple;
     },
 
     "getHtmlTitleFile": function(filename) {
@@ -69,8 +70,6 @@ TestHelpers.prototype = {
 
     "getHtmlTitle": function(html) {
         // var jsdom = require("jsdom");
-        
-        
         var patt = new RegExp("<title>(.*?)</title>");
         var title = patt.exec(html);
        

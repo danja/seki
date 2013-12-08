@@ -12,14 +12,13 @@ var Authenticator = require('../core/Authenticator');
 var GenericHandler = require('./GenericHandler');
 var TemplatingResponseHandler = require('./TemplatingResponseHandler');
 var ProxyHandler = require('./ProxyHandler');
-
-var CreateHandler = require('./CreateHandler');
+var PageJsonHandler = require('./PageJsonHandler');
 
 // Not sure
-var GetHandler = require('./GetHandler');
-var GetBlogHandler = require('./GetBlogHandler');
-var TurtleHandler = require('./TurtleHandler');
-var RegistrationHandler = require('./RegistrationHandler');
+// var GetHandler = require('./GetHandler');
+// var GetBlogHandler = require('./GetBlogHandler');
+// var TurtleHandler = require('./TurtleHandler');
+// var RegistrationHandler = require('./RegistrationHandler');
 
 
 var notAuthHeaders = {
@@ -46,7 +45,7 @@ RequestHandler.prototype = {
       //      log.debug("END EVENT!!!!!!!!!");
      //   });
 
-        //      log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers));
+           log.debug("SEKI REQUEST HEADERS " + JSON.stringify(sekiRequest.headers, null,4));
 
         log.debug("request = " + sekiRequest.url);
         //       log.debug("REQUEST METHOD = " + sekiRequest.method);
@@ -99,8 +98,7 @@ RequestHandler.prototype = {
         var handlerMap = { // move to config? // bypass altogether
             "ProxyHandler": ProxyHandler,
             "GenericHandler": GenericHandler,
-
-            "CreateHandler": CreateHandler,
+            "PageJsonHandler": PageJsonHandler,
             "TemplatingResponseHandler": TemplatingResponseHandler
             //     "JSONToParams" : JSONConverter.jsonToParams
         }

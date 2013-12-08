@@ -105,7 +105,7 @@ if (commander.init) {
 var app = connect()
     .use(fileServer())
     .use(function(sekiRequest, sekiResponse) {
-        // log.debug("SEKI");
+        log.debug("*** REQUEST **************************");
         var handler = new RequestHandler();
         handler.handle(sekiRequest, sekiResponse);
         // onRequest(sekiRequest, sekiResponse);

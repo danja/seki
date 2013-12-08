@@ -114,7 +114,7 @@ Page.prototype = {
     "readJSON": function(path, callback) {
         var options = clone(this.options);
         options.method = 'GET';
-        options.headers["Content-Type"] = "application/json";
+        options.headers["Accept"] = "application/json";
         options["path"] = path;
         client.call(options, '', callback);
     },
