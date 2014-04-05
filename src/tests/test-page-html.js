@@ -16,12 +16,15 @@ var helpers = new TestHelpers();
 var path = '/pages/ApiTest';
 
 exports.testDeletePage = function(test) { // just to make sure it's cleared
+    // log.debug("deleting via proxy");
     var callback = function(status, headers, body) {
         test.equal(status, 204, "checking status");
         test.done();
     }
-    var proxy = new ProxySparql();
-    proxy.fileUpdate('data/deletePage.rq', callback);
+    //var proxy = new ProxySparql();
+    // proxy.fileUpdate('data/deletePage.rq', callback);
+    var page = new Page();
+    page.delete(path, callback);
 };
 
 exports.testCreate = function(test) {

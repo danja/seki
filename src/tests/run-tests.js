@@ -8,5 +8,6 @@ reporter.run([
     "./test-proxy.js",
     "./test-graph-turtle.js",
     "./test-page-turtle.js",
-    "./test-page-json.js"
+    "./test-page-json.js",
+    "./test-page-html.js"
 ]);

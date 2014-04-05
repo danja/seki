@@ -1,0 +1,35 @@
+ [31;1mo[0m [32;1mConfigDefault.js[0m [34m[78:9] [0m[37mNo Config.js so using ConfigDefault.js[0m
+@prefix dc: <http://purl.org/dc/terms/> . 
+@prefix ts: <http://hyperdata.org/trellis/> . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-352-0906> a ts:RootNode . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-354-1466> a ts:Node; 
+   dc:title "A0" ; 
+   ts:index "0" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-352-0906>" . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-1739> a ts:Node; 
+   dc:title "A1" ; 
+   ts:index "0" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-352-0906>" . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-8419> a ts:Node; 
+   dc:title "B0" ; 
+   ts:index "1" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-1739>" . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-6136> a ts:Node; 
+   dc:title "C0" ; 
+   ts:index "2" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-8419>" . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-4027> a ts:Node; 
+   dc:title "C1" ; 
+   ts:index "0" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-355-8419>" . 
+
+<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-356-0584> a ts:Node; 
+   dc:title "A2" ; 
+   ts:index "0" ; 
+   ts:parent "<http://hyperdata.org/trellis/nid-2014-01-19-14-44-02-352-0906>" . 

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<opml version="2.0">
+  <head>
+    <ownerEmail>danny.ayers@gmail.com</ownerEmail>
+  </head>
+  <body>
+    <outline text="A0" />
+    <outline text="A1" >
+      <outline text="B0">
+        <outline text="C0"/>
+        <outline text="C1"/>
+        </outline>
+      </outline>
+    </outline>
+    <outline text="A2" />
+      </body>
+</opml>

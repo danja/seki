@@ -60,7 +60,8 @@ SparqlUtils.prototype = {
             "prefixes": turtleSplit.prefixes,
             "body": turtleSplit.body
         }
-        var sparql = freemarker.render(sparqlTemplates.insertTemplate, replaceMap);
+        log.debug("sparqlTemplates.insertTemplate "+sparqlTemplates.turtleCreateTemplate);
+        var sparql = freemarker.render(sparqlTemplates.turtleCreateTemplate, replaceMap);
         return sparql;
     },
 
