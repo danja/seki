@@ -1,4 +1,4 @@
-## Seki is a front-end to an independent SPARQL server using node.js 
+## Seki is middleware/a front-end to an independent SPARQL server using node.js 
 
 No really, what is it?
 
