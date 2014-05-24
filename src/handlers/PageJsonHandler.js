@@ -101,6 +101,14 @@ PageJsonHandler.prototype = {
         
         sekiResponse.pipe(stream);
         
+        var client = http.createClient(config.sparqlPort, config.sparqlHost);
+        
+        // console.log("TurtleHandler.GET called");
+        
+        // CHECK TURTLE HANDLER FOR GETTING SPARQL FROM RULES
+        config.client["method"] = "GET";
+        config.client["path"] = config.client["queryEndpoint"] + "?query=" + escape(sparql);
+        
         var clientRequest = http.request(config.client, function(queryResponse) {
             queryResponse.on('data', function(chunk) {
                 log.debug("CHUNK: " + chunk);
@@ -129,7 +137,15 @@ PageJsonHandler.prototype = {
                 sekiResponse.end(JSON.stringify(bindings));
             });
         });
+        
+        sekiRequest.on('data', function() { // is needed?
+            log.debug("ondata");
+        });
        
+        sekiRequest.on('end', function() {
+            log.debug("End of sekiRequest");
+            clientRequest.end();
+        });
         
     },
 
