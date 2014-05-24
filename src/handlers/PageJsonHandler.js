@@ -13,14 +13,32 @@ var jsonld = require('../lib/jsonld/jsonld');
 require('../lib/jsonld/Future');
 
 //Constructor
-function CreatePageHandler() {}
+function PageJsonHandler() {}
 
 // properties and methods
-CreatePageHandler.prototype = {
+PageJsonHandler.prototype = {
     "handle": function(sekiRequest, sekiResponse, message, route) { // takes JSON
         // this.value2 = argument + 100;
-        log.debug("CreatePageHandler.handle called");
+        log.debug("PageJsonHandler.handle called");
 
+        log.debug("route[type] = "+ route["type"]);
+        
+  //      if (route["type"] && route["type"] != "") { // temp
+  //          this[route["type"]](sekiRequest, sekiResponse, message, route);
+  //          return;
+  //      }
+        
+        if (route["type"] == "read") {
+            this.read(sekiRequest, sekiResponse, message, route);
+            return;
+        }
+        this.create(sekiRequest, sekiResponse, message, route);
+        return;
+    },
+    
+    "create": function(sekiRequest, sekiResponse, message, route) { // takes JSON
+        
+        
         var bodyMap = JSON.parse(message);
 
         //    if(config.handleLegacyJSON) { // removes extra <<< - check need
@@ -75,6 +93,45 @@ CreatePageHandler.prototype = {
         }
         return;
     },
+    
+    "read": function(sekiRequest, sekiResponse, message, route) { // THIS IS GENERIC JSON???
+        var saxer = require('../core/srx2map_multi');
+        var http = require('http');
+        var stream = saxer.createStream();
+        
+        sekiResponse.pipe(stream);
+        
+        var clientRequest = http.request(config.client, function(queryResponse) {
+            queryResponse.on('data', function(chunk) {
+                log.debug("CHUNK: " + chunk);
+                stream.write(chunk);
+            });
+            
+            queryResponse.on('end', function() {
+                
+                stream.end();
+                
+                var bindings = stream.bindings;
+                
+                if (!bindings || !bindings.title) { // // this is shite
+                    var creativeMap = {
+                        "uri": resource,
+                        "title": "Enter title",
+                        "content": "Enter content",
+                        "login": "nickname"
+                    }
+                    // "uri" :  sekiRequest.url
+                };
+                
+                sekiResponse.writeHead(200, sekiHeaders);
+                
+                //    log.debug("bindings = "+JSON.stringify(bindings));
+                sekiResponse.end(JSON.stringify(bindings));
+            });
+        });
+       
+        
+    },
 
     "handleFormEncoded": function() { // not wired in
         log.debug("raw post_body \n" + post_body);
@@ -122,4 +179,4 @@ CreatePageHandler.prototype = {
 
 // ResponseHandler.handle(message, sekiResponse);
 
-module.exports = CreatePageHandler;
+module.exports = PageJsonHandler;

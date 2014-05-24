@@ -136,8 +136,38 @@ rule UpdatePageJSON {
         modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
         modify(r, function(){this.route["responseHandler"] = "PageJsonHandler";});
         modify(r, function(){this.route["queryTemplate"] = "pageTemplate";}); 
+   }
 }
+
+rule ReadPageJSON {
+    when {
+        rr : RequestRouter  rr.path.substring(0, 7) == "/pages/";
+        rr : RequestRouter  rr.method.toLowerCase()  == "get";
+        rr : RequestRouter  rr.accept == "application/json";
+        r : Route r.route["targetFunction"] == "";
+    } then {
+        log.debug("*** ReadPageJSON rule triggered ***"); 
+        modify(r, function(){this.route["type"] = "read";});
+        modify(r, function(){this.route["graph"] = config.uriBase + "pages";});
+        modify(r, function(){this.route["path"] = rr.path;});
+        
+        modify(r, function(){this.route["queryOptions"]["method"] = "GET";});
+        
+        modify(r, function(){this.route["queryOptions"]["path"] = config.client["queryEndpoint"];});
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["queryTemplate"] = "pageTemplate";}); // needs graph & uri
+        
+        modify(r, function(){this.route["targetFunction"] = "GenericHandler";});
+        modify(r, function(){this.route["responseHandler"] = "PageJsonHandler";});
+        
+        // modify(r, function(){this.route["viewTemplate"] = "minimalViewTemplate";}); // needs graph & uri
+        // modify(r, function(){this.route["responseHandler"] = "TemplatingResponseHandler";});
+        
+        modify(r, function(){this.route["responseCode"] = "200";});
+    }
 }
+
+
 
 // HTML ******************************************************************************************************
 rule CreatePageHTML {

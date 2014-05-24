@@ -1,4 +1,4 @@
-#!/bin/env node
+// #!/bin/env node
 
 /**
  * Main Seki script

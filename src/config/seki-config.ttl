@@ -19,6 +19,7 @@
 
    fuseki:services (
      <#service_tdb_all>
+	 <#feedreader>
    ) .
 
 # TDB
@@ -49,3 +50,39 @@ tdb:GraphTDB    rdfs:subClassOf  ja:Model .
 ##     ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
 ##     # Default graph for query is the (read-only) union of all named graphs.
      .
+
+## -------- for feedreader -----------------
+## ---------------------------------------------------------------
+## Updatable in-memory dataset.
+
+<#feedreader> rdf:type fuseki:Service ;
+    # URI of the dataset -- http://host:port/feedreader
+    fuseki:name                     "feedreader" ; 
+
+    # SPARQL query services e.g. http://host:port/feedreader/sparql?query=...
+    fuseki:serviceQuery             "sparql" ;
+    fuseki:serviceQuery             "query" ;
+    # SPARQL Update service -- http://host:port/feedreader/update?request=...
+    fuseki:serviceUpdate            "update" ;   # SPARQL query service -- /feedreader/update
+
+    # Upload service -- http://host:port/feedreader/upload?graph=default or ?graph=URI or ?default
+    # followed by a multipart body, each part being RDF syntax.
+    # Syntax determined by the file name extension.
+    fuseki:serviceUpload            "upload" ;   # Non-SPARQL upload service
+
+    # SPARQL Graph store protocol (read and write)
+    # GET, PUT, POST DELETE to http://host:port/feedreader/data?graph= or ?default=
+    fuseki:serviceReadWriteGraphStore      "data" ;     
+
+    # A separate read-only graph store endpoint:
+    fuseki:serviceReadGraphStore       "get" ;   # Graph store protocol (read only) -- /feedreader/get
+
+    fuseki:dataset           <#emptyDataset> ;
+    .
+
+## In-memory, initially empty.
+<#emptyDataset> rdf:type ja:RDFDataset .
+## ------------------------------------------------------------------
+
+
+
