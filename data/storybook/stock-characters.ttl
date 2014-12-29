@@ -1,0 +1,33 @@
+# http://en.wikipedia.org/wiki/List_of_stock_characters
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix sb: <http://purl.org/stuff/storybook/> .
+
+# Jungian Archetypes
+
+Negative (centred on Jungian Ego i.e. "evil"):
+
+    Dark Father, Tyrant or Dark Magician
+    Dark Mother, Dark Queen or Hag
+    Dark Rival or Dark Alter-Ego
+    Dark Other Half or Temptress
+
+Positive (centred on Jungian Self i.e. "good"):
+
+    Light Father, Good King or Wise Old Man
+    Light Mother, Good Queen or Wise Old Woman
+    Light Alter-Ego or Friend and Companion
+    Light Other Half (light anima/animus)
+
+Three other archetypes are referenced:       
+
+    The Child
+    The Animal Helper
+    The Trickster

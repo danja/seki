@@ -1,0 +1,78 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix sb: <http://purl.org/stuff/storybook/> .
+
+# http://en.wikipedia.org/wiki/The_Seven_Basic_Plots
+# http://onlyagame.typepad.com/only_a_game/2005/10/the_seven_basic.html
+
+sb:OvercomingTheMonster
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Overcoming the Monster"@en ;
+    rdfs:comment "Overcoming the Monster (and the Thrilling Escape from Death)."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:RagsToRiches
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Rags to Riches"@en ;
+    rdfs:comment "Rags to Riches."@en ;
+#   dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:TheQuest
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "The Quest"@en ;
+    rdfs:comment "The Quest."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .#
+	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:VoyageAndReturn
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Voyage and Return"@en ;
+    rdfs:comment "Voyage and Return."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:Comedy
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Comedy"@en ;
+    rdfs:comment "Comedy."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:Tragedy
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Tragedy"@en ;
+    rdfs:comment "Tragedy."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+sb:Rebirth
+    a owl:Class, rdfs:Class, sb:Plot, sb:BasicPlot ;
+    rdfs:label "Rebirth"@en ;
+    rdfs:comment "Rebirth."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    dcterms:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> .
+#	sb:example <http://dbpedia.org/resource/Beowulf> .
+
+
+

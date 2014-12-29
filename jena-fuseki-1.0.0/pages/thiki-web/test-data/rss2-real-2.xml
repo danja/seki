@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>From London to Longoio (and Lucca and beyond)</title>
+	<atom:link href="http://longoio.wordpress.com/feed/" rel="self" type="application/rss+xml" />
+	<link>http://longoio.wordpress.com</link>
+	<description>Life in and around Lucca</description>
+	<lastBuildDate>Wed, 28 May 2014 18:04:41 +0000</lastBuildDate>
+	<language>en</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+<cloud domain='longoio.wordpress.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<image>
+		<url>http://s2.wp.com/i/buttonw-com.png</url>
+		<title>From London to Longoio (and Lucca and beyond)</title>
+		<link>http://longoio.wordpress.com</link>
+	</image>
+	<atom:link rel="search" type="application/opensearchdescription+xml" href="http://longoio.wordpress.com/osd.xml" title="From London to Longoio (and Lucca and beyond)" />
+	<atom:link rel='hub' href='http://longoio.wordpress.com/?pushpress=hub'/>
+	<item>
+		<title>How to Get Rid of Excess Fat in an Enjoyable Way</title>
+		<link>http://longoio.wordpress.com/2014/05/28/how-to-get-rid-of-excess-fat-in-an-enjoyable-way/</link>
+		<comments>http://longoio.wordpress.com/2014/05/28/how-to-get-rid-of-excess-fat-in-an-enjoyable-way/#comments</comments>
+		<pubDate>Wed, 28 May 2014 08:12:27 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Alpi Apuane]]></category>
+		<category><![CDATA[Architecture]]></category>
+		<category><![CDATA[Churches]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Lucca]]></category>
+		<category><![CDATA[walks]]></category>
+		<category><![CDATA[World War One]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14861</guid>
+		<description><![CDATA[We’ve had two days of rain now – very welcome for our plants but not brilliant for getting around. So I was glad that last Monday I took a trip around the Luccan hills on my scooter Lucca’s hills to &#8230; <a href="http://longoio.wordpress.com/2014/05/28/how-to-get-rid-of-excess-fat-in-an-enjoyable-way/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14861&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/28/how-to-get-rid-of-excess-fat-in-an-enjoyable-way/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-028-e1401267722311.jpg?w=110" medium="image">
+			<media:title type="html">05272014 028</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-041-e1401267740429.jpg?w=150" medium="image">
+			<media:title type="html">05272014 041</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-070-e1401268103447.jpg?w=150" medium="image">
+			<media:title type="html">05272014 070</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-055.jpg?w=225" medium="image">
+			<media:title type="html">05272014 055</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-056.jpg?w=300" medium="image">
+			<media:title type="html">05272014 056</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-057.jpg?w=225" medium="image">
+			<media:title type="html">05272014 057</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-031-e1401268136988.jpg?w=150" medium="image">
+			<media:title type="html">05272014 031</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-064-e1401268120598.jpg?w=150" medium="image">
+			<media:title type="html">05272014 064</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-151.jpg?w=300" medium="image">
+			<media:title type="html">05272014 151</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-155-e1401267811711.jpg?w=150" medium="image">
+			<media:title type="html">05272014 155</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-157-e1401267888309.jpg?w=150" medium="image">
+			<media:title type="html">05272014 157</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-158-e1401267840778.jpg?w=150" medium="image">
+			<media:title type="html">05272014 158</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-153-e1401267982996.jpg?w=107" medium="image">
+			<media:title type="html">05272014 153</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-154-e1401267826279.jpg?w=112" medium="image">
+			<media:title type="html">05272014 154</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-149.jpg?w=225" medium="image">
+			<media:title type="html">05272014 149</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-091-e1401267937181.jpg?w=112" medium="image">
+			<media:title type="html">05272014 091</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-163-e1401267961383.jpg?w=112" medium="image">
+			<media:title type="html">05272014 163</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-082-e1401268070495.jpg?w=112" medium="image">
+			<media:title type="html">05272014 082</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-147-e1401267922172.jpg?w=150" medium="image">
+			<media:title type="html">05272014 147</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-146-e1401267906498.jpg?w=150" medium="image">
+			<media:title type="html">05272014 146</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-087-e1401268087936.jpg?w=112" medium="image">
+			<media:title type="html">05272014 087</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-101-e1401267704127.jpg?w=112" medium="image">
+			<media:title type="html">05272014 101</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-143-e1401267873260.jpg?w=112" medium="image">
+			<media:title type="html">05272014 143</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-144-e1401267859685.jpg?w=112" medium="image">
+			<media:title type="html">05272014 144</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-141-e1401267997616.jpg?w=112" medium="image">
+			<media:title type="html">05272014 141</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-140-e1401268014256.jpg?w=150" medium="image">
+			<media:title type="html">05272014 140</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-084-e1401268049479.jpg?w=113" medium="image">
+			<media:title type="html">05272014 084</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-085-e1401268029864.jpg?w=150" medium="image">
+			<media:title type="html">05272014 085</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-113.jpg?w=300" medium="image">
+			<media:title type="html">05272014 113</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05272014-152.jpg?w=221" medium="image">
+			<media:title type="html">05272014 152</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Back to the Star</title>
+		<link>http://longoio.wordpress.com/2014/05/27/back-to-the-star/</link>
+		<comments>http://longoio.wordpress.com/2014/05/27/back-to-the-star/#comments</comments>
+		<pubDate>Tue, 27 May 2014 09:30:55 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Architecture]]></category>
+		<category><![CDATA[Art]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Music]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14829</guid>
+		<description><![CDATA[Last Sunday afternoon I moved from the morning&#8217;s battle front in the Brancoleria, described in my post at , to the peaceful atmosphere of the Sanctuary of Migliano in the comune of Fosciandora, where I joined my choir of San &#8230; <a href="http://longoio.wordpress.com/2014/05/27/back-to-the-star/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14829&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/27/back-to-the-star/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-195-e1401181719477.jpg?w=112" medium="image">
+			<media:title type="html">05262014 195</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-209-e1401181686496.jpg?w=150" medium="image">
+			<media:title type="html">05262014 209</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-213-e1401181671284.jpg?w=112" medium="image">
+			<media:title type="html">05262014 213</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-192-e1401181731213.jpg?w=300" medium="image">
+			<media:title type="html">05262014 192</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-203.jpg?w=225" medium="image">
+			<media:title type="html">05262014 203</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-191-e1401181747124.jpg?w=224" medium="image">
+			<media:title type="html">05262014 191</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-212-e1401268154807.jpg?w=112" medium="image">
+			<media:title type="html">05262014 212</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-214-e1401268195666.jpg?w=110" medium="image">
+			<media:title type="html">05262014 214</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-207-e1401181704138.jpg?w=211" medium="image">
+			<media:title type="html">05262014 207</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Two Great Summer Music Festivals</title>
+		<link>http://longoio.wordpress.com/2014/05/27/two-great-summer-music-festivals/</link>
+		<comments>http://longoio.wordpress.com/2014/05/27/two-great-summer-music-festivals/#comments</comments>
+		<pubDate>Tue, 27 May 2014 07:10:43 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[Lucca]]></category>
+		<category><![CDATA[Music]]></category>
+		<category><![CDATA[Seaside]]></category>
+		<category><![CDATA[Theatre]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14820</guid>
+		<description><![CDATA[TORRE DEL LAGO FESTIVAL 2014 In Puccini’s last opera, Turandot, courtiers Ping, Pong and Pang, fed up with artificial palace life, nostalgically recall their homes by a blue lake surrounded by bamboo groves: E potrei tornar laggiù, presso mio laghetto blu, tutto cinto &#8230; <a href="http://longoio.wordpress.com/2014/05/27/two-great-summer-music-festivals/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14820&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/27/two-great-summer-music-festivals/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/photo4-2.jpg?w=112" medium="image">
+			<media:title type="html">photo4 (2)</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/photo6-2.jpg?w=112" medium="image">
+			<media:title type="html">photo6 (2)</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Secret Mission Across the Gothic Line a Success!</title>
+		<link>http://longoio.wordpress.com/2014/05/26/secret-mission-across-the-gothic-line-a-success/</link>
+		<comments>http://longoio.wordpress.com/2014/05/26/secret-mission-across-the-gothic-line-a-success/#comments</comments>
+		<pubDate>Mon, 26 May 2014 06:36:14 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Bagni di Lucca]]></category>
+		<category><![CDATA[Borgo a Mozzano]]></category>
+		<category><![CDATA[Castles]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[mediavalle]]></category>
+		<category><![CDATA[World War Two]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14740</guid>
+		<description><![CDATA[When I accidentally entered into the time warp which would transport me back to the same part of the Brancoleria area in Mediavalle, but seventy years earlier to the day, I realised it was going to be a tough mission &#8230; <a href="http://longoio.wordpress.com/2014/05/26/secret-mission-across-the-gothic-line-a-success/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14740&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/26/secret-mission-across-the-gothic-line-a-success/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-042.jpg?w=300" medium="image">
+			<media:title type="html">05262014 042</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-029.jpg?w=300" medium="image">
+			<media:title type="html">05262014 029</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-064.jpg?w=112" medium="image">
+			<media:title type="html">05262014 064</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-090.jpg?w=112" medium="image">
+			<media:title type="html">05262014 090</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-063.jpg?w=300" medium="image">
+			<media:title type="html">05262014 063</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-058.jpg?w=112" medium="image">
+			<media:title type="html">05262014 058</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-065.jpg?w=150" medium="image">
+			<media:title type="html">05262014 065</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-077.jpg?w=112" medium="image">
+			<media:title type="html">05262014 077</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-062.jpg?w=112" medium="image">
+			<media:title type="html">05262014 062</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-061.jpg?w=112" medium="image">
+			<media:title type="html">05262014 061</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-080.jpg?w=300" medium="image">
+			<media:title type="html">05262014 080</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-070.jpg?w=225" medium="image">
+			<media:title type="html">05262014 070</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-086.jpg?w=225" medium="image">
+			<media:title type="html">05262014 086</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/download5.jpg" medium="image">
+			<media:title type="html">download</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-104.jpg?w=225" medium="image">
+			<media:title type="html">05262014 104</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-125.jpg?w=150" medium="image">
+			<media:title type="html">05262014 125</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-129.jpg?w=150" medium="image">
+			<media:title type="html">05262014 129</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-131.jpg?w=150" medium="image">
+			<media:title type="html">05262014 131</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-039.jpg?w=112" medium="image">
+			<media:title type="html">05262014 039</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-106.jpg?w=112" medium="image">
+			<media:title type="html">05262014 106</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-140.jpg?w=300" medium="image">
+			<media:title type="html">05262014 140</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-028.jpg?w=112" medium="image">
+			<media:title type="html">05262014 028</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-150.jpg?w=150" medium="image">
+			<media:title type="html">05262014 150</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-014.jpg?w=150" medium="image">
+			<media:title type="html">05262014 014</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-154.jpg?w=112" medium="image">
+			<media:title type="html">05262014 154</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-153.jpg?w=150" medium="image">
+			<media:title type="html">05262014 153</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-152-e1401181813741.jpg?w=150" medium="image">
+			<media:title type="html">05262014 152</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-166-e1401181933298.jpg?w=150" medium="image">
+			<media:title type="html">05262014 166</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-162-e1401181949805.jpg?w=111" medium="image">
+			<media:title type="html">05262014 162</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-161.jpg?w=112" medium="image">
+			<media:title type="html">05262014 161</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-115.jpg?w=150" medium="image">
+			<media:title type="html">05262014 115</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-113.jpg?w=112" medium="image">
+			<media:title type="html">05262014 113</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-118.jpg?w=109" medium="image">
+			<media:title type="html">05262014 118</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-112.jpg?w=112" medium="image">
+			<media:title type="html">05262014 112</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-110.jpg?w=150" medium="image">
+			<media:title type="html">05262014 110</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-105.jpg?w=225" medium="image">
+			<media:title type="html">05262014 105</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-144.jpg?w=300" medium="image">
+			<media:title type="html">05262014 144</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-181-e1401181862541.jpg?w=150" medium="image">
+			<media:title type="html">05262014 181</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-179-e1401181878822.jpg?w=150" medium="image">
+			<media:title type="html">05262014 179</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-178-e1401181895878.jpg?w=112" medium="image">
+			<media:title type="html">05262014 178</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-172-e1401181918672.jpg?w=150" medium="image">
+			<media:title type="html">05262014 172</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-040.jpg?w=150" medium="image">
+			<media:title type="html">05262014 040</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05262014-025-e1401181777179.jpg?w=150" medium="image">
+			<media:title type="html">05262014 025</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/img450.jpg?w=219" medium="image">
+			<media:title type="html">img450</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Post Haste</title>
+		<link>http://longoio.wordpress.com/2014/05/25/post-haste/</link>
+		<comments>http://longoio.wordpress.com/2014/05/25/post-haste/#comments</comments>
+		<pubDate>Sun, 25 May 2014 04:27:44 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Architecture]]></category>
+		<category><![CDATA[Bagni di Lucca]]></category>
+		<category><![CDATA[Finance]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14721</guid>
+		<description><![CDATA[Italian banks generally receive a bad press from ex-pats, largely because of inflated charges, incomprehensible paperwork, haughty staff and frequent bank take-overs causing considerable confusion. Throughout the ten years that I have used the Italian banking system I have had &#8230; <a href="http://longoio.wordpress.com/2014/05/25/post-haste/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14721&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/25/post-haste/feed/</wfw:commentRss>
+		<slash:comments>9</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05242013-001.jpg?w=300" medium="image">
+			<media:title type="html">05242013 001</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/download4.jpg" medium="image">
+			<media:title type="html">download</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/download-12.jpg" medium="image">
+			<media:title type="html">download (1)</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Bad and Good</title>
+		<link>http://longoio.wordpress.com/2014/05/24/bad-and-good/</link>
+		<comments>http://longoio.wordpress.com/2014/05/24/bad-and-good/#comments</comments>
+		<pubDate>Sat, 24 May 2014 05:24:41 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Bagni di Lucca]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Fornoli]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14655</guid>
+		<description><![CDATA[&#160; Things appear to getting more and more extreme in the world. I’m not just talking about climate change or increasing income inequality but about people. They seem to either become kinder or become less kind (to use a euphemism). &#8230; <a href="http://longoio.wordpress.com/2014/05/24/bad-and-good/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14655&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/24/bad-and-good/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05242013-014-e1400909435958.jpg?w=150" medium="image">
+			<media:title type="html">05242013 014</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05242013-016-e1400909449702.jpg?w=150" medium="image">
+			<media:title type="html">05242013 016</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05242013-003.jpg?w=150" medium="image">
+			<media:title type="html">05242013 003</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/images2.jpg" medium="image">
+			<media:title type="html">images</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Rumour&#8217;s Tongues</title>
+		<link>http://longoio.wordpress.com/2014/05/23/rumours-tongues/</link>
+		<comments>http://longoio.wordpress.com/2014/05/23/rumours-tongues/#comments</comments>
+		<pubDate>Fri, 23 May 2014 05:54:01 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Bagni di Lucca]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Theatre]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14660</guid>
+		<description><![CDATA[The twenty-first  schools&#8217; theatre week in Bagni di Lucca’s Teatro Accademico, with contributions from over thirty schools and five shows daily, has ended and this Saturday will be prize-giving day for the best performances from nursery, elementary and secondary schools. I only &#8230; <a href="http://longoio.wordpress.com/2014/05/23/rumours-tongues/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14660&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/23/rumours-tongues/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/menutop.gif" medium="image">
+			<media:title type="html">menutop</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/images1.jpg" medium="image">
+			<media:title type="html">images</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/download3.jpg" medium="image">
+			<media:title type="html">download</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-023.jpg?w=300" medium="image">
+			<media:title type="html">05232014 023</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-016-e1400909394758.jpg?w=112" medium="image">
+			<media:title type="html">05232014 016</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-012-e1400909356862.jpg?w=150" medium="image">
+			<media:title type="html">05232014 012</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-004-e1400909368488.jpg?w=112" medium="image">
+			<media:title type="html">05232014 004</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-009-e1400909408187.jpg?w=150" medium="image">
+			<media:title type="html">05232014 009</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-014-e1400909329835.jpg?w=150" medium="image">
+			<media:title type="html">05232014 014</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05232014-013-e1400909340936.jpg?w=150" medium="image">
+			<media:title type="html">05232014 013</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Four Little Sights on the Way to the Supermarket</title>
+		<link>http://longoio.wordpress.com/2014/05/22/four-little-sights-on-the-way-to-the-supermarket/</link>
+		<comments>http://longoio.wordpress.com/2014/05/22/four-little-sights-on-the-way-to-the-supermarket/#comments</comments>
+		<pubDate>Thu, 22 May 2014 05:24:37 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Bagni di Lucca]]></category>
+		<category><![CDATA[Borgo a Mozzano]]></category>
+		<category><![CDATA[Churches]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14639</guid>
+		<description><![CDATA[It’s easy to ignore sights that one passes by on a regular basis. Just going from Ponte a Serraglio, and using the Brennero road taking one to Chiffenti and beyond, there are four such sights that are worth at least &#8230; <a href="http://longoio.wordpress.com/2014/05/22/four-little-sights-on-the-way-to-the-supermarket/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14639&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/22/four-little-sights-on-the-way-to-the-supermarket/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-001-2-e1400743132108.jpg?w=112" medium="image">
+			<media:title type="html">05222014 001 (2)</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-001.jpg?w=150" medium="image">
+			<media:title type="html">05222014 001</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-010-e1400743167438.jpg?w=112" medium="image">
+			<media:title type="html">05222014 010</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-006-e1400743147366.jpg?w=108" medium="image">
+			<media:title type="html">05222014 006</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-014-e1400743204339.jpg?w=150" medium="image">
+			<media:title type="html">05222014 014</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-021-e1400743185723.jpg?w=150" medium="image">
+			<media:title type="html">05222014 021</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-024-e1400742795738.jpg?w=150" medium="image">
+			<media:title type="html">05222014 024</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-030-e1400743072540.jpg?w=112" medium="image">
+			<media:title type="html">05222014 030</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-029-e1400743088549.jpg?w=107" medium="image">
+			<media:title type="html">05222014 029</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-034-e1400742856907.jpg?w=112" medium="image">
+			<media:title type="html">05222014 034</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-036-e1400742823777.jpg?w=112" medium="image">
+			<media:title type="html">05222014 036</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-035-e1400742841747.jpg?w=150" medium="image">
+			<media:title type="html">05222014 035</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-049-e1400742903447.jpg?w=150" medium="image">
+			<media:title type="html">05222014 049</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-050-e1400742877319.jpg?w=112" medium="image">
+			<media:title type="html">05222014 050</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-047.jpg?w=225" medium="image">
+			<media:title type="html">05222014 047</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-037-e1400743055155.jpg?w=110" medium="image">
+			<media:title type="html">05222014 037</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-044-e1400743018273.jpg?w=150" medium="image">
+			<media:title type="html">05222014 044</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-042-e1400743037774.jpg?w=150" medium="image">
+			<media:title type="html">05222014 042</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-045-e1400742990264.jpg?w=110" medium="image">
+			<media:title type="html">05222014 045</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05222014-048.jpg?w=300" medium="image">
+			<media:title type="html">05222014 048</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>A Peasant&#8217;s Life?</title>
+		<link>http://longoio.wordpress.com/2014/05/21/a-peasants-life/</link>
+		<comments>http://longoio.wordpress.com/2014/05/21/a-peasants-life/#comments</comments>
+		<pubDate>Wed, 21 May 2014 06:17:44 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Food]]></category>
+		<category><![CDATA[gardening]]></category>
+		<category><![CDATA[Longoio]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14604</guid>
+		<description><![CDATA[I need that Irish monk’s help (see my previous post) in my campo (allotment). Everything is growing so fast, particularly the weeds and grass! The other problem is water. I’m hoping, indeed praying, for rain. One must water everything twice &#8230; <a href="http://longoio.wordpress.com/2014/05/21/a-peasants-life/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14604&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/21/a-peasants-life/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05212014-011.jpg?w=225" medium="image">
+			<media:title type="html">05212014 011</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05212014-0091.jpg?w=112" medium="image">
+			<media:title type="html">05212014 009</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05212014-008.jpg?w=112" medium="image">
+			<media:title type="html">05212014 008</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05212014-010.jpg?w=150" medium="image">
+			<media:title type="html">05212014 010</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05212014-012.jpg?w=300" medium="image">
+			<media:title type="html">05212014 012</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>May&#8217;s Marian Garden</title>
+		<link>http://longoio.wordpress.com/2014/05/20/marian-may/</link>
+		<comments>http://longoio.wordpress.com/2014/05/20/marian-may/#comments</comments>
+		<pubDate>Tue, 20 May 2014 05:49:20 +0000</pubDate>
+		<dc:creator><![CDATA[Francis]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[gardening]]></category>
+		<category><![CDATA[Longoio]]></category>
+
+		<guid isPermaLink="false">http://longoio.wordpress.com/?p=14589</guid>
+		<description><![CDATA[The original dedication of the month of May to the Virgin Mary in Italy can only be dated back to the mid-eighteenth century when it was first celebrated at Grezzano near Verona. Certain it is, however, that by the nineteenth &#8230; <a href="http://longoio.wordpress.com/2014/05/20/marian-may/">Continue reading <span class="meta-nav">&#8594;</span></a><img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=longoio.wordpress.com&#038;blog=48100372&#038;post=14589&#038;subd=longoio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+		<wfw:commentRss>http://longoio.wordpress.com/2014/05/20/marian-may/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/83704502a4c999d7044cad17f1bf1612?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">fpettitt</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/220px-ickwell-maypole05.jpg?w=181" medium="image">
+			<media:title type="html">220px-Ickwell-Maypole05</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05182014-207.jpg?w=225" medium="image">
+			<media:title type="html">05182014 207</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/220px-eglise_notre-dame_bar-le-duc_vitrail_saint_fiacre_30_04_2012.jpg?w=146" medium="image">
+			<media:title type="html">220px-Eglise_Notre-Dame_Bar-le-Duc_Vitrail_Saint_Fiacre_30_04_2012</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05182014-209.jpg?w=112" medium="image">
+			<media:title type="html">05182014 209</media:title>
+		</media:content>
+
+		<media:content url="http://longoio.files.wordpress.com/2014/05/05182014-208.jpg?w=127" medium="image">
+			<media:title type="html">05182014 208</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

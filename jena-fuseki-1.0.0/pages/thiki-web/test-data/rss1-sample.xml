@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:admin="http://webns.net/mvcb/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" >
+<channel rdf:about="http://longoio.wordpress.com">
+	<title>Feed Title</title>
+	<link>http://www.example.com/main.html</link>
+	<description>Feed subtitle</description>
+	<dc:date>2014-05-27T11:18:15Z</dc:date>
+	<items>
+		<rdf:Seq>
+					<rdf:li rdf:resource="http://example.org/entry1"/>
+					<rdf:li rdf:resource="http://example.org/entry2"/>
+				</rdf:Seq>
+	</items>
+</channel>
+<item rdf:about="http://example.org/entry1">
+	<title>Entry 1</title>
+	<link>http://example.org/entry1</link>
+	<dc:date>2014-05-27T09:30:55Z</dc:date>
+	<dc:creator><![CDATA[Francis]]></dc:creator>
+	<dc:subject><![CDATA[Architecture]]></dc:subject>
+	<description><![CDATA[<p>Entry 1 summary</p>]]></description>
+	<content:encoded><![CDATA[<p>Entry 1 content</p>]]></content:encoded>
+	
+	</item>
+<item rdf:about="http://example.org/entry2">
+	<title>Entry 2</title>
+	<link>http://example.org/entry2</link>
+	<dc:date>2014-05-27T07:10:43Z</dc:date>
+	<dc:creator><![CDATA[Francis]]></dc:creator>
+	<dc:subject><![CDATA[Events]]></dc:subject>
+	<content:encoded><![CDATA[<p>Entry 2 content <a href="http://example.com">with a link</a></p>]]></content:encoded>
+	</item>
+</rdf:RDF>

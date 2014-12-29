@@ -1,0 +1,17 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX dc: <http://purl.org/dc/terms/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX sioc: <http://rdfs.org/sioc/ns#> 
+PREFIX wiki: <http://purl.org/stuff/wiki#>
+
+SELECT DISTINCT * WHERE {
+	?uri
+	dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+    dc:date ?date ;
+    dc:title ?title ;
+    sioc:content ?content ;
+    a wiki:Page ;
+    foaf:maker [
+        foaf:nick ?nick
+    ] .
+}

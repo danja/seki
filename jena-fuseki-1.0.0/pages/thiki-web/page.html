@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Thiki</title>
+   
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/common.css">
+
+   <script src="js/marked.js"></script>
+
+   <script src="js/jquery-1.10.2.js"></script>
+        
+   <script src="js/jquery-migrate-1.2.1.js"></script>
+   
+      <script type="text/javascript" language="javascript">
+      // pulls out query string from this page's URL
+var queryString = (function(a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i)
+    {
+        var p=a[i].split('=', 2);
+        if (p.length == 1)
+            b[p[0]] = "";
+        else
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+})(window.location.search.substr(1).split('&'));
+
+console.log(queryString["uri"]);
+</script>
+   
+   <script type="text/javascript" language="javascript">
+   
+var sparqlQueryEndpoint = "http://localhost:3030/seki/sparql?query=";
+
+var pageURI = queryString["uri"];
+
+var getPagesSparql = "	    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n\
+PREFIX dc: <http://purl.org/dc/terms/>  \n\
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>  \n\
+PREFIX sioc: <http://rdfs.org/sioc/ns#>  \n\
+PREFIX wiki: <http://purl.org/stuff/wiki#>  \n\
+\n\
+SELECT DISTINCT * WHERE { \n\
+	<"+pageURI+"> \n\
+	dc:format <http://purl.org/NET/mediatypes/text/markdown> ; \n\
+    dc:date ?date ; \n\
+    dc:title ?title ; \n\
+    sioc:content ?content ; \n\
+    a wiki:Page ; \n\
+    foaf:maker [ \n\
+        foaf:nick ?nick \n\
+    ] . \n\
+} \n\
+ORDER By DESC(?date)  \n\
+LIMIT 10 \n\
+";
+
+console.log(getPagesSparql);
+    
+var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&output=xml";
+	
+    $(function() {
+    	var $loading = $('#spinner').hide();
+    	jQuery.ajaxSetup({
+    		  beforeSend: function() {
+    		     $('#spinner').show();
+    		  },
+    		  complete: function(){
+    		     $('#spinner').hide();
+    		  },
+    		  success: function() {}
+    		});
+    	
+      getPages();
+    });
+    	
+    	function getPages() {
+    	//	$.get(url, function(xml) {
+    			$.ajax({
+    				url: getPagesUrl, 
+    				accept: {
+    						  xml: 'application/xml;charset=UTF-8',
+    						  sparql: 'sparql-results+xml;charset=UTF-8'
+    						  },
+    				headers: { // belt and braces
+    						        'Accept':'sparql-results+xml;charset=UTF-8'
+    						     //   'Accept-Charset': 'UTF-8' unsafe
+    						        }
+    				
+    			}).done(function(xml) {
+    		
+    			var xmlString = (new XMLSerializer()).serializeToString(xml);
+
+    			// workaround for wrong interpretation of charset
+    			xmlString = xmlString.replace(/[^\u0000-\u007F]/g, '');
+    			// maybe force to ISO-8859-1, also known as Latin-1 instead?
+    	
+    				var $xml = $(xmlString);
+					var rows = "";
+					
+    				$xml.find("result").each(function() {
+    					var uri, date, title, content, nick;
+    					
+    		//			$(this).find("binding[name='uri']").each(function() {
+    		//				uri = $(this).text().trim();
+    		//			});
+                        uri = "page.html?uri="+pageURI;
+                        
+    					$(this).find("binding[name='date']").each(function() {
+    						date = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='title']").each(function() {
+    						title = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='content']").each(function() {
+    						content = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='nick']").each(function() {
+    						nick = $(this).text().trim();
+    					});
+    					
+    					rows += generatePageRow(uri, date, title, content, nick);
+    				});
+    				 $("#links").replaceWith(rows);
+    				//  $("table").colResizable();
+    			});
+    	}
+    	
+    	function generatePageRow(uri, date, title, content, nick) {
+console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+content+", nick = "+nick);
+    		var row = "<tr>";
+    		row += "<td><a href=\""+uri+"\">"+title+"</a></td>";
+     		row += "<td class=\"center\">"+marked(content)+"</td>";
+     		row += "<td class=\"center\">"+date+"</td>";
+     		row += "<td class=\"center\">"+nick+"</td>";
+			return row;
+    	}
+</script>
+
+</head>
+
+<body>
+<!--  div class="container" -->
+
+<table  id="linksTable" class="table table-bordered">
+<tr><th colspan="8" class="center"><a href="/index.html">Thiki</a> Pages</th></tr>
+
+<tr id="links"></tr>
+  </table>
+  
+    <div id="spinner" class="spinner"></div> 
+</body>
+</html>

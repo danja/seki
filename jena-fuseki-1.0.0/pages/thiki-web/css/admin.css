@@ -1,0 +1,14 @@
+table,th {
+   border:1px solid grey;
+}
+
+th,td {
+   padding:5px;
+}
+
+ td div {
+   width: 100px;
+   white-space: nowrap;
+   overflow: hidden;         
+   text-overflow: ellipsis;
+ }

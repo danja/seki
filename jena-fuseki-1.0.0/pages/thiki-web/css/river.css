@@ -1,0 +1,21 @@
+body {
+	/* font-size: 80%; */
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+}
+
+
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+.ui-accordion-content {
+	height: 220px;
+	font-family: "Times New Roman", "serif";
+}
+
+#accordion-resizer {
+	padding: 10px;
+	width: 350px;
+/*	height: 220px; */
+}

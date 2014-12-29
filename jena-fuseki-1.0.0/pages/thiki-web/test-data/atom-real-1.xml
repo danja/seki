@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+  xmlns:thr="http://purl.org/syndication/thread/1.0">
+  <link rel="self" href="http://intertwingly.net/blog/index.atom"/>
+  <link rel="hub" href="http://pubsubhubbub.appspot.com/"/>
+  <id>http://intertwingly.net/blog/index.atom</id>
+  <icon>../favicon.ico</icon>
+
+  <title>Sam Ruby</title>
+  <subtitle>It’s just data</subtitle>
+  <author>
+    <name>Sam Ruby</name>
+    <email>rubys@intertwingly.net</email>
+    <uri>/blog/</uri>
+  </author>
+  <updated>2014-05-28T03:31:30-07:00</updated>
+  <link href="/blog/"/>
+  <link rel="license" href="http://creativecommons.org/licenses/BSD/"/>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3331</id>
+    <link href="/blog/2014/05/12/Frameworks-as-Stepping-Stones"/>
+    <link rel="replies" href="3331.atom" thr:count="3" thr:updated="2014-05-13T18:26:16-07:00"/>
+    <title>Frameworks as Stepping Stones</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="http://bitworking.org/news/2014/05/zero_framework_manifesto">Joe Gregorio</a>: <em>But something else has happened over the past ten years; browsers got better. Their support for standards improved, and now there are evergreen browsers: automatically updating browsers, each version more capable and standards compliant than the last. With newer standards like <a href="http://w3c.github.io/webcomponents/spec/imports/">HTML Imports</a>, <a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">Object.observe</a>, <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">Promises</a>, and <a href="http://www.w3.org/TR/html5/scripting-1.html#the-template-element">HTML Templates</a> I think it’s time to rethink the model of JS frameworks. There’s no need to invent yet another way to do something, just use HTML+CSS+JS.</em></p>
+<p>I’m curious as to where Joe believes that these features came from.</p></div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="94" height="106" viewBox="0 0 94 106">
+  <path d='M11,94l-9-91h90l-8,91l-37,10' fill='#E44D26'></path>
+  <path d='M47,97l30-9l7-78h-37' fill='#F16529'></path>
+  <path d='M47,44h-15l-1-11h16v-12h-28l3,34h25M47,73l-12.5-3l-1-9h-11l1.5,18l23,6' fill='#EBEBEB'></path>
+  <path d='M47,44v11h14l-1,15l-13,3v12l23-6l3-35M47,21v12h27l1-12' fill='#FFF'></path>
+</svg>
+<p><a href="http://bitworking.org/news/2014/05/zero_framework_manifesto"><cite>Joe Gregorio</cite></a>: <em>But something else has happened over the past ten years; browsers got better. Their support for standards improved, and now there are evergreen browsers: automatically updating browsers, each version more capable and standards compliant than the last. With newer standards like <a href="http://w3c.github.io/webcomponents/spec/imports/">HTML Imports</a>, <a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">Object.observe</a>, <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">Promises</a>, and <a href="http://www.w3.org/TR/html5/scripting-1.html#the-template-element">HTML Templates</a> I think it’s time to rethink the model of JS frameworks. There’s no need to invent yet another way to do something, just use HTML+CSS+JS.</em></p>
+<p>I’m curious as to where Joe believes that these features came from.  For example, <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">promises</a> were first proposed in the <a href="http://en.wikipedia.org/wiki/Futures_and_promises">1970s</a>, made their way into a <a href="http://www.slideshare.net/domenicdenicola/promises-promises">number of frameworks</a>, were extracted into a <a href="http://promises-aplus.github.io/promises-spec/">common implementation</a> and then <a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts#january_20_2014_draft_rev_22">standardized</a>.</p>
+<p>The true story is that Joe’s “gradient” picture is incomplete:</p>
+<p><em>There’s actually a gradient of code that starts with a simple snippet of code, such as a Gist, and that moves to larger and larger collections of code, moving up to libraries, and finally frameworks:</em></p>
+<p>  <code>gist -&gt; library -&gt; framework</code></p>
+<p>A more complete picture:</p>
+<p>  <code>gist -&gt; library -&gt; framework -&gt; standard</code></p>
+<p>And even that isn’t complete.  Standards are backported using <a href="http://html5polyfill.com/">polyfills</a>, and frameworks are updated to use <a href="http://modernizr.com/">feature detection</a> to make use of standard implementations as they become available.</p>
+<p>I’ll also mention a few libraries/frameworks I’m fond of, and how they fit:</p>
+<ul>
+<li><a href="http://underscorejs.org/">Underscore.js</a>.  This library implements a number of methods that really should be a part of the language.  And in a few cases, are (scan that page for the word <em>native</em>).  I’ve been a member of <a href="http://www.ecma-international.org/memento/TC39.htm">ECMA TC39</a> off and on for a decade and a half, and based on what I have seen, JavaScript will catch up with Underscore in 30 to 50 years.</li>
+<li><a href="http://jquery.com/">jQuery</a>.  Their official slogan is “write less, do more”.  While that’s true, “make DOM suck less” is equally as true.  Like with Underscore.js, it predated features like <a href="https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector">querySelector</a>.  One last comment before I move on: <em>abstract away the platform</em> is not true for jQuery (nor for any of the libraries/frameworks I’m mentioning here).  The key abstraction jQuery provides is a collection of DOM nodes.  You can determine the number of element in the collection by using the <code>length</code> property.  You can access individual DOM nodes using indexes: <code>[0]</code>, <code>[1]</code>, <code>[42]</code>, etc.</li>
+<li><a href="http://getbootstrap.com/">Bootstrap</a>.  While this project contains JavaScript, its true focus is on providing a higher level of CSS constructs than the browsers currently provide.  Things like modal dialogs, dropdown menus, tabs, etc.  It is worth noting that they do this with “just” HTML+CSS+JS.  Sure, you can reinvent these concepts for yourself, but why?</li>
+<li><a href="https://angularjs.org/">Angular.js</a>.  Joe mentioned that he hasn’t needed data binding yet.  I’ve written a fair amount of small web applications.  Some have grown to become bigger and unwieldy.  I’ve taken a few of these and started to separate out the client side model, view, and controller, and in the process found data binding to be quite handy.  Now I can write larger web applications, and go back and add features months later without being afraid that I am going to break anything.</li>
+</ul>
+
+<p>In each of these cases, I’m confident that the best ideas of these libraries and frameworks will make their way into the web platform.  Meanwhile:</p>
+<blockquote class="quote"><p><a href="http://quoteinvestigator.com/2012/01/24/future-has-arrived/">The future is already here — it’s just not very evenly distributed.</a>
+</p></blockquote></div></content>
+    <updated>2014-05-12T16:12:16-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3330</id>
+    <link href="/blog/2014/04/07/Technology-behind-Whimsy-apache-org"/>
+    <link rel="replies" href="3330.atom" thr:count="0"/>
+    <title>Technology behind Whimsy.apache.org</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M4,14h92" stroke="#4682b4" stroke-width="5"></path> 
+  <text x="50" y="90" font-size="90" fill="#5f9ea0" font-family="serif" text-anchor="middle"><![CDATA[W]]></text>
+</svg>
+<p><a href="http://intertwingly.net/slides/2014/apachecon-whimsy/">Slides</a> for my <a href="http://apacheconnorthamerica2014.sched.org/event/036138880bfec3a2a3b10101a158189b#.U0K-XabwDzo">ApacheCon talk</a>.  Right/left goes to the next/previous section, up/down for navigating with a section.</p>
+<p>The demo is unfortunately only available to ASF committers (for privacy reasons, as it exposes email addresses).</p></div></content>
+    <updated>2014-04-07T10:14:17-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3329</id>
+    <link href="/blog/2014/03/14/Angular-rb-example"/>
+    <link rel="replies" href="3329.atom" thr:count="3" thr:updated="2014-03-14T16:26:28-07:00"/>
+    <title>Angular.rb example</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="https://twitter.com/timbray/status/444375162167623681">Tim Bray</a>: <em>If hating this is wrong, I don’t want to be right.</em></p>
+<p>Perhaps you would like this better?  :-)</p></div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="97" height="103" viewBox="0 0 97 103">
+  <path d='M48,0l-48,17l8,63l40,23l41-23l8-63z' fill='#B2B2B2'></path>
+  <path d='M92,20l-44-15v92l37-20z' fill='#B52E31'></path>
+  <path d='M5,21l7,56l36,20v-92z' fill='#E23237'></path>
+  <path d='M58,51l-10-21l-9,21zM62,60h-27l-6,15h-11l30-66l31,66h-10z' fill='#F2F2F2'></path>
+  <path d='M48,9v21l10,21h-10v9h14l7,15h10z' fill='#B2B2B2'></path>
+</svg>
+
+<p><a href="https://twitter.com/timbray/status/444375162167623681"><cite>Tim Bray</cite></a>: <em>If hating this is wrong, I don’t want to be right.</em></p>
+<p>Perhaps you would like this better?  :-)</p>
+<pre class="code">module Angular::X
+
+  controller :LoginController do
+    @credentials = {username: '', password: ''}
+
+    def login(credentials)
+      AuthService.login(credentials).then {
+        broadcast! AUTH_EVENTS.loginSuccess
+      }.catch {
+        broadcast! AUTH_EVENTS.loginFailure
+      }
+    end
+  end
+
+end</pre>
+<p>Try it <a href="http://intertwingly.net/projects/ruby2js/angularrb">here</a>.</p>
+<p>Things to note:</p>
+<ul>
+<li>All dependency injection is taken care of for you</li>
+<li><code>$scope</code> and <code>$rootScope</code> are inferred based on context</li>
+<li>Input uses Ruby syntax vs JS Syntax</li>
+<li>Generated code is clean, indented, and idiomatic</li>
+</ul>
+
+<p>More examples, from deployed code: <a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/roster/js">roster</a>, <a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/js">agenda</a>.</p>
+<p>This will be the covered by my <a href="http://apacheconnorthamerica2014.sched.org/event/036138880bfec3a2a3b10101a158189b#.Uwvbtttx0xA">ApacheCon talk</a>.</p></div></content>
+    <updated>2014-03-14T05:49:42-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3328</id>
+    <link href="/blog/2014/03/13/Time-Warner-Rate-Hike"/>
+    <link rel="replies" href="3328.atom" thr:count="5" thr:updated="2014-04-08T12:59:09-07:00"/>
+    <title>Time Warner Rate Hike</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="108" height="93" viewBox="0 0 108 93">
+  <path d='M17,27c-3,3-5,6-10,11c-2,1-3,1-5,0c-4-4-2-7,8-17c11-11,24-19,36-20c13-2,30,1,43,11c7,6,15,14,19,21c-4,7-9,13-14,17c-5,5-11,8-16,10c-13,4-28,3-36-10c-2-4-2-8,0-12c2-5,8-9,13-9c4,0,9,2,11,7c1,2,1,6-1,8c-1,1-6,2-7-2c0-2-0-4-2-4c-4,0-7,3-6,8c1,3,4,6,11,7c3,0,7-1,11-6c3-4,3-11,0-15c-4-7-10-10-18-10c-9,0-17,5-21,14c-3,7-5,17,0,28c4,8,11,13,17,16c5,3,16,4,17,8c0,3-2,5-4,5c-17-3-31-11-37-25c-7-13-6-30,2-41c5-7,13-12,20-13c19-5,38,9,35,28c-1,3-2,6-4,8c0,1,0,1-1,1l2-1c7-4,13-10,17-17c-10-18-32-27-49-24c-14,2-23,10-31,18' fill='#0056a2'></path>
+</svg>
+<p>Backdrop: </p>
+<ul>
+<li>Google Fiber announces it is considering <a href="https://fiber.google.com/newcities/">new cities, including Raleigh</a>.</li>
+<li>RST announces <a href="http://www.newsobserver.com/2014/03/11/3693348/rst-fiber-hopes-to-beat-time-warner.html">gigabit service for Raleigh</a>, starting as early as May.</li>
+<li>My current service is “Standard Cable” (70+ channels, no premium ones) and “Standard Internet” (nominally 15 Mbps up, 1 Mbs down).  At the end of the month, I will have had basic cable with Time Warner at the same location for 22 contiguous years, and standard Internet for more than half of that.</li>
+</ul>
+
+<p>With that context, today I got in the mail notification that my rates are set to go up by 60% as my “Promotional” rates (Seriously?  A twenty two year long promotion?) will be expiring.  After spoofing my User Agent as the chat function doesn’t recognize my browser/operating system combination, I verified this is indeed the plan with “Veronica”.  I was then provided a transcript and directed to an online survey when promptly logged me off without submitting my feedback once I had completed it.</p>
+<p>I plan to follow up with @TWC_Help.</p></div></content>
+    <updated>2014-03-13T16:48:45-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3327</id>
+    <link href="/blog/2014/01/26/Wunderbar-JQuery-filter"/>
+    <link rel="replies" href="3327.atom" thr:count="0"/>
+    <title>Wunderbar JQuery filter</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M4,14h92" stroke="#4682b4" stroke-width="5"></path> 
+  <text x="50" y="90" font-size="90" fill="#5f9ea0" font-family="serif" text-anchor="middle"><![CDATA[W]]></text>
+</svg>
+<p>I got a suggestion to look into <a href="http://facebook.github.io/react/">React.js</a>, a JavaScript library which is focused on the problemspace that Angular.js’s <a href="http://docs.angularjs.org/guide/directive">directive</a> addresses.</p>
+<p>One of the ways React.js facilitates the creation of web components is via <a href="http://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a> which mixes “XML” with JavaScript.  The “XML” is “desugared” into <code>React.DOM</code> calls.</p>
+<p>Based on this idea, I created a <a href="https://github.com/rubys/wunderbar/blob/master/lib/wunderbar/jquery/filter.rb">Wunderbar jquery filter</a> to “desugar” Wunderbar calls into JQuery calls.  The <a href="https://github.com/rubys/wunderbar/blob/master/test/test_jquery_filter.rb">tests</a> show some of the conversions.  I also updated my Bootstrap modal dialog directive to make use of this: <a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/js/directives._js?p=894265">before</a> =&gt; <a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/js/directives._js?p=895482">after</a>.</p></div></content>
+    <updated>2014-01-26T09:55:05-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3326</id>
+    <link href="/blog/2014/01/23/Ruby2js-underscore-js"/>
+    <link rel="replies" href="3326.atom" thr:count="0"/>
+    <title>Ruby2js += underscore.js</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>When compared to Ruby, JavaScript doesn’t have as much functional support built in.  <a href="http://underscorejs.org/">Underscore.js</a> fills that gap for many.  Underscore.js, in turn, was inspired by Ruby’s <a href="http://ruby-doc.org/core/classes/Enumerable.html">Enumerable</a> module.  A <a href="https://github.com/rubys/ruby2js/blob/master/lib/ruby2js/filter/underscore.rb">underscore filter</a> (<a href="https://github.com/rubys/ruby2js/blob/master/spec/underscore_spec.rb">tests</a>) completes the mapping.</p>
+<p>In many cases, the resulting JavaScript is formed by applying a number of filter rules.</p></div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="100" height="100" viewBox="0 0 100 100">
+<path d='M20,100l74-5l6-75zM61,35l37-2l-29-24z' fill='#b11'></path>
+<path d='M21,100l74-5l-47-4zM98,33c4-12,5-29-14-33l-15,9l29,24z' fill='#811'></path>
+<path d='M7,67l14,33l11-38z' fill='#d44'></path>
+<path d='M29,61l42,13l-10-42zM56,0h28l-16,10zM1,51l-1,29l7-13z' fill='#c22'></path>
+<path d='M32,61l39,13c-14,13-30,24-50,26z' fill='#a00'></path>
+<path d='M61,35l10,39l17-23zM32,61l16,30c9-5,16-11,23-17l-39-13z' fill='#900'></path>
+<path d='M61,35l27,17l10-20l-37,3z' fill='#800'></path>
+<path d='M71,74l23,21l-6-44zM0,80c1,19,15,20,21,20l-14-33l-7,13zM7,67l-2,26c4,6,9,7,15,6c-4-11-13-32-13-32zM69,9l30,4c-1-7-6-11-15-13l-15,9z' fill='#911'></path>
+<path
+d='M1,51l6,16l25-5l29-27l8-26l-13-9l-22,8c-6,7-20,19-20,19c-1,1-9,16-13,24z'
+fill='#f84'></path>
+<path d='M21,21c15-14,34-23,42-16c7,8-1,26-16,40c-14,15-33,24-41,17c-7-7,1-26,15-41z' fill='#F0DB4F'></path>
+<g transform="rotate(307,33,12),scale(0.45)">
+<path d='M26,84l8-5c1,3,3,5,6,5c3,0,5-1,5-6v-32h9v32c0,10-5,14-14,14c-7,0-11-4-14-8' id='j'></path>
+<path d='M60,83l7-5c2,3,5,6,9,6c4,0,7-2,7-5c0-3-3-4-7-6l-2-1c-7-3-12-7-12-14c0-7,6-13,14-13c6,0,10,2,13,8l-7,5c-1-3-3-4-6-4c-3,0-4,1-4,4c0,2,1,4,5,5l3,1c8,4,12,7,12,15c0,9-6,13-15,13c-9,0-15-4-17-9' id='s'></path>
+</g>
+</svg>
+<p>When compared to Ruby, JavaScript doesn’t have as much functional support built in.  <a href="http://underscorejs.org/">Underscore.js</a> fills that gap for many.  Underscore.js, in turn, was inspired by Ruby’s <a href="http://ruby-doc.org/core/classes/Enumerable.html">Enumerable</a> module.  A <a href="https://github.com/rubys/ruby2js/blob/master/lib/ruby2js/filter/underscore.rb">underscore filter</a> (<a href="https://github.com/rubys/ruby2js/blob/master/spec/underscore_spec.rb">tests</a>) completes the mapping.</p>
+<p>In many cases, the resulting JavaScript is formed by applying a number of filter rules.  For example, starting with:</p>
+<pre class="code">a.flatten!()</pre>
+<p>This is first expanded to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.prototype.slice</a> to ensure the update happens in place:</p>
+<pre class="code">a.splice(0, a.length, *a.flatten())</pre>
+<p>Next, the method call is rewritten to use the <a href="http://underscorejs.org/#flatten">underscore flatten function</a>:</p>
+<pre class="code">a.splice(0, a.length, *_.flatten(a))</pre>
+<p>Finally, as JavaScript doesn’t have a splat operator, the call is rewritten using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">Function.prototype.apply</a>:</p>
+<pre class="code">a.splice.apply(a, [0, a.length].concat(_.flatten(a)))</pre>
+<p><a href="https://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014#p-22">Tim Bray</a> will be pleased to hear that Ruby2js currently maps <code>a.sort()</code> to</p>
+<pre class="code">_.sortBy(a, _.identity)</pre></div></content>
+    <updated>2014-01-23T06:52:24-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3325</id>
+    <link href="/blog/2014/01/18/Ruby2JS-Attribute-Property-support"/>
+    <link rel="replies" href="3325.atom" thr:count="0"/>
+    <title>Ruby2JS Attribute=&gt;Property support</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="http://rubygems.org/gems/ruby2js/">Ruby2JS</a> now maps Ruby attributes to JavaScript properties.</div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="100" height="100" viewBox="0 0 100 100">
+<path d='M20,100l74-5l6-75zM61,35l37-2l-29-24z' fill='#b11'></path>
+<path d='M21,100l74-5l-47-4zM98,33c4-12,5-29-14-33l-15,9l29,24z' fill='#811'></path>
+<path d='M7,67l14,33l11-38z' fill='#d44'></path>
+<path d='M29,61l42,13l-10-42zM56,0h28l-16,10zM1,51l-1,29l7-13z' fill='#c22'></path>
+<path d='M32,61l39,13c-14,13-30,24-50,26z' fill='#a00'></path>
+<path d='M61,35l10,39l17-23zM32,61l16,30c9-5,16-11,23-17l-39-13z' fill='#900'></path>
+<path d='M61,35l27,17l10-20l-37,3z' fill='#800'></path>
+<path d='M71,74l23,21l-6-44zM0,80c1,19,15,20,21,20l-14-33l-7,13zM7,67l-2,26c4,6,9,7,15,6c-4-11-13-32-13-32zM69,9l30,4c-1-7-6-11-15-13l-15,9z' fill='#911'></path>
+<path
+d='M1,51l6,16l25-5l29-27l8-26l-13-9l-22,8c-6,7-20,19-20,19c-1,1-9,16-13,24z'
+fill='#f84'></path>
+<path d='M21,21c15-14,34-23,42-16c7,8-1,26-16,40c-14,15-33,24-41,17c-7-7,1-26,15-41z' fill='#F0DB4F'></path>
+<g transform="rotate(307,33,12),scale(0.45)">
+<path d='M26,84l8-5c1,3,3,5,6,5c3,0,5-1,5-6v-32h9v32c0,10-5,14-14,14c-7,0-11-4-14-8' id='j'></path>
+<path d='M60,83l7-5c2,3,5,6,9,6c4,0,7-2,7-5c0-3-3-4-7-6l-2-1c-7-3-12-7-12-14c0-7,6-13,14-13c6,0,10,2,13,8l-7,5c-1-3-3-4-6-4c-3,0-4,1-4,4c0,2,1,4,5,5l3,1c8,4,12,7,12,15c0,9-6,13-15,13c-9,0-15-4-17-9' id='s'></path>
+</g>
+</svg>
+<p><a href="http://rubygems.org/gems/ruby2js/">Ruby2JS</a> now maps Ruby attributes to JavaScript properties:</p>
+<p>Input Ruby:</p>
+<pre class="code"><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Person</span>
+  attr_accessor <span style="color:#A60">:first_name</span>, <span style="color:#A60">:last_name</span>
+
+  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>(first_name, last_name)
+    <span style="color:#33B">@first_name</span> = first_name
+    <span style="color:#33B">@last_name</span> = last_name
+  <span style="color:#080;font-weight:bold">end</span>
+
+  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">full_name</span>
+    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span><span style="color:#33B">@first_name</span><span style="font-weight:bold;color:#666">}</span></span> <span style="color:#D20"></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span><span style="color:#33B">@last_name</span><span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">"</span></span>
+  <span style="color:#080;font-weight:bold">end</span>
+<span style="color:#080;font-weight:bold">end</span></pre>
+<p>Output JavaScript:</p>
+<pre class="code"><span style="color:#080;font-weight:bold">function</span> <span style="color:#06B;font-weight:bold">Person</span>(first_name, last_name) {
+  <span style="color:#950">this</span>._first_name = first_name;
+  <span style="color:#950">this</span>._last_name = last_name
+};
+
+Person.<span style="color:#950">prototype</span> = {
+  <span style="color:#080;font-weight:bold">get</span> first_name() {
+    <span style="color:#080;font-weight:bold">return</span> <span style="color:#950">this</span>._first_name
+  },
+
+  <span style="color:#080;font-weight:bold">set</span> first_name(first_name) {
+    <span style="color:#950">this</span>._first_name = first_name
+  },
+
+  <span style="color:#080;font-weight:bold">get</span> last_name() {
+    <span style="color:#080;font-weight:bold">return</span> <span style="color:#950">this</span>._last_name
+  },
+
+  <span style="color:#080;font-weight:bold">set</span> last_name(last_name) {
+    <span style="color:#950">this</span>._last_name = last_name
+  },
+
+  <span style="color:#080;font-weight:bold">get</span> full_name() {
+    <span style="color:#080;font-weight:bold">return</span> <span style="color:#950">this</span>._first_name + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">" "</span></span> + <span style="color:#950">this</span>._last_name
+  }
+}</pre></div></content>
+    <updated>2014-01-18T07:58:05-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3324</id>
+    <link href="/blog/2014/01/13/HTML5-Mode-Links"/>
+    <link rel="replies" href="3324.atom" thr:count="0"/>
+    <title>HTML5 Mode Links</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="97" height="103" viewBox="0 0 97 103">
+  <path d='M48,0l-48,17l8,63l40,23l41-23l8-63z' fill='#B2B2B2'></path>
+  <path d='M92,20l-44-15v92l37-20z' fill='#B52E31'></path>
+  <path d='M5,21l7,56l36,20v-92z' fill='#E23237'></path>
+  <path d='M58,51l-10-21l-9,21zM62,60h-27l-6,15h-11l30-66l31,66h-10z' fill='#F2F2F2'></path>
+  <path d='M48,9v21l10,21h-10v9h14l7,15h10z' fill='#B2B2B2'></path>
+</svg>
+
+<p>Based on a suggestion by Tim Bray, I converted my board agenda Angular.js application to use <a href="http://docs.angularjs.org/guide/dev_guide.services.$location#hashbang-and-html5-modes">html5 mode</a>.  The process was straightforward:</p>
+<p>1) add the following to your application configuration:</p>
+<pre class="code">$locationProvider.html5Mode(true).hashPrefix('!')</pre>
+<p>2) Add a <code>&lt;base&gt;</code> element to my generated HTML, indicating which part of my path was “owned” by the server.</p>
+<p>3) Convert my relative links.  Based on how my application was structured:</p>
+<ul>
+<li><code>#/comments</code> became <code>comments</code></li>
+<li><code>#/</code> became <code>./</code></li>
+<li><code>js/app.js</code> became <code>../js/app.js</code></li>
+</ul>
+
+<p>I’ve not yet tested it with <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history#Browser_compatibility">Internet Explorer &lt;= 9</a>, but the <a href="http://docs.angularjs.org/guide/dev_guide.services.$location#hashbang-and-html5-modes_html5-mode_sending-links-among-different-browsers">Angular.js docs</a> indicate that it should work there too.</p></div></content>
+    <updated>2014-01-13T09:46:19-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3323</id>
+    <link href="/blog/2014/01/09/Software-in-2014"/>
+    <link rel="replies" href="3323.atom" thr:count="2" thr:updated="2014-01-16T08:42:51-08:00"/>
+    <title>﻿Software in 2014</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
+    <p><a href="http://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014">Tim Bray</a>:
+<em>We’re at an inflection point in the practice of constructing software. Our
+tools are good, our server developers are happy, but when it comes to building
+client-side software, we really don’t know where we’re going or how to get
+there.</em></p>
+
+    <p>While I agree with much of this post, I really don’t think the conclusion
+is as bad as Tim portrays things.  I agree that there are good server side
+frameworks, and doing things like MVC is the way to go.</p>
+
+    <p>
+      I just happen to believe that this is true on the client too – including MVC.
+      Not perfect, perhaps, but more than workable.  And full disclosure, I’m firmly
+      on the 
+      <em>HTML5-rocks</em>
+      side of the fence.
+    </p>
+</div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="97" height="103" viewBox="0 0 97 103">
+  <path d='M48,0l-48,17l8,63l40,23l41-23l8-63z' fill='#B2B2B2'></path>
+  <path d='M92,20l-44-15v92l37-20z' fill='#B52E31'></path>
+  <path d='M5,21l7,56l36,20v-92z' fill='#E23237'></path>
+  <path d='M58,51l-10-21l-9,21zM62,60h-27l-6,15h-11l30-66l31,66h-10z' fill='#F2F2F2'></path>
+  <path d='M48,9v21l10,21h-10v9h14l7,15h10z' fill='#B2B2B2'></path>
+</svg>
+
+    <p><a href="http://www.tbray.org/ongoing/When/201x/2014/01/01/Software-in-2014">Tim Bray</a>:
+<em>We’re at an inflection point in the practice of constructing software. Our
+tools are good, our server developers are happy, but when it comes to building
+client-side software, we really don’t know where we’re going or how to get
+there.</em></p>
+
+    <p>While I agree with much of this post, I really don’t think the conclusion
+is as bad as Tim portrays things.  I agree that there are good server side
+frameworks, and doing things like MVC is the way to go.</p>
+
+    <p>
+      I just happen to believe that this is true on the client too – including MVC.
+      Not perfect, perhaps, but more than workable.  And full disclosure, I’m firmly
+      on the 
+      <em>HTML5-rocks</em>
+      side of the fence.
+    </p>
+
+    <p>For starters, while JavaScript is perfectly satisfactory language for many, it
+does seem to have accumulated some <a href="http://zero.milosz.ca/">weird quirks</a>.
+None of that, however, makes JavaScript any less desirable as a compilation <em>target</em>.</p>
+
+    <p>
+      While I agree that 
+      <a href="http://jquery.com/">jQuery</a>
+       reduces the pain of accessing
+      the DOM, there is a future in sight where user authored jQuery will largely be
+      a thing of the past.  While I wouldn’t have believed it, I’ve seen it for
+      myself, and I’ll describe it more below.
+    </p>
+
+    <p>But first, let’s talk about MVC.</p>
+
+    <h3 id="client-side-mvc">Client Side MVC</h3>
+
+    <p>On the server, the model is data.  On the client, the model can be data too –
+either from <a href="http://www.w3.org/TR/webstorage/">Web Storage</a> or from the server.  But it can also be accelerometers,
+cameras, and contacts.  If you need some the these, take a peek at <a href="http://cordova.apache.org/">Apache
+Cordova</a>.</p>
+
+    <p>For views, there are HTML fragments,
+<a href="http://mustache.github.io/mustache.5.html">mustache</a> and mustache inspired
+syntaxes for templating, and yes, CSS.  While Sass and its ilk reduce the pain
+here; a good alternative is to pick up a library like
+<a href="http://getbootstrap.com/">Bootstrap</a>.  You might need to tweak it a little,
+but there is a lot there and the peole who wrote it probably thought about a
+lot of problems that you may not have thought deeply about.  For starters,
+their markup is <em>responsive</em>, which means that it automatically adjusts based
+on device characteristics.</p>
+
+    <p>
+      Finally, we come to the controller.  And by association, routing.  There are good frameworks
+      for this, too, on the client.  
+      <a href="http://angularjs.org/">Angular.js</a>
+      and
+      <a href="http://emberjs.com/">Ember</a>
+      are two exemplars.
+    </p>
+
+    <p>For the remainder of this, I’m going to focus on Angular.js.  As near as
+I can tell, a very similar story could be told about Ember.  I just happen to
+be writing an application using Angular.js, and can point to it.</p>
+
+    <p>
+      Let me start by describing the application.  I’m writing it partly to scratch
+      an itch, and partly to learn a new framework.  Before I started, I had never
+      used Angular.js before.  I will say that the learning curve for Angular.js (at
+      least for me) is an “S” curve… easy to get started, then it gets harder to
+      advance, then it gets easier again.  I seem to have made it past the curve.  Personally, I
+      would put a lot of the blame on the documentation which, to my tastes, is a
+      bit too academic; terms like 
+      <em>transclude</em>
+      abound.  `nuff said.
+    </p>
+
+    <p>At the <a href="http://www.apache.org/foundation/">ASF</a> we have a board with 9 Directors, and a couple of hundred officers,
+give or take.  Every month, an agenda is created that 9 Directors review and
+50 plus officers contribute to.  The artifact is a single file, stored in
+subversion.  Essentially, a superset of the files you can find <a href="http://www.apache.org/foundation/board/calendar.html">posted
+here</a>.  The relevant
+additions include comments and pre-approvals.</p>
+
+    <p>As you might imagine, this many people updating a single file, many up to the
+end of the very end of deadline of the start of the meeting, we have
+conflicts.  To cope, I wrote a tool that allowed me to review individual
+reports one at a time, collect up comments and pre-approvals, and apply them
+automatically all at once.  In the “production” version of this application,
+the logic primarily resides on the server, and moving to the next report
+requires a round trip.</p>
+
+    <p>I’m currently rewriting it to move nearly all the logic to the client.  You
+can see the work in progress
+<a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/">here</a>.  </p>
+
+    <h3 id="guided-walkthrough-the-code">Guided walkthrough the code</h3>
+
+    <p>The application starts by
+downloading the agenda serialized in a pre-processed JSON format, as well as all of the
+“pending” operations, also serialized in JSON.  Both persist on the server as flat files.  Once
+downloaded, traversing to the next report is as easy and as seemless as using most
+of the HTML5 slide scripts (my current favorite of which is
+<a href="http://lab.hakim.se/reveal-js/#/">reveal.js</a>, but I digress).</p>
+
+    <p>As on the server, processing a page transition involves a router, and you can
+see my routing as a case statement at the top of
+<a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/js/app._js">app.js</a>.
+The syntax is Ruby, with a dash of DSL, and sprinkling of JavaScript
+semantics, but I’ll come back to that.</p>
+
+    <p>I also currently include all of the controller logic in the same file.  If you
+disapprove, blame me not Angular.js as you can break this out as you like.  As
+it stands, I have a few large controllers, and several small controllers.  As to the
+former, I intend to go back and refactor soonish.</p>
+
+    <p>This brings me to my primary beef with the Angular.js documentation.  It would
+have been helpful to me to be made aware of sooner that while a typical server
+application would have a single controller serve a dozen or even dozens of
+pages, a typical angular.js page will have several, or perhaps even dozens of
+controllers active at any one time.  But now you know this too, so you have a head start over where I was at but a few short weeks ago.</p>
+
+    <p>Back to the application.</p>
+
+    <p>A controller in Angular.js is associated with a DOM node, and therefore all of
+its children.  A controller associated with one of those child nodes inherits
+instance variables and methods from all controllers associated higher in the tree.
+A common pattern, therefore, would be to have a controller that controls only
+one button.  Such a controller would have access to everything in the
+enclosing form.</p>
+
+    <p>Let’s walk through an example.  One the pages in my application shows
+comments.  On that page is a button that toggles whether or not to show
+comments that you have seen before.  First, here’s the HTML markup for the
+button itself:</p>
+    <pre class="code"><span style="color:#070;font-weight:bold">&lt;button</span> 
+  <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">btn btn-primary</span><span style="color:#710">"</span></span>
+  <span style="color:#b48">ng-show</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">seen_comments</span><span style="color:#710">"</span></span> 
+  <span style="color:#b48">ng-controller</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">ToggleComments</span><span style="color:#710">"</span></span>
+  <span style="color:#b48">ng-click</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">click()</span><span style="color:#710">"</span></span>
+  <span style="color:#070;font-weight:bold">&gt;</span>{{ label }} seen<span style="color:#070;font-weight:bold">&lt;/button&gt;</span></pre>
+    <p>
+      The 
+      <code>class</code>
+      attribute references <a href="http://getbootstrap.com/css/#buttons">classes defined by Bootstrap</a>.
+    </p>
+
+    <p>The <code><a href="http://docs.angularjs.org/api/ng.directive:ngShow">ng-show</a></code> attribute indicates that this button is only to be shown if the
+value of <code>seen_comments</code> is <code>true</code>.  That value is set by a controller.</p>
+
+    <p>
+      As you might have figured out, the 
+      <code><a href="http://docs.angularjs.org/api/ng.directive:ngController">ng-controller</a></code>
+       attribute indicates which
+      controller is to handle this DOM Node.
+    </p>
+
+    <p>
+      Similarly, 
+      <code><a href="http://docs.angularjs.org/api/ng.directive:ngClick">ng-click</a></code>
+       indicates which method on that controller to invoke when
+      the button is clicked.
+    </p>
+
+    <p>Finally, the button contains a reference to a <code>label</code> variable that toggles
+between the values of <code>hide</code> and <code>show</code>.  With that, lets move on to the
+controller:</p>
+    <pre class="code">controller <span style="color:#A60">:ToggleComments</span> <span style="color:#080;font-weight:bold">do</span>
+  <span style="color:#33B">@label</span> = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">show</span><span style="color:#710">'</span></span>
+
+  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">click</span>
+    broadcast! <span style="color:#A60">:toggleComments</span>, (<span style="color:#33B">@label</span> == <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">show</span><span style="color:#710">'</span></span>)
+    <span style="color:#33B">@label</span> = (<span style="color:#33B">@label</span> == <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">show</span><span style="color:#710">'</span></span> ? <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">hide</span><span style="color:#710">'</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">show</span><span style="color:#710">'</span></span>)
+  <span style="color:#080;font-weight:bold">end</span>
+<span style="color:#080;font-weight:bold">end</span></pre>
+    <p>This code starts out by setting the instance variable <code>@label</code> to <code>show</code>.</p>
+
+    <p>
+      A single instance method named 
+      <code>click</code>
+       is defined which, when run, broadcasts
+      to every active controller a message containing a 
+      <code>true</code>
+      or 
+      <code>false</code>
+       value, and
+      then proceeds to toggle the value of the label.
+    </p>
+
+    <p>The important thing to be aware of by this point is that even if there were no
+other code in place, what you have seen is enough to toggle the text on the
+button.</p>
+
+    <p>Before proceeding, here is the corresponding JavaScript, exactly as it is
+produced verbatim, for those who are interested in such:</p>
+    <pre class="code">AsfBoardAgenda.controller(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">ToggleComments</span><span style="color:#710">"</span></span>, <span style="color:#080;font-weight:bold">function</span>(<span style="color:#369;font-weight:bold">$scope</span>, <span style="color:#369;font-weight:bold">$rootScope</span>) {
+  <span style="color:#369;font-weight:bold">$scope</span>.label = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">show</span><span style="color:#710">"</span></span>;
+
+  <span style="color:#369;font-weight:bold">$scope</span>.<span style="color:#06B;font-weight:bold">click</span> = <span style="color:#080;font-weight:bold">function</span>() {
+    <span style="color:#369;font-weight:bold">$rootScope</span>.<span style="color:#369;font-weight:bold">$broadcast</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">toggleComments</span><span style="color:#710">"</span></span>, <span style="color:#369;font-weight:bold">$scope</span>.label == <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">show</span><span style="color:#710">"</span></span>);
+    <span style="color:#369;font-weight:bold">$scope</span>.label = (<span style="color:#369;font-weight:bold">$scope</span>.label == <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">show</span><span style="color:#710">"</span></span> ? <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">hide</span><span style="color:#710">"</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20">show</span><span style="color:#710">"</span></span>)
+  }
+});</pre>
+    <p>The entire source for the <code>comments</code> view is found in
+<a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/partials/comments._html">partials/comments._html</a>.
+This contains not only the button you have seen already, but also another
+button.  Above these is text that shows up if there are no comments.  And
+above that, a loop that shows comments from selected agenda items.  Let’s dive
+into that selection:</p>
+    <pre class="code"><span style="color:#606">ng_if</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">item | show : {seen: pending.seen, toggle: toggle}</span><span style="color:#710">'</span></span></pre>
+    <p>This code takes the <code>item</code> and passes it through a filter called <code>show</code>,
+passing that filter a hash containing two values obtained from the relevant
+controller.  Here’s the definition of the filter itself:</p>
+    <pre class="code">filter <span style="color:#A60">:show</span> <span style="color:#080;font-weight:bold">do</span> |item, args|
+  <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span> <span style="color:#080;font-weight:bold">unless</span> item.comments
+  <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">true</span> <span style="color:#080;font-weight:bold">if</span> args.toggle
+  <span style="color:#080;font-weight:bold">return</span> args.seen[item.attach] != item.comments
+<span style="color:#080;font-weight:bold">end</span></pre>
+    <p>Pretty straightforward stuff:</p>
+
+    <ul>
+      <li>
+        No comment?  Return 
+        <code>false</code>
+        (i.e., don’t show).
+      </li>
+      <li>
+        Toggle on?   Return 
+        <code>true</code>
+        (i.e., do show).
+      </li>
+      <li>Otherwise return a value based on whether the comment is the same as the one
+previously seen.</li>
+    </ul>
+    <p>Now, let’s look at how values defined in the controller are set:</p>
+    <pre class="code">on <span style="color:#A60">:toggleComments</span> <span style="color:#080;font-weight:bold">do</span> |event, state|
+  <span style="color:#33B">@toggle</span> = state
+<span style="color:#080;font-weight:bold">end</span>
+
+show = filter(<span style="color:#A60">:show</span>)
+watch <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">agenda.update + pending.update</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">do</span>
+  <span style="color:#d70">$rootScope</span>.unseen_comments =
+    <span style="color:#33B">@agenda</span>.any? { |item| <span style="color:#080;font-weight:bold">return</span> show(item, <span style="color:#606">seen</span>: <span style="color:#33B">@pending</span>.seen) }
+  <span style="color:#d70">$rootScope</span>.seen_comments = !<span style="color:#036;font-weight:bold">Object</span>.keys(<span style="color:#33B">@pending</span>.seen).empty?
+<span style="color:#080;font-weight:bold">end</span></pre>
+    <p>
+      The 
+      <code>on</code>
+       statement responds to the broadcast that was shown above, and sets an
+      instance variable based on what was passed.
+      The 
+      <code>watch</code>
+       statement watches for changes in the value of an expression, and
+      when it changes it will recompute 
+      <code>unseen_comments</code>
+      and 
+      <code>seen_comments</code>
+       using
+      the exact same filter used in the view.  If you look closely, this code makes
+      use of 
+      <code>Object.keys</code>
+       which is part of the JavaScript object model, in the midst of a
+      Ruby expression.  There are
+      <a href="https://github.com/rubys/ruby2js#introduction">tradeoffs</a>
+       involved here, but
+      the key point here is that seemless access to the full JavaScript programming model is available.
+    </p>
+
+    <p>At this point, we’ve explored views and controllers (and routing and filters).
+Now let’s briefly touch on
+<a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/js/services._js">models</a>.  </p>
+
+    <p>A model in Angular.js is a simple class, and often a singleton in that all methods
+are class methods and all variables are class variables.  The <code>Agenda</code> class,
+for example, defines a <code>self.refresh</code> method that does a <code>$http.get</code>, and
+calls <code>Agenda.put</code> with the result it receives.  The point is that such 
+classes can contain arbitrary logic.</p>
+
+    <p>Two more stops on this brief tour.  First the entire controller for the other
+button on this page:</p>
+    <pre class="code">controller <span style="color:#A60">:MarkSeen</span> <span style="color:#080;font-weight:bold">do</span>
+  <span style="color:#33B">@disabled</span> = <span style="color:#069">false</span>
+  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">click</span>
+    <span style="color:#33B">@disabled</span> = <span style="color:#069">true</span>
+
+    <span style="color:#777"># gather up the comments</span>
+    seen = {}
+    <span style="color:#036;font-weight:bold">Agenda</span>.get().forEach <span style="color:#080;font-weight:bold">do</span> |item|
+      seen[item.attach] = item.comments <span style="color:#080;font-weight:bold">if</span> item.comments
+    <span style="color:#080;font-weight:bold">end</span>
+
+    data = { <span style="color:#606">seen</span>: seen, <span style="color:#606">agenda</span>: <span style="color:#036;font-weight:bold">Data</span>.get(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">agenda</span><span style="color:#710">'</span></span>) }
+
+    <span style="color:#d70">$http</span>.post(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">json/markseen</span><span style="color:#710">'</span></span>, data).success { |response|
+      <span style="color:#036;font-weight:bold">Pending</span>.put response
+    }.error { |data|
+      <span style="color:#d70">$log</span>.error data.exception + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20"></span><span style="color:#710">"</span></span> + data.backtrace.join(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">"</span><span style="color:#D20"></span><span style="color:#710">"</span></span>)
+      alert data.exception 
+    }.finally {
+      <span style="color:#33B">@disabled</span> = <span style="color:#069">false</span>
+    }
+  <span style="color:#080;font-weight:bold">end</span>
+<span style="color:#080;font-weight:bold">end</span></pre>
+    <p>
+      This code initially sets the button to 
+      <em>not disabled</em>
+       (inexplicably, the
+      Angular.js core team
+      <a href="https://github.com/angular/angular.js/issues/1252">refuses</a>
+      to define an
+      <code>ng_enabled</code>
+      attribute).
+    </p>
+
+    <p>When the button is clicked, the button itself is initially <em>disabled</em>.  Then
+the seen comments are then gathered up from the client model.  The name of the
+agenda file is added, and the result is serialized and sent to the server via
+a <code>$http.post</code>.</p>
+
+    <p>If a successful response is received, it the pending values are updated with
+the values from the server.  If an error is received, it is logged and an
+alert is shown.  Either way, the button is re-enabled.</p>
+
+    <p>Note the complete lack of direct reference to jQuery in any part of this
+scenario.  Angular.js will work well with jQuery if present, so that’s not an
+issue, but the point is that the framework will take care of the DOM
+manipulation so that you don’t have to.</p>
+
+    <p>The final stop on this brief, but wirlwhind, tour is the server side of this
+operation, namely
+<a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/json/markseen._json">markseen._json</a>:</p>
+    <pre class="code">pending = <span style="color:#036;font-weight:bold">Pending</span>.get
+
+pending[<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">agenda</span><span style="color:#710">'</span></span>] = <span style="color:#33B">@agenda</span>
+pending[<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">seen</span><span style="color:#710">'</span></span>] = <span style="color:#33B">@seen</span>
+
+<span style="color:#036;font-weight:bold">Pending</span>.put(pending)
+
+_! pending</pre>
+    <p>
+      This logic fetches the Pending model, updates to entries in the hash based on
+      data sent by the client, puts the model back, and then returns the updated
+      model (which generally contains other values which weren’t updated by this
+      specific operation) back to the client.  For completeness,
+      <a href="https://svn.apache.org/repos/infra/infrastructure/trunk/projects/whimsy/www/test/board/agenda/model/pending.rb">pending.rb</a>
+      contains the logic serializing and deserializing the server model (in this
+      case, using YAML).
+    </p>
+
+    <h3 id="recap">Recap</h3>
+
+    <p>We have a model, view, and controller on the client, seemlessly interacting
+with the model, view, and controller on the server.  Everything (except for
+a small stylesheet) is defined using Ruby syntax, and is converted to HTML,
+JavaScript, or directly executed as appropriate.  While I chose Ruby, other
+choices could obviously be made.  The Angular.js framework can also be used
+directly (and browing the generate JavaScript would help show you how to do this), at a cost
+of some additional learning curve (things like <em>dependency injection</em>, which are taken care of by my mapping filters for angular.js).</p>
+
+    <p>The point here being that there are good frameworks out there that do client side
+MVC.  These frameworks (quoting directly from Tim’s original post):</p>
+
+    <blockquote class="quote">
+      <p>embody[…] a lot of history and hard-won lessons. Crucially, for most of the
+ things you’d want to put in a UI, there’s usually a single canonical solid
+ well-debugged way to do it, which is the top result for the appropriate
+ question on both Google and StackOverflow.</p>
+    </blockquote>
+
+    <p>Finally, if you are interested in the Ruby code, you are encouraged to look
+into <a href="https://github.com/rubys/wunderbar">wunderbar</a>, it’s associated
+<a href="https://github.com/rubys/wunderbar/blob/master/docs/Introduction1.md">tutorial</a>,
+and <a href="https://github.com/rubys/ruby2js">ruby2js</a>.</p></div></content>
+    <updated>2014-01-09T23:45:05-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3322</id>
+    <link href="/blog/2013/12/06/Wunderbar-Tutorial"/>
+    <link rel="replies" href="3322.atom" thr:count="0"/>
+    <title>Wunderbar Tutorial</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M4,14h92" stroke="#4682b4" stroke-width="5"></path> 
+  <text x="50" y="90" font-size="90" fill="#5f9ea0" font-family="serif" text-anchor="middle"><![CDATA[W]]></text>
+</svg>
+<p>I’ve begun work on a <a href="https://github.com/rubys/wunderbar/blob/master/docs/Introduction1.md#introduction-part-1">Wunderbar tutorial</a>.</p>
+<p>Feedback welcome.</p></div></content>
+    <updated>2013-12-06T18:10:14-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3321</id>
+    <link href="/blog/2013/12/01/Angular-rb-update"/>
+    <link rel="replies" href="3321.atom" thr:count="3" thr:updated="2013-12-02T04:13:27-08:00"/>
+    <title>Angular.rb update</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="97" height="103" viewBox="0 0 97 103">
+  <path d='M48,0l-48,17l8,63l40,23l41-23l8-63z' fill='#B2B2B2'></path>
+  <path d='M92,20l-44-15v92l37-20z' fill='#B52E31'></path>
+  <path d='M5,21l7,56l36,20v-92z' fill='#E23237'></path>
+  <path d='M58,51l-10-21l-9,21zM62,60h-27l-6,15h-11l30-66l31,66h-10z' fill='#F2F2F2'></path>
+  <path d='M48,9v21l10,21h-10v9h14l7,15h10z' fill='#B2B2B2'></path>
+</svg>
+
+It does indeed turn out that <a href="https://github.com/rubys/ruby2js#filters">language macros</a> can reduce the amount of Angular.js <a href="https://github.com/angular/angular-phonecat/blob/step-11/app/js/services.js">boilerplate configuration</a> to a <a href="https://github.com/rubys/wunderbar/blob/master/demo/js/services._js">minimum</a>.  In the process I’ve spun off <a href="https://github.com/rubys/ruby2js#ruby2js">ruby2js</a> is a standalone supporting library.</div></content>
+    <updated>2013-12-01T07:26:09-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3320</id>
+    <link href="/blog/2013/11/11/Angular-rb"/>
+    <link rel="replies" href="3320.atom" thr:count="0"/>
+    <title>Angular.rb</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="97" height="103" viewBox="0 0 97 103">
+  <path d='M48,0l-48,17l8,63l40,23l41-23l8-63z' fill='#B2B2B2'></path>
+  <path d='M92,20l-44-15v92l37-20z' fill='#B52E31'></path>
+  <path d='M5,21l7,56l36,20v-92z' fill='#E23237'></path>
+  <path d='M58,51l-10-21l-9,21zM62,60h-27l-6,15h-11l30-66l31,66h-10z' fill='#F2F2F2'></path>
+  <path d='M48,9v21l10,21h-10v9h14l7,15h10z' fill='#B2B2B2'></path>
+</svg>
+
+<p>I’m looking into what it would take to make it easier to produce <a href="http://angularjs.org/">Angular.JS</a> client applications using a server coded in Ruby.  The approach I’m taking is to convert idiomatic Ruby into idiomatic AngularJS JavaScript.</p>
+<p><a href="https://github.com/rubys/wunderbar/blob/master/demo/angularjs.rb">Demo</a>.  Corresponds roughly to <a href="http://docs.angularjs.org/tutorial/step_04">tutorial step 4</a>.  <a href="http://intertwingly.net/stories/2013/11/11/angularjs.html">Example output</a>.  <a href="https://github.com/rubys/ruby2js/blob/master/spec/angularrb_spec.rb">Specs</a>.</p></div></content>
+    <updated>2013-11-11T12:16:16-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3319</id>
+    <link href="/blog/2013/11/04/Mavericks"/>
+    <link rel="replies" href="3319.atom" thr:count="1" thr:updated="2013-11-05T07:45:03-08:00"/>
+    <title>Mavericks</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="90" height="100" viewBox="0 0 90 100">
+  <path d='M62,0c2,10-9,24-20,24c-3-14,9-22,20-24M5,36c5-8,13-12,21-12c7,0,12,4,19,4c6,0,10-4,19-4c6,0,14,3,19,10c-16,4-15,35,3,39c-7,17-18,27-24,27c-7,0-8-5-17-5c-9,0-11,5-17,5c-7-1-13-7-17-13c-9-10-15-40-6-51' fill='#AAA'></path>
+</svg>
+<p>Did a clean install of Mavericks on my test mac-mini.  Things to be aware of for next time:</p>
+<pre class="code">xcode-select --install
+
+sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/ /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain
+
+sudo mkdir -p /usr/local/lib; sudo ln -s /usr/local/mysql/lib/libmysql* /usr/local/lib</pre></div></content>
+    <updated>2013-11-04T08:33:35-08:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3318</id>
+    <link href="/blog/2013/10/22/The-Pile-of-Poo-Test"/>
+    <link rel="replies" href="3318.atom" thr:count="5" thr:updated="2014-01-02T09:26:20-08:00"/>
+    <title>The Pile of Poo Test™</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="115" height="87" viewBox="0 0 115 87">
+  <path d="M0,1v83h26c-10,0-22-11-22-21v-62zM22,1v53c0,16,22,16,22,0v-53zM41,84c10,0,22-11,22-21v-22l27,43zM60,1h30v20h19v-20h5v84h-5v-56h-19v18z" fill="#C60025"></path>
+</svg>
+<a href="http://mathiasbynens.be/notes/javascript-unicode"><cite>Mathias Bynens</cite></a>: <em>Whenever you’re working on a piece of JavaScript code that deals with strings or regular expressions in some way, just add a unit test that contains a pile of poo (💩) in a string, and see if anything breaks. It’s a quick, fun, and easy way to see if your code supports astral symbols. Once you’ve found a Unicode-related bug in your code, all you need to do is apply the techniques discussed in this post to fix it.</em></div></content>
+    <updated>2013-10-22T06:20:25-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3317</id>
+    <link href="/blog/2013/10/04/Download-RESTful-Web-Services"/>
+    <link rel="replies" href="3317.atom" thr:count="1" thr:updated="2014-02-12T02:27:55-08:00"/>
+    <title>Download RESTful Web Services</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M10,90.1v-2h80V90.1zM10,70.1v-2h80V70.1zM10,50.1v-2h80V50.1zM10,30.1v-2h80V30.1zM10,10.1v-2h80V10.1z"></path>
+  <path d="M44.4,20.8c1.5,1.6,13,15.7,13,15.7s-6.4,6.1-6.4,12.5c0,7.5,8.6,14.3,8.6,14.3l-0.9,1.1c-3.3-1.9-8.9-2.1-11.4,0.8c-3.1,3.6,3.9,9.1,3.9,9.1l-0.8,1.1c-2.4-1.8-12.6-11.4-8.3-16.1c2.6-2.9,5.8-3.8,10.3-1.4l-12.1-12.5c7-8.6,8.2-11.1,8.2-13.4c0-4.8-3.4-8.2-5.1-10.4c-0.6-0.9-1.7-1.6-1-2.2C43.1,18.9,43.5,19.7,44.4,20.8z" fill="#F33"></path>
+</svg>
+<a href="http://www.crummy.com/2013/10/03/0"><cite>Leonard Richardson</cite></a>: <em>Hey, folks, I got some pretty exciting news. Now that RESTful Web APIs has come out, there’s really no reason to buy 2007’s <i>RESTful Web Services</i>. So Sam Ruby and I and O’Reilly have gotten together and started giving the old book away. You can get a PDF from <a href="http://restfulwebapis.org/rws.html">the RESTful Web APIs website</a> or from my now-ancient <a href="http://www.crummy.com/writing/RESTful-Web-Services/">RESTful Web Services</a> site. The license is <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">BY-NC-ND</a>.</em></div></content>
+    <updated>2013-10-04T05:20:41-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3316</id>
+    <link href="/blog/2013/09/22/Opal-looks-very-promising"/>
+    <link rel="replies" href="3316.atom" thr:count="1" thr:updated="2013-09-25T17:16:50-07:00"/>
+    <title>Opal looks very promising</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><a href="http://opalrb.org/">Opal</a> is a Ruby to JavaScript compiler.  The team working on it are not only working to bring access to JavaScript libraries (like jquery) but also to replicate Ruby library interfaces.  Walking through a <a href="https://gist.github.com/rubys/6660094">simple example</a>...</div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M4,14h92" stroke="#4682b4" stroke-width="5"></path> 
+  <text x="50" y="90" font-size="90" fill="#5f9ea0" font-family="serif" text-anchor="middle"><![CDATA[W]]></text>
+</svg>
+<p><a href="http://opalrb.org/">Opal</a> is a Ruby to JavaScript compiler.  The team working on it are not only working to bring access to JavaScript libraries (like jquery) but also to replicate Ruby library interfaces.  Walking through a <a href="https://gist.github.com/rubys/6660094">simple example</a>...</p>
+<p>This script defines two types of responses, HTML and JSON.</p>
+<p>The HTML response define a simple table and a script.  The script is defined in Ruby, but is converted to JavaScript before sending to the browser.  The script itself issues three HTTP request and updates individual cells in the table when it gets responses.</p>
+<p>Those requests produce JSON replies, depending on the individual field requested.  Both the client and server scripts in this example involve DOM traversal.  One uses JQuery style methods (<code>find</code>).  The other nokogiri (<code>at</code> and <code>search</code>).</p>
+<p>An alternative to <a href="https://github.com/opal/opal-jquery">opal-jquery</a> is <a href="https://github.com/opal/opal-browser">opal-browser</a>.  The latter provides a more Markaby/Nokogiri style interface to the DOM.</p>
+<p>To run: </p>
+<pre class="code">gem install wunderbar nokogumbo opal opal-jquery sourcify
+ruby watch.rb --port=3030</pre>
+<p>If your web server is set up to handle CGI, you can drop this script directly into your document directory and run it.  If you do so, the requests will all be handled in parallel.</p></div></content>
+    <updated>2013-09-22T07:02:01-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3315</id>
+    <link href="/blog/2013/09/05/Time-Warner-Cable-Update"/>
+    <link rel="replies" href="3315.atom" thr:count="1" thr:updated="2013-09-09T11:37:59-07:00"/>
+    <title>Time Warner Cable Update</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I finally debugged why my <a href="http://intertwingly.net/blog/2012/12/05/Time-Warner-Cables-idea-of-service">cable service was so poor</a>.  Long story short, an inexplicable 7dB drop in the incoming line, a bad arrangement of splitters, and another unexplained 7dB drop someplace in the house; , which leads to the following question:</p>
+<p>If Time Warner Cable is moving towards digital only service, shouldn’t they be providing enough signal strength to drive all of the devices in the house?</p></div></summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="108" height="93" viewBox="0 0 108 93">
+  <path d='M17,27c-3,3-5,6-10,11c-2,1-3,1-5,0c-4-4-2-7,8-17c11-11,24-19,36-20c13-2,30,1,43,11c7,6,15,14,19,21c-4,7-9,13-14,17c-5,5-11,8-16,10c-13,4-28,3-36-10c-2-4-2-8,0-12c2-5,8-9,13-9c4,0,9,2,11,7c1,2,1,6-1,8c-1,1-6,2-7-2c0-2-0-4-2-4c-4,0-7,3-6,8c1,3,4,6,11,7c3,0,7-1,11-6c3-4,3-11,0-15c-4-7-10-10-18-10c-9,0-17,5-21,14c-3,7-5,17,0,28c4,8,11,13,17,16c5,3,16,4,17,8c0,3-2,5-4,5c-17-3-31-11-37-25c-7-13-6-30,2-41c5-7,13-12,20-13c19-5,38,9,35,28c-1,3-2,6-4,8c0,1,0,1-1,1l2-1c7-4,13-10,17-17c-10-18-32-27-49-24c-14,2-23,10-31,18' fill='#0056a2'></path>
+</svg>
+<p>I finally debugged why my  cable service was so poor.  Long story short, an inexplicable 7dB drop in the incoming line, a bad arrangement of splitters, and another unexplained 7dB drop someplace in the house.</p>
+<p>Now for the long story:</p>
+<p>My troubles started when <a href="http://intertwingly.net/blog/2012/12/05/Time-Warner-Cables-idea-of-service">Time Warner Cable required me to install mini cable boxes to see the full set of channels that I had purchased</a>.  I went from a slightly grainy picture to a clear picture on some channels and intermittent digital encoding artifacts on others.  In most cases, slightly grainy was a marked improvement over digital encoding artifacts.  In fact, for some channels the result was essentially unwatchable - particularly channel 3 (CBS) and channel 4 (PBS).</p>
+<p>Two days ago, one television refused to show anything (what was shown was “Searching for Channels").  I started debugging by bypassing the box, and that worked, indicating that the cable wasn’t broken.  I then swapped equipment with another room, and the problem stayed with the television and not the box.</p>
+<p>Remembering that pressing "info” on the remote control would put the box in a debug mode, I found that the working televion showed -19.44 dB, and the failing television showed -20 dB.</p>
+<p>Putting a signal booster on the working televison addressed the digital artifact problem.  Putting the same signal booster on the failing television didn’t help.</p>
+<p>Working assumptions at this point: with non-digital signals, picture quality degrades linearly with signal strength.  With digital signals, viewability is more of a binary quality, and at -20dB the box simply refuses to show anything.</p>
+<p>And there is a point after which there isn’t enough signal to be boosted.</p>
+<p>Tracing back the line, it comes in from the street to a box, in that box there is both a 2 way splitter and a 4 way splitter, then it goes under the house and is split one final time before going to the two televisions in question.  I suspect that the final splitter was added by the builder and not by the cable company.  Similarly, I suspect that the additional 2 way splitter was added when we added a detached garage with a room on the second floor.</p>
+<p>I then tested the signal strength at the box (before any splitters), and I found +5.6dB.</p>
+<p>Based on <a href="https://www.youtube.com/watch?v=3wvAzjKxE_E">this video</a>, Time Warner should be providing me 10 to 15 dB.  So the signal strength is about a quarter of what I should be getting.  And I should be striving to get between 0 and 5 dB to each television.</p>
+<p>The first splitter cut that in half, and the second splitter cut that by a factor of 4.  The third splitter cut that by a factor of 2.  And signal loss along the line should be on the order of another factor of 2.</p>
+<p>That sounds like a lot, but in dB terms that’s about 18 dB of loss.  Starting with 5.6 and subtracting 18 leaves -12.4.  I am getting 7 less than that.</p>
+<p>Looking back at my splitters, the first splitter fed half of the stength to one line.  Tracing down that line, and that was to my cable modem.  While that’s clearly dear to me, I suspect that this ordering was done when I had problem with my cable modem dropping signal.  I since have replace the modem.</p>
+<p>Reordering the splitters so that 3 lines only go through the four way splitter and two (analog only) signals go through both means that 3 televisions get twice the signal they were before, and the cable modem gets half.</p>
+<p>Furthermore, replacing the final splitter with a signal booster means that the two televisions that were having problems now have positive signal strength.</p>
+<p>So far, no problem with Internet, and the immediate problem with my TV service has been addressed.</p>
+<p>Then again, I just got a notice today that four more channels will require a cable box, which leads to the following question:</p>
+<p>If Time Warner Cable is moving towards Digital Only service, shouldn’t they be providing enough signal strength to drive all of the devices in the house?</p></div></content>
+    <updated>2013-09-05T17:45:50-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3314</id>
+    <link href="/blog/2013/08/15/Ruby-bindings-for-Gumbo-HTML5-parser"/>
+    <link rel="replies" href="3314.atom" thr:count="2" thr:updated="2013-08-20T13:43:23-07:00"/>
+    <title>Ruby bindings for Gumbo HTML5 parser</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns='http://www.w3.org/2000/svg' width="94" height="106" viewBox="0 0 94 106">
+  <path d='M11,94l-9-91h90l-8,91l-37,10' fill='#E44D26'></path>
+  <path d='M47,97l30-9l7-78h-37' fill='#F16529'></path>
+  <path d='M47,44h-15l-1-11h16v-12h-28l3,34h25M47,73l-12.5-3l-1-9h-11l1.5,18l23,6' fill='#EBEBEB'></path>
+  <path d='M47,44v11h14l-1,15l-13,3v12l23-6l3-35M47,21v12h27l1-12' fill='#FFF'></path>
+</svg>
+<p><a href="http://google-opensource.blogspot.com/2013/08/gumbo-c-library-for-parsing-html.html"><cite>Jonathan Tang</cite></a>: <em>We’re pleased to announce the open source release of the <a href="https://github.com/google/gumbo-parser">Gumbo HTML parser</a>, a C implementation of the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#parsing">HTML5 parsing algorithm</a>.</em></p>
+<p>I’ve <a href="https://github.com/rubys/gumbo-parser/tree/master/ruby#readme">posted</a> a proof of concept Ruby binding to github.</p></div></content>
+    <updated>2013-08-15T11:06:47-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3313</id>
+    <link href="/blog/2013/05/20/Prosody-as-a-personal-xmpp-server"/>
+    <link rel="replies" href="3313.atom" thr:count="7" thr:updated="2013-11-15T23:29:48-08:00"/>
+    <title>Prosody as a personal xmpp server</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <rect height='49' width='49' x='0' y='0' rx="13" fill='#6197df'></rect>
+  <rect height='49' width='49' x='0' y='51' rx="13" fill='#f29b00'></rect>
+  <rect height='49' width='49' x='51' y='0' rx="13" fill='#f29b00'></rect>
+  <rect height='49' width='49' x='51' y='51' rx="13" fill='#6197df'></rect>
+</svg>
+<p>Nearly six years ago, I set up a <a href="http://intertwingly.net/blog/2007/08/07/Personal-Jabber-Server">personal Jabber server</a> using ejabberd.  This setup survived the server migration to Ubuntu 8.04 and 10.04.  This past weekend, I attempted to migrate that to a server running 12.04 and all I could get out of it was an erlang crash dump.</p>
+<p>A quick scan for successors turned up <a href="http://prosody.im/">prosody</a>. Configuration was as simple as adding a <code>VirtualHost</code> and setting <code>allow_registration</code> to <code>true</code>.</p></div></content>
+    <updated>2013-05-20T10:29:35-07:00</updated>
+  </entry>
+
+  <entry>
+    <id>tag:intertwingly.net,2004:3312</id>
+    <link href="/blog/2013/03/29/Cooking-with-Chef"/>
+    <link rel="replies" href="3312.atom" thr:count="0"/>
+    <title>Cooking with Chef</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><svg style="float:right" xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink" width="105" height="95" viewBox="0 0 105 95">
+  <path d="M29,34s6-2,6,5l8-12s-7,1,-6-5" fill="#f7681a"></path>
+  <rect x="35" y="27" width="68" height="67" fill="#f7681a" rx="8"></rect>
+  <circle cx="20" cy="19" r="12" stroke="#f7681a" fill="none" stroke-width="11"></circle>
+  <ellipse cx="70" cy="61" rx="20" ry="21" stroke="#FFF" fill="none" stroke-width="12"></ellipse>
+  <path d="M97,37l-23,23l23,24z" fill="#f7681a"></path>
+</svg>
+<p>It didn’t take long for me to outgrow using <a href="https://github.com/rubys/awdwr/blob/072a9888a80979dc4793bfd058544e72c55ebdbd/vagrant/bootstrap.sh">a shell script</a> for deployment.  The new chef solo <a href="https://github.com/rubys/awdwr/tree/master/vagrant/cookbooks/awdwr/recipes">recipes</a> are considerably more verbose, but can be updated and rerun many times.</p>
+<p>My usage is undoubtedly more idiomatic Ruby than idiomatic Chef, and I’m not tapping into the vast <a href="http://docs.opscode.com/essentials_cookbooks.html">Chef ecosystem</a>, but I can now provision a new virtual machine for running tests in under 3 minutes.</p></div></content>
+    <updated>2013-03-29T12:03:52-07:00</updated>
+  </entry>
+
+</feed>
+

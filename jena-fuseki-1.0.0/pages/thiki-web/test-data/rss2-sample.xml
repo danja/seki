@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>Feed Title</title>
+ <description>Feed subtitle</description>
+ <link>http://www.example.com/main.html</link>
+ <lastBuildDate>Mon, 06 Sep 2010 00:01:00 +0000 </lastBuildDate>
+ <pubDate>Sun, 06 Sep 2009 16:20:00 +0000</pubDate>
+<webMaster>john@gmail.com</webMaster>
+
+ <item>
+  <title>Entry 1</title>
+  <description><![CDATA[<p>Entry 1 content</p>]]></description>
+  <link>http://example.org/entry1</link>
+  <guid>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</guid>
+  <pubDate>Mon, 07 Sep 2009 16:20:00 +0000</pubDate>
+<author>john@doe.com</author>
+ </item>
+
+ <item>
+  <title>Entry 2</title>
+  <description><![CDATA[<p>Entry 2 content <a href="http://example.com">with a link</a></p>]]></description>
+  <link>http://example.org/entry2</link>
+  <guid>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</guid>
+  <pubDate>Tue, 08 Sep 2009 16:20:00 +0000</pubDate>
+<dc:creator><![CDATA[JohnDoe]]></dc:creator>
+ </item>
+</channel>
+</rss>

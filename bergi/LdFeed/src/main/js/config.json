@@ -1,0 +1,17 @@
+{
+  "sparqlEndpoint": "http://localhost:3030/ds/update",
+  "feeds": [
+    {
+      "url": "http://feeds.bergnet.org/canon-rumors/",
+      "xmlUrl": "http://www.canonrumors.com/feed/",
+      "idRegExp": "[0-9]*$",
+      "lastUpdate": "Sun, 30 Jun 2013 13:25:21 GMT"
+    },
+    {
+      "url": "http://feeds.bergnet.org/heise-developer/",
+      "xmlUrl": "http://www.heise.de/developer/rss/news-atom.xml",
+      "idRegExp": "[0-9]*$",
+      "lastUpdate": "Sun, 30 Jun 2013 07:12:00 GMT"
+    }
+  ]
+}

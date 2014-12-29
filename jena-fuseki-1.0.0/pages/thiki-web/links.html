@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>NewsMonitor Links</title>
+   
+   <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/css/common.css">
+
+   <!-- link rel="stylesheet" href="/css/themes/base/jquery.ui.all.css" -->
+
+        <script src="/js/jquery-1.10.2.js"></script>
+        <!--  script src="/js/ui/jquery-ui.js"></script -->
+        
+        <script src="/js/jquery-migrate-1.2.1.js"></script>
+   
+   <script type="text/javascript" language="javascript">
+   
+var sparqlQueryEndpoint = "http://localhost:3030/feedreader/query?query=";
+
+var getLinksSparql = "	    PREFIX rss: <http://purl.org/rss/1.0/> \n\
+	    PREFIX dcterms:<http://purl.org/dc/terms/> \n\
+		PREFIX foaf:<http://xmlns.com/foaf/0.1/> \n\
+		PREFIX schema:<http://schema.org/> \n\
+		PREFIX nm: <http://purl.org/stuff/newsmonitor/> \n\
+\n\
+		SELECT DISTINCT * WHERE { \n\
+\n\
+		   GRAPH ?g { \n\
+		      ?link a nm:Link . \n\
+		      OPTIONAL { ?link nm:origin ?origin . } \n\
+			  OPTIONAL { ?link nm:label ?label . } \n\
+		      OPTIONAL { ?link nm:href ?href . } \n\
+		      OPTIONAL { ?link nm:responseCode ?responseCode . } \n\
+		      OPTIONAL { ?link nm:rel ?rel . } \n\
+		      OPTIONAL { ?link nm:format ?format . } \n\
+		      OPTIONAL { ?link nm:contentType ?contentType . } \n\
+		      OPTIONAL { ?link nm:explored ?explored . } \n\
+		      OPTIONAL { ?link nm:relevance ?relevance . } \n\
+		   } \n\
+		} \n\
+ORDER By DESC(?relevance) DESC(?explored)\n\
+LIMIT 30\n\
+";
+
+console.log(getLinksSparql);
+    
+var getLinksUrl = sparqlQueryEndpoint + encodeURIComponent(getLinksSparql) + "&output=xml";
+	
+    $(function() {
+    	var $loading = $('#spinner').hide();
+    	jQuery.ajaxSetup({
+    		  beforeSend: function() {
+    		     $('#spinner').show();
+    		  },
+    		  complete: function(){
+    		     $('#spinner').hide();
+    		  },
+    		  success: function() {}
+    		});
+    	
+      getLinks();
+    });
+    	
+    	function getLinks() {
+    	//	$.get(url, function(xml) {
+    			$.ajax({
+    				url: getLinksUrl, 
+    				accept: {
+    						  xml: 'application/xml;charset=UTF-8',
+    						  sparql: 'sparql-results+xml;charset=UTF-8'
+    						  },
+    				headers: { // belt and braces
+    						        'Accept':'sparql-results+xml;charset=UTF-8'
+    						     //   'Accept-Charset': 'UTF-8' unsafe
+    						        }
+    				
+    			}).done(function(xml) {
+    		
+    			var xmlString = (new XMLSerializer()).serializeToString(xml);
+
+    			// workaround for wrong interpretation of charset
+    			xmlString = xmlString.replace(/[^\u0000-\u007F]/g, '');
+    			// maybe force to ISO-8859-1, also known as Latin-1 instead?
+    	
+    				var $xml = $(xmlString);
+					var rows = "";
+					
+    				$xml.find("result").each(function() {
+    					// $('#results').html($(this));
+    					var href, origin, label, rel, responseCode, format, contentType, explored, relevance;
+    					
+    					$(this).find("binding[name='href']").each(function() {
+    						href = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='origin']").each(function() {
+    						origin = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='label']").each(function() {
+    						label = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='rel']").each(function() {
+    						rel = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='responseCode']").each(function() {
+    						responseCode = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='format']").each(function() {
+    						format = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='contentType']").each(function() {
+    						contentType = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='explored']").each(function() {
+    						explored = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='relevance']").each(function() {
+    						relevance = $(this).text().trim();
+    					});
+    					
+    					
+    					rows += generateLinkRow(href, origin, label, rel, responseCode, format, contentType, explored, relevance);
+    				});
+    				 $("#links").replaceWith(rows);
+    				//  $("table").colResizable();
+    			});
+    	}
+    	
+    	function generateLinkRow(href, origin, label, rel, responseCode, format, contentType, explored, relevance) {
+    		var row = "<tr>";
+    		
+    		// binaries etc.
+    		if(ignoreLink(href)) {
+    			return;
+    		}
+    		if(origin != null) {
+      		   row += "<td class=\"center\"><a href=\""+origin+"\" title=\""+origin+"\"><img src=\"images\\feed-icon-14x14.png\" /></td>";
+      		} else {
+      			row += "<td class=\"center\">-</td>";
+      		}
+    		if(href != null) {
+    			var hrefLabel = href;
+     		   if(href.length > 50) {
+    			   hrefLabel = href.substring(0, 47) + "...";
+    		   } 
+    			row += "<td><a href=\""+href+"\">"+hrefLabel+"</a></td>";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		if(label != null) {
+    		   if(label.length > 50) {
+    			   label = label.substring(0, 47) + "...";
+    		   }
+    		   row += "<td class=\"center\">"+label+"</td>";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+//     		if(responseCode != null && responseCode != "0") {
+//      		   row += "<td class=\"center\">"+responseCode+"</td>";
+//      		} else {
+//      			row += "<td class=\"center\">-</td>";
+//      		}
+    		if(rel != null) {
+     		   row += "<td class=\"center\">"+rel+"</td>";
+     		} else {
+     			row += "<td class=\"center\">-</td>";
+     		}
+    		if(format != null) {
+    			row += "<td class=\"center\">"+format+"</td>";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+//     		if(contentType != null) {
+//     			row += "<td class=\"center\">"+contentType+"</td>";
+//     		} else {
+//     			row += "<td class=\"center\">-</td>";
+//     		}
+    		if(explored != null) {
+    			row += "<td class=\"center\">"+explored+"</td>";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		if(relevance != null && explored == "true") {
+    			var value = parseFloat(relevance);
+    			value = value.toPrecision(3);
+    			row += "<td class=\"center\">"+value+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		row += "</tr>\n";
+    		return row;
+    	}
+    	
+    	function ignoreLink(href) {
+    		if(href == null || href == "") return true;
+    		// common HTML suffixes
+    		if(endsWith(href, ".txt") || endsWith(href, ".html") || endsWith(href, ".html")) return false;
+    		// common feed/RDF suffixes
+    		if(endsWith(href, ".rss") || endsWith(href, ".rdf") || endsWith(href, ".atom") || endsWith(href, ".xml") || endsWith(href, ".foaf") || endsWith(href, ".doap") || endsWith(href, ".ttl")) {
+    			return false;
+    		}
+    		// could be anything
+    		if(endsWith("/")) return false;
+    		
+    		// check for whole word at end
+    		var split = href.split("/");
+    	//	console.log("REF = "+href);
+    	//	console.log("split = "+split);
+    		if(split.length > 1) { // ?? should have http:// in them
+    			var last = split[split.length -1];
+    			if(last.indexOf(".") == -1) return false;
+    		}
+    		return true;
+    	}
+    	
+    	function endsWith(str, suffix) {
+			if(str == null || suffix == null) return false;
+    	    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    	}
+    	
+</script>
+
+</head>
+
+<body>
+<!--  div class="container" -->
+
+<table  id="linksTable" class="table table-bordered">
+<tr><th colspan="8" class="center"><a href="/index.html">NewsMonitor</a> Links</th></tr>
+<tr>
+  <th class="center">Origin</th>
+  <th class="center">URL</th>
+  <th class="center">Label</th> 
+  <!--  th class="center">Response Code</th --> 
+  <th class="center">Rel</th> 
+  <th class="center">Format</th> 
+  <!--  th class="center">Content Type</th --> 
+  <th class="center">Explored</th> 
+  <th class="center">Relevance</th> 
+</tr>
+<tr id="links"></tr>
+  </table>
+  
+    <div id="spinner" class="spinner"></div> 
+</body>
+</html>

@@ -1,0 +1,203 @@
+
+# https://web.archive.org/web/20080820050452/http://storybook.intertec.ch/?
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix sb: <http://purl.org/stuff/storybook/> .
+
+<http://purl.org/stuff/storybook/>
+    dcterms:title "StoryBook Ontology Namespace"@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    a owl:Ontology, owl:Thing ;
+    owl:versionInfo "Revision: 1.0.0" .
+
+###         ###
+### Classes ###
+###         ###
+
+# *** Top-level constructs **
+
+sb:Structure
+    a owl:Class, rdfs:Class ;
+#    rdfs:comment "An area in which content Items are contained."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+#   rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:ConceptualStructure
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Structure ;
+    rdfs:comment "An area in which content Items are contained."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:DocumentStructure
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Structure ;
+    rdfs:comment "An area in which content Items are contained."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:Entity
+    a owl:Class, rdfs:Class ;
+#    rdfs:comment "An area in which content Items are contained."@en ;
+#    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> .
+#   rdfs:label "Container"@en .
+#    owl:disjointWith sb:Character .
+
+# *** Conceptual Structures ***
+
+sb:Plot 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Structure ;
+    rdfs:comment "An area in which content Items are contained."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:PlotPhase
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Structure ;
+    rdfs:comment "An area in which content Items are contained."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:MetaPlot 
+    a owl:Class, rdfs:Class ;
+    rdfs:comment "An area in which content Items are contained."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:BasicPlot 
+    a owl:Class, rdfs:Class ;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+sb:Scene 
+    a owl:Class, rdfs:Class ;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+    owl:disjointWith sb:Character .
+
+# *** Entities ***
+
+sb:Character 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Entity ;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+
+sb:StockCharacter 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Entity, sb:Character ;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+
+sb:Location 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:Entity;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> ;
+    rdfs:label "Container"@en .
+
+# Document Structures
+sb:Section 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:DocumentStructure, sb:Structure;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> .
+
+sb:Chapter 
+    a owl:Class, rdfs:Class ;
+	rdfs:subClassOf sb:DocumentStructure, sb:Structure;
+    rdfs:label "Basic Plot"@en .
+    rdfs:comment "A basic plot as propsed by Christopher Booker."@en ;
+    dcterms:description """A vocabulary for representing written content."""@en ;
+    dc:source <http://en.wikipedia.org/wiki/The_Seven_Basic_Plots> ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> .
+
+###            ###
+### Properties ###
+###            ###
+
+sb:boundTo
+    a owl:ObjectProperty ;
+    rdfs:comment "Associates one thing with another."@en ;
+    rdfs:label "bound to"@en ;
+    dcterms:description """Indicates a tight connection between resources."""@en ;
+    rdfs:domain rdf:Resource, owl:Thing ;
+    rdfs:range rdf:Resource, owl:Thing ;
+    rdfs:isDefinedBy <http://purl.org/stuff/storybook/> .
+
+# dc:hasPart? meriology vocab?
+
+sioc:subject
+    a owl:DatatypeProperty, owl:DeprecatedProperty ;
+    rdfs:comment "Keyword(s) describing subject of the Post."@en ;
+    rdfs:domain sioc:Post ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/ns#> ;
+    rdfs:label "subject"@en ;
+    rdfs:range rdfs:Literal ;
+    owl:versionInfo "This property is deprecated. Use dcterms:subject from the Dublin Core ontology for text keywords and sioc:topic if the subject can be represented by a URI instead." .
+
+sioc:reply_of
+    a owl:ObjectProperty ;
+    rdfs:comment "Links to an Item or Post which this Item or Post is a reply to."@en ;
+    rdfs:domain sioc:Item ;
+    rdfs:isDefinedBy <http://rdfs.org/sioc/ns#> ;
+    rdfs:label "reply of"@en ;
+    rdfs:range sioc:Item ;
+    rdfs:subPropertyOf sioc:related_to ;
+    owl:inverseOf sioc:has_reply .
+
+# http://en.wikipedia.org/wiki/List_of_stock_characters
+#sioc:has_administrator
+#    a owl:ObjectProperty ;
+#    rdfs:comment "A UserAccount that is an administrator of this Site."@en ;
+#    rdfs:domain sioc:Site ;
+#    rdfs:isDefinedBy <http://rdfs.org/sioc/ns#> ;
+#    rdfs:label "has administrator"@en ;
+#    rdfs:range sioc:UserAccount ;
+#    owl:inverseOf sioc:administrator_of .
+
+

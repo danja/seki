@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Admin</title>
+     <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/common.css">
+   <link rel="stylesheet" href="css/admin.css">
+   <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+   
+    <link rel="stylesheet" href="css/themes/base/jquery.ui.all.css">
+    
+  <script src="/js/ui/jquery-ui.js"></script>
+  
+   <script type="text/javascript" language="javascript">
+   
+var sparqlQueryEndpoint = "http://localhost:3030/feedreader/query?query=";
+
+var getFeedsSparql = "PREFIX rss: <http://purl.org/rss/1.0/> \n\
+PREFIX dcterms: <http://purl.org/dc/terms/> \n\
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n\
+PREFIX schema: <http://schema.org/> \n\
+PREFIX nm: <http://purl.org/stuff/newsmonitor/> \n\
+\n \
+SELECT DISTINCT * WHERE { \n\
+	GRAPH ?g { \n\
+      ?channel a rss:channel . \n\
+      OPTIONAL { ?channel dcterms:title ?title } \n\
+      OPTIONAL { ?channel nm:htmlUrl ?htmlUrl } \n\
+      # admin \n\
+      OPTIONAL { ?channel nm:responseCode ?responseCode . } \n\
+      OPTIONAL { ?channel nm:format ?format . } \n\
+      OPTIONAL { ?channel nm:contentType ?contentType . } \n\
+      OPTIONAL { ?channel nm:relevance ?relevance . } \n\
+      OPTIONAL { ?channel nm:favourite ?favourite . } \n\
+      OPTIONAL { ?channel nm:dead ?dead . } \n\
+      OPTIONAL { ?channel nm:lives ?lives . } \n\
+      OPTIONAL { ?channel nm:volatile ?wolatile . } \n\
+} \n\
+} \n\
+ORDER BY DESC(?relevance)\n";
+
+console.log(getFeedsSparql);
+    
+var getFeedsUrl = sparqlQueryEndpoint + encodeURIComponent(getFeedsSparql) + "&output=xml";
+	
+    $(function() {
+    	var $loading = $('#spinner').hide();
+    	jQuery.ajaxSetup({
+    		  beforeSend: function() {
+    		     $('#spinner').show();
+    		  },
+    		  complete: function(){
+    		     $('#spinner').hide();
+    		  },
+    		  success: function() {}
+    		});
+    	
+      getFeeds();
+    });
+    	
+    	
+    	function getFeeds() {
+    	//	$.get(url, function(xml) {
+    			$.ajax({
+    				url: getFeedsUrl, 
+    				accept: {
+    						  xml: 'application/xml;charset=UTF-8',
+    						  sparql: 'sparql-results+xml;charset=UTF-8'
+    						  },
+    				headers: { // belt and braces
+    						        'Accept':'sparql-results+xml;charset=UTF-8'
+    						     //   'Accept-Charset': 'UTF-8' unsafe
+    						        }
+    				
+    			}).done(function(xml) {
+    		
+    			var xmlString = (new XMLSerializer()).serializeToString(xml);
+
+    			// workaround for wrong interpretation of charset
+    			xmlString = xmlString.replace(/[^\u0000-\u007F]/g, '');
+    			// maybe force to ISO-8859-1, also known as Latin-1 instead?
+    	
+    				var $xml = $(xmlString);
+					var rows = "";
+					
+    				$xml.find("result").each(function() {
+    					// $('#results').html($(this));
+    					var channel, title, format, contentType, htmlUrl, responseCode, dead, lives, relevance;
+    					
+    					$(this).find("binding[name='channel']").each(function() {
+    						channel = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='title']").each(function() {
+    						title = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='format']").each(function() {
+    						format = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='contentType']").each(function() {
+    						contentType = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='htmlUrl']").each(function() {
+    						htmlUrl = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='responseCode']").each(function() {
+    						responseCode = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='dead']").each(function() {
+    						dead = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='lives']").each(function() {
+    						lives = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='relevance']").each(function() {
+    						relevance = $(this).text().trim();
+    					});
+
+    					var feedRow = generateFeedRow(channel, title, htmlUrl, format, contentType, dead, lives, relevance);
+    					// $("#feeds").append("$("+feedRow+")");
+    					rows += feedRow;
+    				});
+    			//	console.log(rows);
+    				 $("#feeds").replaceWith(rows);
+    			});
+    			
+    	}
+    	
+    	function generateFeedRow(channel, title, htmlUrl, format, contentType, dead, lives, relevance) {
+    		// console.log("channel = "+channel);
+    		// console.log("title = "+title);
+    		// console.log("htmlUrl ="+htmlUrl);
+    		var row = "<tr>\n";
+    		if(htmlUrl != null && title != null) {
+    			row += "<td><a href=\""+htmlUrl+"\">"+title+"</a></td>\n";
+    			row += "<td><a href=\""+channel+"\">" + channel + "</a></td>\n";
+    		}
+    		if(htmlUrl == null && title != null) {
+    			row += "<td>"+title+"</td>\n";
+    			row += "<td><a href=\""+channel+"\">" + channel + "</a></td>\n";
+    		}
+    		if(htmlUrl != null && title == null) {
+    			row += "<td><a href=\""+htmlUrl+"\"><em>Link</em></a></td>\n";
+    			row += "<td><a href=\""+channel+"\">" + channel + "</a></td>\n";
+    		}
+
+    		if(format != null) {
+    			row += "<td class=\"center\">"+format+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}  
+    		if(contentType != null) {
+    			row += "<td class=\"center\">"+contentType+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}  
+    		if(dead != null) {
+    			row += "<td class=\"center\">"+dead+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		if(lives != null) {
+    			row += "<td class=\"center\">"+lives+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		if(relevance != null) {
+    			var value = parseFloat(relevance);
+    			value = value.toPrecision(3);
+    			row += "<td class=\"center\">"+value+"</td>\n";
+    		} else {
+    			row += "<td class=\"center\">-</td>";
+    		}
+    		row += "</tr>\n";
+    		return row;
+    	}
+    	
+
+    	///////// buttons/dialogs
+    	
+$(function() {
+	
+	$( "#dialog-done-add-feed" ).dialog({
+		autoOpen: false,
+	modal: true,
+	buttons: {
+			Ok: function() {
+		$( this ).dialog( "close" );
+			}
+	}
+	});
+    	
+		$("#addFeedButton").on("click", function() {
+			var feedUrl = $("#addFeedUrl").val();
+			console.log("add feed : "+feedUrl);
+    		var sparqlUpdateEndpoint = "http://localhost:3030/feedreader/update";
+			
+    		var addFeedSparql = "update=PREFIX rss: <http://purl.org/rss/1.0/> \n\
+    			\n\
+    			INSERT DATA { \n<"+feedUrl+"> a rss:channel .\n}\n";
+    			
+    		$.ajax({
+  			  type: "POST",
+  			  url: sparqlUpdateEndpoint,
+  			  data: addFeedSparql
+  			})
+  			  .done(function( msg ) {
+  				$("#addFeedButton").reset();
+  				  $("#dialog-done-add-feed").dialog("open");
+  			  });
+		});
+		
+    	$("#deleteEntriesButton").on("click", function() {
+			$("#dialog-confirm-delete-entries").dialog("open");
+		});
+    	
+    	$("#deleteAllButton").on("click", function() {
+			$("#dialog-confirm-delete-all").dialog("open");
+			
+		});
+    	
+	    $( "#dialog-confirm-delete-entries" ).dialog({
+	      autoOpen: false,
+	      resizable: false,
+	      height:140,
+	      modal: true,
+	      buttons: {
+	        "Delete": function() {
+	          $( this ).dialog( "close" );
+	          deleteAllEntries();
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+    
+	    $( "#dialog-done-delete-entries" ).dialog({
+	    	  autoOpen: false,
+		      modal: true,
+		      buttons: {
+		        Ok: function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+	//  });
+    	
+	    $( "#dialog-confirm-delete-all" ).dialog({
+		      autoOpen: false,
+		      resizable: false,
+		/*     height:140, */ 
+		      modal: true,
+		      buttons: {
+		        "Delete": function() {
+		          $( this ).dialog( "close" );
+		          deleteAll();
+		        },
+		        Cancel: function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+	    
+		    $( "#dialog-done-delete-all" ).dialog({
+		    	  autoOpen: false,
+			      modal: true,
+			      buttons: {
+			        Ok: function() {
+			          $( this ).dialog( "close" );
+			          location.reload(true); 
+			        }
+			      }
+			    });
+		  });
+    	
+    	function deleteAllEntries() {
+    		// console.log("delete all");
+    		var sparqlUpdateEndpoint = "http://localhost:3030/feedreader/update";
+
+    		var deleteEntriesSparql = "update=PREFIX schema: <http://schema.org/> \n\
+    			\n\
+    			DELETE {  GRAPH ?g { ?entry ?p ?o }} \n\
+    			INSERT {} \n\
+    			WHERE { \n\
+    			      GRAPH ?g { \n\
+    			         ?entry a schema:article ; \n\
+    			               ?p ?o \n\
+    			} \n\
+    			}";
+
+    		// console.log(sparql);
+    		    
+    		// var deleteEntriesUrl = sparqlUpdateEndpoint + encodeURIComponent(getFeedsSparql) + "&output=xml";
+    		
+    		$.ajax({
+    			  type: "POST",
+    			  url: sparqlUpdateEndpoint,
+    			  data: deleteEntriesSparql
+    			})
+    			  .done(function( msg ) {
+    				  $("#dialog-done-delete-entries").dialog( "open" );
+    			  });
+    	}
+    	
+    	function deleteAll() {
+    		// console.log("delete all");
+    		var sparqlUpdateEndpoint = "http://localhost:3030/feedreader/update";
+
+    		var deleteEntriesSparql = "update=PREFIX schema: <http://schema.org/> \n\
+    			\n\
+    			DELETE {  GRAPH ?g { ?s ?p ?o }} \n\
+    			INSERT {} \n\
+    			WHERE { \n\
+    			      GRAPH ?g { \n\
+    			         ?s ?p ?o \n\
+    			} \n\
+    			}";
+
+    		// console.log(sparql);
+    		    
+    		// var deleteEntriesUrl = sparqlUpdateEndpoint + encodeURIComponent(getFeedsSparql) + "&output=xml";
+    		
+    		$.ajax({
+    			  type: "POST",
+    			  url: sparqlUpdateEndpoint,
+    			  data: deleteEntriesSparql
+    			})
+    			  .done(function( msg ) {
+    				  $("#dialog-done-delete-all").dialog( "open" );
+    			  });
+    	}
+    	
+</script>
+
+</head>
+
+<body>
+<h1><a href="/index.html">NewsMonitor</a> Admin</h1>
+
+<p>
+   <input type="button" id="deleteEntriesButton" value="Delete all Entries" />
+   <input type="button" id="deleteAllButton" value="Delete all Data" />
+</p>
+<p>
+   <input type="button" id="addFeedButton" value="Add Feed" />
+   <input type="text" id="addFeedUrl" value="http://" size="60"/>
+</p>
+
+
+
+<table>
+<tr><th colspan="7" class="center">Feeds</th></tr>
+<tr>
+  <th>Source</th>
+  <th>Feed</th> 
+  <th>Format</th> 
+  <th>Content Type</th> 
+  <th>Dead</th> 
+  <th>Lives</th> 
+  <th>Relevance</th> 
+</tr>
+<tr id="feeds"></tr>
+  </table>
+  
+    <div id="spinner" class="spinner"></div> <!--   img src="/css/spinner.gif" / -->
+   
+<div id="dialog-confirm-delete-entries" title="Delete all entries?">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+  Entries will be deleted until next cycle. Are you sure?</p>
+</div>
+
+<div id="dialog-done-delete-entries" title="Done">
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    All entries deleted.
+</div>
+
+<div id="dialog-done-add-feed" title="Done">
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    Feed added.
+</div>
+
+<div id="dialog-confirm-delete-all" title="Delete all data?">
+   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+  Data will be permanently deleted. Are you sure?
+  </p>
+</div>
+
+<div id="dialog-done-delete-all" title="Done">
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    All data deleted.
+</div>
+
+</body>
+</html>

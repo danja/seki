@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?><feed
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:thr="http://purl.org/syndication/thread/1.0"
+  xml:lang="en"
+  xml:base="http://aabs.wordpress.com/wp-atom.php"
+  xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"  >
+	<title type="text">The Wandering Glitch</title>
+	<subtitle type="text">Simplex Sigillum Veri</subtitle>
+
+	<updated>2014-05-28T20:56:31Z</updated>
+
+	<link rel="alternate" type="text/html" href="http://aabs.wordpress.com" />
+	<id>http://aabs.wordpress.com/feed/atom/</id>
+	<link rel="self" type="application/atom+xml" href="http://aabs.wordpress.com/feed/atom/" />
+
+	<generator uri="http://wordpress.com/">WordPress.com</generator>
+<link rel="search" type="application/opensearchdescription+xml" href="http://aabs.wordpress.com/osd.xml" title="The Wandering Glitch" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<link rel='hub' href='http://aabs.wordpress.com/?pushpress=hub' />
+	<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Architecture quote of the day]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2013/03/05/architecture-quote-of-the-day/" />
+		<id>http://aabs.wordpress.com/?p=881</id>
+		<updated>2013-03-05T01:15:33Z</updated>
+		<published>2013-03-05T01:11:21Z</published>
+		<category scheme="http://aabs.wordpress.com" term="architecture" />		<summary type="html"><![CDATA[Architects are pretty much high-class whores. We can turn down projects the way they can turn down some clients, but we&#8217;ve both got to say yes to someone if we want to stay in business. Philip JohnsonFiled under: architecture Tagged: architecture<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=881&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2013/03/05/architecture-quote-of-the-day/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2013/03/05/architecture-quote-of-the-day/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2012/03/10/859/" />
+		<id>http://aabs.wordpress.com/2012/03/10/859/</id>
+		<updated>2012-03-10T08:48:16Z</updated>
+		<published>2012-03-10T08:48:16Z</published>
+		<category scheme="http://aabs.wordpress.com" term="SemanticWeb" />		<summary type="html"><![CDATA[Originally posted on <a href="http://rochestersage.org/2012/03/05/i-want-my-kids-to-fail/">Rochester SAGE - Supporting Advanced &#38; Gifted Education</a>:<br />I&#8217;ve missed more than 9000 shots in my career. I&#8217;ve lost almost 300 games. 26 times, I&#8217;ve been trusted to take the game winning shot and missed. I&#8217;ve failed over and over and over again in my life.  And that is why I succeed.&#8230;<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=859&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2012/03/10/859/#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2012/03/10/859/feed/atom/" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Preparing a Project Gutenberg ebook for use on a 6&#8243; ereader]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2011/05/14/preparing-a-project-gutenberg-book-for-use-on-a-6-ereader/" />
+		<id>http://aabs.wordpress.com/?p=753</id>
+		<updated>2011-05-14T06:51:15Z</updated>
+		<published>2011-05-14T06:49:05Z</published>
+		<category scheme="http://aabs.wordpress.com" term="SemanticWeb" /><category scheme="http://aabs.wordpress.com" term="bebook" /><category scheme="http://aabs.wordpress.com" term="gutenberg" /><category scheme="http://aabs.wordpress.com" term="gutenmark" /><category scheme="http://aabs.wordpress.com" term="LaTeX" />		<summary type="html"><![CDATA[For a while I&#8217;ve been trying to find a nice way to convert project Gutenberg books to look pleasant on a BeBook One. I&#8217;ve finally hit on the perfect combination of tools, that produces documents ideally suited to 6&#8243; eInk ebook readers like my BeBook. The tool chain involves using GutenMark to convert the file [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=753&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2011/05/14/preparing-a-project-gutenberg-book-for-use-on-a-6-ereader/#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2011/05/14/preparing-a-project-gutenberg-book-for-use-on-a-6-ereader/feed/atom/" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Some pictures of Carlton Gardens]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2011/04/11/some-pictures-of-carlton-gardens/" />
+		<id>http://aabs.wordpress.com/2011/04/11/some-pictures-of-carlton-gardens/</id>
+		<updated>2011-04-10T23:43:42Z</updated>
+		<published>2011-04-10T23:43:42Z</published>
+		<category scheme="http://aabs.wordpress.com" term="SemanticWeb" />		<summary type="html"><![CDATA[Carlton Gardens, a set on Flickr. This was my first outing with the Pentax K-x that I got recently. In these pictures, I&#8217;m trying to get to grips with the camera, so I didn&#8217;t have any particular objective other than to take pictures. The light was so harsh it was very difficult for me to [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=750&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2011/04/11/some-pictures-of-carlton-gardens/#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2011/04/11/some-pictures-of-carlton-gardens/feed/atom/" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Note to Self: Convert UTF-8 w/ BOM to ASCII (WIX + DB) using GNU uconv]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2010/08/31/note-to-self-convert-utf-8-w-bom-to-ascii-wix-db-using-gnu-uconv/" />
+		<id>http://aabs.wordpress.com/?p=735</id>
+		<updated>2010-08-31T00:02:34Z</updated>
+		<published>2010-08-31T00:02:34Z</published>
+		<category scheme="http://aabs.wordpress.com" term="SemanticWeb" /><category scheme="http://aabs.wordpress.com" term="BOM" /><category scheme="http://aabs.wordpress.com" term="encoding" /><category scheme="http://aabs.wordpress.com" term="uconv" /><category scheme="http://aabs.wordpress.com" term="WIX" />		<summary type="html"><![CDATA[This one took me a long time to work out, and it took a non-latin alphabet user (Russian) to point me at the right tools. Yet again, I&#8217;m guilty of being a complacent anglophone. I was producing a database installer project using WIX 3.5, and ran into all sorts of inexplicable problems, which I finally [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=735&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2010/08/31/note-to-self-convert-utf-8-w-bom-to-ascii-wix-db-using-gnu-uconv/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2010/08/31/note-to-self-convert-utf-8-w-bom-to-ascii-wix-db-using-gnu-uconv/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Automata-Based Programming With Petri Nets &#8211; Part 1]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2010/03/10/programming-with-petri-nets/" />
+		<id>http://aabs.wordpress.com/?p=686</id>
+		<updated>2010-03-10T11:48:27Z</updated>
+		<published>2010-03-10T11:11:13Z</published>
+		<category scheme="http://aabs.wordpress.com" term="programming" /><category scheme="http://aabs.wordpress.com" term="SemanticWeb" /><category scheme="http://aabs.wordpress.com" term="CompSci" /><category scheme="http://aabs.wordpress.com" term="Computer Science" /><category scheme="http://aabs.wordpress.com" term="Petri Nets" />		<summary type="html"><![CDATA[Petri Nets are extremely powerful and expressive, but they are not as widely used as state machines. That's a pity, they allow us to solve problems beyond the reach of state machines. This post is the first in a mini-series on software development with Petri Nets. All of the code for a full feature-complete Petri Net library is available online at on GitHub. You're welcome to take a copy, play with it and use it in your own projects.<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=686&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2010/03/10/programming-with-petri-nets/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2010/03/10/programming-with-petri-nets/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Surreal Graham Norton Moment]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2010/03/06/surreal-graham-norton-moment/" />
+		<id>http://aabs.wordpress.com/2010/03/06/surreal-graham-norton-moment/</id>
+		<updated>2010-03-06T10:15:14Z</updated>
+		<published>2010-03-06T10:15:14Z</published>
+		<category scheme="http://aabs.wordpress.com" term="humour" /><category scheme="http://aabs.wordpress.com" term="weird" />		<summary type="html"><![CDATA[Today I got my first experience of being caught in a storm of golf ball sized hailstones. We&#8217;d decided to take the day out and visit the Moomba Festival in the city centre. All was well, and the kids were in a cub scouts arena trying their hands at rock climbing. Suddenly, we heard an [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=709&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2010/03/06/surreal-graham-norton-moment/#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2010/03/06/surreal-graham-norton-moment/feed/atom/" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[South America? Innocent victims in the war on terror!]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2010/03/04/south-america-innocent-victims-in-the-war-on-terror/" />
+		<id>http://aabs.wordpress.com/?p=707</id>
+		<updated>2010-03-04T03:11:57Z</updated>
+		<published>2010-03-04T03:11:57Z</published>
+		<category scheme="http://aabs.wordpress.com" term="humour" /><category scheme="http://aabs.wordpress.com" term="conspiracies" />		<summary type="html"><![CDATA[Are you kidding me? tectonic causes for south american earthquakes was a total sham! Think about it! Everyone knows that there&#8217;s a war on. And have you noticed that the CIA has started to act very strangely? They obviously don’t want this story getting out. I mean, what would happen if people began asking Why are they all near [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=707&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2010/03/04/south-america-innocent-victims-in-the-war-on-terror/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2010/03/04/south-america-innocent-victims-in-the-war-on-terror/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Less Intrusive Visitors]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2010/01/27/less-intrusive-visitors/" />
+		<id>http://aabs.wordpress.com/?p=678</id>
+		<updated>2010-01-27T09:00:17Z</updated>
+		<published>2010-01-27T09:00:17Z</published>
+		<category scheme="http://aabs.wordpress.com" term=".NET" /><category scheme="http://aabs.wordpress.com" term="programming" />		<summary type="html"><![CDATA[Forgive the recent silence &#8211; I&#8217;ve been in my shed. Frequently, I need some variation on the Visitor or HierarchicalVisitor patterns to analyse or transform an object graph. Recent work on a query builder for an old-skool query API sent my thoughts once again to the Visitor pattern. I normally hand roll these frameworks based [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=678&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2010/01/27/less-intrusive-visitors/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2010/01/27/less-intrusive-visitors/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Sequential script loading on demand]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/12/16/sequential-script-loading-on-demand/" />
+		<id>http://aabs.wordpress.com/?p=676</id>
+		<updated>2009-12-16T00:26:13Z</updated>
+		<published>2009-12-16T00:26:13Z</published>
+		<category scheme="http://aabs.wordpress.com" term="functional programming" /><category scheme="http://aabs.wordpress.com" term="programming" /><category scheme="http://aabs.wordpress.com" term="javascript" /><category scheme="http://aabs.wordpress.com" term="jquery" />		<summary type="html"><![CDATA[This little script uses the JQuery getScript command, enforcing sequential loading order to ensure script dependencies are honoured: function LoadScriptsSequentially(scriptUrls, callback) { if (typeof scriptUrls == 'undefined') throw "Argument Error: URL array is unusable"; if (scriptUrls.length == 0 &#38;&#38; typeof callback == 'function') callback(); $.getScript(scriptUrls.shift(), function() { LoadScriptsSequentially(scriptUrls, callback); }); } Here&#8217;s how you use [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=676&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/12/16/sequential-script-loading-on-demand/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/12/16/sequential-script-loading-on-demand/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Quantum Reasoners Hold Key to Future Web]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/12/08/quantum-reasoners-hold-key-to-future-web/" />
+		<id>http://aabs.wordpress.com/?p=614</id>
+		<updated>2009-12-08T22:27:00Z</updated>
+		<published>2009-12-07T14:09:36Z</published>
+		<category scheme="http://aabs.wordpress.com" term="science" /><category scheme="http://aabs.wordpress.com" term="Semantic Web" /><category scheme="http://aabs.wordpress.com" term="SemanticWeb" /><category scheme="http://aabs.wordpress.com" term="artificial intelligence" /><category scheme="http://aabs.wordpress.com" term="RDF" /><category scheme="http://aabs.wordpress.com" term="semweb" /><category scheme="http://aabs.wordpress.com" term="software" /><category scheme="http://aabs.wordpress.com" term="web3.0" />		<summary type="html"><![CDATA[Last year, a company called DWave Systems announced their quantum computer (the &#8216;Orion&#8217;) &#8211; another milestone on the road to practical quantum computing. Their controversial claims seem worthy in their own right but they are particularly important to the semantic web (SW) community. The significance to the SW community was that their quantum computer solved [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=614&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/12/08/quantum-reasoners-hold-key-to-future-web/#comments" thr:count="4"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/12/08/quantum-reasoners-hold-key-to-future-web/feed/atom/" thr:count="4"/>
+		<thr:total>4</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Semantic Overflow Highlights I]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/11/13/semantic-overflow-highlights-i/" />
+		<id>http://aabs.wordpress.com/?p=669</id>
+		<updated>2009-11-12T21:47:33Z</updated>
+		<published>2009-11-12T21:47:33Z</published>
+		<category scheme="http://aabs.wordpress.com" term="Semantic Web" /><category scheme="http://aabs.wordpress.com" term="SemanticWeb" /><category scheme="http://aabs.wordpress.com" term="semantic-overflow" /><category scheme="http://aabs.wordpress.com" term="web3.0" />		<summary type="html"><![CDATA[Semantic Overflow has been active for a couple of weeks. We now have 155 users and 53 questions. We&#8217;ve already had some very interesting questions and some excellent detailed and thoughtful responses. I thought, on Egon&#8217;s instigation, to  bring together, from the site&#8217;s BI stats, some of the highlights of last week. The best loved [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=669&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/11/13/semantic-overflow-highlights-i/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/11/13/semantic-overflow-highlights-i/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[www.SemanticOverflow.com &#8211; the Web 2.0 Q&amp;A site for all things Web 3.0.]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/10/27/www-semanticoverflow-com-the-web-2-0-qa-site-for-all-things-web-3-0/" />
+		<id>http://aabs.wordpress.com/?p=654</id>
+		<updated>2009-10-27T11:32:02Z</updated>
+		<published>2009-10-27T11:32:02Z</published>
+		<category scheme="http://aabs.wordpress.com" term="Semantic Web" /><category scheme="http://aabs.wordpress.com" term="SemanticWeb" />		<summary type="html"><![CDATA[www.SemanticOverflow.com is a new site based on the hugely popular StackOverflow.com, devoted to Q&#38;A on anything related to the semantic web. The site is very new (created today) and I&#8217;m trying to get as many people to visit as I can, so please come and post your questions and together we&#8217;ll create a thriving community [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=654&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/10/27/www-semanticoverflow-com-the-web-2-0-qa-site-for-all-things-web-3-0/#comments" thr:count="3"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/10/27/www-semanticoverflow-com-the-web-2-0-qa-site-for-all-things-web-3-0/feed/atom/" thr:count="3"/>
+		<thr:total>3</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Can AOP help fix bad architectures?]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/10/22/can-aop-help-fix-bad-architectures/" />
+		<id>http://aabs.wordpress.com/?p=646</id>
+		<updated>2009-10-21T22:55:34Z</updated>
+		<published>2009-10-21T22:55:34Z</published>
+		<category scheme="http://aabs.wordpress.com" term=".NET" /><category scheme="http://aabs.wordpress.com" term="AOP" /><category scheme="http://aabs.wordpress.com" term="Aspect Oriented Programming" /><category scheme="http://aabs.wordpress.com" term="programming" /><category scheme="http://aabs.wordpress.com" term="SOA" /><category scheme="http://aabs.wordpress.com" term="postsharp" />		<summary type="html"><![CDATA[I recently posted a question on Stack Overflow on the feasibility of using IL rewriting frameworks to rectify bad design after the fact. The confines of the answer comment area were too small to give the subject proper treatment so I though a new blog post was in order. Here&#8217;s the original question: I&#8217;ve recently [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=646&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/10/22/can-aop-help-fix-bad-architectures/#comments" thr:count="2"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/10/22/can-aop-help-fix-bad-architectures/feed/atom/" thr:count="2"/>
+		<thr:total>2</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Fowler&#8217;s Technical Debt Quadrant &#8211; Giving the co-ordinates where Agile is contraindicated.]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/10/19/fowlers-technical-debt-quadrant-giving-the-co-ordinates-where-agile-is-contraindicated/" />
+		<id>http://aabs.wordpress.com/?p=650</id>
+		<updated>2009-10-18T22:39:32Z</updated>
+		<published>2009-10-18T22:39:32Z</published>
+		<category scheme="http://aabs.wordpress.com" term="programming" /><category scheme="http://aabs.wordpress.com" term="agile" /><category scheme="http://aabs.wordpress.com" term="design" /><category scheme="http://aabs.wordpress.com" term="martin fowler" /><category scheme="http://aabs.wordpress.com" term="methodology" /><category scheme="http://aabs.wordpress.com" term="technical debt" />		<summary type="html"><![CDATA[Martin Fowler&#8217;s bliki has a very good post on what he calls the &#8216;technical debt quadrant&#8216;. This post succinctly sums up the difference between those who produce poor designs in ways that are contrary to their best interests, and those who do so knowingly and reluctantly. In the past I&#8217;ve noted that many of those [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=650&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/10/19/fowlers-technical-debt-quadrant-giving-the-co-ordinates-where-agile-is-contraindicated/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/10/19/fowlers-technical-debt-quadrant-giving-the-co-ordinates-where-agile-is-contraindicated/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Eeebuntu]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/10/06/eeebuntu/" />
+		<id>http://aabs.wordpress.com/2009/10/06/eeebuntu/</id>
+		<updated>2009-10-06T11:29:39Z</updated>
+		<published>2009-10-06T11:25:14Z</published>
+		<category scheme="http://aabs.wordpress.com" term=".NET" /><category scheme="http://aabs.wordpress.com" term="eeebuntu" /><category scheme="http://aabs.wordpress.com" term="eeepc" /><category scheme="http://aabs.wordpress.com" term="mono" /><category scheme="http://aabs.wordpress.com" term="monodevelop" /><category scheme="http://aabs.wordpress.com" term="ubuntu" />		<summary type="html"><![CDATA[Perhaps the day has finally arrived when GNU/Linux seems like a viable option. Every six months or so I try out the latest GNU/Linux distros to see how they&#8217;re progressing. I look at them from the usual jaundiced perspective of the professional programmer. Not from the naive perspective of teenage rebellion. Normally I end up [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=643&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/10/06/eeebuntu/#comments" thr:count="2"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/10/06/eeebuntu/feed/atom/" thr:count="2"/>
+		<thr:total>2</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[PostSharp Laos &#8211; Beautiful AOP.]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/09/30/postsharp-laos-beautiful-aop/" />
+		<id>http://aabs.wordpress.com/?p=635</id>
+		<updated>2009-09-30T02:59:06Z</updated>
+		<published>2009-09-30T02:39:37Z</published>
+		<category scheme="http://aabs.wordpress.com" term=".NET" /><category scheme="http://aabs.wordpress.com" term="functional programming" /><category scheme="http://aabs.wordpress.com" term="programming" /><category scheme="http://aabs.wordpress.com" term="AOP" /><category scheme="http://aabs.wordpress.com" term="postsharp" /><category scheme="http://aabs.wordpress.com" term="pure functions" />		<summary type="html"><![CDATA[I&#8217;ve recently been using PostSharp 1.5 (Laos) to implement various features such as logging, tracing, API performance counter recording, and repeatability on the softphone app I&#8217;ve been developing. Previously, we&#8217;d been either using hand-rolled code generation systems to augment the APIs with IDisposable-style wrappers, or hand coded the wrappers within the implementation code. The problem [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=635&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/09/30/postsharp-laos-beautiful-aop/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/09/30/postsharp-laos-beautiful-aop/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Weird Wired Clouds]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/09/30/weird-wired-clouds/" />
+		<id>http://aabs.wordpress.com/?p=631</id>
+		<updated>2009-09-30T00:44:48Z</updated>
+		<published>2009-09-30T00:44:48Z</published>
+		<category scheme="http://aabs.wordpress.com" term="science" />		<summary type="html"><![CDATA[Wired has a very interesting article on strange or rare weather formations. Here&#8217;s an example &#8211; morning glory clouds from Cape York, Australia. Posted in science<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=631&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/09/30/weird-wired-clouds/#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/09/30/weird-wired-clouds/feed/atom/" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Does this seem nice to you?]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/03/31/does-this-seem-nice-to-you/" />
+		<id>http://aabs.wordpress.com/2009/03/31/does-this-seem-nice-to-you/</id>
+		<updated>2009-03-31T05:58:49Z</updated>
+		<published>2009-03-31T05:58:49Z</published>
+		<category scheme="http://aabs.wordpress.com" term=".NET" /><category scheme="http://aabs.wordpress.com" term="humour" /><category scheme="http://aabs.wordpress.com" term="programming" />		<summary type="html"><![CDATA[After years of recoiling at the sight of code like this, am I supposed now to embrace it in a spirit of reconciliation? namespace ConsoleApplication1 { class Program { static void Main(string[] args) { dynamic blah = GetTheBlah(); Console.WriteLine(blah); } private static dynamic GetTheBlah() { if (DateTime.Now.Millisecond % 3 == 0) return 0; else return [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=625&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/03/31/does-this-seem-nice-to-you/#comments" thr:count="7"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/03/31/does-this-seem-nice-to-you/feed/atom/" thr:count="7"/>
+		<thr:total>7</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>aabs</name>
+						<uri>http://aabs.wordpress.com</uri>
+					</author>
+		<title type="html"><![CDATA[Quote of the Day &#8211; Chris Sells on Cocktail Parties]]></title>
+		<link rel="alternate" type="text/html" href="http://aabs.wordpress.com/2009/03/20/quote-of-the-day-chris-sells-on-cocktail-parties/" />
+		<id>http://aabs.wordpress.com/?p=620</id>
+		<updated>2009-03-19T22:52:09Z</updated>
+		<published>2009-03-19T22:52:09Z</published>
+		<category scheme="http://aabs.wordpress.com" term="SemanticWeb" />		<summary type="html"><![CDATA[I can relate to this: I&#8217;ll take a lake of fire any day over more than three strangers in a room with which I share no common task and with whom I&#8217;m expected to socialize How to express this to my wife without her thinking that I am suffering from a combination of acrophobia and [&#8230;]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=aabs.wordpress.com&#038;blog=155386&#038;post=620&#038;subd=aabs&#038;ref=&#038;feed=1" width="1" height="1" />]]></summary>
+			<link rel="replies" type="text/html" href="http://aabs.wordpress.com/2009/03/20/quote-of-the-day-chris-sells-on-cocktail-parties/#comments" thr:count="0"/>
+		<link rel="replies" type="application/atom+xml" href="http://aabs.wordpress.com/2009/03/20/quote-of-the-day-chris-sells-on-cocktail-parties/feed/atom/" thr:count="0"/>
+		<thr:total>0</thr:total>
+	</entry>
+	</feed>

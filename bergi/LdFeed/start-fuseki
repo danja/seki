@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/opt/jena-fuseki-0.2.7
+
+./fuseki-server --config=config.ttl --verbose

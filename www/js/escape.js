@@ -15,5 +15,5 @@ function unescape(string) {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, "\"")
     .replace(/&#039;/g, "'")
-    .replace(/&#x2F;/g, "\");
+    .replace(/&#x2F;/g, "\\");
 }

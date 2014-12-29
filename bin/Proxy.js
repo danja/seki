@@ -12,8 +12,10 @@
 var http = require('http');
 
 // Settings ------------------------------------
-var targetHost = "localhost";
-var targetPort = 8080;
+// var targetHost = "localhost";
+var targetHost = "dallemang.typepad.com";
+// var targetPort = 8080;
+var targetPort = 80;
 
 var proxyHost = "localhost";
 var proxyPort = 8888;

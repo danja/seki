@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Latest Entries</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/common.css">
+   <link rel="stylesheet" href="css/river.css">
+<link rel="stylesheet" href="css/jquery-mobile/jquery.mobile-1.4.2.min.css" />
+
+<script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+
+
+   <script src="js/jquery.mobile-1.4.2.min.js"></script>
+   <!--  script src="js/index.js"></script -->
+
+   
+
+      
+      
+
+<script type="text/javascript" language="javascript">
+
+	var sparqlEndpoint = "http://localhost:3030/feedreader/query?query=";
+	
+	var sparql = "PREFIX rss: <http://purl.org/rss/1.0/> \n\
+PREFIX dcterms: <http://purl.org/dc/terms/> \n\
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n\
+PREFIX schema: <http://schema.org/> \n\
+PREFIX nm: <http://purl.org/stuff/newsmonitor/> \n\
+\n\
+SELECT DISTINCT * \n\
+WHERE { \n\
+\n\
+GRAPH ?g { \n\
+   ?entry a schema:article . \n\
+      OPTIONAL { \n\
+         ?feedUrl dcterms:title ?feedTitle . \n\
+         ?entry dcterms:source ?feedUrl . \n\
+      } \n\
+      OPTIONAL { \n\
+         ?source nm:htmlUrl ?feedHtml . \n\
+         ?entry dcterms:source ?feedUrl . \n\
+      } \n\
+      OPTIONAL { ?entry dcterms:title ?title . } \n\
+      OPTIONAL { ?entry dcterms:date ?date . } \n\
+      OPTIONAL { ?entry schema:articleBody ?content . } \n\
+      OPTIONAL { ?entry dcterms:creator [foaf:name ?author] . } \n\
+      OPTIONAL { ?entry dcterms:creator [foaf:homepage ?authorHomepage] . } \n\
+      # admin \n\
+      OPTIONAL { ?entry nm:relevance ?relevance . } \n\
+      OPTIONAL { ?entry nm:favourite ?favourite . } \n\
+      OPTIONAL { ?entry nm:read ?read . } \n\
+   }\n\
+} \n\
+ORDER BY DESC(?date) \n\
+LIMIT 100 \n\
+OFFSET 0 \n\
+";
+
+var url = sparqlEndpoint+ encodeURIComponent(sparql) + "&output=xml";
+	
+$(function() {
+	var $loading = $('#spinner').hide();
+//	$("#accordion-resizer").hide();
+	jQuery.ajaxSetup({
+		  beforeSend: function() {
+		     $('#spinner').show();
+		     
+		  },
+		  complete: function(){
+		     $('#spinner').hide();
+		//     $("#accordion-resizer").show();
+		  },
+		  success: function() {}
+		});
+   getEntries();
+});
+	
+	
+	function getEntries() {
+	//	$.get(url, function(xml) {
+			$.ajax({
+				url: url, 
+				accept: {
+						  xml: 'application/xml;charset=UTF-8',
+						  sparql: 'sparql-results+xml;charset=UTF-8'
+						  },
+				headers: { // belt and braces
+						        'Accept':'sparql-results+xml;charset=UTF-8'
+						     //   'Accept-Charset': 'UTF-8' unsafe
+						        }
+				
+			}).done(function(xml) {
+		
+			var xmlString = (new XMLSerializer()).serializeToString(xml);
+
+			// workaround for wrong interpretation of charset
+			xmlString = xmlString.replace(/[^\u0000-\u007F]/g, '');
+			// maybe force to ISO-8859-1, also known as Latin-1 instead?
+	
+				var $xml = $(xmlString);
+			
+			// console.log("FIND "+$xml.find("result").length);
+				var $results = $xml.find("result");
+				if($results.length == 0) {
+					$("#message").append("<h3>No entries found.</h3>");
+				}
+				$results.each(function() {
+					// $('#results').html($(this));
+					var entryUrl, source, title, content, date, author, authorHomepage;
+					
+					$(this).find("binding[name='entry']").each(function() {
+						entryUrl = $(this).text().trim();
+					});
+					$(this).find("binding[name='source']").each(function() {
+						source = $(this).text().trim();
+					});
+					$(this).find("binding[name='title']").each(function() {
+						title = $(this).text().trim();
+					});
+					$(this).find("binding[name='content']").each(function() {
+						content = $(this).text().trim();
+					});
+					$(this).find("binding[name='date']").each(function() {
+						date = $(this).text().trim();
+					});
+					$(this).find("binding[name='author']").each(function() {
+						author = $(this).text().trim();
+					});
+					$(this).find("binding[name='authorHomepage']").each(function() {
+						authorHomepage = $(this).text().trim();
+					});
+					var entry = generateEntryHtml(entryUrl, source, title, content, date, author, authorHomepage);
+					$("#entries").append(entry);
+				});
+		//		doAccordion();
+				$('[data-role="collapsible-set"]').trigger('create');
+			});
+	}
+	
+	function generateEntryHtml(entryUrl, source, title, content, date, author, authorHomepage) {
+		console.log("Date = "+date);
+		var dateObject = new Date(Date.parse(date));	
+		console.log(dateObject);
+		date = dateObject.toDateString();
+		
+		var entry = "<div data-role=\"collapsible\"><h3>";
+		
+		if(author != null && authorHomepage == null) {
+			entry += "<span class=\"author\">" + author + "</span> : ";
+		}
+		if(author != null && authorHomepage != null) {
+			entry += "<span class=\"author\"><a href=\"" + authorHomepage+ "\">"+ author + "</a></span> :";
+		}
+		
+		entry += "<a href=\""+entryUrl+"\">" + title + "</a></h3>";
+		
+		entry += "<div>";
+		
+		if(entryUrl != null) {
+			entry += "<div class=\"updated\"><a href=\""+entryUrl+"\">"+date+"</a></div>";
+		} else {
+			entry += "<div class=\"updated\"><a href=\""+source+"\">"+date+"</a></div>";
+		}
+		
+		entry += "<div class=\"entryContent\">"+content+"</div>";
+		
+		entry += "</div></div>"
+		return entry;
+	}
+	</script>
+
+
+</head>
+<body>
+
+<div data-role="page">
+
+   <div data-role="header">
+     <h3><a href="/index.html">NewsMonitor</a> Entries</h3>
+   </div><!-- /header -->
+
+   <div role="main" class="ui-content">
+         <div id="spinner" class="spinner"></div> 
+            
+            <div data-role="collapsibleset" data-inset="false"> 
+            <div id="entries"></div>
+            </div>
+   </div><!-- /content -->
+
+   <div data-role="footer">
+      <h4>Page Footer</h4>
+   </div><!-- /footer -->
+</div><!-- /page -->
+   
+</body>
+</html>

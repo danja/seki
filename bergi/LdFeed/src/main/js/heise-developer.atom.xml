@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>heise developer neueste Meldungen</title>
+	<subtitle>Informationen für Entwickler</subtitle>
+	<link href="http://www.heise.de/developer/" />
+	<link rel="self" href="http://www.heise.de/developer/rss/news-atom.xml" />
+	<updated>2013-03-22T09:37:41+01:00</updated>
+	<author>
+		<name>heise online</name>
+	</author>
+	<id>http://www.heise.de/developer/</id>
+
+	<entry>
+		<title>Wolfram Jost, CTO der Software AG, im Gespräch</title>
+		<link href="http://www.heise.de/developer/artikel/Wolfram-Jost-CTO-der-Software-AG-im-Gespraech-1827894.html/from/atom10" />
+		<id>http://heise.de/-1827894</id>
+		<published>2013-03-22T09:37:00+01:00</published>
+		<updated>2013-03-22T09:37:41+01:00</updated>
+		<summary>heise Developer sprach auf der CeBIT mit Dr. Wolfram Jost, CTO der Software AG, über neue Techniken, Produkt- und Release-Strategie und warum sich das Unternehmen aufgrund seiner flachen Hierarchien im Vorteil gegenüber der Konkurrenz sieht.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/artikel/Wolfram-Jost-CTO-der-Software-AG-im-Gespraech-1827894.html/from/atom10" title="Wolfram Jost, CTO der Software AG, im Gespräch"><img  src="http://www.heise.de/developer/imgs/06/9/9/9/7/7/1/IMG_0343_1_tcm17-70612-a321a5c2b318bf2b.jpeg" width="100" height="65" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>heise Developer sprach auf der CeBIT mit Dr. Wolfram Jost, CTO der Software AG, über neue Techniken, Produkt- und Release-Strategie und warum sich das Unternehmen aufgrund seiner flachen Hierarchien im Vorteil gegenüber der Konkurrenz sieht.</p>
+
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Nur noch wenige Tage Frühbucherrabatt für parallel 2013</title>
+		<link href="http://www.heise.de/developer/meldung/Nur-noch-wenige-Tage-Fruehbucherrabatt-fuer-parallel-2013-1827863.html/from/atom10" />
+		<id>http://heise.de/-1827863</id>
+		<published>2013-03-22T08:30:00+01:00</published>
+		<updated>2013-03-22T08:33:47+01:00</updated>
+		<summary>Wer sich zügig entscheidet, kommt noch in den Genuss von rund 15 Prozent Nachlass auf die Teilnahmegebühr der Softwarekonferenz zur parallelen und nebenläufigen Programmierung. Der Frühbucherrabatt gilt noch bis zum 31. März.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Nur-noch-wenige-Tage-Fruehbucherrabatt-fuer-parallel-2013-1827863.html/from/atom10" title="Nur noch wenige Tage Frühbucherrabatt für parallel 2013"><img  src="http://www.heise.de/imgs/18/9/9/9/7/4/5/tasche-8aca651246c24751-8d2398d86df070f8.png" width="77" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Wer sich zügig entscheidet, kommt noch in den Genuss von rund 15 Prozent Nachlass auf die Teilnahmegebühr der Softwarekonferenz zur parallelen und nebenläufigen Programmierung. Der Frühbucherrabatt gilt noch bis zum 31. März.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Streit um DRM in HTML5</title>
+		<link href="http://www.heise.de/developer/meldung/Streit-um-DRM-in-HTML5-1827717.html/from/atom10" />
+		<id>http://heise.de/-1827717</id>
+		<published>2013-03-21T20:40:00+01:00</published>
+		<updated>2013-03-21T20:48:14+01:00</updated>
+		<summary>Google, Microsoft und Netflix wollen eine Erweiterung zum Verschlüsseln von Medieninhalten in die neue Hypertextsprache integrieren. Bürgerrechtler warnen vor innovationsfeindlichen Kopierblockaden, auf die Hollywood dränge.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Streit-um-DRM-in-HTML5-1827717.html/from/atom10" title="Streit um DRM in HTML5"><img  src="http://www.heise.de/imgs/18/9/9/9/6/1/0/3db188a8ff19dfa8.png" width="100" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Google, Microsoft und Netflix wollen eine Erweiterung zum Verschlüsseln von Medieninhalten in die neue Hypertextsprache integrieren. Bürgerrechtler warnen vor innovationsfeindlichen Kopierblockaden, auf die Hollywood dränge.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Scala IDE für Eclipse bekommt eigenes Ökosystem</title>
+		<link href="http://www.heise.de/developer/meldung/Scala-IDE-fuer-Eclipse-bekommt-eigenes-Oekosystem-1827125.html/from/atom10" />
+		<id>http://heise.de/-1827125</id>
+		<published>2013-03-21T18:50:00+01:00</published>
+		<updated>2013-03-21T18:50:15+01:00</updated>
+		<summary>Das Team hinter der Scala IDE für Eclipse hat nach etwas mehr als einem Jahr Arbeit den Sprung auf Version 3.0 bekanntgegeben. Das Major Release umfasst neben einem eigenen Ökosystem einen schnelleren Debugger und Semantic Highlighting.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Scala-IDE-fuer-Eclipse-bekommt-eigenes-Oekosystem-1827125.html/from/atom10" title="Scala IDE für Eclipse bekommt eigenes Ökosystem"><img  src="http://www.heise.de/imgs/18/9/9/9/1/9/6/scalaIDE-bf2f37fc119880d0.png" width="100" height="30" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Das Team hinter der Scala IDE für Eclipse hat nach etwas mehr als einem Jahr Arbeit den Sprung auf Version 3.0 bekanntgegeben. Das Major Release umfasst neben einem eigenen Ökosystem einen schnelleren Debugger und Semantic Highlighting.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Sexismus-Debatte nach Witzen auf der PyCon</title>
+		<link href="http://www.heise.de/developer/meldung/Sexismus-Debatte-nach-Witzen-auf-der-PyCon-1827228.html/from/atom10" />
+		<id>http://heise.de/-1827228</id>
+		<published>2013-03-21T17:30:00+01:00</published>
+		<updated>2013-03-21T18:37:55+01:00</updated>
+		<summary>Eine Besucherin der PyCon in Kalifornien hat sich durch zweideutige Witze männlicher Konferenzteilnehmer belästigt gefühlt und die zwei Entwickler auf Twitter angeprangert – mit ernsthaften Konsequenzen für zumindest einen der Männer.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Sexismus-Debatte-nach-Witzen-auf-der-PyCon-1827228.html/from/atom10" title="Sexismus-Debatte nach Witzen auf der PyCon"><img  src="http://www.heise.de/imgs/18/9/9/9/2/6/4/herz_dongle.jpg-a44a485ab9baee02.jpeg" width="100" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Eine Besucherin der PyCon in Kalifornien hat sich durch zweideutige Witze männlicher Konferenzteilnehmer belästigt gefühlt und die zwei Entwickler auf Twitter angeprangert – mit ernsthaften Konsequenzen für zumindest einen der Männer.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Basho gibt Riak-CS-Quellen frei </title>
+		<link href="http://www.heise.de/developer/meldung/Basho-gibt-Riak-CS-Quellen-frei-1826948.html/from/atom10" />
+		<id>http://heise.de/-1826948</id>
+		<published>2013-03-21T11:56:00+01:00</published>
+		<updated>2013-03-21T11:57:00+01:00</updated>
+		<summary>Riak Betreiber Basho hat die Quellen von Riak CS (Cloud Storage) offengelegt. Die Software arbeitet mit der NoSQL-Datenbank und lässt sich unter anderem zum Aufbau öffentlicher und privater Clouds verwenden.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Basho-gibt-Riak-CS-Quellen-frei-1826948.html/from/atom10" title="Basho gibt Riak-CS-Quellen frei "><img  src="http://www.heise.de/imgs/18/9/9/9/0/5/6/riakcs-d126c504d3956127.png" width="100" height="34" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Riak Betreiber Basho hat die Quellen von Riak CS (Cloud Storage) offengelegt. Die Software arbeitet mit der NoSQL-Datenbank und lässt sich unter anderem zum Aufbau öffentlicher und privater Clouds verwenden.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Oracle: Mixed Emotions</title>
+		<link href="http://www.heise.de/developer/meldung/Oracle-Mixed-Emotions-1826910.html/from/atom10" />
+		<id>http://heise.de/-1826910</id>
+		<published>2013-03-21T08:10:00+01:00</published>
+		<updated>2013-03-21T17:29:29+01:00</updated>
+		<summary>Oracles Umsatz mit Cloud-Angeboten und Software as a Service ist um mehr als 100 Prozent gewachsen. Insgesamt aber stagnierte das Geschäft, was die Börse gleich abstrafte.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Oracle-Mixed-Emotions-1826910.html/from/atom10" title="Oracle: Mixed Emotions"><img  src="http://www.heise.de/imgs/18/9/9/9/0/2/5/16116541b2ea6626.jpeg" width="100" height="75" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Oracles Umsatz mit Cloud-Angeboten und Software as a Service ist um mehr als 100 Prozent gewachsen. Insgesamt aber stagnierte das Geschäft, was die Börse gleich abstrafte.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Backbone.js 1.0: Rückgrat für Single-Page-Apps</title>
+		<link href="http://www.heise.de/developer/meldung/Backbone-js-1-0-Rueckgrat-fuer-Single-Page-Apps-1826632.html/from/atom10" />
+		<id>http://heise.de/-1826632</id>
+		<published>2013-03-20T18:00:00+01:00</published>
+		<updated>2013-03-20T18:00:18+01:00</updated>
+		<summary>Backbone.js kann sein erstes Major Release feiern. Die JavaScript-Bibliothek stammt aus der Feder des CoffeeScript-Entwicklers Jeremy Ashkenas und stellt allerlei Funktionen zum Erstellen von Single-Page-Apps zur Verfügung.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Backbone-js-1-0-Rueckgrat-fuer-Single-Page-Apps-1826632.html/from/atom10" title="Backbone.js 1.0: Rückgrat für Single-Page-Apps"><img  src="http://www.heise.de/imgs/18/9/9/8/8/0/9/backbone-42bb941f9d76cf8b.png" width="100" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Backbone.js kann sein erstes Major Release feiern. Die JavaScript-Bibliothek stammt aus der Feder des CoffeeScript-Entwicklers Jeremy Ashkenas und stellt allerlei Funktionen zum Erstellen von Single-Page-Apps zur Verfügung.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Objective-C-IDE AppCode 2.0 mit neuer Optik</title>
+		<link href="http://www.heise.de/developer/meldung/Objective-C-IDE-AppCode-2-0-mit-neuer-Optik-1826637.html/from/atom10" />
+		<id>http://heise.de/-1826637</id>
+		<published>2013-03-20T16:09:00+01:00</published>
+		<updated>2013-03-20T16:09:58+01:00</updated>
+		<summary>JetBrains IDE zur Entwicklung von Apps für Mac und iOS unterstützt nun das iOS-Test-Framework Kiwi sowie die Dokumentations-Browser Dash und Ingredients. Außerdem steht der neue dunkle Oberflächenstil Darcula zur Auswahl.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Objective-C-IDE-AppCode-2-0-mit-neuer-Optik-1826637.html/from/atom10" title="Objective-C-IDE AppCode 2.0 mit neuer Optik"><img  src="http://www.heise.de/imgs/18/9/9/8/8/1/4/TN_39119848_1a2824f8ff-618e36e059c4b9ca-0e23e13a2460ac0c.png" width="100" height="75" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>JetBrains IDE zur Entwicklung von Apps für Mac und iOS unterstützt nun das iOS-Test-Framework Kiwi sowie die Dokumentations-Browser Dash und Ingredients. Außerdem steht der neue dunkle Oberflächenstil Darcula zur Auswahl.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Xtend führt Active Annotations ein</title>
+		<link href="http://www.heise.de/developer/meldung/Xtend-fuehrt-Active-Annotations-ein-1826311.html/from/atom10" />
+		<id>http://heise.de/-1826311</id>
+		<published>2013-03-20T15:52:00+01:00</published>
+		<updated>2013-03-20T15:52:43+01:00</updated>
+		<summary>Die statisch typisierte Java-Sprachvariante Xtend unterstützt in Version 2.4 die Entwicklung von Android-Anwendungen und kann neben Active Annotations mit Sprach-Features wie Collection Literals und Extension-Variablen aufwarten.  </summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Xtend-fuehrt-Active-Annotations-ein-1826311.html/from/atom10" title="Xtend führt Active Annotations ein"><img  src="http://www.heise.de/imgs/18/9/9/8/5/8/0/xtend-9c5de680c9ce4d58.png" width="100" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Die statisch typisierte Java-Sprachvariante Xtend unterstützt in Version 2.4 die Entwicklung von Android-Anwendungen und kann neben Active Annotations mit Sprach-Features wie Collection Literals und Extension-Variablen aufwarten.  </p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>&quot;Jede Woche wird eine JavaScript-Sau durchs Dorf getrieben&quot;</title>
+		<link href="http://www.heise.de/developer/artikel/Jede-Woche-wird-eine-JavaScript-Sau-durchs-Dorf-getrieben-1826479.html/from/atom10" />
+		<id>http://heise.de/-1826479</id>
+		<published>2013-03-20T14:17:00+01:00</published>
+		<updated>2013-03-20T14:17:19+01:00</updated>
+		<summary>Eine interessante Stellungnahme auf die Frage, für welches JavaScript Framework man sich denn entscheiden solle.</summary>
+		
+	</entry>
+
+	<entry>
+		<title>Micro Focus will Zusammenarbeit mit Hochschulen bei COBOL intensivieren </title>
+		<link href="http://www.heise.de/developer/meldung/Micro-Focus-will-Zusammenarbeit-mit-Hochschulen-bei-COBOL-intensivieren-1826406.html/from/atom10" />
+		<id>http://heise.de/-1826406</id>
+		<published>2013-03-20T14:10:00+01:00</published>
+		<updated>2013-03-20T14:10:10+01:00</updated>
+		<summary>Mit weitreichenden Änderungen seines Academic Program reagiert das Softwarehaus auf den Schwund an COBOL-Entwicklern und will sich nun auch verstärkt um deutsche Lehr- und Schulungsorganisationen kümmern.</summary>
+		
+	</entry>
+
+	<entry>
+		<title>agito BPMO stellt das Geschäftsobjekt in den Mittelpunkt</title>
+		<link href="http://www.heise.de/developer/meldung/agito-BPMO-stellt-das-Geschaeftsobjekt-in-den-Mittelpunkt-1826338.html/from/atom10" />
+		<id>http://heise.de/-1826338</id>
+		<published>2013-03-20T13:15:00+01:00</published>
+		<updated>2013-03-20T13:15:30+01:00</updated>
+		<summary>Das neue BPM-Produkt des Berliner Start-up-Unternehmens agito versteht sich Java-Framework für Anwendungen im Bereich interaktiver Geschäftsprozesse. Als BPMN-Prozess-Engine kommt Activiti zum Einsatz.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/agito-BPMO-stellt-das-Geschaeftsobjekt-in-den-Mittelpunkt-1826338.html/from/atom10" title="agito BPMO stellt das Geschäftsobjekt in den Mittelpunkt"><img  src="http://www.heise.de/imgs/18/9/9/8/6/0/2/agito.jpg-70c4bee52031e81d.jpeg" width="100" height="41" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Das neue BPM-Produkt des Berliner Start-up-Unternehmens agito versteht sich Java-Framework für Anwendungen im Bereich interaktiver Geschäftsprozesse. Als BPMN-Prozess-Engine kommt Activiti zum Einsatz.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Leichter Git-Einstieg für Windows-Anwender</title>
+		<link href="http://www.heise.de/developer/meldung/Leichter-Git-Einstieg-fuer-Windows-Anwender-1826171.html/from/atom10" />
+		<id>http://heise.de/-1826171</id>
+		<published>2013-03-20T11:19:00+01:00</published>
+		<updated>2013-03-21T17:52:07+01:00</updated>
+		<summary>Atlassian stellt mit SourceTree for Windows eine kostenlose Client-Software vor, mit der Windows-Anwender von ihrem Rechner aus Zugriff auf die verteilte Versionskontrolle Git haben, ohne die Kommandozeile bemühen zu müssen.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Leichter-Git-Einstieg-fuer-Windows-Anwender-1826171.html/from/atom10" title="Leichter Git-Einstieg für Windows-Anwender"><img  src="http://www.heise.de/imgs/18/9/9/8/4/6/9/sourcetree-5024e8a155954da3.png" width="100" height="20" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Atlassian stellt mit SourceTree for Windows eine kostenlose Client-Software vor, mit der Windows-Anwender von ihrem Rechner aus Zugriff auf die verteilte Versionskontrolle Git haben, ohne die Kommandozeile bemühen zu müssen.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+
+	<entry>
+		<title>Pharo 2.0 mit Nautilus unterwegs</title>
+		<link href="http://www.heise.de/developer/meldung/Pharo-2-0-mit-Nautilus-unterwegs-1826173.html/from/atom10" />
+		<id>http://heise.de/-1826173</id>
+		<published>2013-03-20T11:06:00+01:00</published>
+		<updated>2013-03-20T11:06:15+01:00</updated>
+		<summary>Version 2.0 der Implementierung der Smalltalk-Sprache und -Umgebung ist unter anderem mit einem neuen Default-Browser und zusätzlichen UI-Bibliotheken ausgestattet. Darüber hinaus ehren die Entwickler den kürzlich verstorbenen Andreas Raab.</summary>
+		
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+			
+				<a href="http://www.heise.de/developer/meldung/Pharo-2-0-mit-Nautilus-unterwegs-1826173.html/from/atom10" title="Pharo 2.0 mit Nautilus unterwegs"><img  src="http://www.heise.de/imgs/18/9/9/8/4/7/1/pharo-6c2088a8cd66ff3f.png" width="100" height="100" alt="" title="" style="float: left; margin-right: 15px; margin-top: 3px;"/></a>
+			
+			
+				<p>Version 2.0 der Implementierung der Smalltalk-Sprache und -Umgebung ist unter anderem mit einem neuen Default-Browser und zusätzlichen UI-Bibliotheken ausgestattet. Darüber hinaus ehren die Entwickler den kürzlich verstorbenen Andreas Raab.</p>
+			
+			</div>
+		</content>
+	
+	</entry>
+</feed>
+

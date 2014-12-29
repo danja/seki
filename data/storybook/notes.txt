@@ -1,0 +1,94 @@
+http://www.archive.org/download/the_decameron_0903_librivox1/the_decameron_0903_librivox1_64kb_mp3.zip
+
+http://www.snee.com/bobdc.blog/2014/04/rdf-lists-and-sparql.html
+http://seaborne.blogspot.co.uk/2011/03/updating-rdf-lists-with-sparql.html
+http://onlyagame.typepad.com/only_a_game/2005/10/the_seven_basic.html
+http://en.wikipedia.org/wiki/List_of_stock_characters
+http://en.wikipedia.org/wiki/Stock_character
+http://en.wikipedia.org/wiki/The_Seven_Basic_Plots
+
+http://en.wikipedia.org/wiki/Literary_technique 
+http://en.wikipedia.org/wiki/Plot_device
+
+http://en.wikipedia.org/wiki/Crime_fiction
+- check categories
+
+http://en.wikipedia.org/wiki/Frame_story
+http://en.wikipedia.org/wiki/Conceit
+http://en.wikipedia.org/wiki/Thriller_%28genre%29
+http://en.wikipedia.org/wiki/Reading_path
+http://en.wikipedia.org/wiki/Narrative_mode
+
+ themes, settings, and characterization, how language is used, and the way that plot, character, and setting relate to reality.
+
+http://alternativeto.net/software/storybook/
+
+Actor
+Content, Snippet, Note, Tag, Idea...
+Event, EventContext, motive - http://en.wikipedia.org/wiki/Means,_motive,_and_opportunity
+Genre, Category
+Device
+(narrative) mode
+
+Views/Aspects : Chronological, Conceptual, Doc Order
+
+have a timeline with made up dates for chrono?
+
+http://www.literatureandlatte.com/scrivener.php?show=features
+Corkboard
+Outliner
+Scrivener’s innovative “Scrivenings” mode allows you to move smoothly between editing your document one piece at a time or together as a whole. It’s up to you how small—or large—you want to make the individual sections of your manuscript: 
+Text Editing
+Non-Fiction
+Scriptwriting
+
+
+https://web.archive.org/web/20080714180409/http://storybook.intertec.ch/?g_page=features&g_lang=en
+
+Chronological View
+book View
+Edit Scene
+Edit Character
+
+
+
+Basic Features
+
+    StorYBook has two views: the chronological view and the book view.
+        The chronological view shows the scenes sorted by date.
+        The book view in contrast shows the chapters and the assigned scenes as you would read it in the final book.
+    Of course in both views the scenes and there related information can be edited any time.
+    StorYBook helps you to keep the overview, especially for complex stories with two or more strands. Imagine StorYBook as some kind of a dynamic mind map.
+    Strands and strand links: Each scene belongs to a primary strand. Optionally other related, secondary strands can be linked to a scene.
+    Characters: Add, edit or remove characters and assign them to the related scenes.
+    Locations: Add, edit or remove locations and assign them to the related scenes.
+    Chapters: Define your chapters and assign the scenes.
+    Parts: Large projects can be split into well arranged parts.
+    Information: Scene related information of the currently selected part are shown as well as warnings for missing scenes or scenes existing twice. A overview list shows all present strands, characters and locations.
+    Adjustable view: The chronological view can be resized any time to fit to screen, or to get a better overview if many strands are defined. Even more working space is available if you hide the information panel with a simple click on the tool bar.
+    Instant save: Because StorYBook uses an embedded database called H2 to store data (and not a file) each input entered is saved in an instant. Even if the program crashes, you won't loose any data.
+
+Advanced Features
+
+The offered export reports are: Summary Book, Character List and Location List.
+
+    TXT (plain text)
+    PDF (Acrobat Reader)
+    HTML (Browser)
+    RTF (Rich Text Format, for Word or Open Office)
+    CSV (comma-separated values, for Excel or Open Office)
+
+ Charts: Many charts gives you more overview and information about your book. Charts can be exported as a PNG image, which can be imported in many programs like Word or Open Office.
+
+    Appearance of Characters by Scene: Shows which characters are used in which scenes.
+    Who is when where?: Shows up to 5 characters in a strand-date grid. It's the answer to questions like: "Was Homer at the Atomic Power Plant on March 17?"
+    Appearance of characters by Date: Shows which characters are used when and with which strands.
+    Usage of Strands by Date: The answer to the question: "Which strands and strand links are used when and how often?"
+    Occurrence of Characters: Shows the overall occurence of all characters and the average occurrence.
+    Occurrence of Locations: Shows the overall occurence of all locations and the average occurrence.
+
+
+ 
+
+
+
