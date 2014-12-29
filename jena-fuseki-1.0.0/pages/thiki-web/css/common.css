@@ -22,6 +22,17 @@ a:active {
 	text-align:center;
 }
 
+.content {
+    width:50%;
+    margin:0px auto;
+    position:relative;
+}
+
+.byline {
+    padding: 2em;
+    font-weight: bold;
+}
+
 .missing {
 	color: #66FF66;
 }

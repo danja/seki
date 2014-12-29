@@ -5,13 +5,14 @@ PREFIX sioc: <http://rdfs.org/sioc/ns#>
 PREFIX wiki: <http://purl.org/stuff/wiki#>
 
 WITH <http://hyperdata.it/wiki>
-DELETE { <http://hyperdata.it/wiki/PageOne>  sioc:content ?x }  
-# INSERT { ?person foaf:givenName 'William' }
-WHERE
-  { <http://hyperdata.it/wiki/PageOne>  sioc:content ?x
-  } 
-  
+DELETE { <http://hyperdata.it/wiki/PageOne>  ?p ?o }  
+WHERE { <http://hyperdata.it/wiki/PageOne>  ?p ?o } 
   ;
+WITH <http://hyperdata.it/wiki>
+DELETE { <http://hyperdata.it/wiki/PageTwo>  ?p ?o }  
+WHERE { <http://hyperdata.it/wiki/PageTwo>  ?p ?o } 
+
+ ;
 
 INSERT DATA { 
 	GRAPH <http://hyperdata.it/wiki> { 
@@ -21,14 +22,13 @@ INSERT DATA {
     dc:date "2012-04-02T07:24:53Z" ;
     dc:title """Page One""" ;
     sioc:content 
-"""My first post.
-==============
+"""## My first post.
 
 In markdown format.
 
 [I'm an inline-style link](https://www.google.com)
 
-[I'm an inline-style link to a page in the store (http://hyperdata.it/wiki/PageTwo)](http://hyperdata.it/wiki/PageTwo)
+[I'm an inline-style relative link to a page in the store (PageTwo)](PageTwo)
 """ ;
     a sioc:Post ;
     a wiki:Page ;

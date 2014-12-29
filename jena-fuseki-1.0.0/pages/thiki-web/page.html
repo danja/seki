@@ -15,24 +15,26 @@
    
       <script type="text/javascript" language="javascript">
       // pulls out query string from this page's URL
-var queryString = (function(a) {
-    if (a == "") return {};
-    var b = {};
-    for (var i = 0; i < a.length; ++i)
-    {
-        var p=a[i].split('=', 2);
-        if (p.length == 1)
-            b[p[0]] = "";
-        else
-            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-    }
-    return b;
+        var queryString = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i)  {
+                var p=a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+        return b;
 })(window.location.search.substr(1).split('&'));
 
-console.log(queryString["uri"]);
+console.log("uri = "+queryString["uri"]);
 </script>
    
    <script type="text/javascript" language="javascript">
+   
+   var serverBaseURI = "http://localhost:3030/thiki-web/";
+   var pagesBaseURI = "http://hyperdata.it/wiki/";
    
 var sparqlQueryEndpoint = "http://localhost:3030/seki/sparql?query=";
 
@@ -100,7 +102,7 @@ var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&o
     			// maybe force to ISO-8859-1, also known as Latin-1 instead?
     	
     				var $xml = $(xmlString);
-					var rows = "";
+					var entry = "";
 					
     				$xml.find("result").each(function() {
     					var uri, date, title, content, nick;
@@ -123,21 +125,37 @@ var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&o
     						nick = $(this).text().trim();
     					});
     					
-    					rows += generatePageRow(uri, date, title, content, nick);
+    					entry += generateEntry(uri, date, title, content, nick);
     				});
-    				 $("#links").replaceWith(rows);
+    				 $("#links").replaceWith(entry);
+    				 translateLocalLinks();
     				//  $("table").colResizable();
     			});
     	}
     	
-    	function generatePageRow(uri, date, title, content, nick) {
+    	function translateLocalLinks() {
+            $('a').each(
+                function(){
+                    if (this.href.indexOf(serverBaseURI) == 0) {
+                    console.log("old href = "+this.href);
+                        var localRef = this.href.substring(serverBaseURI.length);
+                        console.log("new = "+this.href.substring(serverBaseURI.length));
+                        console.log("new href = "+this.href);
+                         this.href = serverBaseURI + "page.html?uri="+pagesBaseURI+localRef;
+                    }
+                    
+                });
+        }
+    	
+    	function generateEntry(uri, date, title, content, nick) {
 console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+content+", nick = "+nick);
-    		var row = "<tr>";
-    		row += "<td><a href=\""+uri+"\">"+title+"</a></td>";
-     		row += "<td class=\"center\">"+marked(content)+"</td>";
-     		row += "<td class=\"center\">"+date+"</td>";
-     		row += "<td class=\"center\">"+nick+"</td>";
-			return row;
+    		var entry = "<div class='entry'>";
+    		entry += "<h1 class='center'><a href=\""+uri+"\">"+title+"</a></h1>";
+    		// http://localhost:3030/thiki-web/page.html?uri=http://hyperdata.it/wiki/PageOne
+     		entry += "<div class='content'>"+marked(content)+"</div>";
+     		entry += "<div class='byline center'> by "+nick+" on "+date+"</div>";
+     		entry += "</div>";
+			return entry;
     	}
 </script>
 
