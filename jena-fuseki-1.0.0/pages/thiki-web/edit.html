@@ -13,80 +13,16 @@
         
    <script src="js/jquery-migrate-1.2.1.js"></script>
    
-      <script type="text/javascript" language="javascript">
-      // pulls out query string from this page's URL
-        var queryString = (function(a) {
-            if (a == "") return {};
-            var b = {};
-            for (var i = 0; i < a.length; ++i)  {
-                var p=a[i].split('=', 2);
-                if (p.length == 1)
-                    b[p[0]] = "";
-                else
-                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-            }
-        return b;
-})(window.location.search.substr(1).split('&'));
-
-console.log("uri = "+queryString["uri"]);
-</script>
+     <script src="js/config.js"></script>
+   <script src="js/sparql-templates.js"></script>
+     <script src="js/utils.js"></script>
+   
    
 <script type="text/javascript" language="javascript">
    
-    var serverBaseURI = "http://localhost:3030/thiki-web/";
-    var pagesBaseURI = "http://hyperdata.it/wiki/";
-    var graphURI = "http://hyperdata.it/wiki";
-   
-    var sparqlQueryEndpoint = "http://localhost:3030/seki/sparql?query=";
-    var sparqlUpdateEndpoint = "http://localhost:3030/seki/update";
-
     var pageURI = queryString["uri"];
 
-var getPageSparql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n\
-PREFIX dc: <http://purl.org/dc/terms/>  \n\
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>  \n\
-PREFIX sioc: <http://rdfs.org/sioc/ns#>  \n\
-PREFIX wiki: <http://purl.org/stuff/wiki#>  \n\
-\n\
-SELECT DISTINCT * WHERE { \n\
-	<"+pageURI+"> \n\
-	dc:format <http://purl.org/NET/mediatypes/text/markdown> ; \n\
-    dc:date ?date ; \n\
-    dc:title ?title ; \n\
-    sioc:content ?content ; \n\
-    a wiki:Page ; \n\
-    foaf:maker [ \n\
-        foaf:nick ?nick \n\
-    ] . \n\
-} \n\
-";
-
-var postPageSparqlTemplate = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  \n\
-PREFIX dc: <http://purl.org/dc/terms/> \n\
-PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n\
-PREFIX sioc: <http://rdfs.org/sioc/ns#> \n\
-PREFIX wiki: <http://purl.org/stuff/wiki#> \n\
-\n\
-WITH <${graphURI}> \n\
-DELETE { <${pageURI}>  ?p ?o }  \n\
-WHERE { <${pageURI}>  ?p ?o } \n\
-; \n\
-INSERT DATA {  \n\
-    GRAPH <${graphURI}> {  \n\
- \n\
-<${pageURI}> \n\
-    dc:format <http://purl.org/NET/mediatypes/text/markdown> ; \n\
-    dc:date \"${date}\" ; \n\
-    dc:title \"\"\"${title}\"\"\" ; \n\
-    sioc:content  \"\"\"${content}\"\"\" ; \n\
-    a sioc:Post ; \n\
-    a wiki:Page ; \n\
-    foaf:maker [ \n\
-        foaf:nick \"${nick}\" \n\
-    ] . \n\
-    }  \n\
-}";
-
+var getPageSparql = replaceAll(getPageSparqlTemplate, "${pageURI}", pageURI);
 console.log(getPageSparql);
     
 var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&output=xml";
@@ -108,6 +44,11 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     });
     
     function setupPosting(){
+    $('#cancel').click(function() {
+    window.location.href = window.location.href.replace("edit.html", "page.html");
+    return false;
+});
+
         $('#submit').click(function() {
             var content = $('#content').val();
             var data = replaceAll(postPageSparqlTemplate, "${content}", content);
@@ -120,7 +61,11 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
                 type: "POST",
                 url: sparqlUpdateEndpoint,
                 data: ({update: data})
-            });
+            }).done(function() {
+                window.location.href = window.location.href.replace("edit.html", "page.html");
+                });
+             
+              
             return false;       
         });
     }
@@ -179,29 +124,8 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     				//  $("table").colResizable();
     			});
     	}
-    	
-    	function translateLocalLinks() {
-            $('a').each(
-                function(){
-                    if (this.href.indexOf(serverBaseURI) == 0) {
-                    console.log("old href = "+this.href);
-                        var localRef = this.href.substring(serverBaseURI.length);
-                        console.log("new = "+this.href.substring(serverBaseURI.length));
-                        console.log("new href = "+this.href);
-                         this.href = serverBaseURI + "page.html?uri="+pagesBaseURI+localRef;
-                    }
-                    
-                });
-             console.log("edit link = "+$('#editLink').href);
-        }
         
-        function escapeRegExp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-}
 
-        function replaceAll(string, find, replace) {
-  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
     	
     	function generateEntry(uri, date, title, content, nick) {
 console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+content+", nick = "+nick);
@@ -222,11 +146,11 @@ console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+co
 <body>
 <!--  div class="container" -->
 
-<div colspan="8" class="center"><a href="/home.html">Thiki</a></div>
+<div colspan="8" class="center"><a href="index.html">Thiki</a></div>
 
 <div id="entry"></div>
 
-<p class="center"><button id="submit">Submit</button></p>
+<p class="center"><button id="submit">Update</button><button id="cancel">Cancel</button></p>
   
     <div id="spinner" class="spinner"></div> 
 </body>
