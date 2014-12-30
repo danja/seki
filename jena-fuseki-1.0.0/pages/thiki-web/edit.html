@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Thiki</title>
+   
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/common.css">
+
+   <script src="js/marked.js"></script>
+
+   <script src="js/jquery-1.10.2.js"></script>
+        
+   <script src="js/jquery-migrate-1.2.1.js"></script>
+   
+      <script type="text/javascript" language="javascript">
+      // pulls out query string from this page's URL
+        var queryString = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i)  {
+                var p=a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+        return b;
+})(window.location.search.substr(1).split('&'));
+
+console.log("uri = "+queryString["uri"]);
+</script>
+   
+<script type="text/javascript" language="javascript">
+   
+    var serverBaseURI = "http://localhost:3030/thiki-web/";
+    var pagesBaseURI = "http://hyperdata.it/wiki/";
+    var graphURI = "http://hyperdata.it/wiki";
+   
+    var sparqlQueryEndpoint = "http://localhost:3030/seki/sparql?query=";
+    var sparqlUpdateEndpoint = "http://localhost:3030/seki/update";
+
+    var pageURI = queryString["uri"];
+
+var getPageSparql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n\
+PREFIX dc: <http://purl.org/dc/terms/>  \n\
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>  \n\
+PREFIX sioc: <http://rdfs.org/sioc/ns#>  \n\
+PREFIX wiki: <http://purl.org/stuff/wiki#>  \n\
+\n\
+SELECT DISTINCT * WHERE { \n\
+	<"+pageURI+"> \n\
+	dc:format <http://purl.org/NET/mediatypes/text/markdown> ; \n\
+    dc:date ?date ; \n\
+    dc:title ?title ; \n\
+    sioc:content ?content ; \n\
+    a wiki:Page ; \n\
+    foaf:maker [ \n\
+        foaf:nick ?nick \n\
+    ] . \n\
+} \n\
+";
+
+var postPageSparqlTemplate = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  \n\
+PREFIX dc: <http://purl.org/dc/terms/> \n\
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n\
+PREFIX sioc: <http://rdfs.org/sioc/ns#> \n\
+PREFIX wiki: <http://purl.org/stuff/wiki#> \n\
+\n\
+WITH <${graphURI}> \n\
+DELETE { <${pageURI}>  ?p ?o }  \n\
+WHERE { <${pageURI}>  ?p ?o } \n\
+; \n\
+INSERT DATA {  \n\
+    GRAPH <${graphURI}> {  \n\
+ \n\
+<${pageURI}> \n\
+    dc:format <http://purl.org/NET/mediatypes/text/markdown> ; \n\
+    dc:date \"${date}\" ; \n\
+    dc:title \"\"\"${title}\"\"\" ; \n\
+    sioc:content  \"\"\"${content}\"\"\" ; \n\
+    a sioc:Post ; \n\
+    a wiki:Page ; \n\
+    foaf:maker [ \n\
+        foaf:nick \"${nick}\" \n\
+    ] . \n\
+    }  \n\
+}";
+
+console.log(getPageSparql);
+    
+var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&output=xml";
+	
+    $(function() {
+    	var $loading = $('#spinner').hide();
+            $.ajaxSetup({
+    		  beforeSend: function() {
+    		     $('#spinner').show();
+    		  },
+    		  complete: function(){
+    		     $('#spinner').hide();
+    		  },
+    		  success: function() {}
+    		});
+    	
+      getPage();
+      setupPosting();
+    });
+    
+    function setupPosting(){
+        $('#submit').click(function() {
+            var content = $('#content').val();
+            var data = replaceAll(postPageSparqlTemplate, "${content}", content);
+            data = replaceAll(data, "${graphURI}", graphURI);
+            data = replaceAll(data, "${pageURI}", pageURI);
+            data = replaceAll(data, "${title}", title);
+            data = replaceAll(data, "${date}", date);
+            console.log("POST data = "+data);
+            $.ajax({
+                type: "POST",
+                url: sparqlUpdateEndpoint,
+                data: ({update: data})
+            });
+            return false;       
+        });
+    }
+
+    	var uri, date, title, content, nick;
+    	
+    	function getPage() {
+    	//	$.get(url, function(xml) {
+    			$.ajax({
+    				url: getPageUrl, 
+    				accept: {
+    						  xml: 'application/xml;charset=UTF-8',
+    						  sparql: 'sparql-results+xml;charset=UTF-8'
+    						  },
+    				headers: { // belt and braces
+    						        'Accept':'sparql-results+xml;charset=UTF-8'
+    						     //   'Accept-Charset': 'UTF-8' unsafe
+    						        }
+    				
+    			}).done(function(xml) {
+    		
+    			var xmlString = (new XMLSerializer()).serializeToString(xml);
+
+    			// workaround for wrong interpretation of charset
+    			xmlString = xmlString.replace(/[^\u0000-\u007F]/g, '');
+    			// maybe force to ISO-8859-1, also known as Latin-1 instead?
+    	
+    				var $xml = $(xmlString);
+					var entry = "";
+					
+    				$xml.find("result").each(function() {
+    					
+    					
+    		//			$(this).find("binding[name='uri']").each(function() {
+    		//				uri = $(this).text().trim();
+    		//			});
+                        uri = "page.html?uri="+pageURI;
+                        
+    					$(this).find("binding[name='date']").each(function() {
+    						date = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='title']").each(function() {
+    						title = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='content']").each(function() {
+    						content = $(this).text().trim();
+    					});
+    					$(this).find("binding[name='nick']").each(function() {
+    						nick = $(this).text().trim();
+    					});
+    					
+    					entry += generateEntry(uri, date, title, content, nick);
+    				});
+    				 $("#entry").replaceWith(entry);
+    				 translateLocalLinks();
+    				//  $("table").colResizable();
+    			});
+    	}
+    	
+    	function translateLocalLinks() {
+            $('a').each(
+                function(){
+                    if (this.href.indexOf(serverBaseURI) == 0) {
+                    console.log("old href = "+this.href);
+                        var localRef = this.href.substring(serverBaseURI.length);
+                        console.log("new = "+this.href.substring(serverBaseURI.length));
+                        console.log("new href = "+this.href);
+                         this.href = serverBaseURI + "page.html?uri="+pagesBaseURI+localRef;
+                    }
+                    
+                });
+             console.log("edit link = "+$('#editLink').href);
+        }
+        
+        function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+        function replaceAll(string, find, replace) {
+  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+    	
+    	function generateEntry(uri, date, title, content, nick) {
+console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+content+", nick = "+nick);
+    		var entry = "<div class='entry'>";
+    		entry += "<h1 class='center'><a href=\""+uri+"\">"+title+"</a></h1>";
+    		// http://localhost:3030/thiki-web/page.html?uri=http://hyperdata.it/wiki/PageOne
+    		entry += "<form>";
+     		entry += "<textarea class='content' id='content' rows='10'>"+content+"</textarea>";
+     		entry += "</form>";
+     		entry += "<div class='byline center'> by "+nick+" on "+date+"</div>";
+     		entry += "</div>";
+			return entry;
+    	}
+</script>
+
+</head>
+
+<body>
+<!--  div class="container" -->
+
+<div colspan="8" class="center"><a href="/home.html">Thiki</a></div>
+
+<div id="entry"></div>
+
+<p class="center"><button id="submit">Submit</button></p>
+  
+    <div id="spinner" class="spinner"></div> 
+</body>
+</html>

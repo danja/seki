@@ -40,7 +40,7 @@ var sparqlQueryEndpoint = "http://localhost:3030/seki/sparql?query=";
 
 var pageURI = queryString["uri"];
 
-var getPagesSparql = "	    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n\
+var getPageSparql = "	    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n\
 PREFIX dc: <http://purl.org/dc/terms/>  \n\
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>  \n\
 PREFIX sioc: <http://rdfs.org/sioc/ns#>  \n\
@@ -57,13 +57,11 @@ SELECT DISTINCT * WHERE { \n\
         foaf:nick ?nick \n\
     ] . \n\
 } \n\
-ORDER By DESC(?date)  \n\
-LIMIT 10 \n\
 ";
 
-console.log(getPagesSparql);
+console.log(getPageSparql);
     
-var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&output=xml";
+var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&output=xml";
 	
     $(function() {
     	var $loading = $('#spinner').hide();
@@ -77,13 +75,13 @@ var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&o
     		  success: function() {}
     		});
     	
-      getPages();
+      getPage();
     });
     	
-    	function getPages() {
+    	function getPage() {
     	//	$.get(url, function(xml) {
     			$.ajax({
-    				url: getPagesUrl, 
+    				url: getPageUrl, 
     				accept: {
     						  xml: 'application/xml;charset=UTF-8',
     						  sparql: 'sparql-results+xml;charset=UTF-8'
@@ -127,7 +125,7 @@ var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&o
     					
     					entry += generateEntry(uri, date, title, content, nick);
     				});
-    				 $("#links").replaceWith(entry);
+    				 $("#entry").replaceWith(entry);
     				 translateLocalLinks();
     				//  $("table").colResizable();
     			});
@@ -145,6 +143,7 @@ var getPagesUrl = sparqlQueryEndpoint + encodeURIComponent(getPagesSparql) + "&o
                     }
                     
                 });
+             console.log("edit link = "+$('#editLink').href);
         }
     	
     	function generateEntry(uri, date, title, content, nick) {
@@ -164,11 +163,11 @@ console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+co
 <body>
 <!--  div class="container" -->
 
-<table  id="linksTable" class="table table-bordered">
-<tr><th colspan="8" class="center"><a href="/index.html">Thiki</a> Pages</th></tr>
+<div colspan="8" class="center"><a href="/home.html">Thiki</a></div>
 
-<tr id="links"></tr>
-  </table>
+<div id="entry"></div>
+
+<p class="center"><a id="editLink" href="edit link">Edit</a></p>
   
     <div id="spinner" class="spinner"></div> 
 </body>

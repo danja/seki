@@ -28,6 +28,13 @@ a:active {
     position:relative;
 }
 
+textarea {
+    display: block;
+    width:50%;
+    margin:0px auto;
+    position:relative;
+}
+
 .byline {
     padding: 2em;
     font-weight: bold;
