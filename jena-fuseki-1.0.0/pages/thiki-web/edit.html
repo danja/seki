@@ -56,6 +56,7 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
             data = replaceAll(data, "${pageURI}", pageURI);
             data = replaceAll(data, "${title}", title);
             data = replaceAll(data, "${date}", date);
+            data = replaceAll(data, "${nick}", nick);
             console.log("POST data = "+data);
             $.ajax({
                 type: "POST",
@@ -70,7 +71,7 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
         });
     }
 
-    	var uri, date, title, content, nick;
+    	var uri="URI", date="DATE", title="TITLE", content="CONTENT", nick="NICK";
     	
     	function getPage() {
     	//	$.get(url, function(xml) {
@@ -96,14 +97,25 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     				var $xml = $(xmlString);
 					var entry = "";
 					
+			//		console.log("xml.find"+$.isEmptyObject($xml.find("result")));
+					
+					  uri = "page.html?uri="+pageURI;
+					  var results = $xml.find("result");
+				
+					if(results.length == 0) { // page doesn't exist, so create it
+					   console.log("BBB");
+                        var d = new Date();
+                        date = d.toISOString();
+                        nick = "danja";
+                        var split = pageURI.split("/");
+                        title = split[split.length-1];
+                        content = "enter content here";
+                        entry += generateEntry(uri, date, title, content, nick);
+                        console.log("NEW = "+entry);
+					} else {
+					 console.log("CCC");
     				$xml.find("result").each(function() {
-    					
-    					
-    		//			$(this).find("binding[name='uri']").each(function() {
-    		//				uri = $(this).text().trim();
-    		//			});
-                        uri = "page.html?uri="+pageURI;
-                        
+                                                
     					$(this).find("binding[name='date']").each(function() {
     						date = $(this).text().trim();
     					});
@@ -119,10 +131,13 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     					
     					entry += generateEntry(uri, date, title, content, nick);
     				});
-    				 $("#entry").replaceWith(entry);
-    				 translateLocalLinks();
+
+    				 }
+    				      $("#entry").replaceWith(entry);
+                     translateLocalLinks();
     				//  $("table").colResizable();
     			});
+    		
     	}
         
 
