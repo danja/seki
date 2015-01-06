@@ -21,7 +21,8 @@
 <script type="text/javascript" language="javascript">
    
     var pageURI = queryString["uri"];
-
+      
+           pageURI = encodeURI(pageURI); 
 var getPageSparql = replaceAll(getPageSparqlTemplate, "${pageURI}", pageURI);
 console.log(getPageSparql);
     
@@ -38,9 +39,11 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     		  },
     		  success: function() {}
     		});
-    	
+    	console.log("X");
       getPage();
+      console.log("Y");
       setupPosting();
+      console.log("Z");
     });
     
     function setupPosting(){
@@ -50,6 +53,7 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
 });
 
         $('#submit').click(function() {
+ 
             var content = $('#content').val();
             var data = replaceAll(postPageSparqlTemplate, "${content}", content);
             data = replaceAll(data, "${graphURI}", graphURI);
@@ -74,6 +78,9 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     	var uri="URI", date="DATE", title="TITLE", content="CONTENT", nick="NICK";
     	
     	function getPage() {
+    	     console.log("getPage() called");
+    	    
+    	    //     getPageUrl = encodeURI(getPageUrl);
     	//	$.get(url, function(xml) {
     			$.ajax({
     				url: getPageUrl, 
@@ -98,7 +105,8 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
 					var entry = "";
 					
 			//		console.log("xml.find"+$.isEmptyObject($xml.find("result")));
-					
+				
+					       
 					  uri = "page.html?uri="+pageURI;
 					  var results = $xml.find("result");
 				
@@ -109,6 +117,7 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
                         nick = "danja";
                         var split = pageURI.split("/");
                         title = split[split.length-1];
+                        title = decodeURI(title);
                         content = "enter content here";
                         entry += generateEntry(uri, date, title, content, nick);
                         console.log("NEW = "+entry);
@@ -141,7 +150,6 @@ var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&out
     	}
         
 
-    	
     	function generateEntry(uri, date, title, content, nick) {
 console.log("uri = "+uri+ ", date = "+date+" , title = "+title+", content = "+content+", nick = "+nick);
     		var entry = "<div class='entry'>";

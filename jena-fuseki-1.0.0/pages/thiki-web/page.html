@@ -42,6 +42,7 @@
     	function getPage() {
     	 var pageURI = queryString["uri"];
     //	  var getPageSparql = getPageSPARQL; // from sparql-queries.js (weird scoping thing)
+    pageURI = encodeURI(pageURI);
     	var getPageSparql = replaceAll(getPageSparqlTemplate, "${pageURI}", pageURI);
     	var getPageUrl = sparqlQueryEndpoint + encodeURIComponent(getPageSparql) + "&output=xml";
     	//	$.get(url, function(xml) {
