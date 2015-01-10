@@ -1,4 +1,8 @@
-java -Xms2048M -Xmx2048M -jar ../jena-fuseki-1.0.0/fuseki-server.jar --verbose --update --config ../src/config/seki-config.ttl --pages ../jena-fuseki-1.0.0/pages
+java -Xms2048M -Xmx2048M -Xss4m -jar ../jena-fuseki-1.0.0/fuseki-server.jar --verbose --update --config ../src/config/seki-config.ttl --pages ~/fuwiki/pages
+
+# -Xss4m is stack
+
+# was ../jena-fuseki-1.0.0/pages
 
 # was just -Xmx1200M
 
