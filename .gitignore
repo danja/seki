@@ -2,3 +2,5 @@
 config/Config.js
 docs/apidocs
 .nide
+data/FooWikiDB
+data/SekiDB
