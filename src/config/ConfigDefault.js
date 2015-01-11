@@ -35,7 +35,7 @@ var defaultConfig = {
      */
     client: {
         host: "localhost",
-        port: 3030,
+        port: 3031,
         graphEndpoint: "/seki/data",
         queryEndpoint: "/seki/query",
         queryMethod: "GET",
